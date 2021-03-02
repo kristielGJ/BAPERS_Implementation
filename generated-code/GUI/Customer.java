@@ -16,4 +16,7 @@ public class Customer extends Form {
 		throw new UnsupportedOperationException();
 	}
 
+    public Customer() {
+		throw new UnsupportedOperationException();
+	}
 }

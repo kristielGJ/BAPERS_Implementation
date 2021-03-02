@@ -12,6 +12,10 @@ public class Form {
 	private String icon = "BAPERS";
 	private Menu menu;
 
+	public Form() {
+		throw new UnsupportedOperationException();
+	}
+
 	public void show() {
 		// TODO - implement Form.show
 		throw new UnsupportedOperationException();

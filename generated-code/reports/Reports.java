@@ -8,7 +8,11 @@ public class Reports {
 	private Date from_date;
 	private Date to_date;
 
-	/**
+    public Reports() {
+		throw new UnsupportedOperationException();
+	}
+
+    /**
 	 * 
 	 * @param report_ID
 	 */

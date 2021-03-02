@@ -5,7 +5,7 @@ public class Discount extends Form {
 
 	private Button save_button;
 	private TextField discount_rate_input;
-	private ComboBox discount_plan_input;
+	private TextField discount_plan_input;
 
 	/**
 	 * 
