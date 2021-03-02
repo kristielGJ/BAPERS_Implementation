@@ -1,11 +1,11 @@
-package Jobs;
-
+package jobs;
+import java.time.LocalDateTime;
 public class ExistingTasks {
 
 	private int task_ID;
 	private String task_description;
 	private double task_price;
-	private Time task_duration;
+	private LocalDateTime task_duration;
 	private String Department_name;
 
 	/**
@@ -62,7 +62,7 @@ public class ExistingTasks {
 		throw new UnsupportedOperationException();
 	}
 
-	public Time getTask_duration() {
+	public LocalDateTime getTask_duration() {
 		return this.task_duration;
 	}
 

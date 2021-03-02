@@ -1,4 +1,5 @@
 package GUI;
+import java.awt.*;
 
 public class Form {
 
@@ -8,7 +9,7 @@ public class Form {
 	private int Y = 0;
 	private int xSize = 200;
 	private int ySize = 200;
-	private String icon = BAPERS;
+	private String icon = "BAPERS";
 	private Menu menu;
 
 	public void show() {

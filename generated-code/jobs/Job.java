@@ -1,12 +1,13 @@
-package Jobs;
+package jobs;
+import java.time.LocalDateTime;
 
 public class Job {
 
 	private String priority;
-	private Time total_time;
-	private Timestamp completion_deadline;
+	private LocalDateTime total_time;
+	private LocalDateTime completion_deadline;
 	private String special_instructions;
-	private String status = Pending;
+	private String status = "Pending";
 
 	/**
 	 * 
@@ -24,11 +25,11 @@ public class Job {
 	 * 
 	 * @param total_time
 	 */
-	public void setTotal_time(Time total_time) {
+	public void setTotal_time(LocalDateTime total_time) {
 		this.total_time = total_time;
 	}
 
-	public Time getTotal_time() {
+	public LocalDateTime getTotal_time() {
 		return this.total_time;
 	}
 
@@ -36,11 +37,11 @@ public class Job {
 	 * 
 	 * @param completion_deadline
 	 */
-	public void setCompletion_deadline(Timestamp completion_deadline) {
+	public void setCompletion_deadline(LocalDateTime completion_deadline) {
 		this.completion_deadline = completion_deadline;
 	}
 
-	public Timestamp getCompletion_deadline() {
+	public LocalDateTime getCompletion_deadline() {
 		return this.completion_deadline;
 	}
 
@@ -121,7 +122,7 @@ public class Job {
 	 * @param completion_deadline
 	 * @param status
 	 */
-	public Job(String priority, Time total_time, Timestamp completion_deadline, String status) {
+	public Job(String priority, LocalDateTime total_time, LocalDateTime completion_deadline, String status) {
 		// TODO - implement Job.Job
 		throw new UnsupportedOperationException();
 	}

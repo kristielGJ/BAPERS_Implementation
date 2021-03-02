@@ -1,4 +1,4 @@
-package Customers;
+package customers;
 
 public class Customer {
 
@@ -6,6 +6,10 @@ public class Customer {
 	private int acc_no;
 	private String address;
 	private String phone;
+
+    public Customer() {
+
+    }
 
 	/**
 	 * 

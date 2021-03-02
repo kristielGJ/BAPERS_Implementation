@@ -1,4 +1,6 @@
 package GUI;
+import java.util.Date;
+import java.awt.*;
 
 public class CreateJob extends Form {
 
@@ -14,7 +16,7 @@ public class CreateJob extends Form {
 	 * @param completion_deadline
 	 * @param special_instruction
 	 */
-	public CreateJob(String priority, date completion_deadline, String special_instruction) {
+	public CreateJob(String priority, Date completion_deadline, String special_instruction) {
 		// TODO - implement CreateJob.CreateJob
 		throw new UnsupportedOperationException();
 	}

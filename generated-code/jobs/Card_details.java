@@ -1,4 +1,5 @@
-package Jobs;
+package jobs;
+import java.util.Date;
 
 public class Card_details {
 
@@ -67,7 +68,7 @@ public class Card_details {
 	 * @param expiry_date
 	 * @param last_digits
 	 */
-	public Card_details(int card_ID, String card_type, date expiry_date, int last_digits) {
+	public Card_details(int card_ID, String card_type, Date expiry_date, int last_digits) {
 		// TODO - implement Card_details.Card_details
 		throw new UnsupportedOperationException();
 	}

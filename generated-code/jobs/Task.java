@@ -1,8 +1,8 @@
-package Jobs;
+package jobs;
 
 public class Task {
 
-	private String task_status = pending;
+	private String task_status = "pending";
 
 	public void start() {
 		// TODO - implement Task.start

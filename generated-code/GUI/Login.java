@@ -8,7 +8,7 @@ public class Login {
 	private int Y = 0;
 	private int xSize = 200;
 	private int ySize = 200;
-	private String icon = BAPERS;
+	private String icon = "BAPERS";
 
 	/**
 	 * 

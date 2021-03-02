@@ -1,4 +1,4 @@
-package Discounts;
+package discounts;
 
 public class FlexibleDiscount extends Discount {
 

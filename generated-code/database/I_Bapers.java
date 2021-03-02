@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 public interface I_Bapers {
 
@@ -62,7 +62,7 @@ public interface I_Bapers {
 	 * 
 	 * @param reportData
 	 */
-	abstract Sring generateReport(String reportData);
+	abstract String generateReport(String reportData);
 
 	/**
 	 * 

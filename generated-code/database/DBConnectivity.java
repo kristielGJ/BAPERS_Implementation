@@ -1,25 +1,13 @@
-package Database;
+package database;
+import java.sql.*;
 
 public abstract interface DBConnectivity {
+	public boolean closeConnection();
 
-	/**
-	 * 
-	 * @param String
-	 */
-	abstract resultSet read(SQL String);
+	public Connection connect(String sql);
 
-	/**
-	 * 
-	 * @param String
-	 */
-	abstract int write(SQL String);
+	public ResultSet read(String sql, Connection conn);
 
-	abstract connection connect();
-
-	/**
-	 * 
-	 * @param connect
-	 */
-	abstract ResultSet closeConnection(connection connect);
+	public int write(String sql, Connection conn);
 
 }

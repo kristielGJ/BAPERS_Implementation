@@ -1,11 +1,11 @@
-package Admin;
+package admin;
 
 public class Alerts {
 
 	private int alert_ID;
 	private String alert_name;
 	private String alert_message;
-	private boolean seen = False;
+	private boolean seen = false;
 
 	/**
 	 * 

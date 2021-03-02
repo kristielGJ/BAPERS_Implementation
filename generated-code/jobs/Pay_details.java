@@ -1,10 +1,10 @@
-package Jobs;
+package jobs;
 
 public class Pay_details {
 
 	private int pay_ID;
 	private double price;
-	private String payment_status = Unpaid;
+	private String payment_status = "Unpaid";
 
 	/**
 	 * 

@@ -1,10 +1,10 @@
-package Jobs;
+package jobs;
 
 public class Payment {
 
 	private int payment_ID;
 	private double payment_amount;
-	private string payment_type;
+	private String payment_type;
 
 	/**
 	 * 
@@ -34,11 +34,11 @@ public class Payment {
 	 * 
 	 * @param payment_type
 	 */
-	public void setPayment_type(string payment_type) {
+	public void setPayment_type(String payment_type) {
 		this.payment_type = payment_type;
 	}
 
-	public string getPayment_type() {
+	public String getPayment_type() {
 		return this.payment_type;
 	}
 
@@ -57,7 +57,7 @@ public class Payment {
 	 * @param payment_amount
 	 * @param payment_type
 	 */
-	public Payment(int payment_ID, double payment_amount, string payment_type) {
+	public Payment(int payment_ID, double payment_amount, String payment_type) {
 		// TODO - implement Payment.Payment
 		throw new UnsupportedOperationException();
 	}

@@ -1,5 +1,5 @@
-package Customers;
-
+package customers;
+import java.util.Date;
 public class ValuedCustomer extends Customer {
 
 	private Date paymentDeadline;

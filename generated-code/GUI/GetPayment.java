@@ -1,4 +1,6 @@
 package GUI;
+import java.util.Date;
+import java.awt.*;
 
 public class GetPayment extends Form {
 

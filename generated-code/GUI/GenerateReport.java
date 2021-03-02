@@ -1,4 +1,6 @@
 package GUI;
+import java.util.Date;
+import java.awt.*;
 
 public class GenerateReport extends Form {
 
@@ -13,7 +15,7 @@ public class GenerateReport extends Form {
 	 * @param from_date
 	 * @param report_type
 	 */
-	public GenerateReport(date to_date, date from_date, String report_type) {
+	public GenerateReport(Date to_date, Date from_date, String report_type) {
 		// TODO - implement GenerateReport.GenerateReport
 		throw new UnsupportedOperationException();
 	}

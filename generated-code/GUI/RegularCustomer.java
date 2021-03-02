@@ -1,4 +1,5 @@
 package GUI;
+import java.awt.*;
 
 public class RegularCustomer extends Customer {
 

@@ -1,44 +1,39 @@
-package Database;
+package database;
+import java.sql.*;
 
 public class DB_ImplClass implements DBConnectivity {
 
-	public connection connect() {
+	public Connection connect(String sql) {
 		// TODO - implement DB_ImplClass.connect
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
-	 * @param String
+	 *
+	 * @param sql
+	 * @param connect
 	 */
-	public resultSet read(SQL String) {
+	public ResultSet read(String sql,Connection connect) {
 		// TODO - implement DB_ImplClass.read
 		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * 
-	 * @param String
+	 * @param sql
+	 * @param connect
 	 */
-	public int write(SQL String) {
+	public int write(String sql,Connection connect) {
 		// TODO - implement DB_ImplClass.write
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param connect
-	 */
-	public ResultSet closeConnection(connection connect) {
+	public boolean closeConnection() {
 		// TODO - implement DB_ImplClass.closeConnection
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param DB
-	 */
-	public DB_ImplClass DB_ImplClass(String DB) {
+	public DB_ImplClass() {
 		// TODO - implement DB_ImplClass.DB_ImplClass
 		throw new UnsupportedOperationException();
 	}
