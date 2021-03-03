@@ -1,7 +1,7 @@
 package customers;
 import java.util.Date;
 public class ValuedCustomer extends Customer {
-	//ggggggggggggg
+
 	private Date paymentDeadline;
 	private String discount_plan;
 
