@@ -8,7 +8,7 @@ public class CustomersList {
 	 * 
 	 * @param customerData
 	 */
-	public boolean addCustomer(String customerData) {
+	public boolean addCustomer(String[] customerData) {
 		// TODO - implement CustomersList.addCustomer
 		throw new UnsupportedOperationException();
 	}
