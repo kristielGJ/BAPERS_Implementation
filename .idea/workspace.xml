@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d0412c71-82dc-4f34-9c31-4d2797410e8f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/AddTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/AddTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/AddUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/AddUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Alert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Alert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/CardPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CardPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/CreateCustomerAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CreateCustomerAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/CreateJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/CreateJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Discount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/ExistingTaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ExistingTaskList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/ExtendTaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ExtendTaskList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Form.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Form.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/GenerateReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GenerateReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/GetPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GetPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Login_button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Login_button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Password_input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Password_input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/RegularCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/RegularCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/RetrieveCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/RetrieveCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/RetrieveJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/RetrieveJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/UpdateCustomerDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/UpdateCustomerDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/UpdateJobStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/UpdateJobStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/UpdateTaskInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/UpdateTaskInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/Username_input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Username_input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/GUI/ValuedCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ValuedCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/admin/Alerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/Alerts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/admin/User_account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/User_account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/customers/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/customers/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/customers/CustomersList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/customers/CustomersList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/customers/ValuedCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/customers/ValuedCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/database/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/database/DBConnectivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/DBConnectivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/database/DB_ImplClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/DB_ImplClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/database/I_Bapers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/I_Bapers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/discounts/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/Discount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/discounts/DiscountList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/DiscountList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/discounts/FixedDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/FixedDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/discounts/FlexibleDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/FlexibleDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/discounts/TaskDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/TaskDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/discounts/VariableDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/VariableDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/generated-code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated-code.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/Card_details.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Card_details.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/ExistingTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/ExistingTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/ExistingTasksList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/ExistingTasksList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/Pay_details.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Pay_details.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/jobs/TasksList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/TasksList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/reports/IndividualPerformanceReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reports/IndividualPerformanceReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/reports/IndividualReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reports/IndividualReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/reports/Reports.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reports/Reports.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated-code/reports/SummaryPerformanceReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reports/SummaryPerformanceReport.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pFf1VTUKJPSyTAAq6fxSJIzseR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d0412c71-82dc-4f34-9c31-4d2797410e8f" name="Default Changelist" comment="" />
+      <created>1614783545313</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614783545313</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
