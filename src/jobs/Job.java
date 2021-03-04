@@ -1,5 +1,6 @@
 package jobs;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Job {
 
@@ -7,10 +8,12 @@ public class Job {
 	private LocalDateTime total_time;
 	private LocalDateTime completion_deadline;
 	private String special_instructions;
-	private String status = "Pending";
+	private String job_status;
+	private double price;
+	private String payment_status;
 
 	/**
-	 * 
+	 *
 	 * @param priority
 	 */
 	public void setPriority(String priority) {
@@ -22,43 +25,49 @@ public class Job {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param total_time
 	 */
 	public void setTotal_time(LocalDateTime total_time) {
 		this.total_time = total_time;
 	}
 
-	public LocalDateTime getTotal_time() {
-		return this.total_time;
+	public String getTotal_time() {
+		//formatting the total_time in the format dd-MM-yyyy HH:mm
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		String formatTotal_Time = this.total_time.format(format);
+		return formatTotal_Time;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param completion_deadline
 	 */
 	public void setCompletion_deadline(LocalDateTime completion_deadline) {
 		this.completion_deadline = completion_deadline;
 	}
 
-	public LocalDateTime getCompletion_deadline() {
-		return this.completion_deadline;
+	public String getCompletion_deadline() {
+		//formatting the completion_deadline in the format dd-MM-yyyy HH:mm
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		String formatCompletion_deadline = this.completion_deadline.format(format);
+		return formatCompletion_deadline;
 	}
 
 	/**
-	 * 
-	 * @param status
+	 *
+	 * @param job_status
 	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setJob_status(String job_status) {
+		this.job_status = job_status;
 	}
 
-	public String getStatus() {
-		return this.status;
+	public String getJob_status() {
+		return this.job_status;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param special_instructions
 	 */
 	public void setSpecial_instructions(String special_instructions) {
@@ -70,61 +79,87 @@ public class Job {
 	}
 
 	/**
-	 * 
+	 *
+	 *  @param price
+	 */
+	public void calculatePrice(double price) {
+		this.price = price;
+	}
+
+	public double getPrice() {
+		return this.price;
+	}
+
+	/**
+	 *
+	 * @param payment_status
+	 */
+	public void setPaymentStatus(String payment_status) {
+		this.payment_status = payment_status;
+	}
+
+	public String getPaymentStatus() {
+		return this.payment_status;
+	}
+
+
+	/**
+	 *
 	 * @param job_ID
 	 * @param job_data
 	 */
-	public boolean saveJob(int job_ID, String job_data) {
+	public void saveJob(int job_ID, String job_data) {
 		// TODO - implement Job.saveJob
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
-	 * @param job_ID
-	 */
-	public int assignJob_ID(int job_ID) {
-		// TODO - implement Job.assignJob_ID
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
+	 *
 	 * @param task_data
 	 */
-	public boolean addTask(String task_data) {
-		// TODO - implement Job.addTask
-		throw new UnsupportedOperationException();
+	public void addTask(String task_data) {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task_ID
 	 */
-	public boolean removeTask(int task_ID) {
+	public void removeTask(int task_ID) {
 		// TODO - implement Job.removeTask
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task_data
 	 */
-	public boolean updateTask(String task_data) {
+	public void updateTask(String task_data) {
 		// TODO - implement Job.updateTask
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param priority
-	 * @param total_time
-	 * @param completion_deadline
-	 * @param status
-	 */
-	public Job(String priority, LocalDateTime total_time, LocalDateTime completion_deadline, String status) {
-		// TODO - implement Job.Job
+	// generate invoice
+	public void generateInvoice() {
+		// TODO - implement Invoice.generateInvoice
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 *
+	 * @param new_priority
+	 * @param new_total_time
+	 * @param new_completion_deadline
+	 * @param new_special_instructions
+	 * @param new_job_status
+	 */
+	public Job(String new_priority, LocalDateTime new_total_time, LocalDateTime new_completion_deadline, String new_special_instructions ,String new_job_status, double new_price, String new_payment_status) {
+		priority = new_priority;
+		total_time = new_total_time;
+		completion_deadline = new_completion_deadline;
+		special_instructions = new_special_instructions;
+		job_status = new_job_status;
+		price = new_price;
+		payment_status = new_payment_status;
 	}
 
 }
