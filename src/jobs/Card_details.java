@@ -1,27 +1,14 @@
 package jobs;
-import java.util.Date;
 
 public class Card_details {
 
-	private int card_ID;
 	private String card_type;
-	private Date expiry_date;
+	private String expiry_date;
 	private int last_digits;
 
-	/**
-	 * 
-	 * @param card_ID
-	 */
-	public void setCard_ID(int card_ID) {
-		this.card_ID = card_ID;
-	}
-
-	public int getCard_ID() {
-		return this.card_ID;
-	}
 
 	/**
-	 * 
+	 *
 	 * @param card_type
 	 */
 	public void setCard_type(String card_type) {
@@ -33,19 +20,19 @@ public class Card_details {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param expiry_date
 	 */
-	public void setExpiry_date(Date expiry_date) {
+	public void setExpiry_date(String expiry_date) {
 		this.expiry_date = expiry_date;
 	}
 
-	public Date getExpiry_date() {
+	public String getExpiry_date() {
 		return this.expiry_date;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param last_digits
 	 */
 	public void setLast_digits(int last_digits) {
@@ -56,21 +43,27 @@ public class Card_details {
 		return this.last_digits;
 	}
 
-	public void storeCardDetails() {
-		// TODO - implement Card_details.storeCardDetails
-		throw new UnsupportedOperationException();
-	}
-
 	/**
-	 * 
-	 * @param card_ID
+	 *
 	 * @param card_type
 	 * @param expiry_date
 	 * @param last_digits
 	 */
-	public Card_details(int card_ID, String card_type, Date expiry_date, int last_digits) {
-		// TODO - implement Card_details.Card_details
+	public void storeCard_details(String card_type, String expiry_date, int last_digits) {
+		// TODO - implement Job.saveJob
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 *
+	 * @param new_card_type
+	 * @param new_expiry_date
+	 * @param new_last_digits
+	 */
+	public Card_details(String new_card_type, String new_expiry_date, int new_last_digits) {
+		card_type = new_card_type;
+		expiry_date = new_expiry_date;
+		last_digits = new_last_digits;
 	}
 
 }

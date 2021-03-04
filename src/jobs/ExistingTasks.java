@@ -1,27 +1,14 @@
 package jobs;
-import java.time.LocalDateTime;
+
 public class ExistingTasks {
 
-	private int task_ID;
 	private String task_description;
 	private double task_price;
-	private LocalDateTime task_duration;
-	private String Department_name;
+	private int task_duration;
+	private String department_name;
 
 	/**
-	 * 
-	 * @param task_ID
-	 */
-	public void setTask_ID(int task_ID) {
-		this.task_ID = task_ID;
-	}
-
-	public int getTask_ID() {
-		return this.task_ID;
-	}
-
-	/**
-	 * 
+	 *
 	 * @param task_description
 	 */
 	public void setTask_description(String task_description) {
@@ -33,16 +20,7 @@ public class ExistingTasks {
 	}
 
 	/**
-	 * 
-	 * @param task_data
-	 */
-	public boolean saveTask(String task_data) {
-		// TODO - implement ExistingTasks.saveTask
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
+	 *
 	 * @param task_price
 	 */
 	public void setTask_price(double task_price) {
@@ -54,39 +32,84 @@ public class ExistingTasks {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task_duration
 	 */
 	public void setTask_duration(int task_duration) {
-		// TODO - implement ExistingTasks.setTask_duration
-		throw new UnsupportedOperationException();
+		this.task_duration = task_duration;
 	}
 
-	public LocalDateTime getTask_duration() {
-		return this.task_duration;
-	}
+	public int getTask_duration() { return this.task_duration; }
 
 	/**
-	 * 
+	 *
 	 * @param department_name
 	 */
 	public void setDepartment_name(String department_name) {
-		// TODO - implement ExistingTasks.setDepartment_name
-		throw new UnsupportedOperationException();
+		this.department_name = department_name;
 	}
 
 	public String getDepartment_name() {
-		// TODO - implement ExistingTasks.getDepartment_name
+		return this.department_name;
+	}
+
+	/**
+	 *
+	 * @param task_description
+	 * @param  task_price
+	 * @param task_duration
+	 * @param department_name
+	 */
+	public void saveTask(String task_description, double task_price, int task_duration, String department_name) {
+		// TODO - implement ExistingTasks.saveTask
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task_data
 	 */
-	public ExistingTasks(String task_data) {
-		// TODO - implement ExistingTasks.ExistingTasks
+	public void extendTaskList(String task_data) {
+		// TODO - implement ExistingTasksList.extendTaskList
 		throw new UnsupportedOperationException();
+	}
+
+	public String[] retrieveExistingTask() {
+		// TODO - implement ExistingTasksList.retrieveExistingTask
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 *
+	 * @param existing_task_ID
+	 */
+	public void removeExistingTask(int existing_task_ID) {
+		// TODO - implement ExistingTasksList.removeExistingTask
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 *
+	 * @param existing_task_ID
+	 */
+	public void updateExistingTask(int existing_task_ID) {
+		// TODO - implement ExistingTasksList.updateExistingTask
+		throw new UnsupportedOperationException();
+	}
+
+
+	/**
+	 *
+	 * @param new_task_description
+	 * @param new_task_price
+	 * @param new_task_duration
+	 * @param new_department_name
+	 */
+	public ExistingTasks(String new_task_description, double new_task_price, int new_task_duration, String new_department_name) {
+		task_description = new_task_description;
+		task_price = new_task_price;
+		task_duration = new_task_duration;
+		department_name = new_department_name;
 	}
 
 }

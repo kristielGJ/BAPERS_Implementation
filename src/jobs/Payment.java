@@ -1,25 +1,11 @@
 package jobs;
-
 public class Payment {
 
-	private int payment_ID;
 	private double payment_amount;
 	private String payment_type;
 
 	/**
-	 * 
-	 * @param payment_ID
-	 */
-	public void setPayment_ID(int payment_ID) {
-		this.payment_ID = payment_ID;
-	}
-
-	public int getPayment_ID() {
-		return this.payment_ID;
-	}
-
-	/**
-	 * 
+	 *
 	 * @param payment_amount
 	 */
 	public void setPayment_amount(double payment_amount) {
@@ -31,7 +17,7 @@ public class Payment {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param payment_type
 	 */
 	public void setPayment_type(String payment_type) {
@@ -43,23 +29,23 @@ public class Payment {
 	}
 
 	/**
-	 * 
-	 * @param paymentDetails
+	 *
+	 * @param payment_amount
+	 * @param payment_type
 	 */
-	public void storePaymentDetails(String paymentDetails) {
+	public void storePaymentDetails(double payment_amount, String payment_type) {
 		// TODO - implement Payment.storePaymentDetails
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
-	 * @param payment_ID
-	 * @param payment_amount
-	 * @param payment_type
+	 *
+	 * @param new_payment_amount
+	 * @param new_payment_type
 	 */
-	public Payment(int payment_ID, double payment_amount, String payment_type) {
-		// TODO - implement Payment.Payment
-		throw new UnsupportedOperationException();
+	public Payment(double new_payment_amount, String new_payment_type) {
+		payment_amount = new_payment_amount;
+		payment_type = new_payment_type;
 	}
 
 }
