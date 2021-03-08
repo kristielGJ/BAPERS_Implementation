@@ -1,5 +1,7 @@
 package discounts;
 
+import java.time.LocalDateTime;
+
 public class Discount {
 
 	private double sub_price;
@@ -7,15 +9,15 @@ public class Discount {
 	private String discount_type;
 	private FixedDiscount fixed_discount;
 	private FlexibleDiscount flexible_discount;
-	private DiscountList discount_list;
 	private TaskDiscount task_discount;
 	private VariableDiscount variableDiscount;
 
-	public Discount(double sub_price, double discount_rate,String discount_type) {
+
+	public Discount(double d_sub_price, double d_discount_rate,String d_discount_type) {
 		// TODO - implement Discount.Discount
-		this.sub_price=sub_price;
-		this.discount_rate=discount_rate;
-		this.discount_type=discount_type;
+		this.sub_price=d_sub_price;
+		this.discount_rate=d_discount_rate;
+		this.discount_type=d_discount_type;
 
 	}
 
@@ -43,14 +45,6 @@ public class Discount {
 		this.flexible_discount = flexible_discount;
 	}
 
-	public DiscountList getDiscount_list() {
-		return discount_list;
-	}
-
-	public void setDiscount_list(DiscountList discount_list) {
-		this.discount_list = discount_list;
-	}
-
 	public TaskDiscount getTask_discount() {
 		return task_discount;
 	}
@@ -66,7 +60,6 @@ public class Discount {
 	public void setVariableDiscount(VariableDiscount variableDiscount) {
 		this.variableDiscount = variableDiscount;
 	}
-
 
 	public double getSub_price() {
 		return sub_price;

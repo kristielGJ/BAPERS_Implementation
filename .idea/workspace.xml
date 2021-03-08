@@ -6,8 +6,6 @@
       <change beforePath="$PROJECT_DIR$/src/discounts/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/Discount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/discounts/DiscountList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/DiscountList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/discounts/FixedDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/FixedDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/FlexibleDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/FlexibleDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/TaskDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/TaskDiscount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/discounts/VariableDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/VariableDiscount.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +23,16 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/kristielGJ/BAPERS_Implementation" />
+      </set>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1pFf1VTUKJPSyTAAq6fxSJIzseR" />
   <component name="ProjectViewState">

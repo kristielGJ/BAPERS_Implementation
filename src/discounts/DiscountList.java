@@ -1,10 +1,12 @@
 package discounts;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DiscountList {
 	public ArrayList<String> discount_list = new ArrayList<String>();
 	public ArrayList<String> discount_ref_list = new ArrayList<String>();
+	private VariableDiscount variableDiscount;
 	//private Vector<Discount> discountVector = new Vector<Discount>();
 	/**
 	 * 
@@ -42,9 +44,11 @@ public class DiscountList {
 		//throw new UnsupportedOperationException();
 	}
 
-	public DiscountList() {
+	public DiscountList( VariableDiscount var_discount) {
 		// TODO - implement DiscountList.DiscountList
+		variableDiscount=var_discount;
 		throw new UnsupportedOperationException();
 	}
+
 
 }
