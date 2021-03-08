@@ -2,4 +2,8 @@
 /shelf/
 /workspace.xml
 .idea/
+src/.idea/
 *.class
+*.iml
+*.json
+src/database/Secrets.java
