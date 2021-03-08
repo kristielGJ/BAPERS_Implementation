@@ -1,4 +1,5 @@
 package jobs;
+
 public class Payment {
 
 	private double payment_amount;
@@ -36,6 +37,20 @@ public class Payment {
 	public void storePaymentDetails(double payment_amount, String payment_type) {
 		// TODO - implement Payment.storePaymentDetails
 		throw new UnsupportedOperationException();
+	}
+
+	// generate invoice
+	public void generateInvoice() {
+		// TODO - implement Invoice.generateInvoice
+		throw new UnsupportedOperationException();
+	}
+
+	public void makePayment(double payment_amount, String payment_type){
+		new Payment(payment_amount, payment_type);
+		storePaymentDetails(payment_amount, payment_type);
+		if (payment_type == "cash"){
+			//set payment status to paid in the database
+		}
 	}
 
 	/**

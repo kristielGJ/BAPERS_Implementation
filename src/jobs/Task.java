@@ -1,4 +1,5 @@
 package jobs;
+
 import java.time.LocalDateTime;
 
 public class Task {
@@ -35,26 +36,31 @@ public class Task {
 	public void finish(LocalDateTime finish_time) {
 	}
 
-	// store task details int the database
-	public void storeTaskDetails() {
+	/**
+	 * store task details in the database
+	 *
+	 * @param ExistingTask_ID
+	 * @param task_status
+	 */
+	public void storeTaskDetails(int ExistingTask_ID, String task_status) {
 		// TODO - implement Payment.storePaymentDetails
 		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 *
-	 * @param task_data
+	 * @param task_status
 	 */
-	public boolean addTask(String task_data) {
-		// TODO - implement TasksList.addTask
-		throw new UnsupportedOperationException();
+	public void addTask(String task_status) {
+		new Task(task_status);
+		//storeTaskDetails();
 	}
 
 	/**
 	 *
-	 * @param index
+	 * @param task_ID
 	 */
-	public Task retrieveTasks(int index) {
+	public Task retrieveTasks(int task_ID) {
 		// TODO - implement TasksList.retrieveTasks
 		throw new UnsupportedOperationException();
 	}
