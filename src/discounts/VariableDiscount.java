@@ -7,7 +7,8 @@ public class VariableDiscount extends Discount {
 		throw new UnsupportedOperationException();
 	}
 
-	public VariableDiscount() {
+	public VariableDiscount(double sub_price, double discount_rate) {
+		super(sub_price, discount_rate, "Variable");
 		// TODO - implement VariableDiscount.VariableDiscount
 		throw new UnsupportedOperationException();
 	}

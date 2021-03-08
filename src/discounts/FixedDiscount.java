@@ -2,6 +2,10 @@ package discounts;
 
 public class FixedDiscount extends Discount {
 
+	public FixedDiscount(double sub_price, double discount_rate) {
+		super(sub_price, discount_rate, "fixed");
+	}
+
 	/**
 	 * 
 	 * @param discount_rate
@@ -19,10 +23,4 @@ public class FixedDiscount extends Discount {
 		// TODO - implement FixedDiscount.calculatePrice
 		throw new UnsupportedOperationException();
 	}
-
-	public FixedDiscount() {
-		// TODO - implement FixedDiscount.FixedDiscount
-		throw new UnsupportedOperationException();
-	}
-
 }
