@@ -8,7 +8,7 @@ public class Card_details {
 
 
 	/**
-	 * 
+	 *
 	 * @param card_type
 	 */
 	public void setCard_type(String card_type) {
@@ -57,7 +57,7 @@ public class Card_details {
 	public void makeCardPayment(String card_type, String expiry_date, int last_digits){
 		new Card_details(card_type, expiry_date, last_digits);
 		storeCard_details(card_type, expiry_date, last_digits);
-		// set the payment status to paid
+		// set the payment status to paid in the database
 	}
 
 	/**
