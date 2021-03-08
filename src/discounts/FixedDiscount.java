@@ -2,6 +2,11 @@ package discounts;
 
 public class FixedDiscount extends Discount {
 
+	public FixedDiscount(double sub_price, double discount_rate) {
+		super(sub_price, discount_rate, "fixed");
+		throw new UnsupportedOperationException();
+	}
+
 	/**
 	 * 
 	 * @param discount_rate
@@ -17,12 +22,8 @@ public class FixedDiscount extends Discount {
 	 */
 	public float calculatePrice(double discount_rate) {
 		// TODO - implement FixedDiscount.calculatePrice
+		//get task price from job
+		//calculate and return new price
 		throw new UnsupportedOperationException();
 	}
-
-	public FixedDiscount() {
-		// TODO - implement FixedDiscount.FixedDiscount
-		throw new UnsupportedOperationException();
-	}
-
 }
