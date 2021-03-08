@@ -54,6 +54,12 @@ public class Card_details {
 		throw new UnsupportedOperationException();
 	}
 
+	public void makeCardPayment(String card_type, String expiry_date, int last_digits){
+		new Card_details(card_type, expiry_date, last_digits);
+		storeCard_details(card_type, expiry_date, last_digits);
+		// set the payment status to paid
+	}
+
 	/**
 	 *
 	 * @param new_card_type

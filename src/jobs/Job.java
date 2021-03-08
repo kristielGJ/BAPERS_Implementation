@@ -1,4 +1,5 @@
 package jobs;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +12,7 @@ public class Job {
 	private String job_status;
 	private double price;
 	private String payment_status;
+	private Task task;
 
 	/**
 	 *
@@ -115,9 +117,10 @@ public class Job {
 
 	/**
 	 *
-	 * @param task_data
+	 * @param task_status
 	 */
-	public void addTask(String task_data) {
+	public void addTask(String task_status) {
+		task.addTask(task_status);
 	}
 
 	/**
@@ -135,12 +138,6 @@ public class Job {
 	 */
 	public void updateTask(String task_data) {
 		// TODO - implement Job.updateTask
-		throw new UnsupportedOperationException();
-	}
-
-	// generate invoice
-	public void generateInvoice() {
-		// TODO - implement Invoice.generateInvoice
 		throw new UnsupportedOperationException();
 	}
 

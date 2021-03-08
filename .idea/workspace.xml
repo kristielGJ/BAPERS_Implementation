@@ -3,13 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d0412c71-82dc-4f34-9c31-4d2797410e8f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/Discount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/DiscountList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/DiscountList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/FixedDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/FixedDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/FlexibleDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/FlexibleDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/TaskDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/TaskDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discounts/VariableDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/discounts/VariableDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/Card_details.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Card_details.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/ExistingTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/ExistingTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Task.java" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,17 +34,35 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jobs" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\g_jah\Documents\UniCompSci\year2\Group Project\BAPERS_Implementation\src" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="d0412c71-82dc-4f34-9c31-4d2797410e8f" name="Default Changelist" comment="" />
@@ -52,8 +70,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1614783545313</updated>
+      <workItem from="1615204055154" duration="654000" />
+      <workItem from="1615208456799" duration="3271000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -72,11 +95,11 @@
                   </entry>
                 </map>
               </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

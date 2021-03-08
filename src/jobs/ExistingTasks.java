@@ -67,11 +67,14 @@ public class ExistingTasks {
 
 	/**
 	 *
-	 * @param task_data
+	 * @param task_description
+	 * @param task_price
+	 * @param task_duration
+	 * @param department_name
 	 */
-	public void extendTaskList(String task_data) {
-		// TODO - implement ExistingTasksList.extendTaskList
-		throw new UnsupportedOperationException();
+	public void extendTaskList(String task_description, double task_price, int task_duration, String department_name) {
+		new ExistingTasks(task_description, task_price, task_duration, department_name);
+		saveTask(task_description, task_price, task_duration, department_name);
 	}
 
 	public String[] retrieveExistingTask() {
