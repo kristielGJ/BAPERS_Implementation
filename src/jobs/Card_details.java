@@ -8,7 +8,7 @@ public class Card_details {
 
 
 	/**
-	 *
+	 * 
 	 * @param card_type
 	 */
 	public void setCard_type(String card_type) {

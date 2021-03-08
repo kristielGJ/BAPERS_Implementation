@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0412c71-82dc-4f34-9c31-4d2797410e8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jobs/Card_details.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Card_details.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/ExistingTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/ExistingTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Job.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/Task.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +66,7 @@
       <option name="presentableId" value="Default" />
       <updated>1614783545313</updated>
       <workItem from="1615204055154" duration="654000" />
-      <workItem from="1615208456799" duration="3271000" />
+      <workItem from="1615208456799" duration="3406000" />
     </task>
     <servers />
   </component>
