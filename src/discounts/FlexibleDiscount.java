@@ -4,6 +4,11 @@ public class FlexibleDiscount extends Discount {
 
 	private String discount_bands;
 
+	public FlexibleDiscount(double sub_price, double discount_rate, String discount_bands) {
+		super(sub_price, discount_rate, "flexible");
+		this.discount_bands = discount_bands;
+	}
+
 	/**
 	 * 
 	 * @param discount_rate
@@ -35,10 +40,4 @@ public class FlexibleDiscount extends Discount {
 		// TODO - implement FlexibleDiscount.getDiscount_bands
 		throw new UnsupportedOperationException();
 	}
-
-	public FlexibleDiscount() {
-		// TODO - implement FlexibleDiscount.FlexibleDiscount
-		throw new UnsupportedOperationException();
-	}
-
 }

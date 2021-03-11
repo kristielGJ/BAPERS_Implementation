@@ -3,8 +3,6 @@ package database;
 public class Controller implements I_Bapers {
 
 	public void main() {
-		// TODO - implement Controller.main
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -72,11 +70,16 @@ public class Controller implements I_Bapers {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public boolean MakePayment(String paymentData) {
+		return false;
+	}
+
 	/**
 	 * 
 	 * @param paymentData
 	 */
-	public boolean MakePayment(String paymentData) {
+	public boolean makePayment(String paymentData) {
 		// TODO - implement Controller.MakePayment
 		throw new UnsupportedOperationException();
 	}
