@@ -6,7 +6,6 @@ public class Card_details {
 	private String expiry_date;
 	private int last_digits;
 
-
 	/**
 	 *
 	 * @param card_type

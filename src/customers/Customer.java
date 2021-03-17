@@ -79,7 +79,7 @@ public class Customer {
 	 * 
 	 * @param customerData
 	 */
-	public void updateCustomerDetails(String[] customerData) { //recieve array of Strings called customerData
+	public void updateCustomerDetails(String[] customerData) { //receive array of Strings called customerData
 		if(!customerData[0].isEmpty() && !(customerData[0] == null)){ //test if String in array is empty or null
 			this.customer_name = customerData[0]; //first string should be customer_name set that to local customer_name
 		}
@@ -102,7 +102,7 @@ public class Customer {
 	 */
 	//database saving, still needs to be done
 	public boolean saveCustomerDetails(int customer_ID, String customer_data) {
-		// TODO - implement Customer.saveCustomerDetails
+		// TODO - implement Customer.saveCustomerDetails (database)
 		throw new UnsupportedOperationException();
 	}
 

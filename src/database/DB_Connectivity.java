@@ -2,6 +2,7 @@ package database;
 import java.sql.*;
 
 /**
+ * Mushfikur Rahman
  * This class is the abstract interface for database connectivity.
  * All interaction with database must inherit this structure at it's base.
  */

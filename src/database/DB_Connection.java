@@ -2,8 +2,9 @@ package database;
 import java.sql.*;
 
 /**
- * DB_Connection (was called DB_ImplClass)
- * Implements the @DB_Connectivity class
+ * Mushfikur Rahman
+ * DB_Connection (was called DB_ImplClass).
+ * Implements the @DB_Connectivity class.
  * (A note that a Secrets class must be created for this to work.)
  *
  * Uses the JDBC driver to connect to database.
