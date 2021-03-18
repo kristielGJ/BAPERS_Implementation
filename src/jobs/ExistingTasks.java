@@ -94,9 +94,9 @@ public class ExistingTasks {
 	 * @param task_duration
 	 * @param department_name
 	 */
-	public static void extendTaskList(int exg_Task_ID, String task_description, double task_price, int task_duration, String department_name){
+	public void extendTaskList(int exg_Task_ID, String task_description, double task_price, int task_duration, String department_name){
 		new ExistingTasks(exg_Task_ID, task_description, task_price, task_duration, department_name);
-		saveTask(exg_Task_ID, task_description, task_price, task_duration, department_name);
+		//saveTask(exg_Task_ID, task_description, task_price, task_duration, department_name);
 	}
 
 	/**

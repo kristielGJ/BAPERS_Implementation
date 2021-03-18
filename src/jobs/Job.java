@@ -1,5 +1,6 @@
 package jobs;
 
+import java.sql.Connection;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import database.DB_Connection;

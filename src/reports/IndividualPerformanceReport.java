@@ -3,6 +3,10 @@ import java.util.Date;
 
 public class IndividualPerformanceReport extends Reports {
 
+	public IndividualPerformanceReport(String report_type, Date from_date, Date to_date) {
+		super(report_type, from_date, to_date);
+	}
+
 	/**
 	 * 
 	 * @param from_date
@@ -14,9 +18,6 @@ public class IndividualPerformanceReport extends Reports {
 		throw new UnsupportedOperationException();
 	}
 
-	public IndividualPerformanceReport() {
-		// TODO - implement IndividualPerformanceReport.IndividualPerformanceReport
-		throw new UnsupportedOperationException();
-	}
+
 
 }

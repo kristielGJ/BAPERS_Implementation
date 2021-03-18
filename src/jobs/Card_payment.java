@@ -105,11 +105,11 @@ public class Card_payment extends Payment {
 
             if (expiry_date.matches("\\d{2}-\\d{4}")){
                 Stm.setString(3,expiry_date);
-            }else { System.out.println("Incorrect expiry date");}
+            }else { System.out.println("Incorrect format");}
 
             if (last_digits.matches("\\d{4}")){
                 Stm.setString(4,last_digits);
-            }else { System.out.println("Incorrect last four digits");}
+            }else { System.out.println("Incorrect format");}
 
             Stm.executeUpdate();
 

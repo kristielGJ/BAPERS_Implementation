@@ -3,25 +3,23 @@ import java.util.Date;
 
 public class Reports {
 
-	private int report_ID;
 	private String report_type;
 	private Date from_date;
 	private Date to_date;
 
-    public Reports() {
+	/**
+	 *
+	 * @param report_type
+	 * @param from_date
+	 * @param to_date
+	 */
+	public Reports(String report_type, Date from_date, Date to_date) {
+		// TODO - implement Reports.Reports
 		throw new UnsupportedOperationException();
 	}
 
-    /**
-	 * 
-	 * @param report_ID
-	 */
-	public void setReport_ID(int report_ID) {
-		this.report_ID = report_ID;
-	}
-
-	public int getReport_ID() {
-		return this.report_ID;
+    public Reports() {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -56,16 +54,8 @@ public class Reports {
 		this.to_date = to_date;
 	}
 
-	/**
-	 * 
-	 * @param report_ID
-	 * @param report_type
-	 * @param from_date
-	 * @param to_date
-	 */
-	public Reports(int report_ID, String report_type, Date from_date, Date to_date) {
-		// TODO - implement Reports.Reports
-		throw new UnsupportedOperationException();
-	}
+	public Date getTo_date(){ return this.to_date; }
+
+
 
 }
