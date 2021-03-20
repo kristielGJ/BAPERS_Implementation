@@ -16,44 +16,6 @@ public interface I_Bapers {
 
 	/**
 	 * 
-	 * @param jobID
-	 */
-	abstract String verifyJob(int jobID);
-
-	/**
-	 * 
-	 * @param jobID
-	 */
-	abstract String retrieveJobStatus(int jobID);
-
-	/**
-	 * 
-	 * @param jobData
-	 */
-	abstract void addJob(String jobData);
-
-	/**
-	 * 
-	 * @param jobID
-	 * @param jobData
-	 */
-	abstract boolean saveJob(int jobID, String jobData);
-
-	/**
-	 * 
-	 * @param jobID
-	 * @param jobData
-	 */
-	abstract void updateStatus(int jobID, String jobData);
-
-	/**
-	 * 
-	 * @param paymentData
-	 */
-	abstract boolean MakePayment(String paymentData);
-
-	/**
-	 * 
 	 * @param type
 	 */
 	abstract void chooseReportType(String type);
@@ -66,40 +28,9 @@ public interface I_Bapers {
 
 	/**
 	 * 
-	 * @param task_data
-	 */
-	abstract void addTask(String task_data);
-
-	/**
-	 * 
-	 * @param taskData
-	 */
-	abstract void extendTaskList(String taskData);
-
-	/**
-	 * 
-	 * @param existing_task_ID
-	 */
-	abstract void removeExistingTask(int existing_task_ID);
-
-	/**
-	 * 
-	 * @param existing_task_ID
-	 */
-	abstract void updateExistingTask(int existing_task_ID);
-
-	/**
-	 * 
 	 * @param customerData
 	 */
 	abstract void updateCustomerDetails(String customerData);
-
-	/**
-	 * 
-	 * @param task_status
-	 * @param location
-	 */
-	abstract void updateTaskInfo(String task_status, String location);
 
 	abstract void backup();
 

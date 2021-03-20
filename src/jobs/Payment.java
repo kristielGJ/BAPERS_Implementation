@@ -9,69 +9,15 @@ import java.sql.ResultSet;
 
 public class Payment implements I_Payment {
 
-    private int payment_ID;
-	private double payment_amount;
-	private String payment_type;
-	private DB_Connection db = new DB_Connection();
-	private Connection conn = db.connect();
+	private Connection conn;
 	private PreparedStatement Stm = null;
 
 	/**
-	 * constructor
-     *
-     * @param new_payment_ID
-	 * @param new_payment_amount
-	 * @param new_payment_type
-	 */
-	public Payment(int new_payment_ID, double new_payment_amount, String new_payment_type) {
-		payment_ID = new_payment_ID;
-	    payment_amount = new_payment_amount;
-		payment_type = new_payment_type;
-	}
-
-    /**
-     *
-     * @param payment_ID
-     */
-    public void setPayment_ID(int payment_ID) { this.payment_ID = payment_ID; }
-
-    public int getPayment_ID(){ return this.payment_ID; }
-
-	/**
 	 *
-	 * @param payment_amount
+	 * @param conn
 	 */
-	public void setPayment_amount(double payment_amount) {
-		this.payment_amount = payment_amount;
-	}
-
-	public double getPayment_amount() {
-		return this.payment_amount;
-	}
-
-	/**
-	 *
-	 * @param payment_type
-	 */
-	public void setPayment_type(String payment_type) {
-		this.payment_type = payment_type;
-	}
-
-	public String getPayment_type() {
-		return this.payment_type;
-	}
-
-	/**
-	 * creating a new Payment object
-	 *
-     * @param payment_ID
-	 * @param payment_amount
-	 * @param payment_type
-	 * @param customer_ID
-	 */
-	public void makePayment(int payment_ID, double payment_amount, String payment_type, int customer_ID){
-		new Payment(payment_ID, payment_amount, payment_type);
-		storePaymentDetails(payment_ID, payment_type, payment_amount, customer_ID);
+	public Payment(DB_Connection conn) {
+		this.conn = conn.getConn();
 	}
 
 	/**
@@ -82,7 +28,7 @@ public class Payment implements I_Payment {
 	 * @param payment_amount
 	 * @param customer_ID
 	 */
-	public void storePaymentDetails(int payment_ID, String payment_type, Double payment_amount, int customer_ID) {
+	public void createPayment(int payment_ID, String payment_type, Double payment_amount, int customer_ID) {
 		try {
 			Stm = conn.prepareStatement("INSERT INTO `bapers`.`Payment` (`Payment_ID`,`Payment_type`, `Payment_amount`, `CustomerAccount_no`) VALUES (?,?,?,?) ");
 			Stm.setInt(1, payment_ID);

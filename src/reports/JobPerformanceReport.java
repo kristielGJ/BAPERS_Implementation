@@ -1,6 +1,7 @@
 package reports;
 
 import database.DB_Connection;
+import reports.Interface_reports.I_JobPerformanceReport;
 
 import java.sql.*;
 import java.time.Duration;
@@ -8,20 +9,15 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-public class JobPerformanceReport extends Reports {
+public class JobPerformanceReport extends Reports implements I_JobPerformanceReport {
 
-    private static DB_Connection db = new DB_Connection();
-    private static Connection conn = db.connect();
-    private static PreparedStatement Stm = null;
+    private PreparedStatement Stm = null;
 
     /**
-     *
-     * @param report_type
-     * @param from_date
-     * @param to_date
+     * @param conn
      */
-    public JobPerformanceReport(String report_type, LocalDate from_date, LocalDate to_date) {
-        super(report_type, from_date, to_date);
+    public JobPerformanceReport(DB_Connection conn) {
+        super(conn);
     }
 
     /**
@@ -29,7 +25,7 @@ public class JobPerformanceReport extends Reports {
      * @param to_date
      * @return
      */
-    public static HashMap<Integer, HashMap<Integer, String[][]>> generateReport(LocalDate from_date, LocalDate to_date) {
+    public HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date) {
         HashMap<Integer, String[][]> details = new HashMap<>();
         HashMap<Integer, HashMap<Integer, String[][]>> report_details = new HashMap<>();
         String[] task_details = new String[2];

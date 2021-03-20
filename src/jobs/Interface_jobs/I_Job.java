@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public interface I_Job {
 
-    void addJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, String payment_status, int customer_account_no);
+    void createJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, LocalDateTime start_time, String payment_status, int customer_account_no);
 
     String[] retrieveJob(int job_ID);
 

@@ -2,7 +2,6 @@ package jobs;
 
 import database.DB_Connection;
 import jobs.Interface_jobs.I_Task;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,73 +10,16 @@ import java.time.LocalDateTime;
 
 public class Task implements I_Task {
 
-	private int task_ID;
-	private String task_status;
-	private LocalDateTime start_time;
-	private LocalDateTime finish_time;
-	private DB_Connection db = new DB_Connection();
-	private Connection conn = db.connect();
+	private Connection conn;
 	private PreparedStatement Stm = null;
 
 	/**
-	 * constructor
 	 *
-	 * @param new_task_ID
-	 * @param new_task_status
+	 * @param conn
 	 */
-	public Task(int new_task_ID, String new_task_status) {
-		task_ID = new_task_ID;
-		task_status = new_task_status;
+	public Task(DB_Connection conn) {
+		this.conn = conn.getConn();
 	}
-
-	/**
-	 *
-	 * @param task_ID
-	 */
-	public void setTask_ID(int task_ID) { this.task_ID = task_ID; }
-
-	public int getTask_ID(){ return this.task_ID; }
-
-	/**
-	 *
-	 * @param task_status
-	 */
-	public void setTask_status(String task_status) { this.task_status = task_status; }
-
-	public String getTask_status() { return this.task_status; }
-
-	/**
-	 *
-	 * @param start_time
-	 */
-	public void setStart_time(LocalDateTime start_time){ this.start_time = start_time; }
-
-	public LocalDateTime getStart_time(){ return this.start_time; }
-
-	/**
-	 *
-	 * @param finish_time
-	 */
-	public void setFinish_time(LocalDateTime finish_time){ this.finish_time = finish_time; }
-
-	public LocalDateTime getFinish_time(){ return this.finish_time; }
-
-
-	/*
-	 * store the starting time of the task in the database
-	 *
-	 * @param Task_ID
-	 */
-	/*public void start(int Task_ID) {
-		try {
-			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Task` SET Task_start = ?WHERE Task_ID =?;");
-			Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-			Stm.setInt(2,Task_ID);
-			Stm.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
 	/**
 	 * stores the finish_time of the task in the database
@@ -96,28 +38,14 @@ public class Task implements I_Task {
 	}
 
 	/**
-	 * creating a new object Task
-	 *
-	 * @param task_ID
-	 * @param task_status
-	 * @param Job_ID
-	 * @param user_ID
-	 * @param ExistingTask_ID
-	 */
-	public void addTask(int task_ID, int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
-		new Task(task_ID, task_status);
-		storeTaskDetails(task_ID, ExistingTask_ID, Job_ID, user_ID, task_status);
-	}
-
-	/**
-	 * store task details in the database
+	 * create and store task details in the database
 	 *
 	 * @param task_ID
 	 * @param ExistingTask_ID
 	 * @param task_status
 	 * @param Job_ID
 	 */
-	public void storeTaskDetails(int task_ID, int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
+	public void createTask(int task_ID, int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
 		try {
 			Stm = conn.prepareStatement("INSERT INTO `bapers`.`Task` (`Task_ID` ,`Task_status`,`Task_start`, `User_accountUser_ID`,`Task_CatalogCatalog_ID`, `JobJob_ID`) VALUES (?,?,?,?,?,?) ");
 			Stm.setInt(1, task_ID);
