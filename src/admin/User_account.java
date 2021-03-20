@@ -4,9 +4,9 @@ import database.DB_Connection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Timestamp;
+import java.sql.ResultSet;
 
-public class User_account {
+public class User_account implements I_UserAccount {
 
 	private Connection conn;
 	private int user_ID;
@@ -18,6 +18,7 @@ public class User_account {
 	public User_account(DB_Connection conn) {
 		this.conn = conn.getConn();
 	}
+
 
 	public void createUserAccount(String name, String email, int phone, String role) {
 		try {
@@ -43,11 +44,18 @@ public class User_account {
 		}
 	}
 
-	public void updateRole(String role, int id) {
+	@Override
+	public ResultSet getAllUsers() {
+		return null;
+	}
+
+	public void update(int id, String name, String email, int phone, String role) {
 		try{
-			PreparedStatement st = conn.prepareStatement("UPDATE User_account SET role = ? WHERE user_account_id = ?");
-			st.setString(1, role);
-			st.setInt(2, id);
+			PreparedStatement st = conn.prepareStatement("UPDATE User_account SET name = ?, email = ?, phone = ?, role = ? WHERE user_account_id = ?");
+			st.setString(1, name);
+			st.setString(2, email);
+			st.setInt(3, phone);
+			st.setString(4, role);
 			st.executeUpdate();
 			st.close();
 		} catch (Exception e) {
