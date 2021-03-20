@@ -1,8 +1,16 @@
 package database;
 
+import admin.Alert;
+
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
+
 public class Controller implements I_Bapers {
 
+	private static final DB_Connection mainConn = new DB_Connection();
+
 	public void main() {
+
 	}
 
 	/**
@@ -10,7 +18,6 @@ public class Controller implements I_Bapers {
 	 * @param data
 	 */
 	public String identifyCustomer(String data) {
-		// TODO - implement Controller.identifyCustomer
 		throw new UnsupportedOperationException();
 	}
 
@@ -46,8 +53,16 @@ public class Controller implements I_Bapers {
 	 * @param jobData
 	 */
 	public void addJob(String jobData) {
-		// TODO - implement Controller.addJob
-		throw new UnsupportedOperationException();
+
+	}
+
+	Alert alert = new Alert(mainConn);
+	public void createAlert(String type, String message, LocalDateTime time, int jobId) {
+		alert.createAlert(type, message, time, jobId);
+	}
+
+	public ResultSet getAlert(int id) {
+		return alert.retrieveAlert(id);
 	}
 
 	/**
@@ -56,7 +71,7 @@ public class Controller implements I_Bapers {
 	 * @param jobData
 	 */
 	public boolean saveJob(int jobID, String jobData) {
-		// TODO - implement Controller.saveJob
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -168,8 +183,6 @@ public class Controller implements I_Bapers {
 	}
 
 	public Controller() {
-		// TODO - implement Controller.Controller
-		throw new UnsupportedOperationException();
 	}
 
 }
