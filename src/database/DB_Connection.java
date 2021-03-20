@@ -2,8 +2,9 @@ package database;
 import java.sql.*;
 
 /**
- * DB_Connection (was called DB_ImplClass)
- * Implements the @DB_Connectivity class
+ * Mushfikur Rahman
+ * DB_Connection (was called DB_ImplClass).
+ * Implements the @DB_Connectivity class.
  * (A note that a Secrets class must be created for this to work.)
  *
  * Uses the JDBC driver to connect to database.
@@ -22,11 +23,13 @@ public class DB_Connection implements DB_Connectivity {
 	private final String url = Secrets.url;
 	private final String user = Secrets.user;
 	private final String password = Secrets.password;
-	private Connection conn;
-
-	public DB_Connection() { conn = connect(); }
+	private final Connection conn;
 
 	public String toString() { return "Connection " + url + " (" + user + ", " + password + ")"; }
+
+	public DB_Connection() {
+		conn = connect();
+	}
 
 	/**
 	 * Creates a connection to the database.
@@ -48,7 +51,6 @@ public class DB_Connection implements DB_Connectivity {
 
 	/**
 	 * Forcefully closes the connection to a database.
-	 * Try/Catch statements automatically handle the closing and opening of a connection depending on use.
 	 * @return Boolean value dependant on whether the action was successful.
 	 */
 	public boolean closeConnection() {
@@ -84,14 +86,36 @@ public class DB_Connection implements DB_Connectivity {
 	 * @return An integer depending on success. (1) for success and (-1) for unsuccessful.
 	 */
 	public int update(String sql) {
+		int result = -1;
 		try {
 			Statement st;
 			st = conn.createStatement();
-			return st.executeUpdate(sql) ;
+			result = st.executeUpdate(sql);
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return -1;
 		}
+		return result;
+	}
+
+	public int executeUpdateWithId(String sql, PreparedStatement st) {
+		int result = -1;
+		try {
+			result = st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = st.getGeneratedKeys();
+			if (rs.next()){
+				result = rs.getInt(1);
+			}
+			rs.close();
+			st.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public Connection getConn() {
+		return this.conn;
 	}
 
 	/**

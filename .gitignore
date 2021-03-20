@@ -7,4 +7,3 @@ src/.idea/
 *.iml
 *.xml
 src/database/Secrets.java
-src/
