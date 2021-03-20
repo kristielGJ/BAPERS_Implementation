@@ -1,18 +1,22 @@
 package jobs;
 
 import database.DB_Connection;
+import jobs.Interface_jobs.I_ExistingTasks;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class ExistingTasks {
+public class ExistingTasks implements I_ExistingTasks {
 
 	private int exg_Task_ID;
 	private String task_description;
 	private double task_price;
 	private int task_duration;
 	private String department_name;
-	private static DB_Connection conn = new DB_Connection();
-	private static PreparedStatement Stm = null;
+	private DB_Connection db = new DB_Connection();
+	private Connection conn = db.connect();
+	private PreparedStatement Stm = null;
 
 	/**
 	 * constructor
@@ -108,9 +112,9 @@ public class ExistingTasks {
 	 * @param task_duration
 	 * @param department_name
 	 */
-	public static void saveTask(int exg_Task_ID, String task_description, double task_price, int task_duration, String department_name){
+	public void saveTask(int exg_Task_ID, String task_description, double task_price, int task_duration, String department_name){
 		try {
-			Stm = conn.connect().prepareStatement("INSERT INTO `bapers`.`Task_Catalog` (`Catalog_ID`, `Task_name`, `Price`, `Task_department`, `Task_duration`) VALUES (?,?,?,?,?) ");
+			Stm = conn.prepareStatement("INSERT INTO `bapers`.`Task_Catalog` (`Catalog_ID`, `Task_name`, `Price`, `Task_department`, `Task_duration`) VALUES (?,?,?,?,?) ");
 			Stm.setInt(1, exg_Task_ID);
 			Stm.setString(2, task_description);
 			Stm.setDouble(3, task_price);
@@ -127,10 +131,10 @@ public class ExistingTasks {
 	 *
 	 * @param existing_task_ID
 	 */
-	public static String[] retrieveExistingTask(int existing_task_ID) {
+	public String[] retrieveExistingTask(int existing_task_ID) {
 		String[] existing_task_details = new String[5];
 		try {
-			Stm = conn.connect().prepareStatement("select * from Task_Catalog where Catalog_ID = ? ");
+			Stm = conn.prepareStatement("select * from Task_Catalog where Catalog_ID = ? ");
 			Stm.setInt(1,existing_task_ID);
 			ResultSet rs = Stm.executeQuery();
 			while (rs.next()){
@@ -152,9 +156,9 @@ public class ExistingTasks {
 	 *
 	 * @param existing_task_ID
 	 */
-	public static void removeExistingTask(int existing_task_ID) {
+	public void removeExistingTask(int existing_task_ID) {
 		try {
-			Stm = conn.connect().prepareStatement("DELETE FROM `bapers`.`Task_Catalog` WHERE Catalog_ID =?;");
+			Stm = conn.prepareStatement("DELETE FROM `bapers`.`Task_Catalog` WHERE Catalog_ID =?;");
 			Stm.setInt(1,existing_task_ID);
 			Stm.executeUpdate();
 		} catch (Exception e) {
@@ -171,9 +175,9 @@ public class ExistingTasks {
 	 * @param task_duration
 	 * @param department_name
 	 */
-	public static void updateExistingTask(int existing_task_ID, String task_name, Double task_price, int task_duration, String department_name) {
+	public void updateExistingTask(int existing_task_ID, String task_name, Double task_price, int task_duration, String department_name) {
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Task_Catalog` SET Task_name = ?, Price = ?, Task_department = ?, Task_duration = ? WHERE Catalog_ID =?;");
+			Stm = conn.prepareStatement("UPDATE `bapers`.`Task_Catalog` SET Task_name = ?, Price = ?, Task_department = ?, Task_duration = ? WHERE Catalog_ID =?;");
 			Stm.setString(1, task_name);
 			Stm.setDouble(2, task_price);
 			Stm.setString(3, department_name);

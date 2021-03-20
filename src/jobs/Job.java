@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import database.DB_Connection;
+import jobs.Interface_jobs.I_Job;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Job {
+public class Job implements I_Job {
 
 	private int job_ID;
 	private String job_desc;
@@ -21,8 +23,9 @@ public class Job {
 	private double price;
 	private String payment_status;
 	private LocalDateTime payment_deadline;
-	private static DB_Connection conn = new DB_Connection();
-	private static PreparedStatement Stm = null;
+	private DB_Connection db = new DB_Connection();
+	private Connection conn = db.connect();
+	private PreparedStatement Stm = null;
 
 	/**
 	 * constructor
@@ -175,7 +178,7 @@ public class Job {
 	 * @param payment_status
 	 * @param customer_account_no
 	 */
-	public static void addJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, String payment_status, int customer_account_no){
+	public void addJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, String payment_status, int customer_account_no){
 		Job job1 = new Job(job_ID, job_desc, priority, completion_deadline, special_instructions, job_status, payment_status);
 		saveJob(job_ID, job_desc, priority, completion_deadline, special_instructions, job_status, job1.getStart_time(), payment_status, customer_account_no);
 	}
@@ -190,9 +193,9 @@ public class Job {
 	 * @param job_status
 	 * @param payment_status
 	 */
-	public static void saveJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, LocalDateTime start_time, String payment_status, int customer_account_no) {
+	public void saveJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, LocalDateTime start_time, String payment_status, int customer_account_no) {
 		try {
-			Stm = conn.connect().prepareStatement("INSERT INTO `bapers`.`Job` (`Job_ID`, `Job_desc`, `Urgency_level`, `Completion_deadline`, `Special_instruction`, `Status`, `Start`, `Payment_status`, `CustomerAccount_no`) VALUES (?,?,?,?,?,?,?,?,?) ");
+			Stm = conn.prepareStatement("INSERT INTO `bapers`.`Job` (`Job_ID`, `Job_desc`, `Urgency_level`, `Completion_deadline`, `Special_instruction`, `Status`, `Start`, `Payment_status`, `CustomerAccount_no`) VALUES (?,?,?,?,?,?,?,?,?) ");
 			Stm.setInt(1,job_ID);
 			Stm.setString(2, job_desc);
 			Stm.setString(3, priority);
@@ -213,10 +216,10 @@ public class Job {
 	 *
 	 * @param job_ID
 	 */
-	public static String[] retrieveJob(int job_ID){
+	public String[] retrieveJob(int job_ID){
 		String[] job_details = new String[15];
 		try {
-			Stm = conn.connect().prepareStatement("select * from Job where Job_ID = ? ");
+			Stm = conn.prepareStatement("select * from Job where Job_ID = ? ");
 			Stm.setInt(1,job_ID);
 			ResultSet rs = Stm.executeQuery();
 			while(rs.next()) {
@@ -248,9 +251,9 @@ public class Job {
 	 * @param job_ID
 	 * @param job_status
 	 */
-	public static void updateJobStatus(int job_ID, String job_status){
+	public void updateJobStatus(int job_ID, String job_status){
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Status = ? WHERE Job_ID =?;");
+			Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Status = ? WHERE Job_ID =?;");
 			Stm.setString(1, job_status);
 			Stm.setInt(2,job_ID);
 			Stm.executeUpdate();
@@ -269,9 +272,9 @@ public class Job {
 	 * @param job_ID
 	 * @param priority
 	 */
-	public static void updatePriority(int job_ID, String priority){
+	public void updatePriority(int job_ID, String priority){
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Urgency_level = ? WHERE Job_ID =?;");
+			Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Urgency_level = ? WHERE Job_ID =?;");
 			Stm.setString(1, priority);
 			Stm.setInt(2,job_ID);
 			Stm.executeUpdate();
@@ -285,9 +288,9 @@ public class Job {
 	 *
 	 * @param job_ID
 	 */
-	public static void addCompletion_time(int job_ID){
+	public void addCompletion_time(int job_ID){
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Completion_date_time = ? WHERE Job_ID =?;");
+			Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Completion_date_time = ? WHERE Job_ID =?;");
 			Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
 			Stm.setInt(2,job_ID);
 			Stm.executeUpdate();
@@ -302,9 +305,9 @@ public class Job {
 	 * @param job_ID
 	 * @param payment_deadline
 	 */
-	public static void addPaymentDeadline(int job_ID, LocalDateTime payment_deadline){
+	public void addPaymentDeadline(int job_ID, LocalDateTime payment_deadline){
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Payment_deadline = ? WHERE Job_ID =?;");
+			Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Payment_deadline = ? WHERE Job_ID =?;");
 			Stm.setTimestamp(1, Timestamp.valueOf(payment_deadline));
 			Stm.setInt(2,job_ID);
 			Stm.executeUpdate();

@@ -1,6 +1,8 @@
 package jobs;
 
 import database.DB_Connection;
+import jobs.Interface_jobs.I_Payment;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class Card_payment extends Payment {
@@ -9,8 +11,10 @@ public class Card_payment extends Payment {
     private String card_type;
     private String expiry_date;
     private String last_digits;
-    private static DB_Connection conn = new DB_Connection();
-    private static PreparedStatement Stm = null;
+    private DB_Connection db = new DB_Connection();
+    private Connection conn = db.connect();
+    private PreparedStatement Stm = null;
+    private I_Payment payment;
 
     /**
      * constructor
@@ -83,9 +87,9 @@ public class Card_payment extends Payment {
      * @param last_digits
      * @param customer_ID
      */
-    public static void makeCard_payment(int card_ID, int payment_ID, double payment_amount, String card_type, String expiry_date, String last_digits, int customer_ID){
+    public void makeCard_payment(int card_ID, int payment_ID, double payment_amount, String card_type, String expiry_date, String last_digits, int customer_ID){
         new Card_payment(card_ID, payment_ID, payment_amount, card_type, expiry_date, last_digits);
-        Payment.makePayment(payment_ID, payment_amount, "Card Payment", customer_ID);
+        payment.makePayment(payment_ID, payment_amount, "Card Payment", customer_ID);
         storeCard_details(card_ID, payment_ID, card_type, expiry_date, last_digits);
     }
 
@@ -97,9 +101,9 @@ public class Card_payment extends Payment {
      * @param expiry_date
      * @param last_digits
      */
-    public static void storeCard_details(int card_ID, int payment_ID, String card_type, String expiry_date, String last_digits){
+    public void storeCard_details(int card_ID, int payment_ID, String card_type, String expiry_date, String last_digits){
         try {
-            Stm = conn.connect().prepareStatement("INSERT INTO `bapers`.`Card_details` (`card_ID`,`Card_type`, `Expiry_date`, `Last_four_digits`) VALUES (?,?,?,?) ");
+            Stm = conn.prepareStatement("INSERT INTO `bapers`.`Card_details` (`card_ID`,`Card_type`, `Expiry_date`, `Last_four_digits`) VALUES (?,?,?,?) ");
             Stm.setInt(1,card_ID);
             Stm.setString(2,card_type);
 
@@ -114,7 +118,7 @@ public class Card_payment extends Payment {
             Stm.executeUpdate();
 
             // adding the card_ID in the payment table
-            Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Payment` SET Card_detailsCard_ID = ? WHERE Payment_ID =?;");
+            Stm = conn.prepareStatement("UPDATE `bapers`.`Payment` SET Card_detailsCard_ID = ? WHERE Payment_ID =?;");
             Stm.setInt(1, card_ID);
             Stm.setInt(2,payment_ID);
             Stm.executeUpdate();

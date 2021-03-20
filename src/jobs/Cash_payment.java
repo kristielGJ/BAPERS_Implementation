@@ -1,6 +1,10 @@
 package jobs;
 
+import jobs.Interface_jobs.I_Payment;
+
 public class Cash_payment extends Payment {
+
+    private I_Payment payment;
 
     /**
      * constructor
@@ -18,9 +22,9 @@ public class Cash_payment extends Payment {
      * @param payment_amount
      * @param customer_ID
      */
-    public static void makeCash_payment(int payment_ID, double payment_amount, int customer_ID){
+    public void makeCash_payment(int payment_ID, double payment_amount, int customer_ID){
         new Cash_payment(payment_ID,payment_amount);
-        Payment.makePayment(payment_ID,payment_amount, "Cash Payment", customer_ID);
+        payment.makePayment(payment_ID,payment_amount, "Cash Payment", customer_ID);
     }
 
 
