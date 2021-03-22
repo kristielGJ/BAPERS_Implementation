@@ -1,18 +1,65 @@
 package jobs;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import database.DB_Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Job {
 
+	private int job_ID;
+	private String job_desc;
 	private String priority;
-	private LocalDateTime total_time;
+	private LocalDateTime start_time;
+	private LocalDateTime completion_time;
 	private LocalDateTime completion_deadline;
 	private String special_instructions;
 	private String job_status;
+	private double sub_price;
 	private double price;
 	private String payment_status;
-	private Task task;
+	private LocalDateTime payment_deadline;
+	private static DB_Connection conn = new DB_Connection();
+	private static PreparedStatement Stm = null;
+
+	/**
+	 * constructor
+	 *
+	 * @param new_job_ID
+	 * @param new_job_desc
+	 * @param new_priority
+	 * @param new_completion_deadline
+	 * @param new_special_instructions
+	 * @param new_job_status
+	 * @param new_payment_status
+	 */
+	public Job(int new_job_ID, String new_job_desc, String new_priority, LocalDateTime new_completion_deadline, String new_special_instructions ,String new_job_status, String new_payment_status) {
+		job_ID = new_job_ID;
+		job_desc = new_job_desc;
+		priority = new_priority;
+		start_time = LocalDateTime.now();
+		completion_deadline = new_completion_deadline;
+		special_instructions = new_special_instructions;
+		job_status = new_job_status;
+		payment_status = new_payment_status;
+	}
+
+	/**
+	 *
+	 * @param job_ID
+	 */
+	public void setJob_ID(int job_ID){ this.job_ID = job_ID; }
+
+	public int getJob_ID(){ return this.job_ID; }
+
+	/**
+	 *
+	 * @param job_desc
+	 */
+	public void setJob_desc(String job_desc){ this.job_desc = job_desc; }
+
+	public String getJob_desc(){ return this.job_desc; }
 
 	/**
 	 *
@@ -28,33 +75,21 @@ public class Job {
 
 	/**
 	 *
-	 * @param total_time
+	 * @param start_time
 	 */
-	public void setTotal_time(LocalDateTime total_time) {
-		this.total_time = total_time;
+	public void setStart_time(LocalDateTime start_time) {
+		this.start_time = start_time;
 	}
 
-	public String getTotal_time() {
-		//formatting the total_time in the format dd-MM-yyyy HH:mm
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		String formatTotal_Time = this.total_time.format(format);
-		return formatTotal_Time;
-	}
+	public LocalDateTime getStart_time() { return this.start_time; }
 
 	/**
 	 *
 	 * @param completion_deadline
 	 */
-	public void setCompletion_deadline(LocalDateTime completion_deadline) {
-		this.completion_deadline = completion_deadline;
-	}
+	public void setCompletion_deadline(LocalDateTime completion_deadline) { this.completion_deadline = completion_deadline;	}
 
-	public String getCompletion_deadline() {
-		//formatting the completion_deadline in the format dd-MM-yyyy HH:mm
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		String formatCompletion_deadline = this.completion_deadline.format(format);
-		return formatCompletion_deadline;
-	}
+	public LocalDateTime getCompletion_deadline() { return this.completion_deadline; }
 
 	/**
 	 *
@@ -84,7 +119,7 @@ public class Job {
 	 *
 	 *  @param price
 	 */
-	public void calculatePrice(double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -104,59 +139,177 @@ public class Job {
 		return this.payment_status;
 	}
 
+	/**
+	 *
+	 * @param completion_time
+	 */
+	public void setCompletion_time(LocalDateTime completion_time){ this.completion_time = completion_time; }
+
+	public LocalDateTime getCompletion_time(){ return this.completion_time; }
 
 	/**
+	 *
+	 * @param sub_price
+	 */
+	public void setSub_price(double sub_price){ this.sub_price = sub_price; }
+
+	public double getSub_price(){ return this.sub_price; }
+
+	/**
+	 *
+	 * @param payment_deadline
+	 */
+	public void setPayment_deadline(LocalDateTime payment_deadline){ this.payment_deadline = payment_deadline; }
+
+	public LocalDateTime getPayment_deadline(){ return this.payment_deadline; }
+
+	/**
+	 * creating a new job object
+	 *
+	 * @param job_desc
+	 * @param priority
+	 * @param completion_deadline
+	 * @param special_instructions
+	 * @param job_status
+	 * @param payment_status
+	 * @param customer_account_no
+	 */
+	public static void addJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, String payment_status, int customer_account_no){
+		Job job1 = new Job(job_ID, job_desc, priority, completion_deadline, special_instructions, job_status, payment_status);
+		saveJob(job_ID, job_desc, priority, completion_deadline, special_instructions, job_status, job1.getStart_time(), payment_status, customer_account_no);
+	}
+
+	/**
+	 * save the job details in the database
+	 *
+	 * @param job_desc
+	 * @param priority
+	 * @param completion_deadline
+	 * @param special_instructions
+	 * @param job_status
+	 * @param payment_status
+	 */
+	public static void saveJob(int job_ID, String job_desc, String priority, LocalDateTime completion_deadline, String special_instructions, String job_status, LocalDateTime start_time, String payment_status, int customer_account_no) {
+		try {
+			Stm = conn.connect().prepareStatement("INSERT INTO `bapers`.`Job` (`Job_ID`, `Job_desc`, `Urgency_level`, `Completion_deadline`, `Special_instruction`, `Status`, `Start`, `Payment_status`, `CustomerAccount_no`) VALUES (?,?,?,?,?,?,?,?,?) ");
+			Stm.setInt(1,job_ID);
+			Stm.setString(2, job_desc);
+			Stm.setString(3, priority);
+			Stm.setTimestamp(4, Timestamp.valueOf(completion_deadline));
+			Stm.setString(5, special_instructions);
+			Stm.setString(6, job_status);
+			Stm.setTimestamp(7, Timestamp.valueOf(start_time));
+			Stm.setString(8, payment_status);
+			Stm.setInt(9, customer_account_no);
+			Stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * retrieving the job details from the database
 	 *
 	 * @param job_ID
-	 * @param job_data
 	 */
-	public void saveJob(int job_ID, String job_data) {
-		// TODO - implement Job.saveJob
-		throw new UnsupportedOperationException();
+	public static String[] retrieveJob(int job_ID){
+		String[] job_details = new String[15];
+		try {
+			Stm = conn.connect().prepareStatement("select * from Job where Job_ID = ? ");
+			Stm.setInt(1,job_ID);
+			ResultSet rs = Stm.executeQuery();
+			while(rs.next()) {
+				job_details[0] = String.valueOf(rs.getInt(1));
+				job_details[1] = rs.getString(2);
+				job_details[2] = rs.getString(3);
+				job_details[3] = rs.getString(4);
+				job_details[4] = String.valueOf(rs.getTimestamp(5));
+				job_details[5] = rs.getString(6);
+				job_details[6] = String.valueOf(rs.getTimestamp(7));
+				job_details[7] = String.valueOf(rs.getDouble(8));
+				job_details[8] = String.valueOf(rs.getDouble(9));
+				job_details[9] = String.valueOf( rs.getDouble(10));
+				job_details[10] = String.valueOf(rs.getTimestamp(11));
+				job_details[11] = String.valueOf(rs.getTimestamp(12));
+				job_details[12] = rs.getString(13);
+				job_details[13] = String.valueOf(rs.getInt(14));
+				job_details[14] = String.valueOf(rs.getInt(15));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return job_details;
 	}
 
 	/**
+	 * updating the job status in the database
 	 *
-	 * @param task_status
+	 * @param job_ID
+	 * @param job_status
 	 */
-	public void addTask(String task_status) {
-		task.addTask(task_status);
+	public static void updateJobStatus(int job_ID, String job_status){
+		try {
+			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Status = ? WHERE Job_ID =?;");
+			Stm.setString(1, job_status);
+			Stm.setInt(2,job_ID);
+			Stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (job_status == "Completed"){
+			addCompletion_time(job_ID);
+		}
 	}
 
 	/**
+	 * updating the priority level in the database
 	 *
-	 * @param task_ID
+	 * @param job_ID
+	 * @param priority
 	 */
-	public void removeTask(int task_ID) {
-		// TODO - implement Job.removeTask
-		throw new UnsupportedOperationException();
+	public static void updatePriority(int job_ID, String priority){
+		try {
+			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Urgency_level = ? WHERE Job_ID =?;");
+			Stm.setString(1, priority);
+			Stm.setInt(2,job_ID);
+			Stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
+	 * adding the completion_time of the job in the database
 	 *
-	 * @param task_data
+	 * @param job_ID
 	 */
-	public void updateTask(String task_data) {
-		// TODO - implement Job.updateTask
-		throw new UnsupportedOperationException();
+	public static void addCompletion_time(int job_ID){
+		try {
+			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Completion_date_time = ? WHERE Job_ID =?;");
+			Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+			Stm.setInt(2,job_ID);
+			Stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
+	 * adding the payment deadline in the database for valued customers
 	 *
-	 * @param new_priority
-	 * @param new_total_time
-	 * @param new_completion_deadline
-	 * @param new_special_instructions
-	 * @param new_job_status
+	 * @param job_ID
+	 * @param payment_deadline
 	 */
-	public Job(String new_priority, LocalDateTime new_total_time, LocalDateTime new_completion_deadline, String new_special_instructions ,String new_job_status, double new_price, String new_payment_status) {
-		priority = new_priority;
-		total_time = new_total_time;
-		completion_deadline = new_completion_deadline;
-		special_instructions = new_special_instructions;
-		job_status = new_job_status;
-		price = new_price;
-		payment_status = new_payment_status;
+	public static void addPaymentDeadline(int job_ID, LocalDateTime payment_deadline){
+		try {
+			Stm = conn.connect().prepareStatement("UPDATE `bapers`.`Job` SET Payment_deadline = ? WHERE Job_ID =?;");
+			Stm.setTimestamp(1, Timestamp.valueOf(payment_deadline));
+			Stm.setInt(2,job_ID);
+			Stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
