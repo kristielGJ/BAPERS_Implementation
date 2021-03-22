@@ -21,7 +21,7 @@ public class Alert implements I_Alert {
 		this.conn = conn.getConn();
 	}
 
-
+	@Override
 	public void createAlert(String name, String message, LocalDateTime time, int jobId) {
 		try {
 			PreparedStatement st = conn.prepareStatement("INSERT INTO Alert (name, message, time, JobJob_ID) VALUES (?, ?, ?, ?)");
@@ -37,6 +37,24 @@ public class Alert implements I_Alert {
 		}
 	}
 
+	@Override
+	public void update(int id, String name, String message, LocalDateTime time, int jobId) {
+		try {
+			PreparedStatement st = conn.prepareStatement("UPDATE Alert SET name = ?, message = ?, time = ?, jobId = ? WHERE alert_id = ?");
+			st.setString(1, name);
+			st.setString(2, message);
+			st.setTimestamp(3, Timestamp.valueOf(time));
+			st.setInt(4, jobId);
+			st.setInt(5, id);
+			st.executeUpdate();
+			st.close();
+			System.out.println("Updated an alert!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	public ResultSet getAllAlerts() {
 		ResultSet rs = null;
 		try{
@@ -48,6 +66,7 @@ public class Alert implements I_Alert {
 		return rs;
 	}
 
+	@Override
 	public ResultSet retrieveAlert(int id) {
 		ResultSet rs = null;
 		try {
@@ -60,6 +79,7 @@ public class Alert implements I_Alert {
 		return rs;
 	}
 
+	@Override
 	public void removeAlert(int id) {
 		try {
 			PreparedStatement st = conn.prepareStatement("DELETE FROM Alert WHERE id = ?");
