@@ -1,6 +1,8 @@
 package discounts;
 
-import java.time.LocalDateTime;
+import database.DB_Connection;
+import java.sql.PreparedStatement;
+
 
 public class Discount {
 
@@ -11,6 +13,8 @@ public class Discount {
 	private FlexibleDiscount flexible_discount;
 	private TaskDiscount task_discount;
 	private VariableDiscount variableDiscount;
+	private static DB_Connection conn = new DB_Connection();
+	private static PreparedStatement Stm = null;
 
 
 	public Discount(double d_sub_price, double d_discount_rate,String d_discount_type) {
@@ -19,6 +23,38 @@ public class Discount {
 		this.discount_rate=d_discount_rate;
 		this.discount_type=d_discount_type;
 
+	}
+	public static void addDiscount(double discount_rate,double sub_price,String discount_type){
+		Discount apply_discount = new Discount(sub_price,discount_rate,discount_type);
+		if (discount_type =="fixed"){
+			FixedDiscount fixed_discount_1= new FixedDiscount(discount_rate,sub_price);
+
+			ApplyDiscount(fixed_discount_1.getDiscount_rate(),fixed_discount_1.calculatePrice(discount_rate));
+		}
+		else if (discount_type =="flexible"){
+			FlexibleDiscount flexible_discount_1= new FlexibleDiscount(sub_price,discount_rate,"discount bands?");
+
+			ApplyDiscount(flexible_discount_1.getDiscount_rate(), flexible_discount_1.calculatePrice(discount_rate));
+		}
+		else if (discount_type =="variable") {
+			VariableDiscount variable_discount_1 = new VariableDiscount(sub_price,discount_rate);
+
+			ApplyDiscount(variable_discount_1.getDiscount_rate(), variable_discount_1.calculatePrice());
+		}
+		else{
+			ApplyDiscount(0.0, 0.0);
+		}
+	}
+
+	public static void ApplyDiscount(double discount_rate,double total_price) {
+		try {
+			Stm = conn.connect().prepareStatement("INSERT INTO `bapers`.`Job` (`Total_discount`,`Total_price`) VALUES (?,?) ");
+			Stm.setDouble(1,discount_rate);
+			Stm.setDouble(2, total_price);
+			Stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public double getDiscount_rate() {
@@ -68,5 +104,7 @@ public class Discount {
 	public void setSub_price(double sub_price) {
 		this.sub_price = sub_price;
 	}
+
+
 
 }
