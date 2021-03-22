@@ -1,5 +1,9 @@
 package customers;
 
+import database.DB_Connection;
+
+import java.sql.ResultSet;
+
 public class Customer {
 
 	private String customer_name;
@@ -101,9 +105,12 @@ public class Customer {
 	 * @param customer_data
 	 */
 	//database saving, still needs to be done
-	public boolean saveCustomerDetails(int customer_ID, String customer_data) {
-		// TODO - implement Customer.saveCustomerDetails
+	public boolean saveCustomerDetails(int customer_ID, String[] customer_data) {
+		DB_Connection db = new DB_Connection();
+		db.update("INSERT INTO Customer (Customer_name, Account_no, Customer_address, Customer_phone)\n" +
+				"VALUES ('" + customer_data[0] + "', '" + customer_data[1] + "', '"+ customer_data[2] +"', '" + customer_data[3] +"');");
 		throw new UnsupportedOperationException();
 	}
+
 
 }
