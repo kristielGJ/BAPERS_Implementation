@@ -83,7 +83,7 @@ public class Customer {
 	 * 
 	 * @param customerData
 	 */
-	public void updateCustomerDetails(String[] customerData) { //recieve array of Strings called customerData
+	public void updateCustomerDetails(String[] customerData) { //receive array of Strings called customerData
 		if(!customerData[0].isEmpty() && !(customerData[0] == null)){ //test if String in array is empty or null
 			this.customer_name = customerData[0]; //first string should be customer_name set that to local customer_name
 		}
@@ -105,10 +105,15 @@ public class Customer {
 	 * @param customer_data
 	 */
 	//database saving, still needs to be done
+<<<<<<< HEAD
 	public boolean saveCustomerDetails(int customer_ID, String[] customer_data) {
 		DB_Connection db = new DB_Connection();
 		db.update("INSERT INTO Customer (Customer_name, Account_no, Customer_address, Customer_phone)\n" +
 				"VALUES ('" + customer_data[0] + "', '" + customer_data[1] + "', '"+ customer_data[2] +"', '" + customer_data[3] +"');");
+=======
+	public boolean saveCustomerDetails(int customer_ID, String customer_data) {
+		// TODO - implement Customer.saveCustomerDetails (database)
+>>>>>>> c5a5edda7954b58d590efbb983e1ac702798010b
 		throw new UnsupportedOperationException();
 	}
 
