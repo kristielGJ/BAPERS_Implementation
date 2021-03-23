@@ -1,5 +1,7 @@
 package database;
 
+import java.sql.SQLException;
+
 public interface I_Bapers {
 
 	/**
@@ -12,7 +14,7 @@ public interface I_Bapers {
 	 * 
 	 * @param customerData
 	 */
-	abstract int createNewCustomer(String customerData);
+	abstract void createNewCustomer(String[] customerData) throws SQLException;
 
 	/**
 	 * 
@@ -92,7 +94,7 @@ public interface I_Bapers {
 	 * 
 	 * @param customerData
 	 */
-	abstract void updateCustomerDetails(String customerData);
+	abstract void updateCustomerDetails(String[] customerData) throws SQLException;
 
 	/**
 	 * 
