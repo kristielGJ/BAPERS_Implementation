@@ -7,9 +7,14 @@ import jobs.Job;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * Gera Jahja
+ * This class deals deals with the three types of discounts valued customers can have
+ * ApplyDiscount is then called with this new total price and updates the database (See Discount class)
+ *
+ */
 
 public class Discount {
-
 	private static ValuedCustomer customer;
 	private static Job job;
 	private double sub_price;
@@ -48,7 +53,7 @@ public class Discount {
 		else if (discount_type =="variable") {
 			VariableDiscount variable_discount_1 = new VariableDiscount(sub_price_tot,discount_rate);
 			UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
-			ApplyDiscount(discount_rate, variable_discount_1.calculatePrice(discount_rate,sub_price_tot),Acc_no);
+			ApplyDiscount(discount_rate, variable_discount_1.calculatePrice(discount_rate,job.getJob_ID()),Acc_no);
 		}
 		//SELECT Subtotal_price
 		//	FROM Job
@@ -93,7 +98,7 @@ public class Discount {
 			Stm = conn.connect().prepareStatement("UPDATE Job SET Total_discount=?, Total_price=? WHERE Job_ID=? VALUES(?,?,?)");
 			Stm.setDouble(1,discount_rate);
 			Stm.setDouble(2, total_price);
-			Stm.setInt(1,GetJobID(acc_no));
+			Stm.setInt(3,GetJobID(acc_no));
 			Stm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +106,6 @@ public class Discount {
 	}
 	public static void UpdateCustomerDiscount(String discount_type,String flexible_discount_info,int acc_no) {
 		customer.setDiscount_plan(discount_type);
-
 		try {
 			Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_type=?, Flexible_discount=? WHERE Account_no=? Values(?,?,?)");
 			Stm.setString(1,discount_type);

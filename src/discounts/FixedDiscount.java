@@ -21,6 +21,15 @@ public class FixedDiscount extends Discount {
 	 * 
 	 * @param discount_rate
 	 */
+	public double calculatePrice(double discount_rate,double sub_price) {
+		// TODO - implement FixedDiscount.calculatePrice
+		//Discount rate is a percentage
+		double muliplier= 1-(discount_rate/100);
+		//calculate price
+		double TotalPrice= sub_price*muliplier;
+		//return new price
+		return TotalPrice;
+	}
 	public void setDiscount_rate(double discount_rate) {
 		// TODO - implement FixedDiscount.setDiscount_rate
 		throw new UnsupportedOperationException();
@@ -32,13 +41,4 @@ public class FixedDiscount extends Discount {
 	 * @param sub_price
 
 	 */
-	public double calculatePrice(double discount_rate,double sub_price) {
-		// TODO - implement FixedDiscount.calculatePrice
-		//Discount rate is a percentage
-		double muliplier= 1-(discount_rate/100);
-		//calculate price
-		double TotalPrice= sub_price*muliplier;
-		//return new price
-		return TotalPrice;
-	}
 }
