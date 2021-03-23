@@ -1,8 +1,11 @@
 package database;
 
 import admin.Alert;
+import customers.CustomersList;
 
+import javax.swing.text.html.CSS;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Controller implements I_Bapers {
@@ -17,17 +20,23 @@ public class Controller implements I_Bapers {
 	 *
 	 * @param data
 	 */
+	CustomersList cL = new CustomersList(mainConn);
+	public String[] identifyCustomer(int Account_no) throws SQLException {
+		String[] customerData = cL.retrieveCustomer(Account_no);
+		return customerData;
+	}
+
+	@Override
 	public String identifyCustomer(String data) {
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	/**
 	 * 
 	 * @param customerData
 	 */
-	public int createNewCustomer(String customerData) {
-		// TODO - implement Controller.createNewCustomer
-		throw new UnsupportedOperationException();
+	public void createNewCustomer(String[] customerData) throws SQLException {
+		cL.addCustomer(customerData);
 	}
 
 	/**
@@ -157,9 +166,8 @@ public class Controller implements I_Bapers {
 	 * 
 	 * @param customerData
 	 */
-	public void updateCustomerDetails(String customerData) {
-		// TODO - implement Controller.updateCustomerDetails
-		throw new UnsupportedOperationException();
+	public void updateCustomerDetails(String[] customerData) throws SQLException {
+		cL.updateCustomer(customerData);
 	}
 
 	/**
