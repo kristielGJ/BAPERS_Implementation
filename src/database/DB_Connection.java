@@ -140,5 +140,4 @@ public class DB_Connection implements DB_Connectivity {
 			e.printStackTrace();
 		}
 	}
-
 }
