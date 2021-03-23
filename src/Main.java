@@ -9,8 +9,17 @@ import java.util.HashMap;
 public class Main {
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
-        //controller.createAlert(3);
+
+
+        //DB_Connection conn = new DB_Connection();
+        //ResultSet rs = conn.query("select * from Customer");
+        //DB_Connection.printQuery(rs);
+
+        //DB_Connection conn = new DB_Connection();
+        //ResultSet rs = conn.query("select * from Job");
+        //DB_Connection.printQuery(rs);
+        //get subtotal, apply discount then update total price /total discount
     }
+
 
 }
