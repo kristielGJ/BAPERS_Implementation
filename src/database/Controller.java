@@ -37,7 +37,6 @@ public class Controller implements I_Bapers {
 	 */
 	public void createNewCustomer(String[] customerData) throws SQLException {
 		cL.addCustomer(customerData);
-		throw new UnsupportedOperationException();
 	}
 
 	/**
