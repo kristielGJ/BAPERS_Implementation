@@ -29,24 +29,26 @@ public class Discount {
 		this.discount_type=d_discount_type;
 
 	}
-	public static void addDiscount(double discount_rate,double sub_price,String discount_type,int Acc_no){
-		Discount apply_discount = new Discount(sub_price,discount_rate,discount_type);
+	public static void addDiscount(double discount_rate,String discount_type,int Acc_no){
+
+		//Discount apply_discount = new Discount(sub_price,discount_rate,discount_type);
+		double sub_price_tot =GetSubPrice(Acc_no);
 		if (discount_type =="fixed"){
-			FixedDiscount fixed_discount_1= new FixedDiscount(discount_rate,sub_price);
+			FixedDiscount fixed_discount_1= new FixedDiscount(discount_rate,sub_price_tot);
 			UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
-			ApplyDiscount(fixed_discount_1.getDiscount_rate(),fixed_discount_1.calculatePrice(discount_rate,job.getSub_price()),Acc_no);
+			ApplyDiscount(discount_rate,fixed_discount_1.calculatePrice(discount_rate,sub_price_tot),Acc_no);
 		}
 		else if (discount_type =="flexible"){
-			FlexibleDiscount flexible_discount_1= new FlexibleDiscount(sub_price,discount_rate,"discount bands?");
+			FlexibleDiscount flexible_discount_1= new FlexibleDiscount(sub_price_tot,discount_rate,"discount bands?");
 			String info;
 			info= flexible_discount_1.getDiscount_bands() +" ,"+String.valueOf(discount_rate);
 			UpdateCustomerDiscount(discount_type,info,Acc_no);
-			ApplyDiscount(flexible_discount_1.getDiscount_rate(), flexible_discount_1.calculatePrice(discount_rate,job.getSub_price()),Acc_no);
+			ApplyDiscount(discount_rate, flexible_discount_1.calculatePrice(discount_rate,sub_price_tot),Acc_no);
 		}
 		else if (discount_type =="variable") {
-			VariableDiscount variable_discount_1 = new VariableDiscount(sub_price,discount_rate);
+			VariableDiscount variable_discount_1 = new VariableDiscount(sub_price_tot,discount_rate);
 			UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
-			ApplyDiscount(variable_discount_1.getDiscount_rate(), variable_discount_1.calculatePrice(job.getSub_price()),Acc_no);
+			ApplyDiscount(discount_rate, variable_discount_1.calculatePrice(discount_rate,sub_price_tot),Acc_no);
 		}
 		//SELECT Subtotal_price
 		//	FROM Job
@@ -57,6 +59,19 @@ public class Discount {
 		else{
 			ApplyDiscount(0.0, 0.0,Acc_no);
 		}
+	}
+	public static double GetSubPrice(int acc_no) {
+		double original_price=0.0;
+		try {
+			Stm = conn.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE CustomerAccount_no=? Values(?)");
+			Stm.setDouble(1,acc_no);
+			ResultSet rs = Stm.executeQuery();
+			original_price=rs.getDouble(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return original_price;
 	}
 	public static int GetJobID(int acc_no) {
 		int ID=-1;
