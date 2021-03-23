@@ -1,10 +1,15 @@
 package discounts;
 
 import database.DB_Connection;
-import jobs.Job;
 
+/**
+ * Gera Jahja
+ * This class deals with Fixed discounts for valued customers
+ * It calculates the price with the a fixed discount rate applied to the subtotal price of a job from the database
+ * ApplyDiscount is then called with this new total price and updates the database (See Discount class)
+ *
+ */
 public class FixedDiscount extends Discount {
-		//private static Job job_refference = new Job();
 
 
 	public FixedDiscount(double sub_price, double discount_rate) {
@@ -24,6 +29,8 @@ public class FixedDiscount extends Discount {
 	/**
 	 * 
 	 * @param discount_rate
+	 * @param sub_price
+
 	 */
 	public double calculatePrice(double discount_rate,double sub_price) {
 		// TODO - implement FixedDiscount.calculatePrice
