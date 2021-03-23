@@ -13,9 +13,9 @@ public class Customer {
 	private String phone;
 	private DB_Connection conn;
 
-    public Customer() {
+	public Customer() {
 
-    }
+	}
 
 	/**
 	 *
@@ -33,7 +33,7 @@ public class Customer {
 	} //constructor for class
 
 	/**
-	 * 
+	 *
 	 * @param customer_name
 	 */
 	public void setCustomer_name(String customer_name) {
@@ -45,7 +45,7 @@ public class Customer {
 	} //return the value of local String customer_name
 
 	/**
-	 * 
+	 *
 	 * @param acc_no
 	 */
 	public void setAccNo(int acc_no) {
@@ -58,7 +58,7 @@ public class Customer {
 	} //return the value of local int acc_no
 
 	/**
-	 * 
+	 *
 	 * @param address
 	 */
 	public void setAddress(String address) {
@@ -70,7 +70,7 @@ public class Customer {
 	} //return the value of local String address
 
 	/**
-	 * 
+	 *
 	 * @param phone
 	 */
 	public void setPhone(String phone) {
@@ -82,7 +82,7 @@ public class Customer {
 	} //return the value of local String phone
 
 	/**
-	 * 
+	 *
 	 * @param customer_data
 	 */
 	public void updateCustomerDetails(String[] customer_data) { //receive array of Strings called customerData
@@ -92,7 +92,7 @@ public class Customer {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param customer_ID
 	 * @param customer_data
 	 */
