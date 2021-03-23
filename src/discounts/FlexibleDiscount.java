@@ -13,7 +13,7 @@ public class FlexibleDiscount extends Discount {
 	 * 
 	 * @param discount_rate
 	 */
-	public float calculatePrice(double discount_rate) {
+	public float calculatePrice(double discount_rate,double sub_price) {
 		// TODO - implement FlexibleDiscount.calculatePrice
 		throw new UnsupportedOperationException();
 	}

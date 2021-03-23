@@ -1,6 +1,11 @@
 package discounts;
 
+import database.DB_Connection;
+import jobs.Job;
+
 public class FixedDiscount extends Discount {
+		//private static Job job_refference = new Job();
+
 
 	public FixedDiscount(double sub_price, double discount_rate) {
 		super(sub_price, discount_rate, "fixed");
@@ -20,10 +25,13 @@ public class FixedDiscount extends Discount {
 	 * 
 	 * @param discount_rate
 	 */
-	public float calculatePrice(double discount_rate) {
+	public double calculatePrice(double discount_rate,double sub_price) {
 		// TODO - implement FixedDiscount.calculatePrice
-		//get task price from job
-		//calculate and return new price
-		throw new UnsupportedOperationException();
+		//Discount rate is a percentage
+		double muliplier= 1-(discount_rate/100);
+		//calculate price
+		double TotalPrice= sub_price*muliplier;
+		//return new price
+		return TotalPrice;
 	}
 }

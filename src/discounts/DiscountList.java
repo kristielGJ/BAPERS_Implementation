@@ -41,7 +41,6 @@ public class DiscountList {
 		//return discount.
 		return Ref_Discount_Double;
 
-		//throw new UnsupportedOperationException();
 	}
 
 	public DiscountList( VariableDiscount var_discount) {
