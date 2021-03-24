@@ -30,7 +30,7 @@ public class CreateCustomerAccount extends JPanel {
 		setLayout(null);
 
 		save_button = new JButton();
-		save_button.setFont(new Font("Ariel", Font.BOLD, 18));
+		save_button.setFont(new Font("Tahoma", Font.BOLD, 16));
 		save_button.setForeground(Color.white);
 		save_button.setBackground(new Color(1, 23, 71));
 		save_button.setText("Register Customer");
@@ -55,33 +55,33 @@ public class CreateCustomerAccount extends JPanel {
 		add(phone_input);
 
 		custLabel = new JLabel();
-		custLabel.setFont(new Font("Ariel", Font.BOLD, 14));
+		custLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		custLabel.setText("Customer Name");
 		custLabel.setBounds((width / 2) - (width / 4), height / 4, width / 5, height / 15);
 		add(custLabel);
 
 		accLabel = new JLabel();
-		accLabel.setFont(new Font("Ariel", Font.BOLD, 14));
+		accLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		accLabel.setText("Account Number");
 		accLabel.setBounds((width / 2) - (width / 4), height / 4 + height / 12, width / 5, height / 15);
 		add(accLabel);
 
 		addLabel = new JLabel();
-		addLabel.setFont(new Font("Ariel", Font.BOLD, 14));
+		addLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		addLabel.setText("Customer Address");
 		addLabel.setBounds((width / 2) - (width / 4), height / 4 + height / 6, width / 5, height / 15);
 		add(addLabel);
 
 		phoneLabel = new JLabel();
-		phoneLabel.setFont(new Font("Ariel", Font.BOLD, 14));
+		phoneLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		phoneLabel.setText("Customer Phone Number");
-		phoneLabel.setBounds((width / 2) - (width / 4), height / 2, width / 4, height / 15);
+		phoneLabel.setBounds((width / 2) - (width / 4), height / 2, width / 4 + 50, height / 15);
 		add(phoneLabel);
 
 		custAccLabel = new JLabel();
-		custAccLabel.setFont(new Font("Ariel", Font.BOLD, 30));
+		custAccLabel.setFont(new Font("Tahoma", Font.BOLD, 36));
 		custAccLabel.setForeground(new Color(1, 23, 71));
-		custAccLabel.setText("Customer Account");
+		custAccLabel.setText("Create Customer Account");
 		custAccLabel.setHorizontalTextPosition(JLabel.CENTER);
 		custAccLabel.setBounds((width / 2) - (width / 6), 0, width / 2, height / 4);
 		add(custAccLabel);

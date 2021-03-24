@@ -6,9 +6,9 @@ public interface I_Bapers {
 
 	/**
 	 * 
-	 * @param data
+	 * @param Account_no
 	 */
-	abstract String identifyCustomer(String data);
+	abstract String[] identifyCustomer(int Account_no) throws SQLException;
 
 	/**
 	 * 

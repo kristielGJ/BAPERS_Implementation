@@ -18,17 +18,12 @@ public class Controller implements I_Bapers {
 
 	/**
 	 *
-	 * @param data
+	 * @param Account_no
 	 */
 	CustomersList cL = new CustomersList(mainConn);
 	public String[] identifyCustomer(int Account_no) throws SQLException {
 		String[] customerData = cL.retrieveCustomer(Account_no);
 		return customerData;
-	}
-
-	@Override
-	public String identifyCustomer(String data) {
-		return null;
 	}
 
 	/**
