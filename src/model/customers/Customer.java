@@ -1,15 +1,21 @@
 package model.customers;
 
+import database.DB_Connection;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Customer {
 
 	private String customer_name;
 	private int acc_no;
 	private String address;
 	private String phone;
+	private DB_Connection conn;
 
-    public Customer() {
+	public Customer() {
 
-    }
+	}
 
 	/**
 	 *
@@ -18,16 +24,16 @@ public class Customer {
 	 * @param address
 	 * @param phone
 	 */
-	public Customer(String customer_name, int acc_no, String address, String phone) {
+	public Customer(DB_Connection conn,String customer_name, int acc_no, String address, String phone) {
+		this.conn = conn;
 		this.customer_name = customer_name;
 		this.acc_no = acc_no;
 		this.address = address;
 		this.phone = phone;
-		throw new UnsupportedOperationException();
 	} //constructor for class
 
 	/**
-	 * 
+	 *
 	 * @param customer_name
 	 */
 	public void setCustomer_name(String customer_name) {
@@ -39,7 +45,7 @@ public class Customer {
 	} //return the value of local String customer_name
 
 	/**
-	 * 
+	 *
 	 * @param acc_no
 	 */
 	public void setAccNo(int acc_no) {
@@ -52,7 +58,7 @@ public class Customer {
 	} //return the value of local int acc_no
 
 	/**
-	 * 
+	 *
 	 * @param address
 	 */
 	public void setAddress(String address) {
@@ -64,7 +70,7 @@ public class Customer {
 	} //return the value of local String address
 
 	/**
-	 * 
+	 *
 	 * @param phone
 	 */
 	public void setPhone(String phone) {
@@ -76,34 +82,28 @@ public class Customer {
 	} //return the value of local String phone
 
 	/**
-	 * 
-	 * @param customerData
+	 *
+	 * @param customer_data
 	 */
-	public void updateCustomerDetails(String[] customerData) { //receive array of Strings called customerData
-		if(!customerData[0].isEmpty() && !(customerData[0] == null)){ //test if String in array is empty or null
-			this.customer_name = customerData[0]; //first string should be customer_name set that to local customer_name
-		}
-		if(!customerData[1].isEmpty() && !(customerData[1] == null)) { //test if String in array is empty or null
-			this.acc_no = Integer.parseInt(customerData[1]);  //first string should be acc_no set that to local acc_no after obtaining integer value from string
-		}
-		if(!customerData[2].isEmpty() && !(customerData[2] == null)) { //test if String in array is empty or null
-			this.address = customerData[2]; //first string should be customer_name set that to local customer_name
-		}
-		if(!customerData[3].isEmpty() && !(customerData[3] == null)) { //test if String in array is empty or null
-			this.phone = customerData[3]; //first string should be customer_name set that to local customer_name
-		}
-		throw new UnsupportedOperationException();
+	public void updateCustomerDetails(String[] customer_data) { //receive array of Strings called customerData
+		conn.update("UPDATE Customer\n" +
+				"SET Customer_name = '"+ customer_data[0] + "', Account_no = '" + customer_data[1] +"', Customer_address = '" + customer_data[2] +"', Customer_phone = '" + customer_data[3] +"'\n" +
+				"WHERE Account_no = " + customer_data[1]);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param customer_ID
 	 * @param customer_data
 	 */
-	//model.database saving, still needs to be done
-	public boolean saveCustomerDetails(int customer_ID, String customer_data) {
-		// TODO - implement Customer.saveCustomerDetails (model.database)
-		throw new UnsupportedOperationException();
+	public void saveCustomerDetails(int customer_ID, String[] customer_data) throws SQLException {
+		ResultSet rS = conn.query("SELECT * FROM Customer WHERE Account_no = " + customer_ID);
+		if(!rS.next()) {
+			conn.update("INSERT INTO Customer (Customer_name, Account_no, Customer_address, Customer_phone, Customer_type)\n" +
+					"VALUES ('" + customer_data[0] + "', '" + customer_data[1] + "', '" + customer_data[2] + "', '" + customer_data[3] + "', 'Unvalued');");
+		}
 	}
+
+
 
 }

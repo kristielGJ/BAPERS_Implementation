@@ -2,7 +2,9 @@ package model.database;
 
 import model.admin.alert.Alert;
 
+import javax.swing.text.html.CSS;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Controller implements I_Bapers {
@@ -17,17 +19,20 @@ public class Controller implements I_Bapers {
 	 *
 	 * @param data
 	 */
-	public String identifyCustomer(String data) {
+	public String[] identifyCustomer(int Account_no) throws SQLException {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String identifyCustomer(String data) {
+		return null;
 	}
 
 	/**
 	 * 
 	 * @param customerData
 	 */
-	public int createNewCustomer(String customerData) {
-		// TODO - implement Controller.createNewCustomer
-		throw new UnsupportedOperationException();
+	public void createNewCustomer(String[] customerData) throws SQLException {
 	}
 
 	/**
@@ -147,9 +152,8 @@ public class Controller implements I_Bapers {
 	 * 
 	 * @param customerData
 	 */
-	public void updateCustomerDetails(String customerData) {
-		// TODO - implement Controller.updateCustomerDetails
-		throw new UnsupportedOperationException();
+	public void updateCustomerDetails(String[] customerData) throws SQLException {
+		cL.updateCustomer(customerData);
 	}
 
 	/**
