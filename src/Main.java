@@ -1,16 +1,20 @@
-import database.Controller;
-import database.DB_Connection;
+import model.Model;
+import model.admin.alert.Alert;
+import model.admin.alert.transaction.AlertTransaction;
+import model.admin.userAccount.UserAccount;
+import model.database.DB_Connection;
 
-import java.beans.Statement;
-import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
-        //controller.createAlert(3);
+        AlertTransaction alertTransaction = new AlertTransaction(new DB_Connection());
+        Alert alert = alertTransaction.create("payment", "TEST2", LocalDateTime.now(), 3);
+        alert = alertTransaction.update(alert.getId(), "job", "TEST3", LocalDateTime.now(), 2);
+        alert = alertTransaction.read(alert.getId());
+        System.out.println(alert.getName());
     }
 
 }
