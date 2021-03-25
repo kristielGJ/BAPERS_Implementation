@@ -6,4 +6,5 @@ src/.idea/
 *.class
 *.iml
 *.xml
-src/database/Secrets.java
+src/Main.java
+src/model/database/Secrets.java
