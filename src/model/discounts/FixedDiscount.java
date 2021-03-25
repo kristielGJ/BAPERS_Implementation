@@ -1,6 +1,6 @@
 package model.discounts;
 
-import database.DB_Connection;
+import model.database.DB_Connection;
 
 /**
  * Gera Jahja

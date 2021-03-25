@@ -15,6 +15,8 @@ public class Controller implements I_Bapers {
 
 	}
 
+
+
 	/**
 	 *
 	 * @param Account_no
@@ -28,6 +30,7 @@ public class Controller implements I_Bapers {
 	 * @param customerData
 	 */
 	public void createNewCustomer(String[] customerData) throws SQLException {
+
 	}
 
 	/**
@@ -145,10 +148,12 @@ public class Controller implements I_Bapers {
 
 	/**
 	 * 
-	 * @param customerData
+	 * @param name
+	 * @param Acc_no
+	 * @param Address
+	 * @param Phone
 	 */
-	public void updateCustomerDetails(String[] customerData) throws SQLException {
-		cL.updateCustomer(customerData);
+	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException {
 	}
 
 	/**

@@ -1,6 +1,8 @@
 package GUI;
-import customers.Customer;
-import database.Controller;
+import model.customers.Customer;
+import model.customers.transaction.CustomersTransaction;
+import model.database.Controller;
+import model.database.DB_Connection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,18 +14,23 @@ public class RegularCustomer extends JPanel {
 
 	private String customerName, accNo, CustomerAddress, CustomerPhone;
 	private JLabel customer_name, acc_no, address, phone, custLabel, accLabel, addLabel, phoneLabel, custDetLabel;
-	private JComboBox menuBox;
-	private JButton updateButton, addJobButton;
+	private JButton updateButton, addJobButton, backButton;
+	private CustomersTransaction cT = new CustomersTransaction(new DB_Connection());
+	private GUI f;
+	private JPanel lastPanel;
 
-
-	public RegularCustomer(int width, int height, String[] customerData) {
+	public RegularCustomer(int width, int height, String[] customerData, GUI f) {
 		this.customerName = customerData[0];
 		this.accNo = customerData[1];
 		this.CustomerAddress = customerData[2];
 		this.CustomerPhone = customerData[3];
+		this.f = f;
+		this.lastPanel = f.getCurrentPanel();
+		f.setLastPanel(lastPanel);
+		f.setCurrentPanel(this);
 
 		setSize(width, height);
-		setName("Create Customer Account");
+		setName("Customer Details");
 		setBackground(new Color(157, 195, 230));
 		setLayout(null);
 
@@ -101,18 +108,49 @@ public class RegularCustomer extends JPanel {
 		custDetLabel.setBounds((width / 2) - (width / 3), 0, (width / 3) * 2, height / 4);
 		add(custDetLabel);
 
-
-		String[] menuS = {"Menu", "Go Back", "Log Out"};
-		menuBox = new JComboBox(menuS);
-		menuBox.setBounds(width - (width / 5), 0, width / 6, height / 15);
-		add(menuBox);
+		backButton = new JButton();
+		backButton.setBounds(width - (width / 5), 0, width / 6, height / 15);
+		backButton.setText("Back");
+		backButton.addMouseListener(new backListener());
+		add(backButton);
 	}
 
+	class backListener implements MouseListener {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			f.setLastPanel(lastPanel);
+			f.getLastPanel().setVisible(true);
+			f.remove(f.getCurrentPanel());
+			f.setCurrentPanel(lastPanel);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+	}
 
 	class updateListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-
+			String[] cD = {customerName,accNo,CustomerAddress,CustomerPhone};
+			f.updateCustomer(cD);
+			setVisible(false);
 		}
 
 		@Override

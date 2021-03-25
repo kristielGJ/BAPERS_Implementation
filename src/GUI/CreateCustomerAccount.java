@@ -1,5 +1,9 @@
 package GUI;
-import database.Controller;
+import model.Utils;
+import model.customers.Customer;
+import model.customers.transaction.CustomersTransaction;
+import model.database.Controller;
+import model.database.DB_Connection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +16,7 @@ public class CreateCustomerAccount extends JPanel {
 
 	private JButton save_button;
 	private JTextField customer_name_input;
-	private JTextField acc_no_input;
+	private JTextField acc_no;
 	private JTextField address_input;
 	private JTextField phone_input;
 	private JLabel custLabel;
@@ -20,14 +24,20 @@ public class CreateCustomerAccount extends JPanel {
 	private JLabel addLabel;
 	private JLabel phoneLabel;
 	private JLabel custAccLabel;
-	private JComboBox menuBox;
+	private JButton backButton;
+	private JButton logOutButton;
+	private CustomersTransaction cT = new CustomersTransaction(new DB_Connection());
+	private GUI f;
+	private JPanel lastPanel;
 
-
-	public CreateCustomerAccount(int width, int height) {
+	public CreateCustomerAccount(int width, int height, GUI f) {
 		setSize(width, height);
 		setName("Create Customer Account");
 		setBackground(new Color(157, 195, 230));
 		setLayout(null);
+		this.f = f;
+		this.lastPanel = f.getCurrentPanel();
+		f.setCurrentPanel(this);
 
 		save_button = new JButton();
 		save_button.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -42,9 +52,11 @@ public class CreateCustomerAccount extends JPanel {
 		customer_name_input.setBounds((width / 2) + (width / 16), height / 4, width / 5, height / 15);
 		add(customer_name_input);
 
-		acc_no_input = new JTextField();
-		acc_no_input.setBounds((width / 2) + (width / 16), height / 4 + height / 12, width / 5, height / 15);
-		add(acc_no_input);
+		acc_no = new JTextField();
+		acc_no.setEditable(false);
+		acc_no.setText(Integer.toString(cT.getLastAccNo() + 1));
+		acc_no.setBounds((width / 2) + (width / 16), height / 4 + height / 12, width / 5, height / 15);
+		add(acc_no);
 
 		address_input = new JTextField();
 		address_input.setBounds((width / 2) + (width / 16), height / 4 + height / 6, width / 5, height / 15);
@@ -79,31 +91,30 @@ public class CreateCustomerAccount extends JPanel {
 		add(phoneLabel);
 
 		custAccLabel = new JLabel();
-		custAccLabel.setFont(new Font("Tahoma", Font.BOLD, 36));
+		custAccLabel.setFont(new Font("Tahoma", Font.BOLD, 34));
 		custAccLabel.setForeground(new Color(1, 23, 71));
 		custAccLabel.setText("Create Customer Account");
-		custAccLabel.setHorizontalTextPosition(JLabel.CENTER);
-		custAccLabel.setBounds((width / 2) - (width / 6), 0, width / 2, height / 4);
+		custAccLabel.setHorizontalAlignment(JLabel.CENTER);
+		custAccLabel.setBounds(0, 0, width, height / 4);
 		add(custAccLabel);
 
 
-		String[] menuS = {"Menu", "Go Back", "Log Out"};
-		menuBox = new JComboBox(menuS);
-		menuBox.setBounds(width - (width / 7), 0, width / 8, height / 15);
-		add(menuBox);
+		backButton = new JButton();
+		backButton.setText("Menu");
+		backButton.setBounds(width - (width / 7), 0, width / 8, height / 15);
+		backButton.addMouseListener(new backListener());
+		add(backButton);
 	}
 
 
 	class saveListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (!customer_name_input.getText().isEmpty() && !acc_no_input.getText().isEmpty() && !address_input.getText().isEmpty() && !phone_input.getText().isEmpty()) {
-				String[] customerData = {customer_name_input.getText(), acc_no_input.getText(), address_input.getText(), phone_input.getText()};
+			if (!customer_name_input.getText().isEmpty() && !acc_no.getText().isEmpty() && !address_input.getText().isEmpty() && !phone_input.getText().isEmpty()) {
 				try {
-					Controller cL = new Controller();
-					cL.createNewCustomer(customerData);
-				} catch (SQLException throwables) {
-					throwables.printStackTrace();
+					cT.addCustomer(customer_name_input.getText(),address_input.getText(),phone_input.getText());
+				} catch (Exception eX) {
+					eX.printStackTrace();
 				}
 			}
 		}
@@ -128,4 +139,35 @@ public class CreateCustomerAccount extends JPanel {
 
 		}
 	}
+
+	class backListener implements MouseListener {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			f.setLastPanel(lastPanel);
+			f.getLastPanel().setVisible(true);
+			f.remove(f.getCurrentPanel());
+			f.setCurrentPanel(lastPanel);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+	}
+
 }

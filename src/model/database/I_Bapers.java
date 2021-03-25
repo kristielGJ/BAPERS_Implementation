@@ -91,10 +91,13 @@ public interface I_Bapers {
 	abstract void updateExistingTask(int existing_task_ID);
 
 	/**
-	 * 
-	 * @param customerData
+	 *
+	 * @param name
+	 * @param Acc_no
+	 * @param Address
+	 * @param Phone
 	 */
-	abstract void updateCustomerDetails(String[] customerData) throws SQLException;
+	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException;
 
 	/**
 	 * 

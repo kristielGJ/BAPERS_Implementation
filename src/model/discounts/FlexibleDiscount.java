@@ -1,6 +1,6 @@
 package model.discounts;
 
-import database.DB_Connection;
+import model.database.DB_Connection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
