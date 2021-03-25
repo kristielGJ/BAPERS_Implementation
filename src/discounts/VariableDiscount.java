@@ -30,9 +30,7 @@ public class VariableDiscount extends Discount {
 		//SELECT Price FROM Task_Catalog WHERE Task_CatalogCatalog_ID=1
 		for (ResultSet i: price_list) {
 			System.out.println(i);//test
-
 			Double DoublePrice = Double.parseDouble(String.valueOf(i));
-
 			// TODO test if ref number is able to locate the corresponding discount
 			//convert TaskDis_Ref to a string so we can search the array list
 			String Ref_String = String.valueOf(Job_ID);
@@ -60,18 +58,18 @@ public class VariableDiscount extends Discount {
 			ResultSet rs = Stm.executeQuery();//get the Job_ID
 
 			while (rs.next()) {
-				Stm = conn.prepareStatement("SELECT Task_CatalogCatalog_ID FROM Task WHERE Task_ID=? VALUES(?)");
+				Stm = conn.prepareStatement("SELECT Task_CatalogCatalog_ID FROM Task WHERE Task_ID=?");
 				Stm.setString(1, String.valueOf(rs));
 				ResultSet rs2 = Stm.executeQuery();//get prices using these task catalog Id's
 
 				//UPDATE Task SET Discount_rate=0 WHERE Task_ID=1
-				Stm = conn1.connect().prepareStatement("UPDATE Task SET Discount_rate=? WHERE Task_ID=1=? VALUES(?,?)");
+				Stm = conn1.connect().prepareStatement("UPDATE Task SET Discount_rate=? WHERE Task_ID=1=?");
 				Stm.setDouble(1,discount_rate);
 				Stm.setString(2,String.valueOf(rs));
 				Stm.executeUpdate();// update discounts in task table
 
 				while (rs2.next()) {
-					Stm = conn.prepareStatement("SELECT Price FROM Task_Catalog WHERE Catalog_ID=? VALUES(?)");
+					Stm = conn.prepareStatement("SELECT Price FROM Task_Catalog WHERE Catalog_ID=?");
 					Stm.setString(1, String.valueOf(rs2));
 					ResultSet rs3 = Stm.executeQuery();//get prices and update discount in task!
 					while (rs3.next()) {

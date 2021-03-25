@@ -37,7 +37,9 @@ public class Discount {
 	public static void addDiscount(double discount_rate,String discount_type,int Acc_no){
 
 		//Discount apply_discount = new Discount(sub_price,discount_rate,discount_type);
-		double sub_price_tot =GetSubPrice(Acc_no);
+		double sub_price_tot;
+		sub_price_tot=GetSubPrice(Acc_no);
+
 		if (discount_type =="fixed"){
 			FixedDiscount fixed_discount_1= new FixedDiscount(discount_rate,sub_price_tot);
 			UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
@@ -66,36 +68,44 @@ public class Discount {
 		}
 	}
 	public static double GetSubPrice(int acc_no) {
-		double original_price=0.0;
+		double original_price = 0;
 		try {
-			Stm = conn.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE CustomerAccount_no=? Values(?)");
-			Stm.setDouble(1,acc_no);
+			Stm = conn.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE CustomerAccount_no=?");
+			Stm.setInt(1,acc_no);
 			ResultSet rs = Stm.executeQuery();
-			original_price=rs.getDouble(1);
+			while(rs.next()){
+				original_price+=rs.getDouble(1);
+				//DB_Connection.printQuery(rs);
+				//System.out.println(rs.getDouble(1));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		//System.out.println(original_price);
 		return original_price;
 	}
 	public static int GetJobID(int acc_no) {
-		int ID=-1;
+		int ID=0;
 		try {
-			Stm = conn.connect().prepareStatement("SELECT Job_ID FROM Job WHERE CustomerAccount_no=? Values(?)");
+			Stm = conn.connect().prepareStatement("SELECT Job_ID FROM Job WHERE CustomerAccount_no=?");
 			Stm.setInt(1,acc_no);
 			ResultSet rs = Stm.executeQuery();
-			ID=rs.getInt(1);
+			while(rs.next()){
+				ID=rs.getInt(1);
+				//your code sucks fix it ... there are several job ID's
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(ID);
 		return ID;
 	}
 
 
 	public static void ApplyDiscount(double discount_rate,double total_price, int acc_no) {
+		//System.out.println(total_price);
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE Job SET Total_discount=?, Total_price=? WHERE Job_ID=? VALUES(?,?,?)");
+			Stm = conn.connect().prepareStatement("UPDATE Job SET Total_discount=?, Total_price=? WHERE Job_ID=?");
 			Stm.setDouble(1,discount_rate);
 			Stm.setDouble(2, total_price);
 			Stm.setInt(3,GetJobID(acc_no));
@@ -105,9 +115,9 @@ public class Discount {
 		}
 	}
 	public static void UpdateCustomerDiscount(String discount_type,String flexible_discount_info,int acc_no) {
-		customer.setDiscount_plan(discount_type);
+		//customer.setDiscount_plan(discount_type);
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_type=?, Flexible_discount=? WHERE Account_no=? Values(?,?,?)");
+			Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_type=?, Flexible_discount=? WHERE Account_no=?");
 			Stm.setString(1,discount_type);
 			//string of format (lower_bound, higher_bound, discount_rate)
 			Stm.setString(2, flexible_discount_info);

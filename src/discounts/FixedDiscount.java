@@ -14,7 +14,6 @@ public class FixedDiscount extends Discount {
 
 	public FixedDiscount(double sub_price, double discount_rate) {
 		super(sub_price, discount_rate, "fixed");
-		throw new UnsupportedOperationException();
 	}
 
 	/**
