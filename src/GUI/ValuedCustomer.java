@@ -1,9 +1,9 @@
 package GUI;
-import java.awt.*;
+import javax.swing.*;
 
-public class ValuedCustomer extends Customer {
+public class ValuedCustomer extends JFrame {
 
-	private Button add_discount_plan;
+	private JButton add_discount_plan;
 
 	public ValuedCustomer() {
 		// TODO - implement ValuedCustomer.ValuedCustomer

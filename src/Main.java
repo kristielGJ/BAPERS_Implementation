@@ -1,3 +1,4 @@
+import GUI.GUI;
 import model.Model;
 import model.admin.alert.Alert;
 import model.admin.alert.transaction.AlertTransaction;
@@ -11,9 +12,10 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        Discount discount_test = null;
-        discount_test.addDiscount(2.0,"fixed",1);
-
+        GUI f = new GUI(800,500);
+        String[] cD = {"2", "3","4","5"};
+        f.regularCustomer(cD);
+        f.setVisible(true);
     }
 
 
