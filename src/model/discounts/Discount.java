@@ -1,5 +1,9 @@
 package model.discounts;
 
+import model.customers.ValuedCustomer;
+import model.database.DB_Connection;
+import model.jobs.Job;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 

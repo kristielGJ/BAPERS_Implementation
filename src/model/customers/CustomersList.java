@@ -1,6 +1,6 @@
 package model.customers;
 
-import database.DB_Connection;
+import model.database.DB_Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
