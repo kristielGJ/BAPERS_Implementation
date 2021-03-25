@@ -6,6 +6,12 @@ public class DiscountList {
 	public ArrayList<String> discount_list = new ArrayList<String>();
 	public ArrayList<String> discount_ref_list = new ArrayList<String>();
 	private VariableDiscount variableDiscount;
+
+	public DiscountList(ArrayList<String> discount_list,ArrayList<String> discount_ref_list ) {
+		this.discount_list = discount_list;
+		this.discount_ref_list = discount_ref_list;
+
+	}
 	//private Vector<Discount> discountVector = new Vector<Discount>();
 	/**
 	 *

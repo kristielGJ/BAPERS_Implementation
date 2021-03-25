@@ -17,7 +17,6 @@ public class Controller implements I_Bapers {
 
 	/**
 	 *
-	 * @param data
 	 */
 	public String[] identifyCustomer(int Account_no) throws SQLException {
 		throw new UnsupportedOperationException();
@@ -153,7 +152,7 @@ public class Controller implements I_Bapers {
 	 * @param customerData
 	 */
 	public void updateCustomerDetails(String[] customerData) throws SQLException {
-		cL.updateCustomer(customerData);
+		//cL.updateCustomer(customerData);
 	}
 
 	/**
