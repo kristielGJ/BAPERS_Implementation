@@ -22,6 +22,7 @@ public class VariableDiscount extends Discount {
 	private Connection conn = db.connect();
 	private static DB_Connection conn1 = new DB_Connection();
 	private static PreparedStatement Stm = null;
+	private static PreparedStatement Stm_1 = null;
 	double Total_Price;
 
 
@@ -47,31 +48,30 @@ public class VariableDiscount extends Discount {
 		//throw new UnsupportedOperationException();
 	}
 
-	public VariableDiscount(double sub_price, double discount_rate) {
-		super(sub_price, discount_rate, "variable");
-		throw new UnsupportedOperationException();
+	public VariableDiscount(double discount_rate) {
+		super(discount_rate, "variable");
 	}
 
 	public void setDiscount_rate(int Job_ID ,double discount_rate) {
 		try {
-			Stm = conn.prepareStatement("SELECT Task_ID FROM Task WHERE JobJob_ID=? VALUES(?)");
-			Stm.setString(1, String.valueOf(Job_ID));
+			Stm = conn.prepareStatement("SELECT Task_ID FROM Task WHERE JobJob_ID=?");
+			Stm.setInt(1, Job_ID);
 			ResultSet rs = Stm.executeQuery();//get the Job_ID
 
 			while (rs.next()) {
 				Stm = conn.prepareStatement("SELECT Task_CatalogCatalog_ID FROM Task WHERE Task_ID=?");
-				Stm.setString(1, String.valueOf(rs));
+				Stm.setInt(1, rs.getInt(1));
 				ResultSet rs2 = Stm.executeQuery();//get prices using these task catalog Id's
 
 				//UPDATE Task SET Discount_rate=0 WHERE Task_ID=1
-				Stm = conn1.connect().prepareStatement("UPDATE Task SET Discount_rate=? WHERE Task_ID=1=?");
-				Stm.setDouble(1,discount_rate);
-				Stm.setString(2,String.valueOf(rs));
-				Stm.executeUpdate();// update discounts in task table
+				Stm_1 = conn1.connect().prepareStatement("UPDATE Task SET Discount_rate=? WHERE Task_ID=?");
+				Stm_1.setDouble(1,discount_rate);
+				Stm_1.setInt(2, rs.getInt(1));
+				Stm_1.executeUpdate();// update discounts in task table
 
 				while (rs2.next()) {
 					Stm = conn.prepareStatement("SELECT Price FROM Task_Catalog WHERE Catalog_ID=?");
-					Stm.setString(1, String.valueOf(rs2));
+					Stm.setInt(1, rs2.getInt(1));
 					ResultSet rs3 = Stm.executeQuery();//get prices and update discount in task!
 					while (rs3.next()) {
 						//Make a price list for calculate price to use with discount list
@@ -85,7 +85,7 @@ public class VariableDiscount extends Discount {
 			e.printStackTrace();
 		}
 
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
 	}
 
 	public DiscountList getDiscount_list() {
