@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import com.formdev.flatlaf.FlatLightLaf;
+//import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JFrame;
 
 /**
@@ -15,13 +15,13 @@ import javax.swing.JFrame;
 public class Main {
     
     public static void main(String[] args) {
-        FlatLightLaf.install();
+        /**FlatLightLaf.install();
         JFrame f = new JFrame();
         f.add(new UserManagement());
         //498,320
         f.setSize(800,500);
         f.setResizable(false);
-        f.setVisible(true);
+        f.setVisible(true);**/
     }
     
 }
