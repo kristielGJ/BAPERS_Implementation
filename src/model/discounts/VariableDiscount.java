@@ -67,7 +67,7 @@ public class VariableDiscount extends Discount {
 				//UPDATE Task SET Discount_rate=0 WHERE Task_ID=1
 				Stm = conn1.connect().prepareStatement("UPDATE Task SET Discount_rate=? WHERE Task_ID=1=? VALUES(?,?)");
 				Stm.setDouble(1,discount_rate);
-				Stm.setString(2,String.valueOf(rs));
+				Stm.setString(2,);
 				Stm.executeUpdate();// update discounts in task table
 
 				while (rs2.next()) {
