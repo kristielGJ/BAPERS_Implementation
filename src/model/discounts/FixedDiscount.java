@@ -12,9 +12,8 @@ import model.database.DB_Connection;
 public class FixedDiscount extends Discount {
 
 
-	public FixedDiscount(double sub_price, double discount_rate) {
-		super(sub_price, discount_rate, "fixed");
-		throw new UnsupportedOperationException();
+	public FixedDiscount(double discount_rate) {
+		super(discount_rate, "fixed");
 	}
 
 	/**
@@ -24,9 +23,9 @@ public class FixedDiscount extends Discount {
 	public double calculatePrice(double discount_rate,double sub_price) {
 		// TODO - implement FixedDiscount.calculatePrice
 		//Discount rate is a percentage
-		double muliplier= 1-(discount_rate/100);
+		double multiplier= 1-(discount_rate/100);
 		//calculate price
-		double TotalPrice= sub_price*muliplier;
+		double TotalPrice= sub_price*multiplier;
 		//return new price
 		return TotalPrice;
 	}

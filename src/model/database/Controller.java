@@ -15,14 +15,16 @@ public class Controller implements I_Bapers {
 
 	}
 
-
-
 	/**
 	 *
-	 * @param Account_no
 	 */
 	public String[] identifyCustomer(int Account_no) throws SQLException {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String identifyCustomer(String data) {
+		return null;
 	}
 
 	/**
@@ -30,7 +32,6 @@ public class Controller implements I_Bapers {
 	 * @param customerData
 	 */
 	public void createNewCustomer(String[] customerData) throws SQLException {
-
 	}
 
 	/**
@@ -148,12 +149,10 @@ public class Controller implements I_Bapers {
 
 	/**
 	 * 
-	 * @param name
-	 * @param Acc_no
-	 * @param Address
-	 * @param Phone
+	 * @param customerData
 	 */
-	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException {
+	public void updateCustomerDetails(String[] customerData) throws SQLException {
+		//cL.updateCustomer(customerData);
 	}
 
 	/**
