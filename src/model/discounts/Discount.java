@@ -1,7 +1,12 @@
 package model.discounts;
 
+import model.customers.ValuedCustomer;
+import model.database.DB_Connection;
+import model.jobs.job.Job;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  * Gera Jahja
@@ -21,11 +26,14 @@ public class Discount {
 	private VariableDiscount variableDiscount;
 	private static DB_Connection conn = new DB_Connection();
 	private static PreparedStatement Stm = null;
+	private static PreparedStatement Stm_1 = null;
+	public static ArrayList<Integer> Job_IDS = new ArrayList<Integer>();
+	public static ArrayList<Double> prices_list = new ArrayList<Double>();
 
 
-	public Discount(double d_sub_price, double d_discount_rate,String d_discount_type) {
+
+	public Discount(double d_discount_rate,String d_discount_type) {
 		// TODO - implement Discount.Discount
-		this.sub_price=d_sub_price;
 		this.discount_rate=d_discount_rate;
 		this.discount_type=d_discount_type;
 
@@ -33,77 +41,97 @@ public class Discount {
 	public static void addDiscount(double discount_rate,String discount_type,int Acc_no){
 
 		//Discount apply_discount = new Discount(sub_price,discount_rate,discount_type);
-		double sub_price_tot =GetSubPrice(Acc_no);
-		if (discount_type =="fixed"){
-			FixedDiscount fixed_discount_1= new FixedDiscount(discount_rate,sub_price_tot);
-			UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
-			ApplyDiscount(discount_rate,fixed_discount_1.calculatePrice(discount_rate,sub_price_tot),Acc_no);
-		}
-		else if (discount_type =="flexible"){
-			FlexibleDiscount flexible_discount_1= new FlexibleDiscount(sub_price_tot,discount_rate,"discount bands?");
-			String info;
-			info= flexible_discount_1.getDiscount_bands() +" ,"+String.valueOf(discount_rate);
-			UpdateCustomerDiscount(discount_type,info,Acc_no);
-			ApplyDiscount(discount_rate, flexible_discount_1.calculatePrice(discount_rate,sub_price_tot),Acc_no);
-		}
-		else if (discount_type =="variable") {
-			VariableDiscount variable_discount_1 = new VariableDiscount(sub_price_tot,discount_rate);
-			UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
-			ApplyDiscount(discount_rate, variable_discount_1.calculatePrice(discount_rate,job.getJob_ID()),Acc_no);
-		}
-		//SELECT Subtotal_price
-		//	FROM Job
-		//	WHERE Job_ID=1
-		//
+		GetJobID(Acc_no);
+		double sub_price=0.0;
 
+		for (Integer i: Job_IDS) {
+			sub_price= GetSubPrice(i);
+			//for (double sub_price: prices_list) {
 
-		else{
-			ApplyDiscount(0.0, 0.0,Acc_no);
+			if (discount_type =="fixed"){
+				FixedDiscount fixed_discount_1= new FixedDiscount(discount_rate);
+				//UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
+				ApplyDiscount(discount_rate,fixed_discount_1.calculatePrice(discount_rate,sub_price),i);
+			}
+			else if (discount_type =="flexible"){
+				FlexibleDiscount flexible_discount_1= new FlexibleDiscount(discount_rate,"discount bands?");
+				String info;
+				info= flexible_discount_1.getDiscount_bands() +" ,"+String.valueOf(discount_rate)+String.valueOf(sub_price);
+				//UpdateCustomerDiscount(discount_type,info,Acc_no);
+				ApplyDiscount(discount_rate, flexible_discount_1.calculatePrice(discount_rate,sub_price),i);
+			}
+			else if (discount_type =="variable") {
+				VariableDiscount variable_discount_1 = new VariableDiscount(discount_rate);
+				//UpdateCustomerDiscount(discount_type,"n/a",Acc_no);
+				ApplyDiscount(discount_rate, variable_discount_1.calculatePrice(discount_rate,i),i);
+			}
+			//SELECT Subtotal_price
+			//	FROM Job
+			//	WHERE Job_ID=1
+			else{
+				ApplyDiscount(0.0, 0.0,Acc_no);
+			}
 		}
 	}
-	public static double GetSubPrice(int acc_no) {
-		double original_price=0.0;
+	public static double GetSubPrice(int Job_ID) {
+		double original_price = 0;
 		try {
-			Stm = conn.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE CustomerAccount_no=? Values(?)");
-			Stm.setDouble(1,acc_no);
+			Stm = conn.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE Job_ID=?");
+			Stm.setInt(1,Job_ID);
 			ResultSet rs = Stm.executeQuery();
-			original_price=rs.getDouble(1);
+			while(rs.next()){
+				original_price=rs.getDouble(1);
+				//prices_list.add(original_price);
+				//DB_Connection.printQuery(rs);
+				//System.out.println(rs.getDouble(1));
+				//System.out.println(original_price);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		//System.out.println(original_price);
 		return original_price;
 	}
-	public static int GetJobID(int acc_no) {
-		int ID=-1;
+	public static ArrayList<Integer> GetJobID(int acc_no) {
+		int ID=0;
 		try {
-			Stm = conn.connect().prepareStatement("SELECT Job_ID FROM Job WHERE CustomerAccount_no=? Values(?)");
-			Stm.setInt(1,acc_no);
-			ResultSet rs = Stm.executeQuery();
-			ID=rs.getInt(1);
+			Stm_1 = conn.connect().prepareStatement("SELECT Job_ID FROM Job WHERE CustomerAccount_no=?");
+			Stm_1.setInt(1,acc_no);
+			ResultSet rs3 = Stm_1.executeQuery();
+			while(rs3.next()){
+				ID=rs3.getInt(1);
+				Job_IDS.add(ID);
+				//your code sucks fix it ... there are several job ID's
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return ID;
+		//System.out.println(ID);
+		return Job_IDS;
 	}
 
 
-	public static void ApplyDiscount(double discount_rate,double total_price, int acc_no) {
+	public static void ApplyDiscount(double discount_rate,double total_price, int job_no) {
+		//System.out.println(total_price);
+
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE Job SET Total_discount=?, Total_price=? WHERE Job_ID=? VALUES(?,?,?)");
-			Stm.setDouble(1,discount_rate);
+			//GetJobID(acc_no);
+			//for (Integer i: Job_IDS) {
+			Stm = conn.connect().prepareStatement("UPDATE Job SET Total_discount=?, Total_price=? WHERE Job_ID=?");
+			Stm.setDouble(1, discount_rate);
 			Stm.setDouble(2, total_price);
-			Stm.setInt(3,GetJobID(acc_no));
+			Stm.setInt(3, job_no);
 			Stm.executeUpdate();
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public static void UpdateCustomerDiscount(String discount_type,String flexible_discount_info,int acc_no) {
-		customer.setDiscount_plan(discount_type);
+		//customer.setDiscount_plan(discount_type);
 		try {
-			Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_type=?, Flexible_discount=? WHERE Account_no=? Values(?,?,?)");
+			Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_type=?, Flexible_discount=? WHERE Account_no=?");
 			Stm.setString(1,discount_type);
 			//string of format (lower_bound, higher_bound, discount_rate)
 			Stm.setString(2, flexible_discount_info);

@@ -43,10 +43,6 @@ public class Controller implements I_Bapers {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public String identifyCustomer(String data) {
-		return null;
-	}
 
 	/**
 	 * 
@@ -166,6 +162,11 @@ public class Controller implements I_Bapers {
 	public void updateExistingTask(int existing_task_ID) {
 		// TODO - implement Controller.updateExistingTask
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException {
+
 	}
 
 	/**

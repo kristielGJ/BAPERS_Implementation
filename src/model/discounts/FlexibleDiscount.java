@@ -1,6 +1,6 @@
 package model.discounts;
 
-import database.DB_Connection;
+import model.database.DB_Connection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,8 +23,8 @@ public class FlexibleDiscount extends Discount {
 	private static PreparedStatement Stm = null;
 
 
-	public FlexibleDiscount(double sub_price, double discount_rate, String discount_bands) {
-		super(sub_price, discount_rate, "flexible");
+	public FlexibleDiscount( double discount_rate, String discount_bands) {
+		super(discount_rate, "flexible");
 		this.discount_bands = discount_bands;
 	}
 

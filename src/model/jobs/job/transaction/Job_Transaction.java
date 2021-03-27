@@ -47,6 +47,7 @@ public class Job_Transaction implements I_Job_Transaction {
     public void saveJob(int job_ID, String job_desc, String priority, int time, String special_instructions, String job_status, int customer_account_no) {
         try {
             Stm = conn.prepareStatement("INSERT INTO `bapers`.`Job` (`Job_ID`, `Job_desc`, `Urgency_level`, `Completion_deadline`, `Special_instruction`, `Status`, `Payment_status`, `CustomerAccount_no`) VALUES (?,?,?,?,?,?,?,?) ");
+
             Stm.setInt(1,job_ID);
             Stm.setString(2, job_desc);
             Stm.setString(3, priority);

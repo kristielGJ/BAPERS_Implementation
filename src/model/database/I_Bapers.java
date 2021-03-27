@@ -9,9 +9,9 @@ public interface I_Bapers {
 
 	/**
 	 * 
-	 * @param data
+	 * @param Account_no
 	 */
-	abstract String identifyCustomer(String data);
+	abstract String[] identifyCustomer(int Account_no) throws SQLException;
 
 	/**
 	 * 
@@ -94,10 +94,13 @@ public interface I_Bapers {
 	abstract void updateExistingTask(int existing_task_ID);
 
 	/**
-	 * 
-	 * @param customerData
+	 *
+	 * @param name
+	 * @param Acc_no
+	 * @param Address
+	 * @param Phone
 	 */
-	abstract void updateCustomerDetails(String[] customerData) throws SQLException;
+	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException;
 
 	/**
 	 * 
