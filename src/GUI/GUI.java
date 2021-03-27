@@ -1,12 +1,9 @@
 package GUI;
-import java.awt.*;
+import javax.swing.*;
 
-public class GUI {
+public class GUI extends JFrame{
 
-	private String customerData;
-	private int jobID;
-	private String paymentData;
-	private String reportData;
+	private JPanel lastPanel= null, currentPanel = null;
 
 	public void login() {
 		// TODO - implement GUI.login
@@ -47,11 +44,10 @@ public class GUI {
 
 	/**
 	 * 
-	 * @param jobData
+	 * @param customer_acc_no
 	 */
-	public int addJob(String jobData) {
-		// TODO - implement GUI.addJob
-		throw new UnsupportedOperationException();
+	public void addJob(int customer_acc_no) {
+		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, this));
 	}
 
 	/**
@@ -101,12 +97,11 @@ public class GUI {
 	}
 
 	/**
-	 * 
-	 * @param task_data
+	 *
+	 * @param Job_ID
 	 */
-	public int addTask(String task_data) {
-		// TODO - implement GUI.addTask
-		throw new UnsupportedOperationException();
+	public void addTask(int Job_ID) {
+		add(new AddTask(getWidth(), getHeight(), Job_ID, this));
 	}
 
 	/**
@@ -155,9 +150,26 @@ public class GUI {
 		throw new UnsupportedOperationException();
 	}
 
-	public GUI() {
-		// TODO - implement GUI.GUI
-		throw new UnsupportedOperationException();
+	public void setLastPanel(JPanel panel){
+		this.lastPanel = panel;
+	}
+
+	public void setCurrentPanel(JPanel panel){
+		this.currentPanel = panel;
+	}
+
+	public JPanel getCurrentPanel(){
+		return currentPanel;
+	}
+
+	public JPanel getLastPanel(){
+		return lastPanel;
+	}
+
+	public GUI(int width, int height) {
+		this.setSize(width,height);
+		this.setTitle("BAPERS");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

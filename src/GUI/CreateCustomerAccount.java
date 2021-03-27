@@ -1,5 +1,5 @@
 package GUI;
-import database.Controller;
+import model.database.Controller;
 
 import javax.swing.*;
 import java.awt.*;

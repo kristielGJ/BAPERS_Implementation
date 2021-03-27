@@ -4,18 +4,19 @@ import model.Model;
 import model.database.DB_Connection;
 import model.jobs.job.Job;
 import model.jobs.task.Task;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Task_Transaction implements I_Task_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
+    private Connection conn;
+
+    public Task_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      * creating a new object Task
@@ -23,10 +24,29 @@ public class Task_Transaction implements I_Task_Transaction {
      * @param task_ID
      * @param task_status
      * @param Job_ID
-     * @param user_ID
-     * @param ExistingTask_ID
+     * @param technician
+     * @param existing_task
      */
-    public void addTask(int task_ID, int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
+    public void addTask(int task_ID, String existing_task, int Job_ID, String technician, String task_status) {
+        int ExistingTask_ID = 0;
+        int user_ID = 0;
+        try {
+            Stm = conn.prepareStatement("select ExistingTask_ID from Task_Catalog where Task_name = ? ");
+            Stm.setString(1,existing_task);
+            ResultSet rs = Stm.executeQuery();
+            while (rs.next()){
+                ExistingTask_ID = rs.getInt(1);
+            }
+            Stm = conn.prepareStatement("select user_account_id from User_account where name = ? ");
+            Stm.setString(1,technician);
+            ResultSet rs1 = Stm.executeQuery();
+            while (rs1.next()){
+                user_ID = rs1.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         new Task(task_ID, task_status);
         storeTaskDetails(task_ID, ExistingTask_ID, Job_ID, user_ID, task_status);
     }
@@ -168,6 +188,56 @@ public class Task_Transaction implements I_Task_Transaction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String[] retrieveExistingTasks(){
+        int i = 1;
+        String[] tasks = new String[0];
+        int rowCount = 0;
+        try {
+            Stm = conn.prepareStatement("SELECT COUNT(*) FROM Task_Catalog");
+            ResultSet rs1 = Stm.executeQuery();
+            while(rs1.next()){
+                rowCount = rs1.getInt(1);
+            }
+            Stm = conn.prepareStatement("SELECT Task_name FROM Task_Catalog");
+            ResultSet rs = Stm.executeQuery();
+            tasks = new String[rowCount+1];
+            tasks[0] = "Select Task";
+            while (rs.next()){
+                tasks[i] = rs.getString(1);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tasks;
+    }
+
+    public String[] retrieveTechnicians(){
+        int i = 1;
+        String[] technician = new String[0];
+        int rowCount = 0;
+        try {
+            Stm = conn.prepareStatement("SELECT COUNT(*) FROM User_account WHERE role = ?");
+            Stm.setString(1,"Technician");
+            ResultSet rs1 = Stm.executeQuery();
+            while(rs1.next()){
+                rowCount = rs1.getInt(1);
+            }
+            Stm = conn.prepareStatement("SELECT name FROM User_account WHERE role = ?");
+            Stm.setString(1,"Technician");
+            ResultSet rs = Stm.executeQuery();
+            technician = new String[rowCount+1];
+            technician[0] = "Select Technician";
+            while (rs.next()){
+                technician[i] = rs.getString(1);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return technician;
     }
 
     @Override

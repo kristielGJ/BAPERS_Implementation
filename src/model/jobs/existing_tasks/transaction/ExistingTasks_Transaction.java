@@ -11,9 +11,12 @@ import java.util.ArrayList;
 
 public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
+    private Connection conn;
+
+    public ExistingTasks_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      * creating a new ExistingTasks object
