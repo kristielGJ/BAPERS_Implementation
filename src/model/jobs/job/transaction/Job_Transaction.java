@@ -13,11 +13,13 @@ import java.util.ArrayList;
 
 public class Job_Transaction implements I_Job_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
+    private double subtotal_price = 0;
+    private Connection conn;
 
-    public Job_Transaction(){}
+    public Job_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      * creating a new job object
@@ -49,18 +51,15 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setInt(1,job_ID);
             Stm.setString(2, job_desc);
             Stm.setString(3, priority);
-            PreparedStatement Stm2 = conn.prepareStatement("select Subtotal_price from Job where Job_ID = ? ");
-            Stm2.setInt(1, job_ID);
-            ResultSet rs2 = Stm2.executeQuery();
-            double subtotal_price = rs2.getDouble("Subtotal_price");
+
 
             if (priority == "Urgent"){
                 Stm.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now().plusHours(6)));
-                subtotal_price = subtotal_price + (18*0.05);
+                subtotal_price = subtotal_price + (18*5);
             }
             else if (priority == "Custom"){
                 Stm.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now().plusHours(time)));
-                subtotal_price = subtotal_price + ((24 - time)*0.05);
+                subtotal_price = subtotal_price + ((24 - time)*5);
             }
             else {
                 Stm.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now().plusHours(24)));
@@ -70,6 +69,13 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setString(7, "Pending");
             Stm.setInt(8, customer_account_no);
             Stm.executeUpdate();
+
+            PreparedStatement Stm2 = conn.prepareStatement("select Subtotal_price from Job where Job_ID = ? ");
+            Stm2.setInt(1, job_ID);
+            ResultSet rs2 = Stm2.executeQuery();
+            while(rs2.next()){
+                subtotal_price += rs2.getDouble("Subtotal_price");
+            }
 
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Subtotal_price = ? WHERE Job_ID =?;");
             Stm.setDouble(1, subtotal_price);

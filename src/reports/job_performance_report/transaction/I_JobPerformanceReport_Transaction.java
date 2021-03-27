@@ -5,6 +5,6 @@ import java.util.HashMap;
 
 public interface I_JobPerformanceReport_Transaction {
 
-    HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date);
+    HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date, int customer_acc_no);
 
 }

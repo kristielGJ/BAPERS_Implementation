@@ -10,9 +10,12 @@ import java.util.ArrayList;
 
 public class Payment_Transaction implements I_Payment_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
+    private Connection conn;
+
+    public Payment_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      * creating a new Payment object

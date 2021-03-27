@@ -8,6 +8,8 @@ public interface I_Job_Transaction extends Transaction {
 
     void addJob(int job_ID, String job_desc, String priority, String job_status, int time, String special_instructions, int customer_account_no);
 
+    void saveJob(int job_ID, String job_desc, String priority, int time, String special_instructions, String job_status, int customer_account_no);
+
     String[] retrieveJob(int job_ID);
 
     void updateJobStatus(int job_ID, String job_status);
