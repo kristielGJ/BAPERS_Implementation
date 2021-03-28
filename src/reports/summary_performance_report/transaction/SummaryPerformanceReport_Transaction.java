@@ -12,8 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanceReport_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
     private HashMap<String, String[]> summary = new HashMap<>();
     private String[] details = new String[4];
@@ -22,6 +20,11 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
     private long Day_shift2= 0;
     private long Night_shift1 = 0;
     private long total_time = 0;
+    private Connection conn;
+
+    public SummaryPerformanceReport_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      *  @param from_date

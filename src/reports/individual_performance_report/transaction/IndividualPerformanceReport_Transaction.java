@@ -12,9 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 public class IndividualPerformanceReport_Transaction implements I_IndividualPerformanceReport_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
+    private Connection conn;
+
+    public IndividualPerformanceReport_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      *  @param from_date

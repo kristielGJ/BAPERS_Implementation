@@ -11,10 +11,13 @@ import java.util.ArrayList;
 
 public class Card_payment_Transaction implements I_Card_payment_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
     private I_Payment_Transaction payment;
+    private Connection conn;
+
+    public Card_payment_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      *

@@ -37,9 +37,12 @@ public class GUI extends JFrame {
 		throw new UnsupportedOperationException();
 	}
 
-	public int addJob(String jobData) {
-		// TODO - implement GUI.addJob
-		throw new UnsupportedOperationException();
+	/**
+	 *
+	 * @param customer_acc_no
+	 */
+	public void addJob(int customer_acc_no) {
+		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, this));
 	}
 
 	public boolean saveJob(int jobID, String jobData) {
@@ -67,9 +70,12 @@ public class GUI extends JFrame {
 		throw new UnsupportedOperationException();
 	}
 
-	public int addTask(String task_data) {
-		// TODO - implement GUI.addTask
-		throw new UnsupportedOperationException();
+	/**
+	 *
+	 * @param Job_ID
+	 */
+	public void addTask(int Job_ID) {
+		add(new AddTask(getWidth(), getHeight(), Job_ID, this));
 	}
 
 	public void extendTaskList(String taskData) {

@@ -12,16 +12,19 @@ import java.util.concurrent.TimeUnit;
 
 public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_Transaction {
 
-    private DB_Connection db = new DB_Connection();
-    private Connection conn = db.connect();
     private PreparedStatement Stm = null;
+    private Connection conn;
+
+    public JobPerformanceReport_Transaction(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
     /**
      *  @param from_date
      * @param to_date
      * @return
      */
-    public HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date) {
+    public HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date, int customer_acc_no) {
         HashMap<Integer, String[][]> details = new HashMap<>();
         HashMap<Integer, HashMap<Integer, String[][]>> report_details = new HashMap<>();
         String[] job_details = new String[1];
@@ -31,9 +34,10 @@ public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_
         int i = 1;
 
         try {
-            Stm = conn.prepareStatement("select Job_ID from Job where CAST(Start as DATE) BETWEEN ? AND ?");
-            Stm.setDate(1, Date.valueOf(from_date));
-            Stm.setDate(2, Date.valueOf(to_date));
+            Stm = conn.prepareStatement("select Job_ID from Job where CustomerAccount_no = ? CAST(Start as DATE) BETWEEN ? AND ?");
+            Stm.setInt(1, customer_acc_no );
+            Stm.setDate(2, Date.valueOf(from_date));
+            Stm.setDate(3, Date.valueOf(to_date));
             ResultSet rs = Stm.executeQuery();
 
             while (rs.next()) {
