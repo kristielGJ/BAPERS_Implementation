@@ -19,17 +19,17 @@ import model.discount.DiscountHelper;
 public class FlexibleDiscount extends Discount {
 
     public ArrayList<Integer> JobIDS = new ArrayList<Integer>();
-    public ArrayList<Integer> TaskIDS = new ArrayList<Integer>();
+    public ArrayList<Double> Bands = new ArrayList<>();
     private static DB_Connection conn1 = new DB_Connection();
     private static PreparedStatement Stm = null;
     private static PreparedStatement Stm_1 = null;
 
 
-    public void addFlexibleDiscountBeforePayment(double discountRate,String discountType,int discountBandCustomerID,int discountBandID,int accountNumber){
+    public void addFlexibleDiscountBeforePayment(double lowerBound,double upperBound,double discountRate,String discountType,int discountBandCustomerID,int accountNumber){
         DiscountHelper GetData = new DiscountHelper(conn1,accountNumber);
         JobIDS=GetData.GetIDs(accountNumber,discountType);//list of all jobs under a customer account
         double newPrice, subPrice=0.0;
-        UpdateDiscountBandCustomer(discountBandCustomerID,discountBandID);//test
+        UpdateDiscountBandCustomer(discountBandCustomerID,lowerBound,upperBound,discountRate);//test
 
         for (Integer i: JobIDS) {
 
@@ -43,19 +43,32 @@ public class FlexibleDiscount extends Discount {
 
     /**
      * Get all discount band details from a customer.
-     * SELECT * FROM DiscountBand WHERE DiscountBandCustomer_ID=23
+     *
      */
+    public ArrayList<Double>GetCustomerDiscountBands(int ID) {
+        try {
+            Stm = conn1.connect().prepareStatement("SELECT * FROM DiscountBand WHERE DiscountBandCustomer_ID=?");
+            Stm.setInt(1,ID);
+            ResultSet rs = Stm.executeQuery();
+            while(rs.next()){
+                Bands.add(rs.getDouble(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Bands;
+    }
 
     /**
      * Update DiscountBandCustomer to include the new DiscountBound that have been created (see Create methods)
      *
      */
-    public void UpdateDiscountBandCustomer(int DiscountBandCustomerID, int DiscountBandID) {
+    public void UpdateDiscountBandCustomerID(int DiscountBandID) {
 
         try {
             Stm = conn1.connect().prepareStatement("UPDATE DiscountBandCustomer SET DiscountBand_ID= WHERE DiscountBandCustomer_ID=?");
             Stm.setDouble(1, DiscountBandID);
-            Stm.setDouble(2, DiscountBandCustomerID);
+            Stm.setDouble(2, DiscountBandID);
             Stm.executeUpdate();
 
         } catch (Exception e) {
@@ -81,13 +94,36 @@ public class FlexibleDiscount extends Discount {
      * and relate to the DiscountBandCustomer entry you made earlier
      *
      */
-    public void CreateDiscountBand(int AccNo) {
+    public void CreateDiscountBand(int ID,double lowerBound,double upperBound,double discount_rate) {
 
         try {
             //INSERT INTO DiscountBand(lower, upper, discount_rate, DiscountBandCustomer_ID) VALUES (1000, 2000, 20, 23)
             Stm = conn1.connect().prepareStatement("INSERT INTO DiscountBand(lower, upper, discount_rate, DiscountBandCustomer_ID) VALUES (?,?,?,?)");
-            Stm.setInt(1, AccNo);
+            Stm.setDouble(1, lowerBound);
+            Stm.setDouble(1, upperBound);
+            Stm.setDouble(1, discount_rate);
+            Stm.setInt(1, ID);
             Stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        UpdateDiscountBandCustomerID(ID);
+    }
+    /**
+     * Update an existing DiscountBand, set your bounds, and discount rate for the respective bound (i.e. 1000-2000, 20%)
+     * and relate to the DiscountBandCustomer entry you made earlier
+     *
+     */
+    public void UpdateDiscountBandCustomer(int ID,double lowerBound,double upperBound,double discount_rate) {
+
+        try {
+            Stm = conn1.connect().prepareStatement("UPDATE DiscountBand SET lower=?, upper=?, discount_rate=? WHERE DiscountBandCustomer_ID=?");
+            Stm.setDouble(1, lowerBound);
+            Stm.setDouble(1, upperBound);
+            Stm.setDouble(1, discount_rate);
+            Stm.setInt(1, ID);
+            Stm.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
