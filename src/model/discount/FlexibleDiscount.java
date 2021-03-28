@@ -1,12 +1,9 @@
 package model.discount;
 
-import java.sql.Connection;
-import GUI.UpdateCustomerDetails;
 import model.database.DB_Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.discount.DiscountHelper;
 
 /**
  * @author Gera
