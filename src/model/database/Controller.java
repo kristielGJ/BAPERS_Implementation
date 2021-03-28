@@ -1,7 +1,7 @@
 package model.database;
 
 import model.admin.alert.Alert;
-import model.customers.CustomersList;
+//import model.customers.CustomersList;
 import model.jobs.card_payment.transaction.Card_payment_Transaction;
 import model.jobs.card_payment.transaction.I_Card_payment_Transaction;
 import model.jobs.cash_payment.transaction.Cash_payment_Transaction;
