@@ -19,15 +19,15 @@ import java.util.ArrayList;
  */
 public class Invoice extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form Invoice
      */
-    public Invoice(int width, int height, int payment_ID, GUI f) {
-        initComponents(width, height, payment_ID, f);
+    public Invoice(int width, int height, int payment_ID, I_Bapers bapers, GUI f) {
+        initComponents(width, height, payment_ID, bapers, f);
     }
 
     /**
@@ -37,7 +37,7 @@ public class Invoice extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, int payment_ID, GUI f) {
+    private void initComponents(int width, int height, int payment_ID, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();

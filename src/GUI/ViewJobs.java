@@ -23,15 +23,15 @@ import java.util.List;
  */
 public class ViewJobs extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form ViewJobs
      */
-    public ViewJobs(int width, int height, GUI f) {
-        initComponents(width, height, f);
+    public ViewJobs(int width, int height, I_Bapers bapers, GUI f) {
+        initComponents(width, height, bapers, f);
     }
 
     /**
@@ -41,7 +41,7 @@ public class ViewJobs extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, GUI f) {
+    private void initComponents(int width, int height, I_Bapers bapers, GUI f) {
 
         jLabel1 = new javax.swing.JLabel();
         filter = new javax.swing.JComboBox<>();

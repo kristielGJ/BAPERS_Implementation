@@ -16,13 +16,13 @@ import java.awt.event.MouseEvent;
  */
 public class UpdateJobStatus extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
 
     /**
      * Creates new form UpdateJobStatus
      */
-    public UpdateJobStatus(int job_id) {
-        initComponents(job_id);
+    public UpdateJobStatus(int job_id,I_Bapers bapers) {
+        initComponents(job_id, bapers);
     }
 
     /**
@@ -32,7 +32,7 @@ public class UpdateJobStatus extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int job_id) {
+    private void initComponents(int job_id, I_Bapers bapers) {
 
 
         jLabel1 = new javax.swing.JLabel();
