@@ -267,7 +267,7 @@ public class RetrieveJobs extends javax.swing.JPanel {
             int row = table.getSelectedRow();
             int id = Integer.parseInt(table.getModel().getValueAt(row, column).toString());
             final JDialog frame = new JDialog(f, "Update Status", true);
-            frame.getContentPane().add(new UpdateJobStatus(id));
+            frame.getContentPane().add(new UpdateJobStatus(id, bapers));
             frame.pack();
             frame.setVisible(true);
         } catch (Exception e)
