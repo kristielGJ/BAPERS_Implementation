@@ -19,13 +19,14 @@ public class FixedDiscount extends Discount {
     private int accountNumber;
     private static PreparedStatement Stm = null;
     private static PreparedStatement Stm_1 = null;
+    DiscountHelper GetData = new DiscountHelper();
+
 
     /**
      * calls UpdateJobFixedDiscount with a calculatedPrice() as a parameter
      *
      */
     public void addFixedDiscountBeforePayment(double discountRate,String discountType,int accountNumber){
-        DiscountHelper GetData = new DiscountHelper(conn1,accountNumber);
         JobIDS=GetData.GetIDs(accountNumber,discountType);//list of all jobs under a customer account
         double newPrice, subPrice=0.0;
         UpdateCustomerFixedDiscount(discountType,discountRate,accountNumber);//test

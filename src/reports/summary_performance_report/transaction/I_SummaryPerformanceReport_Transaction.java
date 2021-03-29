@@ -1,16 +1,18 @@
 package reports.summary_performance_report.transaction;
 
+import reports.summary_performance_report.SummaryPerformanceReport;
+
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Manpreet
+ */
 
 public interface I_SummaryPerformanceReport_Transaction {
 
-    HashMap<String, String[]> copy_room_performance(LocalDate from_date, LocalDate to_date);
-
-    HashMap<String, String[]> development_performance(LocalDate from_date, LocalDate to_date);
-
-    HashMap<String, String[]> finishing_performance(LocalDate from_date, LocalDate to_date);
-
-    HashMap<String, String[]> packing_performance(LocalDate from_date, LocalDate to_date);
+    ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time);
 
 }

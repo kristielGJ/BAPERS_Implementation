@@ -4,17 +4,26 @@ package GUI;/*
  * and open the template in the editor.
  */
 
+import model.database.Controller;
+import model.database.I_Bapers;
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author Manpreet
  */
 public class ExtendTaskList extends javax.swing.JPanel {
 
+    I_Bapers bapers = new Controller();
+    private GUI f;
+    private JPanel lastPanel;
+
     /**
      * Creates new form ExtendTaskList
      */
-    public ExtendTaskList() {
-        initComponents();
+    public ExtendTaskList(int width, int height, GUI f) {
+        initComponents(width, height, f);
     }
 
     /**
@@ -24,17 +33,18 @@ public class ExtendTaskList extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
         sign_out_button = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        task_id_input = new javax.swing.JTextField();
         description_input = new javax.swing.JTextField();
         price_input = new javax.swing.JTextField();
         duration_input = new javax.swing.JTextField();
@@ -59,14 +69,15 @@ public class ExtendTaskList extends javax.swing.JPanel {
         back_button.setText("Back");
         back_button.setBorderPainted(false);
         back_button.setFocusPainted(false);
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
         jLabel1.setText("Extend Task List");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel2.setText("Task ID");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
@@ -84,9 +95,6 @@ public class ExtendTaskList extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(1, 23, 71));
         jLabel6.setText("Department");
 
-        task_id_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        task_id_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         description_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         description_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -102,12 +110,19 @@ public class ExtendTaskList extends javax.swing.JPanel {
         jButton1.setText("Save Task");
         jButton1.setBorderPainted(false);
         jButton1.setFocusPainted(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                save_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(1, 23, 71));
         jLabel7.setText("Bapers");
 
+        department_list_input.setBackground(new java.awt.Color(1, 23, 71));
         department_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        department_list_input.setForeground(new java.awt.Color(157, 195, 230));
         department_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Department", "Copy Room", "Development", "Packing", "Finishing" }));
         department_list_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -127,35 +142,34 @@ public class ExtendTaskList extends javax.swing.JPanel {
                         .addGap(251, 251, 251)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
+                        .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(department_list_input, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(94, 94, 94)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(task_id_input)
-                                    .addComponent(description_input)
-                                    .addComponent(price_input, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)))
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(price_input, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(description_input, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(55, 55, 55)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(duration_input)
-                                    .addComponent(department_list_input, 0, 215, Short.MAX_VALUE))))))
-                .addGap(176, 176, 176))
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                                .addComponent(duration_input, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(87, 87, 87))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(327, 327, 327))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(375, 375, 375)
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(327, 327, 327))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(376, 376, 376))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,36 +180,54 @@ public class ExtendTaskList extends javax.swing.JPanel {
                     .addComponent(back_button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(task_id_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(24, 24, 24)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(description_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel3)
+                    .addComponent(description_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(price_input, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(jLabel4))
-                .addGap(23, 23, 23)
+                    .addComponent(jLabel4)
+                    .addComponent(price_input, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(duration_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(department_list_input, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                        .addGap(1, 1, 1)))
-                .addGap(37, 37, 37)
-                .addComponent(jButton1)
                 .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(department_list_input)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addContainerGap())
+                .addGap(65, 65, 65))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void save_buttonMouseClicked(MouseEvent evt){
+        if (!description_input.getText().isEmpty() && !price_input.getText().isEmpty() && !duration_input.getText().isEmpty() && !(department_list_input.getSelectedItem() == "Select Department")){
+            bapers.createExistingTask(description_input.getText(), Double.parseDouble(price_input.getText()), Integer.parseInt(duration_input.getText()), String.valueOf(department_list_input.getSelectedItem()));
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        description_input.setText("");
+        price_input.setText("");
+        duration_input.setText("");
+        department_list_input.setSelectedItem("Select Department");
+
+    }
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
@@ -204,7 +236,6 @@ public class ExtendTaskList extends javax.swing.JPanel {
     private javax.swing.JTextField duration_input;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -212,6 +243,5 @@ public class ExtendTaskList extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField price_input;
     private javax.swing.JButton sign_out_button;
-    private javax.swing.JTextField task_id_input;
     // End of variables declaration//GEN-END:variables
 }

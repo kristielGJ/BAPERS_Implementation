@@ -5,17 +5,29 @@
  */
 package GUI;
 
+import model.database.Controller;
+import model.database.I_Bapers;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.util.regex.Pattern;
+
 /**
  *
- * @author kehkshan
+ * @author kehkshan and Manpreet
  */
 public class CardPayment extends javax.swing.JPanel {
+
+    I_Bapers bapers = new Controller();
+    private GUI f;
+    private JPanel lastPanel;
 
     /**
      * Creates new form CardPayment
      */
-    public CardPayment() {
-        initComponents();
+    public CardPayment(int width, int height, double amount, Date date, int job_ID, GUI f) {
+        initComponents(width, height, amount, date, job_ID, f);
     }
 
     /**
@@ -25,72 +37,51 @@ public class CardPayment extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, double amount, Date date, int job_ID, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        card_holder_name_input = new javax.swing.JTextField();
         card_number_input = new javax.swing.JTextField();
-        card_type_input = new javax.swing.JTextField();
-        amount_input = new javax.swing.JTextField();
+        name_input = new javax.swing.JTextField();
         make_payment_button = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cancel_button = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        expiry_date = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(157, 195, 230));
-        setMaximumSize(new java.awt.Dimension(400, 300));
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setMaximumSize(new java.awt.Dimension(width, height));
+        setMinimumSize(new java.awt.Dimension(width, height));
+        setPreferredSize(new java.awt.Dimension(width, height));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Card Payment");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
         jLabel2.setText("Card Holder's Name");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
         jLabel3.setText("Card Number");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(1, 23, 71));
         jLabel4.setText("Card Type");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel5.setText("Amount");
-
-        card_holder_name_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        card_holder_name_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        card_holder_name_input.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                card_holder_name_inputActionPerformed(evt);
-            }
-        });
-
-        card_number_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        card_number_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         card_number_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        card_number_input.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                card_number_inputActionPerformed(evt);
-            }
-        });
 
-        card_type_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        card_type_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        amount_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        amount_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        amount_input.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amount_inputActionPerformed(evt);
-            }
-        });
+        name_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        name_input.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         make_payment_button.setBackground(new java.awt.Color(1, 23, 71));
         make_payment_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -99,9 +90,9 @@ public class CardPayment extends javax.swing.JPanel {
         make_payment_button.setBorder(null);
         make_payment_button.setBorderPainted(false);
         make_payment_button.setFocusPainted(false);
-        make_payment_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                make_payment_buttonActionPerformed(evt);
+        make_payment_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                make_payment_buttonMouseClicked(evt, amount, date, job_ID);
             }
         });
 
@@ -117,98 +108,146 @@ public class CardPayment extends javax.swing.JPanel {
         cancel_button.setBorder(null);
         cancel_button.setBorderPainted(false);
         cancel_button.setFocusPainted(false);
+        cancel_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_buttonActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setBackground(new java.awt.Color(1, 23, 71));
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(157, 195, 230));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Card Type", "Visa", "MasterCard", "Amex" }));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel5.setText("Expiry Date");
+
+        expiry_date.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        expiry_date.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        expiry_date.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                expiry_dateFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(make_payment_button, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(cancel_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(card_holder_name_input, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                                    .addComponent(card_number_input)
-                                    .addComponent(card_type_input)
-                                    .addComponent(amount_input)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(54, 54, 54)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(make_payment_button, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(expiry_date, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(card_number_input, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(name_input, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 234, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(70, 70, 70))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(247, 247, 247))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(352, 352, 352))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(card_number_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(name_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(card_holder_name_input, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(card_number_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel5)
+                            .addComponent(expiry_date, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(card_type_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(amount_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(make_payment_button, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addComponent(make_payment_button, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void card_holder_name_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_card_holder_name_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_card_holder_name_inputActionPerformed
+    private void make_payment_buttonMouseClicked(MouseEvent evt, double amount, Date date, int job_ID){
+        Pattern pattern = Pattern.compile("^[0-9]*[1-9][0-9]*$");
+        Pattern pattern2 = Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])$");
+        if (!card_number_input.getText().isEmpty() && !name_input.getText().isEmpty() && !(jComboBox1.getSelectedItem()=="Select Card Type")){
+            if (pattern.matcher(card_number_input.getText()).matches() && pattern2.matcher(expiry_date.getText()).matches()  ){
+                int id = bapers.createPayment("Card", amount, date, job_ID);
+                String lastFourDigits = "";     //substring containing last 4 digits
+                if (card_number_input.getText().length() > 4)
+                {
+                    lastFourDigits = card_number_input.getText().substring(card_number_input.getText().length() - 4);
+                }
+                else{ lastFourDigits = card_number_input.getText(); }
+                bapers.createCard_payment(id, String.valueOf(jComboBox1.getSelectedItem()),expiry_date.getText(), lastFourDigits, amount, date, job_ID);
+                f.generateInvoice(id);
+                setVisible(false);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
-    private void card_number_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_card_number_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_card_number_inputActionPerformed
+    private void expiry_dateFocusGained(java.awt.event.FocusEvent evt) {
+        expiry_date.setText("");
+    }
 
-    private void amount_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amount_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_amount_inputActionPerformed
-
-    private void make_payment_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_make_payment_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_make_payment_buttonActionPerformed
-
+    private void cancel_buttonActionPerformed(ActionEvent evt){
+        JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField amount_input;
     private javax.swing.JButton cancel_button;
-    private javax.swing.JTextField card_holder_name_input;
     private javax.swing.JTextField card_number_input;
-    private javax.swing.JTextField card_type_input;
+    private javax.swing.JTextField name_input;
+    private javax.swing.JTextField expiry_date;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

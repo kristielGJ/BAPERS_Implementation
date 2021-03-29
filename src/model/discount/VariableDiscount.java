@@ -18,13 +18,14 @@ public class VariableDiscount extends Discount {
     private static DB_Connection conn1 = new DB_Connection();
     private static PreparedStatement Stm = null;
     private static PreparedStatement Stm_1 = null;
+    DiscountHelper GetData = new DiscountHelper();
+
 
     /**
      * calculates and returns all of the Id's that have an associated discount
      * calculates a price too, possibly Manpreet can return this and use it for Payment
      */
     public void addVariableDiscountBeforePayment(double discountRate,String discountType,int accountNumber,int TaskId){
-        DiscountHelper GetData = new DiscountHelper(conn1,accountNumber);
         TaskIDS= GetData.GetIDs(accountNumber,discountType );//list of all tasks under a customer account
         JobIDS=GetData.GetIDs(accountNumber,discountType);//list of all jobs under a customer account
         double newPrice,subPrice;

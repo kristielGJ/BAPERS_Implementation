@@ -5,17 +5,33 @@
  */
 package GUI;
 
+import model.database.Controller;
+import model.database.I_Bapers;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 /**
  *
- * @author kehkshan
+ * @author kehkshan and Manpreet
  */
+
 public class IndividualPerformanceReport extends javax.swing.JPanel {
+
+    I_Bapers bapers = new Controller();
+    private GUI f;
+    private JPanel lastPanel;
 
     /**
      * Creates new form IndividualPerformanceReport
      */
-    public IndividualPerformanceReport() {
-        initComponents();
+    public IndividualPerformanceReport(int width, int height, LocalDate from_date, LocalDate to_date, GUI f) {
+        initComponents(width, height, from_date, to_date, f);
     }
 
     /**
@@ -25,51 +41,73 @@ public class IndividualPerformanceReport extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, LocalDate from_date, LocalDate to_date, GUI f) {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        period_input = new javax.swing.JTextField();
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
+        back_button = new javax.swing.JButton();
+        print_button = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         individual_performance_report_table = new javax.swing.JTable();
-        back_button = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        print_button = new javax.swing.JButton();
+        period_input = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        period_input2 = new javax.swing.JTextField();
+        total_effort = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+
+        period_input.setEditable(false);
+        period_input2.setEditable(false);
+        total_effort.setEditable(false);
 
         setBackground(new java.awt.Color(157, 195, 230));
         setForeground(new java.awt.Color(1, 23, 71));
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(width, height));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel1.setText("Individual Performance Report");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel2.setText("Period:");
-
-        period_input.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                period_inputActionPerformed(evt);
+        back_button.setBackground(new java.awt.Color(1, 23, 71));
+        back_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        back_button.setForeground(new java.awt.Color(157, 195, 230));
+        back_button.setText("Back");
+        back_button.setBorderPainted(false);
+        back_button.setFocusPainted(false);
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                back_buttonMouseClicked(evt);
             }
         });
 
-        individual_performance_report_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Name", "Task IDs", "Department", "Date", "Start Time", "Time Taken", "Total"
+        print_button.setBackground(new java.awt.Color(1, 23, 71));
+        print_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        print_button.setForeground(new java.awt.Color(157, 195, 230));
+        print_button.setText("Print");
+        print_button.setBorderPainted(false);
+        print_button.setFocusPainted(false);
+        print_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                f.printPanel(jPanel1, "Print Individual Performance Report");
             }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(157, 195, 230));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel3.setText("Bapers");
+
+        individual_performance_report_table.setModel(new javax.swing.table.DefaultTableModel(
+            new String [] {
+                "Name", "Task IDs", "Department", "Start", "Time Taken"
+            },0
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true, true, true, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -80,72 +118,136 @@ public class IndividualPerformanceReport extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        addReportDetails(individual_performance_report_table, from_date, to_date);
         individual_performance_report_table.setGridColor(new java.awt.Color(1, 23, 71));
         individual_performance_report_table.setMaximumSize(new java.awt.Dimension(105, 64));
         individual_performance_report_table.setPreferredSize(new java.awt.Dimension(105, 64));
+        individual_performance_report_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(individual_performance_report_table);
 
-        back_button.setBackground(new java.awt.Color(1, 23, 71));
-        back_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        back_button.setForeground(new java.awt.Color(157, 195, 230));
-        back_button.setText("Back");
+        period_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel3.setText("Bapers");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel2.setText("Period:");
 
-        print_button.setBackground(new java.awt.Color(1, 23, 71));
-        print_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        print_button.setForeground(new java.awt.Color(157, 195, 230));
-        print_button.setText("Print");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel1.setText("Individual Performance Report");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel4.setText("-");
+
+        period_input2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        total_effort.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel5.setText("Total Effort:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(total_effort, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(period_input, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(period_input2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 198, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(355, 355, 355)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(period_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(period_input2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(total_effort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(print_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(period_input, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(print_button))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(back_button))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(372, 372, 372))
+                        .addComponent(back_button)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(period_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(print_button))
+                    .addComponent(print_button)
+                    .addComponent(back_button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(back_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(118, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void period_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_period_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_period_inputActionPerformed
+    private void addReportDetails(JTable table, LocalDate from_date, LocalDate to_date) {
+        long dur = 0;
+        period_input.setText(String.valueOf(from_date));
+        period_input2.setText(String.valueOf(to_date));
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        ArrayList<reports.individual_performance_report.IndividualPerformanceReport> details = bapers.generateIndividualPerformance_Report(from_date, to_date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for(reports.individual_performance_report.IndividualPerformanceReport report : details){
+            model.addRow(new Object[]{report.getTechnician(), report.getTask_ID(), report.getLocation(), report.getStart().format(formatter), report.getTime_taken()});
+            dur += report.getDur();
+        }
+        String total = String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
+        total_effort.setText(total);
+        table.setModel(model);
+    }
 
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
@@ -153,8 +255,13 @@ public class IndividualPerformanceReport extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField period_input;
+    private javax.swing.JTextField period_input2;
     private javax.swing.JButton print_button;
+    private javax.swing.JTextField total_effort;
     // End of variables declaration//GEN-END:variables
 }

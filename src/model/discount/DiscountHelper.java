@@ -23,9 +23,7 @@ public class DiscountHelper {
 
 
 
-    public DiscountHelper(DB_Connection conn, int accountNumber) {
-        this.conn = conn.getConn();
-        this.accountNumber = accountNumber;
+    public DiscountHelper(){
     }
     /**
      * calculates the price with all task discount rates applied
@@ -58,7 +56,7 @@ public class DiscountHelper {
                 Stm_1 = conn1.connect().prepareStatement("SELECT Catalog_ID FROM CustomerTaskCatalog WHERE Account_no=?");
             }
             else if(discountType=="flexible"){
-                Stm = conn1.connect().prepareStatement("SELECT DiscountBandCustomer_ID FROM DiscountBandCustomer WHERE Account_no =?");
+                Stm_1 = conn1.connect().prepareStatement("SELECT DiscountBandCustomer_ID FROM DiscountBandCustomer WHERE Account_no =?");
             }
             Stm_1.setInt(1,accNo);
             ResultSet rs3 = Stm_1.executeQuery();
