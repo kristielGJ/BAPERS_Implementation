@@ -1,15 +1,13 @@
 package model.discount;
 
 import model.database.DB_Connection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-
 /**
- * Gera Jahja
+ * @author Gera
  * This class aids with the application of three types of discount plans valued customers can have
  * Generalised functions that more than one discount can apply are in this class
  */
@@ -25,15 +23,27 @@ public class DiscountHelper {
 
 
 
-    public DiscountHelper(DB_Connection conn, int accountNumber) {
-        this.conn = conn.getConn();
-        this.accountNumber = accountNumber;
+    public DiscountHelper(){
     }
-
+    /**
+     * calculates the price with all task discount rates applied
+     *
+     */
+    public double calculatePrice(double discount_rate, double price) {
+        double TotalPrice=0,multiplier;
+        System.out.println(price);
+        //Discount rate is a percentage
+        multiplier= 1-(discount_rate/100);
+        //calculate price
+        TotalPrice = price*multiplier;
+        //return new price
+        return TotalPrice;
+    }
     /**
      * Retrieves all the Id's associated to a customer's account , from the database
      * for variable discounts - task ID's (task catalog id's)
      * for fixed discounts - job ID's
+     * for flexible discounts - DiscountBandCustomer_ID's
      *
      */
     public  ArrayList<Integer> GetIDs(int accNo,String discountType) {
@@ -44,6 +54,9 @@ public class DiscountHelper {
             }
             else if(discountType=="variable"){
                 Stm_1 = conn1.connect().prepareStatement("SELECT Catalog_ID FROM CustomerTaskCatalog WHERE Account_no=?");
+            }
+            else if(discountType=="flexible"){
+                Stm = conn1.connect().prepareStatement("SELECT DiscountBandCustomer_ID FROM DiscountBandCustomer WHERE Account_no =?");
             }
             Stm_1.setInt(1,accNo);
             ResultSet rs3 = Stm_1.executeQuery();
@@ -62,13 +75,14 @@ public class DiscountHelper {
      * Subtotal Price - for fixed discounts
      *
      */
-    public double GetOriginalPrice(int ID,String discountType) {
+    public double GetOriginalPrice(int ID,String priceWanted) {
         double original_price = 0;
         try {
-            if (discountType=="fixed") {
-                Stm = conn1.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE Job_ID=?");
+            if (priceWanted=="Job Total") {
+                Stm = conn1.connect().prepareStatement("SELECT Subtotal_price FROM Job WHERE Job_ID=? AND Payment_status=?");
+                Stm.setString (2,"pending");
             }
-            else if(discountType=="variable"){
+            else if(priceWanted=="Task Catalog"){
                 Stm = conn1.connect().prepareStatement("SELECT Price FROM Task_Catalog WHERE Catalog_ID=?");
             }
             Stm.setInt(1,ID);

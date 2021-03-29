@@ -3,13 +3,10 @@ package model.discount;
 import java.sql.Connection;
 import model.database.DB_Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.discount.DiscountHelper;
-
 
 /**
- * Gera Jahja
+ * @author Gera
  * This class deals with Fixed discount plans for valued customers
  * It calculates the price with the a fixed discount rate applied to the subtotal price of a job from the database
  *
@@ -22,35 +19,23 @@ public class FixedDiscount extends Discount {
     private int accountNumber;
     private static PreparedStatement Stm = null;
     private static PreparedStatement Stm_1 = null;
+    DiscountHelper GetData = new DiscountHelper();
 
 
-
-
-    /**
-     * calculates the price with a fixed discount rate applied
-     *
-     */
-    public double calculatePrice(double discount_rate,double sub_price) {
-        //Discount rate is a percentage
-        double multiplier= 1-(discount_rate/100);
-        //calculate price
-        double TotalPrice= sub_price*multiplier;
-        //return new price
-        return TotalPrice;
-    }
     /**
      * calls UpdateJobFixedDiscount with a calculatedPrice() as a parameter
      *
      */
     public void addFixedDiscountBeforePayment(double discountRate,String discountType,int accountNumber){
-        DiscountHelper GetData = new DiscountHelper(conn1,accountNumber);
         JobIDS=GetData.GetIDs(accountNumber,discountType);//list of all jobs under a customer account
-        double subPrice=0.0;
+        double newPrice, subPrice=0.0;
         UpdateCustomerFixedDiscount(discountType,discountRate,accountNumber);//test
 
         for (Integer i: JobIDS) {
-            subPrice= GetData.GetOriginalPrice(i,discountType);
-            GetData.UpdateJobDiscount(discountRate,calculatePrice(discountRate,subPrice),i);
+            subPrice= GetData.GetOriginalPrice(i,"Job Total");
+            newPrice=GetData.calculatePrice(discountRate,subPrice);
+            System.out.println(newPrice);
+            GetData.UpdateJobDiscount(discountRate,newPrice,i);
 
         }
     }
