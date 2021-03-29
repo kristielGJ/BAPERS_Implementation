@@ -17,13 +17,13 @@ import java.awt.event.MouseEvent;
  */
 public class UpdateTask extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
 
     /**
      * Creates new form UpdateTask
      */
-    public UpdateTask(int task_id) {
-        initComponents(task_id);
+    public UpdateTask(int task_id, I_Bapers bapers) {
+        initComponents(task_id, bapers);
     }
 
     /**
@@ -33,7 +33,7 @@ public class UpdateTask extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int task_id) {
+    private void initComponents(int task_id, I_Bapers bapers) {
 
         jLabel1 = new javax.swing.JLabel();
         save_button = new javax.swing.JButton();

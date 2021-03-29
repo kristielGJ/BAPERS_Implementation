@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
  */
 public class CreateJob extends JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
     int id;
@@ -23,8 +23,8 @@ public class CreateJob extends JPanel {
     /**
      * Creates new form CreateJob
      */
-    public CreateJob(int width, int height, int customer_acc_no, GUI f) {
-        initComponents(width, height, customer_acc_no, f);
+    public CreateJob(int width, int height, int customer_acc_no, I_Bapers bapers, GUI f) {
+        initComponents(width, height, customer_acc_no, bapers, f);
     }
 
     /**
@@ -34,7 +34,7 @@ public class CreateJob extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, int customer_acc_no, GUI f) {
+    private void initComponents(int width, int height, int customer_acc_no, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();

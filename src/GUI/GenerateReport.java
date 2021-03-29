@@ -19,15 +19,15 @@ import java.time.LocalDate;
  */
 public class GenerateReport extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form GenerateReport
      */
-    public GenerateReport(int width, int height, GUI f) {
-        initComponents(width, height, f);
+    public GenerateReport(int width, int height, I_Bapers bapers, GUI f) {
+        initComponents(width, height, bapers, f);
     }
 
     /**
@@ -37,7 +37,7 @@ public class GenerateReport extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, GUI f) {
+    private void initComponents(int width, int height, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();

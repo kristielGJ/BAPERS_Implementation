@@ -22,15 +22,15 @@ import java.util.List;
  */
 public class ExistingTaskList extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form ExistingTaskList
      */
-    public ExistingTaskList(int width, int height, GUI f) {
-        initComponents(width, height, f);
+    public ExistingTaskList(int width, int height, I_Bapers bapers, GUI f) {
+        initComponents(width, height, bapers, f);
     }
 
     /**
@@ -40,7 +40,7 @@ public class ExistingTaskList extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, GUI f) {
+    private void initComponents(int width, int height, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
