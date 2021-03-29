@@ -1,6 +1,7 @@
 package GUI;
 
 import model.database.Controller;
+import model.database.I_Bapers;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,12 +11,12 @@ import java.awt.event.ActionEvent;
  * @author msy
  */
 public class LoginPanel extends javax.swing.JPanel {
-    Controller controller;
+    I_Bapers controller;
 
     /**
      * Creates new form LoginPanel
      */
-    public LoginPanel(int width, int height, Controller controller) {
+    public LoginPanel(int width, int height, I_Bapers controller) {
         this.controller = controller;
         initComponents();
     }

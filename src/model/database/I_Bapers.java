@@ -1,5 +1,6 @@
 package model.database;
 
+import model.admin.userAccount.UserAccount;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
 import model.jobs.task.Task_List;
@@ -7,6 +8,7 @@ import reports.individual_performance_report.IndividualPerformanceReport;
 import reports.job_performance_report.JobPerformanceReport;
 import reports.summary_performance_report.SummaryPerformanceReport;
 
+import javax.swing.*;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -40,6 +42,18 @@ public interface I_Bapers {
 	abstract void backup();
 
 	abstract void restore();
+
+	public boolean updateStaffMember(Object[] values);
+
+	public UserAccount getCurrentUser();
+
+	public boolean authenticateUser(int id, String password);
+
+	public void populateStaffTable(JTable table);
+
+	public boolean removeStaffMember(int id);
+
+	public boolean addStaffMember(String[] values);
 
 	//creates a new job
 	void createJob(int job_ID, String job_desc, String priority, String job_status, int time, String special_instructions, int customer_account_no);
