@@ -98,13 +98,13 @@ public class FlexibleDiscount extends Discount {
     public void CreateDiscountBand(int BandID,double lowerBound,double upperBound,double discount_rate,int accountNumber) {
 
         DiscountID=GetData.GetIDs(accountNumber,"flexible");
-        UpdateDiscountBandCustomerID(BandID,DiscountID.get(0));
+        //UpdateDiscountBandCustomerID(BandID,DiscountID.get(0));
         try {
             Stm = conn1.connect().prepareStatement("INSERT INTO DiscountBand(lower, upper, discount_rate, DiscountBandCustomer_Id) VALUES (?,?,?,?)");
             Stm.setDouble(1, lowerBound);
             Stm.setDouble(2, upperBound);
             Stm.setDouble(3, discount_rate);
-            Stm.setInt(4,DiscountID.get(0));
+            Stm.setInt(4,BandID);
 
             Stm.executeUpdate();
         } catch (Exception e) {
