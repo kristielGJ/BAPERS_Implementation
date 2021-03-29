@@ -28,8 +28,16 @@ public class GUI extends JFrame {
 		add(new RegularCustomer(getWidth(),getHeight(),customerData,this));
 	}
 
+	public void valuedCustomer(String[] customerData){
+		add(new ValuedCustomer(getWidth(),getHeight(),customerData,this));
+	}
+
 	public void updateCustomer(String[] customerData){
 		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this));
+	}
+
+	public void retrieveCustomer(){
+		add(new RetrieveCustomer(getWidth(),getHeight(),this));
 	}
 
 	public String retrieveJob(int jobID) {
@@ -37,10 +45,6 @@ public class GUI extends JFrame {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 *
-	 * @param customer_acc_no
-	 */
 	public void addJob(int customer_acc_no) {
 		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, this));
 	}
@@ -70,10 +74,6 @@ public class GUI extends JFrame {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 *
-	 * @param Job_ID
-	 */
 	public void addTask(int Job_ID) {
 		add(new AddTask(getWidth(), getHeight(), Job_ID, this));
 	}
@@ -123,6 +123,7 @@ public class GUI extends JFrame {
 		this.setSize(width,height);
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 	}
 
 }

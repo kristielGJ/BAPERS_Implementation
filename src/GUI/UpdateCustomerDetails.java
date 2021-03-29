@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 
 public class UpdateCustomerDetails extends JPanel {
 
-	private String customerName, accNo, CustomerAddress, CustomerPhone;
+	private String customerName, accNo, CustomerAddress, CustomerPhone, valued;
 	private JTextArea customer_name_input, acc_no, address_input, phone_input;
 	private JLabel custLabel, accLabel, addLabel, phoneLabel, custDetLabel;
 	private JButton updateButton,backButton;
@@ -23,6 +23,7 @@ public class UpdateCustomerDetails extends JPanel {
 		this.accNo = customerData[1];
 		this.CustomerAddress = customerData[2];
 		this.CustomerPhone = customerData[3];
+		this.valued = customerData[4];
 		this.f = f;
 		this.lastPanel = f.getCurrentPanel();
 		f.setCurrentPanel(this);
@@ -91,15 +92,21 @@ public class UpdateCustomerDetails extends JPanel {
 		add(phoneLabel);
 
 		valuedCustomerBox = new JCheckBox("Valued Customer?");
+		if(valued.equals("Valued")){
+			valuedCustomerBox.setSelected(true);
+		}
 		valuedCustomerBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		valuedCustomerBox.setBounds((width/2) - width/8,(height/2)+(height/8),width/4,height/15);
+		valuedCustomerBox.setOpaque(false);
+		valuedCustomerBox.setHorizontalAlignment(JCheckBox.CENTER);
 		add(valuedCustomerBox);
 
 		custDetLabel = new JLabel();
 		custDetLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		custDetLabel.setForeground(new Color(1, 23, 71));
 		custDetLabel.setText("Update Details");
-		custDetLabel.setHorizontalAlignment(JLabel.CENTER);
-		custDetLabel.setBounds((width / 2) - (width / 3), 0, (width / 3) * 2, height / 4);
+		custDetLabel.setHorizontalTextPosition(JLabel.CENTER);
+		custDetLabel.setBounds((width / 2) - (100), 0, 200, height / 4);
 		add(custDetLabel);
 
 		backButton = new JButton();

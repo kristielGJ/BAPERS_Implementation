@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class RegularCustomer extends JPanel {
 
-	private String customerName, accNo, CustomerAddress, CustomerPhone;
+	private String customerName, accNo, CustomerAddress, CustomerPhone, Valued;
 	private JLabel customer_name, acc_no, address, phone, custLabel, accLabel, addLabel, phoneLabel, custDetLabel;
 	private JButton updateButton, addJobButton, backButton;
 	private CustomersTransaction cT = new CustomersTransaction(new DB_Connection());
@@ -53,59 +53,59 @@ public class RegularCustomer extends JPanel {
 		add(addJobButton);
 
 		customer_name = new JLabel();
-		customer_name.setBounds((width / 10) + (width / 4), height / 4, width / 2, height / 15);
+		customer_name.setBounds((width / 2), height / 4, width / 2, height / 15);
 		customer_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		customer_name.setText(customerName);
 		add(customer_name);
 
 		acc_no = new JLabel();
-		acc_no.setBounds((width / 10) + (width / 4), height / 4 + height / 12, width / 2, height / 15);
+		acc_no.setBounds((width / 2), height / 4 + height / 12, width / 2, height / 15);
 		acc_no.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		acc_no.setText(accNo);
 		add(acc_no);
 
 		address = new JLabel();
-		address.setBounds((width / 10) + (width / 4), height / 4 + height / 6, width / 2, height / 15);
-		address.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		address.setBounds((width / 2), height / 4 + height / 6, width / 2, height / 15);
+		address.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		address.setText(CustomerAddress);
 		add(address);
 
 		phone = new JLabel();
-		phone.setBounds((width / 10) + (width / 4), height / 2, width / 2, height / 15);
-		phone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		phone.setBounds((width / 2), height / 2, width / 2, height / 15);
+		phone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		phone.setText(CustomerPhone);
 		add(phone);
 
 		custLabel = new JLabel();
-		custLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		custLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		custLabel.setText("Name:");
-		custLabel.setBounds((width/10), height / 4, width / 5, height / 15);
+		custLabel.setBounds((width / 2) - (width / 4), height / 4, width / 5, height / 15);
 		add(custLabel);
 
 		accLabel = new JLabel();
-		accLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		accLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		accLabel.setText("Account No:");
-		accLabel.setBounds((width / 10), height / 4 + height / 12, width / 4, height / 15);
+		accLabel.setBounds((width / 2) - (width / 4), height / 4 + height / 12, width / 4, height / 15);
 		add(accLabel);
 
 		addLabel = new JLabel();
-		addLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		addLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		addLabel.setText("Address:");
-		addLabel.setBounds((width / 10), height / 4 + height / 6, width / 5, height / 15);
+		addLabel.setBounds((width / 2) - (width / 4), height / 4 + height / 6, width / 5, height / 15);
 		add(addLabel);
 
 		phoneLabel = new JLabel();
-		phoneLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		phoneLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		phoneLabel.setText("Phone:");
-		phoneLabel.setBounds((width / 10), height / 2, width / 4 + 50, height / 15);
+		phoneLabel.setBounds((width / 2) - (width / 4), height / 2, width / 4 + 50, height / 15);
 		add(phoneLabel);
 
 		custDetLabel = new JLabel();
-		custDetLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
+		custDetLabel.setFont(new Font("Tahoma", Font.BOLD, 34));
 		custDetLabel.setForeground(new Color(1, 23, 71));
 		custDetLabel.setText("Customer Details");
 		custDetLabel.setHorizontalTextPosition(JLabel.CENTER);
-		custDetLabel.setBounds((width / 2) - (width / 3), 0, (width / 3) * 2, height / 4);
+		custDetLabel.setBounds((width / 2) - (width/6), 0, (width / 3) * 2, height / 4);
 		add(custDetLabel);
 
 		backButton = new JButton();
@@ -148,7 +148,7 @@ public class RegularCustomer extends JPanel {
 	class updateListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			String[] cD = {customerName,accNo,CustomerAddress,CustomerPhone};
+			String[] cD = {customerName,accNo,CustomerAddress,CustomerPhone,"Regular"};
 			f.updateCustomer(cD);
 			setVisible(false);
 		}
