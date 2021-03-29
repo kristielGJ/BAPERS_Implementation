@@ -41,6 +41,32 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
     }
 
     @Override
+    public UserAccount authenticate(int id, String password) {
+        UserAccount account = null;
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM User_account WHERE user_account_id = ?");
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (password.equals(rs.getString("password"))) {
+                account = new UserAccount(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6)
+                );
+            }
+            rs.close();
+            st.close();
+            System.out.println("Queried " + account.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @Override
     public UserAccount read(int id) {
         UserAccount account = null;
         try {

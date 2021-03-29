@@ -6,6 +6,7 @@
 package GUI;
 
 import model.database.Controller;
+import model.database.I_Bapers;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,13 +16,13 @@ import java.awt.event.ActionEvent;
  * @author msy
  */
 public class AddStaffPanel extends JPanel {
-    private Controller controller;
+    private I_Bapers controller;
     private JTable staffTable;
 
     /**
      * Creates new form AddStaffPanel
      */
-    public AddStaffPanel(Controller controller, JTable staffTable) {
+    public AddStaffPanel(I_Bapers controller, JTable staffTable) {
         this.controller = controller;
         this.staffTable = staffTable;
         initComponents();
