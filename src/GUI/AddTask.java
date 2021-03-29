@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
  */
 public class AddTask extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    Controller bapers = new Controller();
     private GUI f;
     private JPanel lastPanel;
 
