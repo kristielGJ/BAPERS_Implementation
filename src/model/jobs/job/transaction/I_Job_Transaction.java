@@ -1,8 +1,10 @@
 package model.jobs.job.transaction;
 
 import model.Transaction;
+import model.jobs.job.Job;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public interface I_Job_Transaction extends Transaction {
 
@@ -15,6 +17,8 @@ public interface I_Job_Transaction extends Transaction {
     void updatePriority(int job_ID, String priority);
 
     void addPaymentDeadline(int job_ID, LocalDateTime payment_deadline);
+
+    public ArrayList<Job> getAll();
 
 }
 

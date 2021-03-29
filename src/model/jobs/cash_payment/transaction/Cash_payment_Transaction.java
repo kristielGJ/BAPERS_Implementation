@@ -49,8 +49,8 @@ public class Cash_payment_Transaction implements I_Cash_payment_Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> cash_details = null;
+    public ArrayList<Cash_payment> getAll() {
+        ArrayList<Cash_payment> cash_details = null;
         try {
             cash_details = new ArrayList<>();
             Stm = conn.prepareStatement("SELECT * FROM Payment");

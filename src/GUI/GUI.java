@@ -1,4 +1,6 @@
 package GUI;
+import model.database.Controller;
+
 import javax.swing.*;
 
 public class GUI extends JFrame {
@@ -30,6 +32,10 @@ public class GUI extends JFrame {
 
 	public void updateCustomer(String[] customerData){
 		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this));
+	}
+
+	public void staffManagement(Controller controller) {
+		add(new StaffManagementPanel(getWidth(), getHeight(), this, controller));
 	}
 
 	public String retrieveJob(int jobID) {

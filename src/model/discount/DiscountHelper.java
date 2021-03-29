@@ -49,7 +49,6 @@ public class DiscountHelper {
             ResultSet rs = st.executeQuery();
             conn.setAutoCommit(false);
             while (rs.next()) {
-                g
                 int currentId = rs.getInt(1);
                 st = conn.prepareStatement("UPDATE Job SET Total_discount=? WHERE Job_ID=?");
                 st.setInt(1, rs.getInt(2));

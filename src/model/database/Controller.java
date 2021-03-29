@@ -1,15 +1,22 @@
 package model.database;
 
+import model.Model;
 import model.admin.alert.Alert;
+import model.admin.userAccount.UserAccount;
+import model.admin.userAccount.transaction.UserAccountTransaction;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.CSS;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Controller implements I_Bapers {
 
 	private static final DB_Connection mainConn = new DB_Connection();
+	UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
 
 	public void main() {
 
@@ -146,6 +153,50 @@ public class Controller implements I_Bapers {
 	@Override
 	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException {
 
+	}
+
+	public boolean updateStaffMember(Object[] values) {
+		try {
+			userAccountTransaction.update(
+					(int) values[0], (String) values[1],
+					(String) values[2], (String) values[3],
+					(String) values[4], (String) values[5]
+			);
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean addStaffMember(String[] values) {
+		//TODO: Add verification
+		try {
+			userAccountTransaction.create(values[0], values[1], values[2], values[3], values[4]);
+			return true;
+		} catch (Exception e) { e.printStackTrace(); }
+		return false;
+	}
+
+	public boolean removeStaffMember(int id) {
+		try {
+			userAccountTransaction.remove(id);
+			return true;
+		} catch (Exception e) { e.printStackTrace(); }
+		return false;
+	}
+
+	public void populateStaffTable(JTable table) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		ArrayList<UserAccount> userAccounts = userAccountTransaction.getAll();
+		for (UserAccount act : userAccounts) {
+			model.addRow(new Object[] {
+					act.getId(), act.getName(),
+					act.getEmail(), act.getPhone(),
+					act.getRole()
+			});
+		}
 	}
 
 	/**

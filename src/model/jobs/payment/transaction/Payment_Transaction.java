@@ -126,8 +126,8 @@ public class Payment_Transaction implements I_Payment_Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> payment_details = null;
+    public ArrayList<Payment> getAll() {
+        ArrayList<Payment> payment_details = null;
         try {
             payment_details = new ArrayList<>();
             Stm = conn.prepareStatement("SELECT * FROM Payment");
