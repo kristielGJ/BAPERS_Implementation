@@ -6,6 +6,7 @@
 package GUI;
 
 import model.database.Controller;
+import model.database.I_Bapers;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -17,14 +18,14 @@ import java.awt.event.ActionEvent;
  * @author msy
  */
 public class UpdateStaffPanel extends javax.swing.JPanel {
-    private Controller controller;
+    private I_Bapers controller;
     private JTable staffTable;
     private DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel<>(new String[] { "Office Manager", "Shift Manager", "Receptionist", "Technician" });
 
     /**
      * Creates new form UpdateStaffPanel
      */
-    public UpdateStaffPanel(Controller controller, JTable staffTable) {
+    public UpdateStaffPanel(I_Bapers controller, JTable staffTable) {
         this.controller = controller;
         this.staffTable = staffTable;
         initComponents();

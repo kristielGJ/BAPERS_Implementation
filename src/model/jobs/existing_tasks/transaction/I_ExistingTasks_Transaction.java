@@ -23,4 +23,6 @@ public interface I_ExistingTasks_Transaction extends Transaction {
     //returns a list of existing tasks
     ArrayList<ExistingTasks> getExistingTasks();
 
+    public ArrayList<ExistingTasks> getAll();
+
 }

@@ -24,5 +24,7 @@ public interface I_Job_Transaction extends Transaction {
     //returns the list of jobs associated with the customer
     ArrayList<Job> getJobs(int customer_id, String type);
 
+    public ArrayList<Job> getAll();
+
 }
 
