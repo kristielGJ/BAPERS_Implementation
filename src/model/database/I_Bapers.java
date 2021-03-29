@@ -1,9 +1,18 @@
 package model.database;
 
+import model.jobs.existing_tasks.ExistingTasks;
+import model.jobs.job.Job;
+import model.jobs.task.Task_List;
+import reports.individual_performance_report.IndividualPerformanceReport;
+import reports.job_performance_report.JobPerformanceReport;
+import reports.summary_performance_report.SummaryPerformanceReport;
+
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 public interface I_Bapers {
 
@@ -20,80 +29,6 @@ public interface I_Bapers {
 	abstract void createNewCustomer(String[] customerData) throws SQLException;
 
 	/**
-	 * 
-	 * @param jobID
-	 */
-	abstract String verifyJob(int jobID);
-
-	/**
-	 * 
-	 * @param jobID
-	 */
-	abstract String retrieveJobStatus(int jobID);
-
-	/**
-	 * 
-	 * @param jobData
-	 */
-	abstract void addJob(String jobData);
-
-	/**
-	 * 
-	 * @param jobID
-	 * @param jobData
-	 */
-	abstract boolean saveJob(int jobID, String jobData);
-
-	/**
-	 * 
-	 * @param jobID
-	 * @param jobData
-	 */
-	abstract void updateStatus(int jobID, String jobData);
-
-	/**
-	 * 
-	 * @param paymentData
-	 */
-	abstract boolean MakePayment(String paymentData);
-
-	/**
-	 * 
-	 * @param type
-	 */
-	abstract void chooseReportType(String type);
-
-	/**
-	 * 
-	 * @param reportData
-	 */
-	abstract String generateReport(String reportData);
-
-	/**
-	 * 
-	 * @param task_data
-	 */
-	abstract void addTask(String task_data);
-
-	/**
-	 * 
-	 * @param taskData
-	 */
-	abstract void extendTaskList(String taskData);
-
-	/**
-	 * 
-	 * @param existing_task_ID
-	 */
-	abstract void removeExistingTask(int existing_task_ID);
-
-	/**
-	 * 
-	 * @param existing_task_ID
-	 */
-	abstract void updateExistingTask(int existing_task_ID);
-
-	/**
 	 *
 	 * @param name
 	 * @param Acc_no
@@ -102,70 +37,65 @@ public interface I_Bapers {
 	 */
 	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException;
 
-	/**
-	 * 
-	 * @param task_status
-	 * @param location
-	 */
-	abstract void updateTaskInfo(String task_status, String location);
-
 	abstract void backup();
 
 	abstract void restore();
 
-	//jobs
+	//creates a new job
 	void createJob(int job_ID, String job_desc, String priority, String job_status, int time, String special_instructions, int customer_account_no);
 
-	String[] retrieveJob(int job_ID);
-
+	//update the job status
 	void updateJobStatus(int job_ID, String job_status);
 
-	void updatePriority(int job_ID, String priority);
+	//return active jobs which are not completed
+	ArrayList<Job> getActiveJobs();
 
-	void addPaymentDeadline(int job_ID, LocalDateTime payment_deadline);
+	//creates a new task
+	void createTask(String existing_task, int Job_ID, String technician, String task_status);
 
-	//task
-	void createTask(int task_ID, String existing_task, int Job_ID, String technician, String task_status);
-
-	String[] retrieveTasks(int task_ID);
-
+	//returns the list of existing tasks
 	String[] existingTasks();
 
+	//returns the list of technicians
 	String[] retrieveTechnicians();
 
+	//updates the task status
 	void updateTaskStatus(int Task_ID, String Task_status);
 
-	//existing tasks
-	void createExistingTask(int exg_Task_ID, String task_description, double task_price, int task_duration, String department_name);
+	// return the list of tasks
+	ArrayList<Task_List> getAllTasks(int job_ID);
 
-	String[] retrieveExistingTask(int existing_task_ID);
+	//return the list of jobs
+	ArrayList<Job> getJobs(int customer_id, String type);
 
+	//creates a new existing task
+	void createExistingTask(String task_description, double task_price, int task_duration, String department_name);
+
+	//return the list of existing tasks
+	ArrayList<ExistingTasks> getExistingTasks();
+
+	//remove the existing task from the database
 	void deleteExistingTask(int existing_task_ID);
 
+	//updates the existing task
 	void updateExistingTask(int existing_task_ID, String task_name, Double task_price, int task_duration, String department_name);
 
-	//payment
-	void createPayment(int payment_ID, String payment_type, Double payment_amount, int customer_ID);
+	//creates a new payment
+	int createPayment(String payment_type, Double payment_amount, Date date, int job_ID);
 
+	//generates a payment invoice
 	String[] generateInvoice(int payment_ID);
 
-	void createCash_payment(int payment_ID, double payment_amount, int customer_ID);
+	//creates a new card payment
+	void createCard_payment(int payment_id, String card_type, String expiry_date, String last_digits, double payment_amount, Date date, int job_ID);
 
-	void createCard_payment(int card_ID, int payment_ID, String card_type, String expiry_date, String last_digits, double payment_amount, int customer_ID);
+	//generates job sheet
+	ArrayList<JobPerformanceReport> generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_id);
 
-	//reports
-	HashMap<String, HashMap<Integer, String[][]>> generateIndividualPerformanceReport(LocalDate from_date, LocalDate to_date);
+	//generates individual performance report
+	ArrayList<IndividualPerformanceReport> generateIndividualPerformance_Report(LocalDate from_date, LocalDate to_date);
 
-	HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date, int customer_acc_no);
-
-	HashMap<String, String[]> generateCopy_room_performance(LocalDate from_date, LocalDate to_date);
-
-	HashMap<String, String[]> generateDevelopment_performance(LocalDate from_date, LocalDate to_date);
-
-	HashMap<String, String[]> generateFinishing_performance(LocalDate from_date, LocalDate to_date);
-
-	HashMap<String, String[]> generatePacking_performance(LocalDate from_date, LocalDate to_date);
-
-
+	//generates summary performance report
+	ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time);
 
 }

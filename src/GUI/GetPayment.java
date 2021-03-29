@@ -5,17 +5,28 @@
  */
 package GUI;
 
+import model.database.Controller;
+import model.database.I_Bapers;
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.util.regex.Pattern;
+
 /**
  *
- * @author kehkshan
+ * @author kehkshan and Manpreet
  */
 public class GetPayment extends javax.swing.JPanel {
+
+    I_Bapers bapers = new Controller();
+    private GUI f;
+    private JPanel lastPanel;
 
     /**
      * Creates new form GetPayment
      */
-    public GetPayment() {
-        initComponents();
+    public GetPayment(int width, int height, int job_id, double amount, GUI f) {
+        initComponents(width, height, job_id, amount, f);
     }
 
     /**
@@ -25,8 +36,11 @@ public class GetPayment extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, int job_id, double amount, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
         date_input = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         amount_input = new javax.swing.JTextField();
@@ -42,9 +56,10 @@ public class GetPayment extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(800, 500));
 
         date_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        date_input.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                date_inputActionPerformed(evt);
+        date_input.setText("YYYY-MM-DD");
+        date_input.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                date_input_inputFocusGained(evt);
             }
         });
 
@@ -55,11 +70,8 @@ public class GetPayment extends javax.swing.JPanel {
 
         amount_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         amount_input.setPreferredSize(new java.awt.Dimension(99, 26));
-        amount_input.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amount_inputActionPerformed(evt);
-            }
-        });
+        amount_input.setEditable(false);
+        amount_input.setText(String.valueOf(amount));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
@@ -75,9 +87,9 @@ public class GetPayment extends javax.swing.JPanel {
         cash_payment_button.setText("Cash Payment");
         cash_payment_button.setBorderPainted(false);
         cash_payment_button.setFocusPainted(false);
-        cash_payment_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cash_payment_buttonActionPerformed(evt);
+        cash_payment_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cash_payment_buttonMouseClicked(evt, job_id);
             }
         });
 
@@ -87,9 +99,9 @@ public class GetPayment extends javax.swing.JPanel {
         card_payment_button.setText("Card Payment");
         card_payment_button.setBorderPainted(false);
         card_payment_button.setFocusPainted(false);
-        card_payment_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                card_payment_buttonActionPerformed(evt);
+        card_payment_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                card_payment_buttonMouseClicked(evt, job_id);
             }
         });
 
@@ -114,6 +126,11 @@ public class GetPayment extends javax.swing.JPanel {
         back_button.setMaximumSize(new java.awt.Dimension(107, 29));
         back_button.setMinimumSize(new java.awt.Dimension(107, 29));
         back_button.setPreferredSize(new java.awt.Dimension(107, 29));
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -179,21 +196,65 @@ public class GetPayment extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void date_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_date_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_date_inputActionPerformed
+    private void date_input_inputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_completion_deadline_inputFocusGained
+        date_input.setText("");
+    }
 
-    private void card_payment_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_card_payment_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_card_payment_buttonActionPerformed
+    private void card_payment_buttonMouseClicked(MouseEvent evt, int job_ID){
+        Pattern pattern = Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
+        if(!date_input.getText().isEmpty()){
+            if(pattern.matcher(date_input.getText()).matches()){
+                f.cardPayment(Double.parseDouble(amount_input.getText()), Date.valueOf(date_input.getText()), job_ID);
+                setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Incorrect date format!",
+                        "BAPERS", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
-    private void amount_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amount_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_amount_inputActionPerformed
+    private void cash_payment_buttonMouseClicked(MouseEvent evt, int job_ID){
+        Pattern pattern = Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
+        if(!date_input.getText().isEmpty()){
+            if(pattern.matcher(date_input.getText()).matches()){
+                int id = bapers.createPayment("Cash", Double.parseDouble(amount_input.getText()), Date.valueOf(date_input.getText()), job_ID);
+                f.generateInvoice(id);
+                setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Incorrect date format!",
+                        "BAPERS", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
-    private void cash_payment_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cash_payment_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cash_payment_buttonActionPerformed
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

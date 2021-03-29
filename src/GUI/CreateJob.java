@@ -4,12 +4,9 @@ package GUI;/*
  * and open the template in the editor.
  */
 
-
 import model.database.Controller;
 import model.database.I_Bapers;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 
 /**
@@ -107,9 +104,9 @@ public class CreateJob extends JPanel {
         add_task_button.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         add_task_button.setBorderPainted(false);
         add_task_button.setFocusPainted(false);
-        add_task_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_task_buttonActionPerformed(evt);
+        add_task_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_task_buttonMouseClicked(evt, id);
             }
         });
 
@@ -123,11 +120,6 @@ public class CreateJob extends JPanel {
         save_job_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 save_job_buttonMouseClicked(evt, customer_acc_no);
-            }
-        });
-        save_job_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                save_job_buttonActionPerformed(evt);
             }
         });
 
@@ -256,13 +248,18 @@ public class CreateJob extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void add_task_buttonActionPerformed(ActionEvent evt) {
-    }
-
-    private void save_job_buttonActionPerformed(ActionEvent evt) {
-    }
-
     private void add_task_buttonMouseClicked(MouseEvent evt, int job_ID) {
+        if (job_ID != 0){
+            f.addTask(job_ID);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Warning no job has been created!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
 
     }
 
@@ -280,6 +277,13 @@ public class CreateJob extends JPanel {
             priority_list_input.setSelectedItem("Select Priority Level");
             completion_deadline_input.setText("Optional (for custom priority only)");
             special_instructions_input.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the required fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_save_job_buttonMouseClicked
 

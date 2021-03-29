@@ -4,17 +4,33 @@ package GUI;/*
  * and open the template in the editor.
  */
 
+import model.database.Controller;
+import model.database.I_Bapers;
+import model.jobs.existing_tasks.ExistingTasks;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Manpreet
  */
 public class ExistingTaskList extends javax.swing.JPanel {
 
+    I_Bapers bapers = new Controller();
+    private GUI f;
+    private JPanel lastPanel;
+
     /**
      * Creates new form ExistingTaskList
      */
-    public ExistingTaskList() {
-        initComponents();
+    public ExistingTaskList(int width, int height, GUI f) {
+        initComponents(width, height, f);
     }
 
     /**
@@ -24,8 +40,11 @@ public class ExistingTaskList extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         task_table_input = new javax.swing.JTable();
@@ -35,7 +54,7 @@ public class ExistingTaskList extends javax.swing.JPanel {
         refresh_button = new javax.swing.JButton();
         filter = new javax.swing.JComboBox<>();
         back_button = new javax.swing.JButton();
-        save_button = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(157, 195, 230));
         setMaximumSize(new java.awt.Dimension(800, 500));
@@ -48,21 +67,15 @@ public class ExistingTaskList extends javax.swing.JPanel {
         task_table_input.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         task_table_input.setForeground(new java.awt.Color(1, 23, 71));
         task_table_input.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
             new String [] {
-                "Task ID", "Description", "Location", "Price(£)", "Duration(min)"
-            }
+                "Task ID", "Description", "Price(£)", "Duration(min)", "Location"
+            },0
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,11 +86,12 @@ public class ExistingTaskList extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        addTasks(task_table_input);
         task_table_input.setGridColor(new java.awt.Color(1, 23, 71));
         task_table_input.setSelectionBackground(new java.awt.Color(230, 238, 255));
         task_table_input.setSelectionForeground(new java.awt.Color(1, 23, 71));
         task_table_input.setShowGrid(true);
-        task_table_input.getTableHeader().setResizingAllowed(false);
+        task_table_input.getTableHeader().setResizingAllowed(true);
         task_table_input.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(task_table_input);
 
@@ -89,6 +103,11 @@ public class ExistingTaskList extends javax.swing.JPanel {
         add_button.setFocusPainted(false);
         add_button.setMaximumSize(new java.awt.Dimension(85, 25));
         add_button.setMinimumSize(new java.awt.Dimension(85, 25));
+        add_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                add_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
@@ -102,6 +121,11 @@ public class ExistingTaskList extends javax.swing.JPanel {
         remove_button.setFocusPainted(false);
         remove_button.setMaximumSize(new java.awt.Dimension(85, 25));
         remove_button.setMinimumSize(new java.awt.Dimension(85, 25));
+        remove_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                remove_buttonMouseClicked(evt, task_table_input);
+            }
+        });
 
         refresh_button.setBackground(new java.awt.Color(1, 23, 71));
         refresh_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -109,12 +133,22 @@ public class ExistingTaskList extends javax.swing.JPanel {
         refresh_button.setText("Refresh");
         refresh_button.setBorderPainted(false);
         refresh_button.setFocusPainted(false);
+        refresh_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent  evt) {
+                refresh_buttonMouseClicked(evt, task_table_input);
+            }
+        });
 
         filter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         filter.setForeground(new java.awt.Color(1, 23, 71));
         filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
         filter.setMinimumSize(new java.awt.Dimension(108, 25));
         filter.setPreferredSize(new java.awt.Dimension(108, 25));
+        filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterActionPerformed(evt, task_table_input);
+            }
+        });
 
         back_button.setBackground(new java.awt.Color(1, 23, 71));
         back_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -122,43 +156,56 @@ public class ExistingTaskList extends javax.swing.JPanel {
         back_button.setText("Back");
         back_button.setBorderPainted(false);
         back_button.setFocusPainted(false);
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
 
-        save_button.setBackground(new java.awt.Color(1, 23, 71));
-        save_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        save_button.setForeground(new java.awt.Color(157, 195, 230));
-        save_button.setText("Save");
-        save_button.setBorderPainted(false);
-        save_button.setFocusPainted(false);
+        jButton1.setBackground(new java.awt.Color(1, 23, 71));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(157, 195, 230));
+        jButton1.setText("Update");
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusPainted(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+               update_buttonMouseClicked(evt, task_table_input);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(save_button)
-                .addGap(18, 18, 18)
-                .addComponent(back_button)
-                .addGap(27, 27, 27))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(374, 374, 374))
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(back_button))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(196, 196, 196)
-                        .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(remove_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refresh_button)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(117, 117, 117)
+                                        .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(add_button, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(remove_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(refresh_button))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(374, 374, 374)
+                                .addComponent(jLabel2)))
+                        .addGap(0, 23, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,30 +216,116 @@ public class ExistingTaskList extends javax.swing.JPanel {
                     .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(add_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(remove_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(refresh_button))
+                    .addComponent(refresh_button)
+                    .addComponent(jButton1))
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save_button)
-                    .addComponent(back_button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(back_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void refresh_buttonMouseClicked(java.awt.event.MouseEvent evt, JTable table) {
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        ArrayList<ExistingTasks> tasks = bapers.getExistingTasks();
+        for(ExistingTasks task : tasks){
+            model.addRow(new Object[]{task.getExg_Task_ID(), task.getTask_description(),task.getTask_price(),task.getTask_duration(),  task.getDepartment_name()});
+        }
+        table.setModel(model);
+    }
+
+    private void filterActionPerformed(ActionEvent evt, JTable table) {
+
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
+        table.setRowSorter(sorter);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 0;
+        if (filter.getSelectedItem() == "Ascending"){
+            sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+        }
+        else {
+            sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
+        }
+
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+    }
+
+    private void addTasks(JTable table) {
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        ArrayList<ExistingTasks> tasks = bapers.getExistingTasks();
+        for(ExistingTasks task : tasks){
+            model.addRow(new Object[]{task.getExg_Task_ID(), task.getTask_description(),task.getTask_price(),task.getTask_duration(),  task.getDepartment_name()});
+        }
+        table.setModel(model);
+    }
+
+    private void update_buttonMouseClicked(MouseEvent evt, JTable table){
+        try
+        {
+            int row = table.getSelectedRow();
+            String[] data = new String[5];
+            for( int i=0; i < 5; i++){
+                data[i] = table.getModel().getValueAt(row, i).toString();
+            }
+            f.updateExistingTask(data);
+            setVisible(false);
+
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select a task to update.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+    }
+    private void add_buttonMouseClicked(MouseEvent evt){
+        f.extendTaskList();
+        setVisible(false);
+    }
+
+    private void  remove_buttonMouseClicked(MouseEvent evt, JTable table){
+        try
+        {
+            int column = 0;
+            int row = table.getSelectedRow();
+            int id = Integer.parseInt(table.getModel().getValueAt(row, column).toString());
+            bapers.deleteExistingTask(id);
+            refresh_buttonMouseClicked(evt, table);
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select a task to remove.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_button;
     private javax.swing.JButton back_button;
     private javax.swing.JComboBox<String> filter;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refresh_button;
     private javax.swing.JButton remove_button;
-    private javax.swing.JButton save_button;
     private javax.swing.JTable task_table_input;
     // End of variables declaration//GEN-END:variables
 }

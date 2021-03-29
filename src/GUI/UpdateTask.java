@@ -5,17 +5,25 @@
  */
 package GUI;
 
+import model.database.Controller;
+import model.database.I_Bapers;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
 /**
  *
- * @author kehkshan
+ * @author kehkshan and Manpreet
  */
 public class UpdateTask extends javax.swing.JPanel {
+
+    I_Bapers bapers = new Controller();
 
     /**
      * Creates new form UpdateTask
      */
-    public UpdateTask() {
-        initComponents();
+    public UpdateTask(int task_id) {
+        initComponents(task_id);
     }
 
     /**
@@ -25,7 +33,7 @@ public class UpdateTask extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int task_id) {
 
         jLabel1 = new javax.swing.JLabel();
         save_button = new javax.swing.JButton();
@@ -46,6 +54,11 @@ public class UpdateTask extends javax.swing.JPanel {
         save_button.setText("Save");
         save_button.setBorderPainted(false);
         save_button.setFocusPainted(false);
+        save_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                save_buttonMouseClicked(evt, task_id);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
@@ -55,11 +68,6 @@ public class UpdateTask extends javax.swing.JPanel {
         select_status_combo_box.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         select_status_combo_box.setForeground(new java.awt.Color(157, 195, 230));
         select_status_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Status", "Pending", "Processing", "Completed" }));
-        select_status_combo_box.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                select_status_combo_boxActionPerformed(evt);
-            }
-        });
 
         cancel_button.setBackground(new java.awt.Color(1, 23, 71));
         cancel_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -67,6 +75,11 @@ public class UpdateTask extends javax.swing.JPanel {
         cancel_button.setText("Cancel");
         cancel_button.setBorderPainted(false);
         cancel_button.setFocusPainted(false);
+        cancel_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_buttonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
@@ -116,9 +129,24 @@ public class UpdateTask extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void select_status_combo_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_status_combo_boxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_select_status_combo_boxActionPerformed
+    private void save_buttonMouseClicked(MouseEvent evt, int task_id){
+        if (!(select_status_combo_box.getSelectedItem() == "Select Status")){
+            bapers.updateTaskStatus(task_id, String.valueOf(select_status_combo_box.getSelectedItem()));
+            JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+            frame.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select status.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    private void cancel_buttonActionPerformed(ActionEvent evt){
+        JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,87 +1,75 @@
 package reports.job_performance_report.transaction;
 
 import model.database.DB_Connection;
+import reports.job_performance_report.JobPerformanceReport;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+/**
+ *
+ * @author Manpreet
+ */
 
 public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_Transaction {
 
     private PreparedStatement Stm = null;
     private Connection conn;
 
+    //constructor
     public JobPerformanceReport_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    /**
-     *  @param from_date
-     * @param to_date
-     * @return
-     */
-    public HashMap<Integer, HashMap<Integer, String[][]>> generateJobPerformanceReport(LocalDate from_date, LocalDate to_date, int customer_acc_no) {
-        HashMap<Integer, String[][]> details = new HashMap<>();
-        HashMap<Integer, HashMap<Integer, String[][]>> report_details = new HashMap<>();
-        String[] job_details = new String[1];
-        String[] task_details = new String[2];
-        String[] task_catalog_details = new String[2];
-        String[] user_details = new String[1];
-        int i = 1;
-
+    //generates job sheet
+    public ArrayList<JobPerformanceReport> generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_ID) {
+        ArrayList<JobPerformanceReport> report = null;
         try {
-            Stm = conn.prepareStatement("select Job_ID from Job where CustomerAccount_no = ? CAST(Start as DATE) BETWEEN ? AND ?");
-            Stm.setInt(1, customer_acc_no );
-            Stm.setDate(2, Date.valueOf(from_date));
-            Stm.setDate(3, Date.valueOf(to_date));
+            report = new ArrayList<>();
+            Stm = conn.prepareStatement("SELECT * FROM Job WHERE CustomerAccount_no = ? AND Status = ? AND  CAST(Start as DATE) BETWEEN ? AND ?");
+            Stm.setInt(1, customer_ID);
+            Stm.setString(2, "Completed");
+            Stm.setDate(3, Date.valueOf(from_date));
+            Stm.setDate(4, Date.valueOf(to_date));
             ResultSet rs = Stm.executeQuery();
-
             while (rs.next()) {
-                Stm = conn.prepareStatement("select Task_CatalogCatalog_ID, Task_start, Task_completion, User_accountUser_ID from Task where JobJob_ID = ?");
-                Stm.setInt(1, rs.getInt("Job_ID"));
+                Stm = conn.prepareStatement("SELECT * FROM Task WHERE JobJob_ID = ?");
+                Stm.setInt(1, rs.getInt(1));
                 ResultSet rs1 = Stm.executeQuery();
-
                 while (rs1.next()){
-                    job_details[0] =  String.valueOf(rs.getInt("Job_ID"));
-                    task_details[0] = String.valueOf(rs1.getTimestamp("Task_start"));
-                    //total time taken
-                    long dur = Duration.between(rs1.getTimestamp("Task_start").toLocalDateTime(), rs1.getTimestamp("Task_completion").toLocalDateTime()).getSeconds() / 60;
-                    String total_time = String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
-                    task_details[1] = total_time;
-
-                    Stm = conn.prepareStatement("select Catalog_ID, Price, Task_department from Task_Catalog where Catalog_ID = ?");
-                    Stm.setInt(1, rs1.getInt("Task_CatalogCatalog_ID"));
+                    Stm = conn.prepareStatement("SELECT * FROM User_account WHERE user_account_id = ?");
+                    Stm.setInt(1, rs1.getInt(6));
                     ResultSet rs2 = Stm.executeQuery();
-
                     while (rs2.next()){
-                        task_catalog_details[0] = String.valueOf(rs2.getDouble("Price"));
-                        task_catalog_details[1] = rs2.getString("Task_department");
+                        Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Catalog_ID = ?");
+                        Stm.setInt(1, rs1.getInt(7));
+                        ResultSet rs3 = Stm.executeQuery();
+                        while (rs3.next()){
+                            long dur = Duration.between(rs1.getTimestamp(4).toLocalDateTime(), rs1.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                            String total_time = String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
+                            JobPerformanceReport details = new JobPerformanceReport(
+                                    rs.getInt(1),
+                                    rs3.getDouble(3),
+                                    rs3.getInt(1),
+                                    rs3.getString(4),
+                                    rs1.getTimestamp(4).toLocalDateTime(),
+                                    total_time,
+                                    rs2.getString(2)
+                            );
+                            report.add(details);
+                        }
                     }
-                    Stm = conn.prepareStatement("select name  from User_account where user_account_id = ?");
-                    Stm.setInt(1, rs1.getInt("User_accountUser_ID"));
-                    ResultSet rs3 = Stm.executeQuery();
-
-                    while (rs3.next()){
-                        user_details[0] = rs3.getString("name");
-                    }
-
-                    //job_details: job_ID
-                    //task_details: Task_start, Total_time_taken(min)
-                    //task_catalog_details: Price, Task_department
-                    //user_details: User_name
-                    details.put(rs1.getInt("Task_CatalogCatalog_ID"), new String[][]{job_details, task_details, task_catalog_details, user_details});
                 }
-                report_details.put(i, details);
-                i++;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return report_details;
+        return report;
     }
+
 }

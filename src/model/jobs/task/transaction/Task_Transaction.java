@@ -2,36 +2,33 @@ package model.jobs.task.transaction;
 
 import model.Model;
 import model.database.DB_Connection;
-import model.jobs.job.Job;
 import model.jobs.task.Task;
-
+import model.jobs.task.Task_List;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+/**
+ *
+ * @author Manpreet
+ */
 
 public class Task_Transaction implements I_Task_Transaction {
 
     private PreparedStatement Stm = null;
     private Connection conn;
 
+    //constructor
     public Task_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    /**
-     * creating a new object Task
-     *
-     * @param task_ID
-     * @param task_status
-     * @param Job_ID
-     * @param technician
-     * @param existing_task
-     */
-    public void addTask(int task_ID, String existing_task, int Job_ID, String technician, String task_status) {
+    //creates a new Task
+    public void addTask(String existing_task, int Job_ID, String technician, String task_status) {
         int ExistingTask_ID = 0;
         int user_ID = 0;
         try {
-            Stm = conn.prepareStatement("select ExistingTask_ID from Task_Catalog where Task_name = ? ");
+            Stm = conn.prepareStatement("select Catalog_ID from Task_Catalog where Task_name = ? ");
             Stm.setString(1,existing_task);
             ResultSet rs = Stm.executeQuery();
             while (rs.next()){
@@ -46,28 +43,20 @@ public class Task_Transaction implements I_Task_Transaction {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        new Task(task_ID, task_status);
-        storeTaskDetails(task_ID, ExistingTask_ID, Job_ID, user_ID, task_status);
+        new Task(task_status);
+        //calls the save method
+        storeTaskDetails(ExistingTask_ID, Job_ID, user_ID, task_status);
     }
 
-    /**
-     * store task details in the database
-     *
-     * @param task_ID
-     * @param ExistingTask_ID
-     * @param task_status
-     * @param Job_ID
-     */
-    public void storeTaskDetails(int task_ID, int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
+    //store task details in the database
+    public void storeTaskDetails(int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
         try {
-            Stm = conn.prepareStatement("INSERT INTO `bapers`.`Task` (`Task_ID` ,`Task_status`,`Task_start`, `User_accountUser_ID`,`Task_CatalogCatalog_ID`, `JobJob_ID`) VALUES (?,?,?,?,?,?) ");
-            Stm.setInt(1, task_ID);
-            Stm.setString(2, task_status);
-            Stm.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            Stm.setInt(4, user_ID);
-            Stm.setInt(5, ExistingTask_ID);
-            Stm.setInt(6, Job_ID);
+            Stm = conn.prepareStatement("INSERT INTO `bapers`.`Task` (`Task_status`,`Task_start`, `User_accountUser_ID`,`Task_CatalogCatalog_ID`, `JobJob_ID`) VALUES (?,?,?,?,?) ");
+            Stm.setString(1, task_status);
+            Stm.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            Stm.setInt(3, user_ID);
+            Stm.setInt(4, ExistingTask_ID);
+            Stm.setInt(5, Job_ID);
             Stm.executeUpdate();
             calculateSub_price(Job_ID, ExistingTask_ID);
         } catch (Exception e) {
@@ -75,39 +64,7 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    /**
-     * retrieving the pre-stored task in the database
-     *
-     * @param task_ID
-     */
-    public String[] retrieveTasks(int task_ID) {
-        String[] task_details = new String[8];
-        try {
-            Stm = conn.prepareStatement("select * from Task where Task_ID = ? ");
-            Stm.setInt(1,task_ID);
-            ResultSet rs = Stm.executeQuery();
-            while(rs.next()){
-                task_details[0] = String.valueOf(rs.getInt(1));
-                task_details[1] = rs.getString(2);
-                task_details[2] = String.valueOf(rs.getDouble(3));
-                task_details[3] = String.valueOf(rs.getTimestamp(4));
-                task_details[4] = String.valueOf(rs.getTimestamp(5));
-                task_details[5] = String.valueOf(rs.getInt(6));
-                task_details[6] = String.valueOf(rs.getInt(7));
-                task_details[7] = String.valueOf(rs.getInt(8));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return task_details;
-    }
-
-    /**
-     * updating task status in the database
-     *
-     * @param Task_status
-     * @param Task_ID
-     */
+    //updates the task status in the database
     public void updateTaskStatus(int Task_ID, String Task_status) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_status = ? WHERE Task_ID =?;");
@@ -127,6 +84,7 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
+    //calculates the sub total price of a job
     public void calculateSub_price(int job_ID, int ExistingTask_ID){
         try {
             double task_price = 0;
@@ -158,11 +116,7 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    /**
-     * stores the finish_time of the task in the database
-     *
-     * @param Task_ID
-     */
+    //stores the start_time of the task in the database
     public void start( int Task_ID) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_start = ?WHERE Task_ID =?;");
@@ -174,11 +128,7 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    /**
-     * stores the finish_time of the task in the database
-     *
-     * @param Task_ID
-     */
+    //stores the finish_time of the task in the database
     public void finish( int Task_ID) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_completion = ?WHERE Task_ID =?;");
@@ -190,6 +140,7 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
+    //returns a list of existing task names
     public String[] retrieveExistingTasks(){
         int i = 1;
         String[] tasks = new String[0];
@@ -214,6 +165,7 @@ public class Task_Transaction implements I_Task_Transaction {
         return tasks;
     }
 
+    //returns a list of technician names
     public String[] retrieveTechnicians(){
         int i = 1;
         String[] technician = new String[0];
@@ -240,6 +192,35 @@ public class Task_Transaction implements I_Task_Transaction {
         return technician;
     }
 
+    //returns a list of task which are associated with the job
+    public ArrayList<Task_List> getAllTasks(int job_ID) {
+        ArrayList<Task_List> task_details = null;
+        try {
+            task_details = new ArrayList<>();
+            Stm = conn.prepareStatement("SELECT * FROM Task WHERE JobJob_ID = ?");
+            Stm.setInt(1, job_ID);
+            ResultSet rs = Stm.executeQuery();
+            while (rs.next()) {
+                Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Catalog_ID = ?");
+                Stm.setInt(1, rs.getInt(7));
+                ResultSet rs1 = Stm.executeQuery();
+                while (rs1.next()){
+                    Task_List task = new Task_List(
+                            rs.getInt(1),
+                            rs1.getString(2),
+                            rs1.getString(4),
+                            rs1.getDouble(3),
+                            rs1.getInt(5)
+                    );
+                    task_details.add(task);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return task_details;
+    }
+
     @Override
     public Task read(int id) {
         Task task = null;
@@ -248,7 +229,6 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setInt(1, id);
             ResultSet rs = Stm.executeQuery();
             task = new Task(
-                    rs.getInt(1),
                     rs.getString(2)
             );
             rs.close();
@@ -269,7 +249,6 @@ public class Task_Transaction implements I_Task_Transaction {
             ResultSet rs = Stm.executeQuery();
             while (rs.next()) {
                 Task task = new Task(
-                        rs.getInt(1),
                         rs.getString(2)
                 );
                 task_details.add(task);
