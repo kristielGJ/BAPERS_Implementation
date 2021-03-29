@@ -241,8 +241,8 @@ public class Task_Transaction implements I_Task_Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> task_details = null;
+    public ArrayList<Task> getAll() {
+        ArrayList<Task> task_details = null;
         try {
             task_details = new ArrayList<>();
             Stm = conn.prepareStatement("SELECT * FROM Task");

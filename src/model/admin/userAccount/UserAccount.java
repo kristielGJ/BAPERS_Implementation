@@ -6,11 +6,11 @@ import model.Model;
 public class UserAccount extends Model {
 	private String name;
 	private String email;
-	private int phone;
+	private String phone;
 	private String password;
 	private String role;
 
-	public UserAccount(int id, String name, String email, int phone, String password, String role) {
+	public UserAccount(int id, String name, String email, String phone, String password, String role) {
 		setId(id);
 		this.name = name;
 		this.email = email;
@@ -35,11 +35,11 @@ public class UserAccount extends Model {
 		this.email = email;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	protected void setPhone(int phone) {
+	protected void setPhone(String phone) {
 		this.phone = phone;
 	}
 

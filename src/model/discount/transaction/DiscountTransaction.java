@@ -42,13 +42,6 @@ public class DiscountTransaction implements Transaction {
         return null;
     }
 
-
-
-    @Override
-    public ArrayList<Model> getAll() {
-        return null;
-    }
-
     @Override
     public Model read(int id) {
         return null;
