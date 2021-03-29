@@ -5,15 +5,10 @@ public class ValuedCustomer extends Customer {
 	private Date paymentDeadline;
 	private String discount_plan;
 
-	public ValuedCustomer(Date paymentDeadline, String discount_plan) {
-		this.paymentDeadline = paymentDeadline;
-		this.discount_plan = discount_plan;
-		throw new UnsupportedOperationException();
+	public ValuedCustomer(String customer_name, int acc_no, String address, String phone, String Valued) {
+		super(customer_name, acc_no, address, phone, Valued);
 	}
 
-	public ValuedCustomer() {
-		throw new UnsupportedOperationException();
-	}
 	/**
 	 * 
 	 * @param paymentDeadline

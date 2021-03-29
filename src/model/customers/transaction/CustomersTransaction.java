@@ -5,6 +5,7 @@ import model.Transaction;
 import model.Utils;
 import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
+import model.customers.ValuedCustomer;
 import model.database.DB_Connection;
 
 import java.sql.*;
@@ -28,7 +29,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			pS.setString(4,"Regular");
 			pS.executeUpdate();
 			int acc_No = Utils.getGeneratedKey(pS);
-			cust = new Customer(name, acc_No, Address, Phone);
+			cust = new Customer(name, acc_No, Address, Phone, "Regular");
 			pS.close();
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
@@ -40,14 +41,14 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		Customer cust = null;
 		try{
 			PreparedStatement pS = conn.prepareStatement(
-					"UPDATE Customer SET Customer_name = ?, Customer_address = ?, Customer_phone = ?, Customer_type WHERE Account_no = ?");
+					"UPDATE Customer SET Customer_name = ?, Customer_address = ?, Customer_phone = ?, Customer_type = ? WHERE Account_no = ?");
 			pS.setString(1, name);
 			pS.setString(2, Address);
 			pS.setString(3, Phone);
 			pS.setString(4,valued);
 			pS.setInt(5, Acc_no);
 			pS.executeUpdate();
-			cust = new Customer(name, Acc_no, Address, Phone);
+			cust = new Customer(name, Acc_no, Address, Phone, valued);
 			pS.close();
 		} catch (Exception e){
 			e.printStackTrace();
@@ -63,7 +64,8 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			PreparedStatement st = conn.prepareStatement("SELECT * FROM Customer");
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				Customer cust = new Customer(rs.getString("Customer_name"),rs.getInt("Account_no"),rs.getString("Customer_address"),rs.getString("Customer_phone"));
+				Customer cust;
+				cust = getCustomer(rs);
 				customers.add(cust);
 			}
 			rs.close();
@@ -74,6 +76,18 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		return customers;
 	}
 
+	private Customer getCustomer(ResultSet rs) throws SQLException {
+		Customer cust;
+		rs.next();
+		if (rs.getString("Customer_type").equals("Valued")) {
+			cust = new ValuedCustomer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"));
+		} else {
+			cust = new Customer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"));
+		}
+
+		return cust;
+	}
+
 	@Override
 	public Customer read(int Acc_no) {
 		Customer cust = null;
@@ -81,7 +95,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			PreparedStatement st = conn.prepareStatement("SELECT * FROM Customer WHERE Account_no = ?");
 			st.setInt(1, Acc_no);
 			ResultSet rs = st.executeQuery();
-			cust = new Customer(rs.getString("Customer_name"),rs.getInt("Account_no"),rs.getString("Customer_address"),rs.getString("Customer_phone"));
+			cust = getCustomer(rs);
 			rs.close();
 			st.close();
 		} catch (Exception e){
