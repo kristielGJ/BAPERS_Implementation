@@ -29,7 +29,7 @@ public class FixedDiscount extends Discount {
     public void addFixedDiscountBeforePayment(double discountRate,String discountType,int accountNumber){
         JobIDS=GetData.GetIDs(accountNumber,discountType);//list of all jobs under a customer account
         double newPrice, subPrice=0.0;
-        UpdateCustomerFixedDiscount(discountType,discountRate,accountNumber);//test
+        UpdateCustomerFixedDiscount(discountType,accountNumber);//test
 
         for (Integer i: JobIDS) {
             subPrice= GetData.GetOriginalPrice(i,"Job Total");
@@ -44,13 +44,12 @@ public class FixedDiscount extends Discount {
      *Updates customer table
      *
      */
-    public void UpdateCustomerFixedDiscount(String discount_type,double discount_rate,int acc_no) {
+    public void UpdateCustomerFixedDiscount(String discount_type, int acc_no) {
         try {
-            Stm = conn1.connect().prepareStatement("UPDATE Customer SET Fixed_discount=? , Discount_Type= ? WHERE Account_no= ? AND Customer_type=?");
-            Stm.setString(2,discount_type);
-            Stm.setDouble(1, discount_rate);
-            Stm.setInt(3, acc_no);
-            Stm.setString(4, "Valued");
+            Stm = conn1.connect().prepareStatement("UPDATE Customer SET Discount_Type= ? WHERE Account_no= ? AND Customer_type=?");
+            Stm.setString(1,discount_type);
+            Stm.setInt(2, acc_no);
+            Stm.setString(3, "Valued");
             Stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

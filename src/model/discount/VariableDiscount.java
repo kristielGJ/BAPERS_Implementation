@@ -1,6 +1,8 @@
 package model.discount;
 
 import model.database.DB_Connection;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
@@ -19,6 +21,11 @@ public class VariableDiscount extends Discount {
     private static PreparedStatement Stm = null;
     private static PreparedStatement Stm_1 = null;
     DiscountHelper GetData = new DiscountHelper();
+    Connection conn;
+
+    public VariableDiscount(DB_Connection conn){
+        this.conn = conn.getConn();
+    }
 
 
     /**
@@ -37,7 +44,8 @@ public class VariableDiscount extends Discount {
             }
 
              newPrice=GetData.calculatePrice(discountRate,GetData.GetOriginalPrice(TaskId,"Task Catalog"));
-             System.out.println(newPrice);
+            //total_price
+            System.out.println(newPrice);
         }
         double PriceDiff;
         /*for (Integer i: JobIDS) {

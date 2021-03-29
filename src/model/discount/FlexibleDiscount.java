@@ -46,7 +46,7 @@ public class FlexibleDiscount extends Discount {
     public ArrayList<Double>GetCustomerDiscountBands(int ID) {
         int i=1;
         try {
-            Stm = conn1.connect().prepareStatement("SELECT * FROM DiscountBand WHERE DiscountBandCustomer_ID=?");
+            Stm = conn1.connect().prepareStatement("SELECT * FROM DiscountBand WHERE DiscountBandCustomer_ID=?;");
             Stm.setInt(1,ID);
             ResultSet rs = Stm.executeQuery();
             while(rs.next()){
@@ -68,7 +68,7 @@ public class FlexibleDiscount extends Discount {
     public void UpdateDiscountBandCustomerID(int DiscountBandID, int DiscountBandCustID) {
 
         try {
-            Stm = conn1.connect().prepareStatement("UPDATE DiscountBandCustomer SET DiscountBand_ID=? WHERE DiscountBandCustomer_ID=?");
+            Stm = conn1.connect().prepareStatement("UPDATE DiscountBandCustomer SET DiscountBand_ID=? WHERE DiscountBandCustomer_ID=?;");
             Stm.setDouble(1, DiscountBandID);
             Stm.setDouble(2, DiscountBandCustID);
             Stm.executeUpdate();
@@ -83,7 +83,7 @@ public class FlexibleDiscount extends Discount {
      */
     public void CreateDiscountBandCustomer(int AccNo) {
         try {
-            Stm = conn1.connect().prepareStatement("INSERT INTO DiscountBandCustomer (Account_no) VALUES (?)");
+            Stm = conn1.connect().prepareStatement("INSERT INTO DiscountBandCustomer (Account_no) VALUES (?);");
             Stm.setInt(1, AccNo);
             Stm.executeUpdate();
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class FlexibleDiscount extends Discount {
         DiscountID=GetData.GetIDs(accountNumber,"flexible");
         UpdateDiscountBandCustomerID(BandID,DiscountID.get(0));
         try {
-            Stm = conn1.connect().prepareStatement("INSERT INTO DiscountBand(lower, upper, discount_rate, DiscountBandCustomer_Id) VALUES (?,?,?,?)");
+            Stm = conn1.connect().prepareStatement("INSERT INTO DiscountBand(lower, upper, discount_rate, DiscountBandCustomer_Id) VALUES (?,?,?,?);");
             Stm.setDouble(1, lowerBound);
             Stm.setDouble(2, upperBound);
             Stm.setDouble(3, discount_rate);
