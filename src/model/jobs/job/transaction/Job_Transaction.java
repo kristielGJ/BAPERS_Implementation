@@ -254,8 +254,8 @@ public class Job_Transaction implements I_Job_Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> job_details = null;
+    public ArrayList<Job> getAll() {
+        ArrayList<Job> job_details = null;
         try {
             job_details = new ArrayList<>();
             Stm = conn.prepareStatement("SELECT * FROM Job");

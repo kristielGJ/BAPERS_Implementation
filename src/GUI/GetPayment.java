@@ -25,8 +25,8 @@ public class GetPayment extends javax.swing.JPanel {
     /**
      * Creates new form GetPayment
      */
-    public GetPayment(int width, int height, int job_id, double amount, GUI f) {
-        initComponents(width, height, job_id, amount, f);
+    public GetPayment(int width, int height, int job_id, double amount, I_Bapers bapers, GUI f) {
+        initComponents(width, height, job_id, amount, bapers, f);
     }
 
     /**
@@ -36,7 +36,7 @@ public class GetPayment extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, int job_id, double amount, GUI f) {
+    private void initComponents(int width, int height, int job_id, double amount, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();

@@ -86,8 +86,8 @@ public class AlertTransaction implements I_AlertTransaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> alerts = null;
+    public ArrayList<Alert> getAll() {
+        ArrayList<Alert> alerts = null;
         try {
             alerts = new ArrayList<>();
             PreparedStatement st = conn.prepareStatement("SELECT * FROM Alert");

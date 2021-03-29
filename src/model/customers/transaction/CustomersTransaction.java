@@ -57,8 +57,8 @@ public class CustomersTransaction implements I_CustomersTransaction {
 	}
 
 	@Override
-	public ArrayList<Model> getAll() {
-		ArrayList<Model> customers = null;
+	public ArrayList<Customer> getAll() {
+		ArrayList<Customer> customers = null;
 		try{
 			customers = new ArrayList<>();
 			PreparedStatement st = conn.prepareStatement("SELECT * FROM Customer");

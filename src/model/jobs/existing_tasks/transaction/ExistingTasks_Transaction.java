@@ -118,8 +118,8 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> task_catalog_details = null;
+    public ArrayList<ExistingTasks> getAll() {
+        ArrayList<ExistingTasks> task_catalog_details = null;
         try {
             task_catalog_details = new ArrayList<>();
             Stm = conn.prepareStatement("SELECT * FROM Task_Catalog");

@@ -19,15 +19,15 @@ import java.util.regex.Pattern;
  */
 public class CardPayment extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form CardPayment
      */
-    public CardPayment(int width, int height, double amount, Date date, int job_ID, GUI f) {
-        initComponents(width, height, amount, date, job_ID, f);
+    public CardPayment(int width, int height, double amount, Date date, int job_ID, I_Bapers bapers, GUI f) {
+        initComponents(width, height, amount, date, job_ID, bapers, f);
     }
 
     /**
@@ -37,7 +37,7 @@ public class CardPayment extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, double amount, Date date, int job_ID, GUI f) {
+    private void initComponents(int width, int height, double amount, Date date, int job_ID, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();

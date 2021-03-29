@@ -1,5 +1,8 @@
 package GUI;
 
+import model.database.Controller;
+import model.database.I_Bapers;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.print.PageFormat;
@@ -13,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class GUI extends JFrame {
 
 	private JPanel lastPanel= null, currentPanel = null;
+	private I_Bapers bapers = new Controller();
 
 	public void login() {
 		// TODO - implement GUI.login
@@ -50,59 +54,59 @@ public class GUI extends JFrame {
 	}
 
 	public void addJob(int customer_acc_no) {
-		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, this));
+		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, bapers, this));
 	}
 
 	public void addTask(int Job_ID) {
-		add(new AddTask(getWidth(), getHeight(), Job_ID, this));
+		add(new AddTask(getWidth(), getHeight(), Job_ID, bapers, this));
 	}
 
 	public void viewTasks(int Job_ID) {
-		add(new Task(getWidth(), getHeight(), Job_ID, this));
+		add(new Task(getWidth(), getHeight(), Job_ID, bapers, this));
 	}
 
 	public void viewExistingTasks() {
-		add(new ExistingTaskList(getWidth(), getHeight(),this));
+		add(new ExistingTaskList(getWidth(), getHeight(), bapers, this));
 	}
 
 	public void extendTaskList() {
-		add(new ExtendTaskList(getWidth(), getHeight(), this));
+		add(new ExtendTaskList(getWidth(), getHeight(), bapers, this));
 	}
 
 	public void updateExistingTask(String[] data) {
-		add(new UpdateExistingTasks(getWidth(), getHeight(), data, this));
+		add(new UpdateExistingTasks(getWidth(), getHeight(), data, bapers, this));
 	}
 
 	public void retrieveJobs(int customer_id){
-		add(new RetrieveJobs(getWidth(), getHeight(), customer_id, this));
+		add(new RetrieveJobs(getWidth(), getHeight(), customer_id, bapers, this));
 	}
 
 	public void makePayment(int job_ID, double amount){
-		add(new GetPayment(getWidth(), getHeight(), job_ID, amount, this));
+		add(new GetPayment(getWidth(), getHeight(), job_ID, amount, bapers, this));
 	}
 
 	public void cardPayment(double amount, Date date, int job_ID){
-		add(new CardPayment(getWidth(), getHeight(), amount, date, job_ID,this));
+		add(new CardPayment(getWidth(), getHeight(), amount, date, job_ID, bapers, this));
 	}
 
 	public void generateInvoice(int payment_ID){
-		add(new Invoice(getWidth(), getHeight(), payment_ID, this));
+		add(new Invoice(getWidth(), getHeight(), payment_ID, bapers, this));
 	}
 
 	public void generateReport(){
-		add(new GenerateReport(getWidth(), getHeight(), this));
+		add(new GenerateReport(getWidth(), getHeight(), bapers, this));
 	}
 
 	public void generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_ID){
-		add(new JobSheet(getWidth(), getHeight(), from_date, to_date, customer_ID, this));
+		add(new JobSheet(getWidth(), getHeight(), from_date, to_date, customer_ID, bapers, this));
 	}
 
 	public void generateIndividualPerformanceReport(LocalDate from_date, LocalDate to_date){
-		add(new IndividualPerformanceReport(getWidth(), getHeight(), from_date, to_date,this));
+		add(new IndividualPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers,this));
 	}
 
 	public void generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date){
-		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, this));
+		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
 	public void updateCustomerDetails(String customerData) {
