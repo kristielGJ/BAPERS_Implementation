@@ -23,9 +23,7 @@ public class DiscountHelper {
 
 
 
-    public DiscountHelper(DB_Connection conn, int accountNumber) {
-        this.conn = conn.getConn();
-        this.accountNumber = accountNumber;
+    public DiscountHelper(){
     }
     /**
      * calculates the price with all task discount rates applied
