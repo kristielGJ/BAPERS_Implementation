@@ -1,5 +1,6 @@
 package model.database;
 
+import model.customers.Customer;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
 import model.jobs.task.Task_List;
@@ -10,32 +11,29 @@ import reports.summary_performance_report.SummaryPerformanceReport;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 public interface I_Bapers {
 
 	/**
-	 * 
-	 * @param Account_no
-	 */
-	abstract String[] identifyCustomer(int Account_no) throws SQLException;
-
-	/**
-	 * 
-	 * @param customerData
-	 */
-	abstract void createNewCustomer(String[] customerData) throws SQLException;
-
-	/**
 	 *
-	 * @param name
-	 * @param Acc_no
-	 * @param Address
-	 * @param Phone
-	 */
-	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException;
+     * @param Account_no
+     * @return
+     */
+	Customer identifyCustomer(int Account_no) throws SQLException;
+
+	void createNewCustomer(String name, String address, String phone) throws SQLException;
+
+	void updateCustomerDetails(String name, int Acc_no, String Address, String Phone, String valued) throws SQLException;
+
+	ArrayList<String[]> getAllCustomers();
+
+	String[][] getCustomerData(ArrayList<String[]> customers);
+
+	boolean removeCustomer(int Acc_no);
+
+	int getLastAccNo();
 
 	abstract void backup();
 

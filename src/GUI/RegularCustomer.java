@@ -1,21 +1,15 @@
 package GUI;
-import model.customers.Customer;
-import model.customers.transaction.CustomersTransaction;
-import model.database.Controller;
-import model.database.DB_Connection;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLException;
 
 public class RegularCustomer extends JPanel {
 
 	private String customerName, accNo, CustomerAddress, CustomerPhone, Valued;
 	private JLabel customer_name, acc_no, address, phone, custLabel, accLabel, addLabel, phoneLabel, custDetLabel;
-	private JButton updateButton, addJobButton, backButton;
-	private CustomersTransaction cT = new CustomersTransaction(new DB_Connection());
+	private JButton updateButton, addJobButton, backButton, menuButton, retrieveJob;
 	private GUI f;
 	private JPanel lastPanel;
 
@@ -109,10 +103,22 @@ public class RegularCustomer extends JPanel {
 		add(custDetLabel);
 
 		backButton = new JButton();
-		backButton.setBounds(width - (width / 5), 0, width / 6, height / 15);
+		backButton.setBounds((width/6) - (width/5), 0, width / 6, height / 15);
 		backButton.setText("Back");
 		backButton.addMouseListener(new backListener());
 		add(backButton);
+
+		menuButton = new JButton();
+		menuButton.setBounds(width - (width / 5), 0, width / 6, height / 15);
+		menuButton.setText("Menu");
+		menuButton.addMouseListener(new backListener());
+		add(menuButton);
+
+		retrieveJob = new JButton();
+		retrieveJob.setBounds((width / 2) + (width / 16), (height / 2 + height / 5), 130, 29);
+		retrieveJob.setText("Retrieve Job");
+		retrieveJob.addMouseListener(new retrieveListener());
+		add(retrieveJob);
 	}
 
 	class backListener implements MouseListener {
@@ -178,6 +184,34 @@ public class RegularCustomer extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+	}
+
+	class retrieveListener implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			f.retrieveJobs(Integer.parseInt(accNo));
+			setVisible(false);
 		}
 
 		@Override
