@@ -13,5 +13,9 @@ public interface I_CustomersTransaction extends Transaction {
     Customer updateCustomer(String name, int Acc_no, String Address, String Phone, String valued);
     public ArrayList<Customer> getAll();
 
+    ArrayList<String[]> getAllCust();
+
+    String[][] getData(ArrayList<String[]> customers);
+
     int getLastAccNo();
 }
