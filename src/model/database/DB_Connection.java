@@ -1,5 +1,5 @@
 package model.database;
-import database.Secrets;
+import model.database.Secrets;
 
 import java.sql.*;
 
@@ -22,9 +22,9 @@ import java.sql.*;
  */
 
 public class DB_Connection implements DB_Connectivity {
-	private final String url = database.Secrets.url;
-	private final String user = database.Secrets.user;
-	private final String password = database.Secrets.password;
+	private final String url = Secrets.url;
+	private final String user = Secrets.user;
+	private final String password = Secrets.password;
 	private final Connection conn;
 
 	public String toString() { return "Connection " + url + " (" + user + ", " + password + ")"; }

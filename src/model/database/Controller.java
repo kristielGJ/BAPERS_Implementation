@@ -13,10 +13,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Controller implements I_Bapers {
+public class Controller {
 
 	private static final DB_Connection mainConn = new DB_Connection();
 	UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
+	private UserAccount currentUser;
 
 	public void main() {
 
@@ -82,7 +83,6 @@ public class Controller implements I_Bapers {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public boolean MakePayment(String paymentData) {
 		return false;
 	}
@@ -150,7 +150,6 @@ public class Controller implements I_Bapers {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException {
 
 	}
@@ -199,6 +198,16 @@ public class Controller implements I_Bapers {
 		}
 	}
 
+	public UserAccount getCurrentUser() { return currentUser; }
+
+	public boolean authenticateUser(int id, String password) {
+		if (userAccountTransaction.authenticate(id, password) != null) {
+			currentUser = userAccountTransaction.authenticate(id, password);
+			return true;
+		}else{
+			return false;
+		}
+	}
 	/**
 	 * 
 	 * @param customerData

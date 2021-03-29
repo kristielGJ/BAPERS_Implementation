@@ -1,5 +1,7 @@
 package GUI;
 
+import model.database.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.print.PageFormat;
@@ -13,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class GUI extends JFrame {
 
 	private JPanel lastPanel= null, currentPanel = null;
+	private Controller controller = new Controller();
 
 	public void login() {
-		// TODO - implement GUI.login
-		throw new UnsupportedOperationException();
+		add(new LoginPanel(getWidth(), getHeight(), controller));
 	}
 
 	public void logout() {
@@ -27,6 +29,10 @@ public class GUI extends JFrame {
 	public String findCustomer(String data) {
 		// TODO - implement GUI.findCustomer
 		throw new UnsupportedOperationException();
+	}
+
+	public void staffManagement(String data) {
+		add(new StaffManagementPanel(getWidth(), getHeight(), this, controller));
 	}
 
 	public void createNewCustomer() {
