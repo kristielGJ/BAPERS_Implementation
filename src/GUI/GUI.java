@@ -16,10 +16,11 @@ import java.util.concurrent.TimeUnit;
 public class GUI extends JFrame {
 
 	private JPanel lastPanel= null, currentPanel = null;
-	private I_Bapers controller = new Controller();
+	private I_Bapers bapers = new Controller();
 
 	public void login() {
-		add(new LoginPanel(getWidth(), getHeight(), controller));
+		// TODO - implement GUI.login
+		throw new UnsupportedOperationException();
 	}
 
 	public void logout() {
@@ -32,12 +33,8 @@ public class GUI extends JFrame {
 		throw new UnsupportedOperationException();
 	}
 
-	public void staffManagement(String data) {
-		add(new StaffManagementPanel(getWidth(), getHeight(), this, controller));
-	}
-
 	public void createNewCustomer() {
-		add(new CreateCustomerAccount(getWidth(),getHeight(), this));
+		add(new CreateCustomerAccount(getWidth(),getHeight(), this, bapers));
 	}
 
 	public void regularCustomer(String[] customerData){
@@ -49,72 +46,67 @@ public class GUI extends JFrame {
 	}
 
 	public void updateCustomer(String[] customerData){
-		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this));
+		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this, bapers));
 	}
 
 	public void retrieveCustomer(){
-		add(new RetrieveCustomer(getWidth(),getHeight(), this));
+		add(new RetrieveCustomer(getWidth(),getHeight(),this, bapers));
 	}
 
 	public void addJob(int customer_acc_no) {
-		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, controller, this));
+		add(new CreateJob(getWidth(), getHeight(), customer_acc_no, bapers, this));
 	}
 
 	public void addTask(int Job_ID) {
-		add(new AddTask(getWidth(), getHeight(), Job_ID, controller, this));
+		add(new AddTask(getWidth(), getHeight(), Job_ID, bapers, this));
 	}
 
 	public void viewTasks(int Job_ID) {
-		add(new Task(getWidth(), getHeight(), Job_ID, controller,this));
+		add(new Task(getWidth(), getHeight(), Job_ID, bapers, this));
 	}
 
 	public void viewExistingTasks() {
-		add(new ExistingTaskList(getWidth(), getHeight(), controller,this));
+		add(new ExistingTaskList(getWidth(), getHeight(), bapers, this));
 	}
 
 	public void extendTaskList() {
-		add(new ExtendTaskList(getWidth(), getHeight(), controller,this));
+		add(new ExtendTaskList(getWidth(), getHeight(), bapers, this));
 	}
 
 	public void updateExistingTask(String[] data) {
-		add(new UpdateExistingTasks(getWidth(), getHeight(), data, controller,this));
+		add(new UpdateExistingTasks(getWidth(), getHeight(), data, bapers, this));
 	}
 
 	public void retrieveJobs(int customer_id){
-		add(new RetrieveJobs(getWidth(), getHeight(), customer_id, controller,this));
+		add(new RetrieveJobs(getWidth(), getHeight(), customer_id, bapers, this));
 	}
 
 	public void makePayment(int job_ID, double amount){
-		add(new GetPayment(getWidth(), getHeight(), job_ID, amount, controller,this));
+		add(new GetPayment(getWidth(), getHeight(), job_ID, amount, bapers, this));
 	}
 
 	public void cardPayment(double amount, Date date, int job_ID){
-		add(new CardPayment(getWidth(), getHeight(), amount, date, job_ID, controller,this));
+		add(new CardPayment(getWidth(), getHeight(), amount, date, job_ID, bapers, this));
 	}
 
 	public void generateInvoice(int payment_ID){
-		add(new Invoice(getWidth(), getHeight(), payment_ID, controller,this));
+		add(new Invoice(getWidth(), getHeight(), payment_ID, bapers, this));
 	}
 
 	public void generateReport(){
-		add(new GenerateReport(getWidth(), getHeight(), controller,this));
+		add(new GenerateReport(getWidth(), getHeight(), bapers, this));
 	}
 
 	public void generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_ID){
-		add(new JobSheet(getWidth(), getHeight(), from_date, to_date, customer_ID, controller, this));
+		add(new JobSheet(getWidth(), getHeight(), from_date, to_date, customer_ID, bapers, this));
 	}
 
 	public void generateIndividualPerformanceReport(LocalDate from_date, LocalDate to_date){
-		add(new IndividualPerformanceReport(getWidth(), getHeight(), from_date, to_date, controller, this));
+		add(new IndividualPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers,this));
 	}
 
 	public void generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date){
-		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, controller,this));
-	}
-
-	public void updateCustomerDetails(String customerData) {
-		// TODO - implement GUI.updateCustomerDetails
-		throw new UnsupportedOperationException();
+		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
 	//converts long to string (time hh:mm)
