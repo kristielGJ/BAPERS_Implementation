@@ -241,27 +241,6 @@ public class Task_Transaction implements I_Task_Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> task_details = null;
-        try {
-            task_details = new ArrayList<>();
-            Stm = conn.prepareStatement("SELECT * FROM Task");
-            ResultSet rs = Stm.executeQuery();
-            while (rs.next()) {
-                Task task = new Task(
-                        rs.getString(2)
-                );
-                task_details.add(task);
-            }
-            rs.close();
-            Stm.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return task_details;
-    }
-
-    @Override
     public boolean remove(int id) {
         boolean removed = false;
         try {

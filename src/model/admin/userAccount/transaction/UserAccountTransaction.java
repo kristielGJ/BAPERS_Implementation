@@ -17,7 +17,7 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
     }
 
     @Override
-    public UserAccount create(String name, String email, int phone, String password, String role) {
+    public UserAccount create(String name, String email, String phone, String password, String role) {
         UserAccount account = null;
         try {
             PreparedStatement st = conn.prepareStatement(
@@ -26,7 +26,7 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
             );
             st.setString(1, name);
             st.setString(2, email);
-            st.setInt(3, phone);
+            st.setString(3, phone);
             st.setString(4, password);
             st.setString(5, role);
             st.executeUpdate();
@@ -34,6 +34,32 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
             account = new UserAccount(id, name, email, phone, password, role);
             st.close();
             System.out.println("Created " + account.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @Override
+    public UserAccount authenticate(int id, String password) {
+        UserAccount account = null;
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM User_account WHERE user_account_id = ?");
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (password.equals(rs.getString("password"))) {
+                account = new UserAccount(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6)
+                );
+            }
+            rs.close();
+            st.close();
+            System.out.println("Queried " + account.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +77,7 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
                     rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
-                    rs.getInt(4),
+                    rs.getString(4),
                     rs.getString(5),
                     rs.getString(6)
             );
@@ -65,14 +91,14 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
     }
 
     @Override
-    public UserAccount update(int id, String name, String email, int phone, String password, String role) {
+    public UserAccount update(int id, String name, String email, String phone, String password, String role) {
         UserAccount account = null;
         try {
             PreparedStatement st = conn.prepareStatement(
                     "UPDATE User_account SET name=?, email=?, phone=?, role=? WHERE user_account_id=?");
             st.setString(1, name);
             st.setString(2, email);
-            st.setInt(3, phone);
+            st.setString(3, phone);
             st.setString(4, role);
             st.setInt(5, id);
             st.executeUpdate();
@@ -86,8 +112,8 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
-        ArrayList<Model> accounts = null;
+    public ArrayList<UserAccount> getAll() {
+        ArrayList<UserAccount> accounts = null;
         try {
             accounts = new ArrayList<>();
             PreparedStatement st = conn.prepareStatement("SELECT * FROM User_account");
@@ -97,7 +123,7 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getString(6)
                 );

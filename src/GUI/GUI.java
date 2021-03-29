@@ -19,8 +19,11 @@ public class GUI extends JFrame {
 	private I_Bapers bapers = new Controller();
 
 	public void login() {
-		// TODO - implement GUI.login
-		throw new UnsupportedOperationException();
+		add(new LoginPanel(getWidth(), getHeight(), bapers));
+	}
+
+	public void staffManagement(String data) {
+		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
 	}
 
 	public void logout() {
@@ -34,7 +37,7 @@ public class GUI extends JFrame {
 	}
 
 	public void createNewCustomer() {
-		add(new CreateCustomerAccount(getWidth(),getHeight(), this));
+		add(new CreateCustomerAccount(getWidth(),getHeight(), this, bapers));
 	}
 
 	public void regularCustomer(String[] customerData){
@@ -46,11 +49,11 @@ public class GUI extends JFrame {
 	}
 
 	public void updateCustomer(String[] customerData){
-		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this));
+		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this, bapers));
 	}
 
 	public void retrieveCustomer(){
-		add(new RetrieveCustomer(getWidth(),getHeight(),this));
+		add(new RetrieveCustomer(getWidth(),getHeight(),this, bapers));
 	}
 
 	public void addJob(int customer_acc_no) {
@@ -107,11 +110,6 @@ public class GUI extends JFrame {
 
 	public void generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date){
 		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
-	}
-
-	public void updateCustomerDetails(String customerData) {
-		// TODO - implement GUI.updateCustomerDetails
-		throw new UnsupportedOperationException();
 	}
 
 	//converts long to string (time hh:mm)

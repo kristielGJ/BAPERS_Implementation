@@ -1,9 +1,6 @@
 package model.customers.transaction;
 
-import model.Model;
-import model.Transaction;
 import model.Utils;
-import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
 import model.customers.ValuedCustomer;
 import model.database.DB_Connection;
@@ -56,17 +53,21 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		return cust;
 	}
 
-	@Override
-	public ArrayList<Model> getAll() {
-		ArrayList<Model> customers = null;
+	public ArrayList<String[]> getAllCust() {
+		ArrayList<String[]> customers = null;
 		try{
 			customers = new ArrayList<>();
 			PreparedStatement st = conn.prepareStatement("SELECT * FROM Customer");
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				Customer cust;
-				cust = getCustomer(rs);
-				customers.add(cust);
+				String[] data = new String[6];
+				data[0] = rs.getString("Customer_name");
+				data[1] = Integer.toString(rs.getInt("Account_no"));
+				data[2] = rs.getString("Customer_address");
+				data[3] = rs.getString("Customer_phone");
+				data[4] = rs.getString("Customer_type");
+				data[5] = rs.getString("Discount_type");
+				customers.add(data);
 			}
 			rs.close();
 			st.close();
@@ -76,16 +77,30 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		return customers;
 	}
 
+	public String[][] getData(ArrayList<String[]> customers){
+		String[][] array = new String[customers.size()][];
+		for (int i = 0; i < customers.size(); i++) {
+			String[] row = customers.get(i);
+			array[i] = row;
+		}
+		return array;
+	}
+
 	private Customer getCustomer(ResultSet rs) throws SQLException {
 		Customer cust;
 		rs.next();
 		if (rs.getString("Customer_type").equals("Valued")) {
-			cust = new ValuedCustomer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"));
+			cust = new ValuedCustomer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"), rs.getString("Discount_type"));
 		} else {
 			cust = new Customer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"));
 		}
 
 		return cust;
+	}
+
+	@Override
+	public ArrayList<Customer> getAll() {
+		return null;
 	}
 
 	@Override

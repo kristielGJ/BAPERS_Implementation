@@ -1,11 +1,13 @@
 package GUI;
 import model.customers.transaction.CustomersTransaction;
 import model.database.DB_Connection;
+import model.database.I_Bapers;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 public class UpdateCustomerDetails extends JPanel {
 
@@ -14,17 +16,18 @@ public class UpdateCustomerDetails extends JPanel {
 	private JLabel custLabel, accLabel, addLabel, phoneLabel, custDetLabel;
 	private JButton updateButton,backButton;
 	private JCheckBox valuedCustomerBox;
-	private CustomersTransaction cT = new CustomersTransaction(new DB_Connection());
+	private I_Bapers cT;
 	private GUI f;
 	private JPanel lastPanel;
 
-	public UpdateCustomerDetails(int width, int height, String[] customerData, GUI f) {
+	public UpdateCustomerDetails(int width, int height, String[] customerData, GUI f, I_Bapers cT) {
 		this.customerName = customerData[0];
 		this.accNo = customerData[1];
 		this.CustomerAddress = customerData[2];
 		this.CustomerPhone = customerData[3];
 		this.valued = customerData[4];
 		this.f = f;
+		this.cT= cT;
 		this.lastPanel = f.getCurrentPanel();
 		f.setCurrentPanel(this);
 
@@ -126,7 +129,12 @@ public class UpdateCustomerDetails extends JPanel {
 			} else {
 				valued = "Regular";
 			}
-			cT.updateCustomer(customer_name_input.getText(),Integer.parseInt(accNo),address_input.getText(), phone_input.getText(), valued);
+			try {
+				cT.updateCustomerDetails(customer_name_input.getText(),Integer.parseInt(accNo),address_input.getText(), phone_input.getText(), valued);
+			} catch (SQLException throwables) {
+				throwables.printStackTrace();
+			}
+
 		}
 
 		@Override

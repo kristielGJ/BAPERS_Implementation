@@ -5,6 +5,7 @@ import model.customers.transaction.CustomersTransaction;
 import model.database.Controller;
 import model.database.DB_Connection;
 import model.database.Controller;
+import model.database.I_Bapers;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,15 +28,16 @@ public class CreateCustomerAccount extends JPanel {
 	private JLabel custAccLabel;
 	private JButton backButton;
 	private JButton logOutButton;
-	private CustomersTransaction cT = new CustomersTransaction(new DB_Connection());
+	private I_Bapers cT;
 	private GUI f;
 	private JPanel lastPanel;
 
-	public CreateCustomerAccount(int width, int height, GUI f) {
+	public CreateCustomerAccount(int width, int height, GUI f, I_Bapers cT) {
 		setSize(width, height);
 		setName("Create Customer Account");
 		setBackground(new Color(157, 195, 230));
 		setLayout(null);
+		this.cT = cT;
 		this.f = f;
 		this.lastPanel = f.getCurrentPanel();
 		f.setCurrentPanel(this);
@@ -105,6 +107,7 @@ public class CreateCustomerAccount extends JPanel {
 		backButton.setBounds(width - (width / 7), 0, width / 8, height / 15);
 		backButton.addMouseListener(new backListener());
 		add(backButton);
+
 	}
 
 
@@ -113,7 +116,7 @@ public class CreateCustomerAccount extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			if (!customer_name_input.getText().isEmpty() && !acc_no.getText().isEmpty() && !address_input.getText().isEmpty() && !phone_input.getText().isEmpty()) {
 				try {
-					cT.addCustomer(customer_name_input.getText(),address_input.getText(),phone_input.getText());
+					cT.createNewCustomer(customer_name_input.getText(),address_input.getText(),phone_input.getText());
 				} catch (Exception eX) {
 					eX.printStackTrace();
 				}

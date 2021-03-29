@@ -1,5 +1,10 @@
 package model.database;
 
+import model.admin.userAccount.UserAccount;
+import model.admin.userAccount.transaction.UserAccountTransaction;
+import model.customers.Customer;
+import model.customers.transaction.CustomersTransaction;
+import model.customers.transaction.I_CustomersTransaction;
 import model.jobs.card_payment.transaction.Card_payment_Transaction;
 import model.jobs.card_payment.transaction.I_Card_payment_Transaction;
 import model.jobs.existing_tasks.ExistingTasks;
@@ -22,6 +27,9 @@ import reports.job_performance_report.transaction.JobPerformanceReport_Transacti
 import reports.summary_performance_report.SummaryPerformanceReport;
 import reports.summary_performance_report.transaction.I_SummaryPerformanceReport_Transaction;
 import reports.summary_performance_report.transaction.SummaryPerformanceReport_Transaction;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -39,6 +47,9 @@ public class Controller implements I_Bapers {
 	private I_IndividualPerformanceReport_Transaction individualPerformanceReport = new IndividualPerformanceReport_Transaction(mainConn);
 	private I_JobPerformanceReport_Transaction jobPerformanceReport = new JobPerformanceReport_Transaction(mainConn);
 	private I_SummaryPerformanceReport_Transaction summaryPerformanceReport = new SummaryPerformanceReport_Transaction(mainConn);
+	private I_CustomersTransaction customer = new CustomersTransaction(mainConn);
+	UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
+	private UserAccount currentUser;
 
 	public void main() {
 
@@ -47,28 +58,38 @@ public class Controller implements I_Bapers {
 	/**
 	 *
 	 */
-	public String[] identifyCustomer(int Account_no) throws SQLException {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 *
-	 * @param customerData
-	 */
-	public void createNewCustomer(String[] customerData) throws SQLException {
+	public Customer identifyCustomer(int Account_no){
+		return (Customer) customer.read(Account_no);
 	}
 
 	@Override
-	public void updateCustomerDetails(String name, String Acc_no, String Address, String Phone) throws SQLException {
-
+	public void createNewCustomer(String name, String address, String phone){
+		customer.addCustomer(name,address,phone);
 	}
 
-	/**
-	 *
-	 * @param customerData
-	 */
-	public void updateCustomerDetails(String[] customerData) throws SQLException {
-		//cL.updateCustomer(customerData);
+	@Override
+	public void updateCustomerDetails(String name, int Acc_no, String Address, String Phone, String valued){
+		customer.updateCustomer(name,Acc_no,Address,Phone, valued);
+	}
+
+	@Override
+	public ArrayList<String[]> getAllCustomers() {
+		return customer.getAllCust();
+	}
+
+	@Override
+	public String[][] getCustomerData(ArrayList<String[]> customers) {
+		return customer.getData(customers);
+	}
+
+	@Override
+	public boolean removeCustomer(int Acc_no) {
+		return customer.remove(Acc_no);
+	}
+
+	@Override
+	public int getLastAccNo() {
+		return customer.getLastAccNo();
 	}
 
 	public void backup() {
@@ -174,6 +195,67 @@ public class Controller implements I_Bapers {
 	//generated summary performance report
 	public ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time){
 		return summaryPerformanceReport.generateSummaryPerformanceReport(from_date, to_date, from_time, to_time);
+	}
+
+	@Override
+	public boolean updateStaffMember(Object[] values) {
+		try {
+			userAccountTransaction.update(
+					(int) values[0], (String) values[1],
+					(String) values[2], (String) values[3],
+					(String) values[4], (String) values[5]
+			);
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addStaffMember(String[] values) {
+		//TODO: Add verification
+		try {
+			userAccountTransaction.create(values[0], values[1], values[2], values[3], values[4]);
+			return true;
+		} catch (Exception e) { e.printStackTrace(); }
+		return false;
+	}
+
+	@Override
+	public boolean removeStaffMember(int id) {
+		try {
+			userAccountTransaction.remove(id);
+			return true;
+		} catch (Exception e) { e.printStackTrace(); }
+		return false;
+	}
+
+	@Override
+	public void populateStaffTable(JTable table) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		ArrayList<UserAccount> userAccounts = userAccountTransaction.getAll();
+		for (UserAccount act : userAccounts) {
+			model.addRow(new Object[] {
+					act.getId(), act.getName(),
+					act.getEmail(), act.getPhone(),
+					act.getRole()
+			});
+		}
+	}
+
+	@Override
+	public UserAccount getCurrentUser() { return currentUser; }
+
+	@Override
+	public boolean authenticateUser(int id, String password) {
+		if (userAccountTransaction.authenticate(id, password) != null) {
+			currentUser = userAccountTransaction.authenticate(id, password);
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public Controller() {
