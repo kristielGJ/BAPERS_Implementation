@@ -24,15 +24,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class SummaryPerformanceReport extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form SummaryPerformanceReport
      */
-    public SummaryPerformanceReport(int width, int height, LocalDate from_Date, LocalDate to_Date, GUI f) {
-        initComponents(width, height, from_Date, to_Date, f);
+    public SummaryPerformanceReport(int width, int height, LocalDate from_Date, LocalDate to_Date, I_Bapers bapers, GUI f) {
+        initComponents(width, height, from_Date, to_Date, bapers, f);
     }
 
     /**
@@ -42,7 +42,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, LocalDate from_Date, LocalDate to_Date, GUI f) {
+    private void initComponents(int width, int height, LocalDate from_Date, LocalDate to_Date, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();

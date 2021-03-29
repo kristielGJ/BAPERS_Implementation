@@ -23,15 +23,15 @@ package GUI;
  */
 public class Task extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private Controller bapers;
     private GUI f;
     private JPanel lastPanel;
 
     /**
      * Creates new form Task
      */
-    public Task(int width, int height, int job_ID, GUI f) {
-        initComponents(width, height, job_ID, f);
+    public Task(int width, int height, int job_ID, I_Bapers bapers, GUI f) {
+        initComponents(width, height, job_ID, bapers, f);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Task extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, int job_ID, GUI f) {
+    private void initComponents(int width, int height, int job_ID, I_Bapers bapers, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
@@ -234,7 +234,7 @@ public class Task extends javax.swing.JPanel {
             int row = table.getSelectedRow();
             int id = Integer.parseInt(table.getModel().getValueAt(row, column).toString());
             final JDialog frame = new JDialog(f, "Update Task", true);
-            frame.getContentPane().add(new UpdateTask(id));
+            frame.getContentPane().add(new UpdateTask(id, bapers));
             frame.pack();
             frame.setVisible(true);
         } catch (Exception e)
