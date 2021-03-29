@@ -19,8 +19,11 @@ public class GUI extends JFrame {
 	private I_Bapers bapers = new Controller();
 
 	public void login() {
-		// TODO - implement GUI.login
-		throw new UnsupportedOperationException();
+		add(new LoginPanel(getWidth(), getHeight(), bapers));
+	}
+
+	public void staffManagement(String data) {
+		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
 	}
 
 	public void logout() {

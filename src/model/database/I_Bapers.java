@@ -1,5 +1,6 @@
 package model.database;
 
+import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
@@ -8,6 +9,7 @@ import reports.individual_performance_report.IndividualPerformanceReport;
 import reports.job_performance_report.JobPerformanceReport;
 import reports.summary_performance_report.SummaryPerformanceReport;
 
+import javax.swing.*;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -96,4 +98,15 @@ public interface I_Bapers {
 	//generates summary performance report
 	ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time);
 
+	public boolean updateStaffMember(Object[] values);
+
+	public boolean addStaffMember(String[] values);
+
+	public boolean removeStaffMember(int id);
+
+	public void populateStaffTable(JTable table);
+
+	public UserAccount getCurrentUser();
+
+	public boolean authenticateUser(int id, String password);
 }
