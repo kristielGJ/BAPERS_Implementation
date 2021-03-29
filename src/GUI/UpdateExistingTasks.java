@@ -9,22 +9,20 @@ import model.database.I_Bapers;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-
 /**
  *
  * @author Manpreet
  */
-public class AddTask extends javax.swing.JPanel {
+public class UpdateExistingTasks extends javax.swing.JPanel {
 
     I_Bapers bapers = new Controller();
     private GUI f;
     private JPanel lastPanel;
-
     /**
-     * Creates new form AddTask
+     * Creates new form UpdateExistingTasks
      */
-    public AddTask(int width, int height, int job_ID, GUI f) {
-        initComponents (width, height, job_ID, f);
+    public UpdateExistingTasks(int width, int height, String[] data, GUI f) {
+        initComponents(width, height, data, f);
     }
 
     /**
@@ -34,7 +32,7 @@ public class AddTask extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int width, int height, int job_ID, GUI f ) {
+    private void initComponents(int width, int height, String[] data, GUI f) {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
@@ -44,10 +42,18 @@ public class AddTask extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        task_list_input = new javax.swing.JComboBox<>();
-        technician_list_input = new javax.swing.JComboBox<>();
-        save_task_button = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        desc_input = new javax.swing.JTextField();
+        price_input = new javax.swing.JTextField();
+        duration_input = new javax.swing.JTextField();
+        department_list = new javax.swing.JComboBox<>();
+        save_task_button = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        desc_input.setText(data[1]);
+        price_input.setText(data[2]);
+        duration_input.setText(data[3]);
+        department_list.setSelectedItem(data[4]);
 
         setBackground(new java.awt.Color(157, 195, 230));
         setMaximumSize(new java.awt.Dimension(800, 500));
@@ -74,21 +80,28 @@ public class AddTask extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel1.setText("Add Task");
+        jLabel1.setText("Task");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel2.setText("Task");
+        jLabel2.setText("Description");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel3.setText("Technician");
+        jLabel3.setText("Price");
 
-        task_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        task_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.existingTasks()));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel4.setText("Duration (min)");
 
-        technician_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        technician_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.retrieveTechnicians()));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel5.setText("Department");
+
+        department_list.setBackground(new java.awt.Color(1, 23, 71));
+        department_list.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        department_list.setForeground(new java.awt.Color(157, 195, 230));
+        department_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Department", "Copy Room", "Development", "Finishing", "Packing" }));
 
         save_task_button.setBackground(new java.awt.Color(1, 23, 71));
         save_task_button.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
@@ -98,13 +111,13 @@ public class AddTask extends javax.swing.JPanel {
         save_task_button.setFocusPainted(false);
         save_task_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                save_task_buttonMouseClicked(evt, job_ID);
+                save_task_buttonMouseClicked(evt, data);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel4.setText("Bapers");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel6.setText("Bapers");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,60 +128,69 @@ public class AddTask extends javax.swing.JPanel {
                 .addComponent(back_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sign_out_button)
-                .addGap(21, 21, 21))
+                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
+                        .addGap(102, 102, 102)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(82, 82, 82)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(task_list_input, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(technician_list_input, 0, 395, Short.MAX_VALUE)))
+                            .addComponent(desc_input)
+                            .addComponent(price_input)
+                            .addComponent(duration_input)
+                            .addComponent(department_list, 0, 385, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(315, 315, 315)
-                        .addComponent(jLabel1))
+                        .addGap(324, 324, 324)
+                        .addComponent(save_task_button))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addComponent(save_task_button, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(379, 379, 379)
+                        .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(377, 377, 377)
-                        .addComponent(jLabel4)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                        .addGap(352, 352, 352)
+                        .addComponent(jLabel1)))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_button)
                     .addComponent(sign_out_button))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(57, 57, 57)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(task_list_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65)
+                    .addComponent(desc_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(technician_list_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                    .addComponent(price_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(duration_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(department_list, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64)
                 .addComponent(save_task_button)
-                .addGap(49, 49, 49)
-                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jLabel6)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    //save the task details in the database
-    private void save_task_buttonMouseClicked(MouseEvent evt, int job_ID){
-        if(!(task_list_input.getSelectedItem() == "Select Task") && !(technician_list_input.getSelectedItem() == "Select Technician")){
-            bapers.createTask(String.valueOf(task_list_input.getSelectedItem()), job_ID, String.valueOf(technician_list_input.getSelectedItem()), "Pending");
-            task_list_input.setSelectedItem("Select Task");
-            technician_list_input.setSelectedItem("Select Technician");
+    private void save_task_buttonMouseClicked(MouseEvent evt, String[] data){
+        if (!desc_input.getText().isEmpty() && !price_input.getText().isEmpty() && !duration_input.getText().isEmpty() && !(department_list.getSelectedItem() == "Select Department")){
+            bapers.updateExistingTask(Integer.parseInt(data[0]), desc_input.getText(), Double.parseDouble(price_input.getText()), Integer.parseInt(duration_input.getText()), String.valueOf(department_list.getSelectedItem()));
         }
         else{
             JOptionPane.showMessageDialog(
@@ -177,9 +199,12 @@ public class AddTask extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
     }
 
-    //switch to previous panel
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
         f.setLastPanel(lastPanel);
         f.getLastPanel().setVisible(true);
@@ -187,15 +212,20 @@ public class AddTask extends javax.swing.JPanel {
         f.setCurrentPanel(lastPanel);
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
+    private javax.swing.JComboBox<String> department_list;
+    private javax.swing.JTextField desc_input;
+    private javax.swing.JTextField duration_input;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField price_input;
     private javax.swing.JButton save_task_button;
     private javax.swing.JButton sign_out_button;
-    private javax.swing.JComboBox<String> task_list_input;
-    private javax.swing.JComboBox<String> technician_list_input;
     // End of variables declaration//GEN-END:variables
 }

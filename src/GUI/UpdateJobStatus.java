@@ -4,17 +4,25 @@ package GUI;/*
  * and open the template in the editor.
  */
 
+import model.database.Controller;
+import model.database.I_Bapers;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author Manpreet
  */
 public class UpdateJobStatus extends javax.swing.JPanel {
 
+    I_Bapers bapers = new Controller();
+
     /**
      * Creates new form UpdateJobStatus
      */
-    public UpdateJobStatus() {
-        initComponents();
+    public UpdateJobStatus(int job_id) {
+        initComponents(job_id);
     }
 
     /**
@@ -24,7 +32,8 @@ public class UpdateJobStatus extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int job_id) {
+
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +64,11 @@ public class UpdateJobStatus extends javax.swing.JPanel {
         jButton1.setText("Save");
         jButton1.setBorderPainted(false);
         jButton1.setFocusPainted(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                save_buttonMouseClicked(evt, job_id);
+            }
+        });
 
         cancel_button.setBackground(new java.awt.Color(1, 23, 71));
         cancel_button.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -62,6 +76,11 @@ public class UpdateJobStatus extends javax.swing.JPanel {
         cancel_button.setText("Cancel");
         cancel_button.setBorderPainted(false);
         cancel_button.setFocusPainted(false);
+        cancel_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_buttonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
@@ -113,6 +132,25 @@ public class UpdateJobStatus extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void save_buttonMouseClicked(MouseEvent evt,int job_id){
+        if (!(status_input.getSelectedItem()== "Select Status")){
+            bapers.updateJobStatus(job_id, String.valueOf(status_input.getSelectedItem()));
+            JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+            frame.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select status.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void cancel_buttonActionPerformed(ActionEvent evt){
+        JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel_button;

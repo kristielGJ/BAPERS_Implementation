@@ -5,17 +5,29 @@
  */
 package GUI;
 
+import model.database.Controller;
+import model.database.I_Bapers;
+
+import javax.swing.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+
 /**
  *
- * @author kehkshan
+ * @author kehkshan and Manpreet
  */
 public class GenerateReport extends javax.swing.JPanel {
+
+    I_Bapers bapers = new Controller();
+    private GUI f;
+    private JPanel lastPanel;
 
     /**
      * Creates new form GenerateReport
      */
-    public GenerateReport() {
-        initComponents();
+    public GenerateReport(int width, int height, GUI f) {
+        initComponents(width, height, f);
     }
 
     /**
@@ -25,8 +37,11 @@ public class GenerateReport extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
         jLabel1 = new javax.swing.JLabel();
         generate_button = new javax.swing.JButton();
         auto_generate_button = new javax.swing.JButton();
@@ -39,9 +54,11 @@ public class GenerateReport extends javax.swing.JPanel {
         back_button = new javax.swing.JButton();
         sign_out_button = new javax.swing.JButton();
         report_type_combo_box = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        customer_account_no = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(157, 195, 230));
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(width, height));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
@@ -53,9 +70,9 @@ public class GenerateReport extends javax.swing.JPanel {
         generate_button.setText("Generate");
         generate_button.setBorderPainted(false);
         generate_button.setFocusPainted(false);
-        generate_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generate_buttonActionPerformed(evt);
+        generate_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                generate_buttonMouseClicked(evt);
             }
         });
 
@@ -65,6 +82,11 @@ public class GenerateReport extends javax.swing.JPanel {
         auto_generate_button.setText("Auto-Generate");
         auto_generate_button.setBorderPainted(false);
         auto_generate_button.setFocusPainted(false);
+        auto_generate_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                auto_generate_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
@@ -79,8 +101,20 @@ public class GenerateReport extends javax.swing.JPanel {
         jLabel4.setText("From Date");
 
         to_date_input.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        to_date_input.setText("YYYY-MM-DD");
+        to_date_input.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                to_date_input(evt);
+            }
+        });
 
         from_date_input.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        from_date_input.setText("YYYY-MM-DD");
+        from_date_input.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                from_date_input(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(1, 23, 71));
@@ -92,6 +126,11 @@ public class GenerateReport extends javax.swing.JPanel {
         back_button.setText("Back");
         back_button.setBorderPainted(false);
         back_button.setFocusPainted(false);
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
 
         sign_out_button.setBackground(new java.awt.Color(1, 23, 71));
         sign_out_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -103,87 +142,171 @@ public class GenerateReport extends javax.swing.JPanel {
         report_type_combo_box.setBackground(new java.awt.Color(1, 23, 71));
         report_type_combo_box.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         report_type_combo_box.setForeground(new java.awt.Color(157, 195, 230));
-        report_type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Report Type", "Job Sheet", "Individual Performance Report", "Summary Performance Report" }));
+        report_type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Report Type", "Customer Sales Report", "Individual Performance Report", "Summary Performance Report" }));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(1, 23, 71));
+        jLabel6.setText("Customer Account No");
+
+        customer_account_no.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        customer_account_no.setText("Only for Customer Sales Report");
+        customer_account_no.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                customer_account_no(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(customer_account_no, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(report_type_combo_box, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(to_date_input, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(from_date_input, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(147, 147, 147))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(to_date_input)
-                            .addComponent(from_date_input)
-                            .addComponent(report_type_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(back_button)
-                        .addGap(70, 537, Short.MAX_VALUE)))
-                .addGap(62, 62, 62)
+                .addGap(24, 24, 24)
+                .addComponent(back_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(140, 140, 140)
                 .addComponent(sign_out_button)
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(generate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(generate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(auto_generate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addComponent(auto_generate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(371, 371, 371)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(jLabel1)))
+                .addGap(379, 379, 379)
+                .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sign_out_button)
-                    .addComponent(back_button))
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1)
-                .addGap(48, 48, 48)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sign_out_button)
+                            .addComponent(back_button)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(report_type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(to_date_input, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(customer_account_no, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(from_date_input, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(78, 78, 78)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(auto_generate_button)
-                    .addComponent(generate_button))
-                .addGap(25, 25, 25)
+                    .addComponent(to_date_input, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(65, 65, 65)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generate_button)
+                    .addComponent(auto_generate_button))
+                .addGap(28, 28, 28)
                 .addComponent(jLabel5)
-                .addContainerGap())
+                .addGap(105, 105, 105))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void generate_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generate_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_generate_buttonActionPerformed
+    private void generate_buttonMouseClicked(MouseEvent evt){
+        if (!to_date_input.getText().isEmpty() && !from_date_input.getText().isEmpty() && !(report_type_combo_box.getSelectedItem() == "Select Report Type")){
+            if((report_type_combo_box.getSelectedItem() == "Customer Sales Report") && !customer_account_no.getText().isEmpty()){
+                f.generateJobSheet(LocalDate.parse(from_date_input.getText()), LocalDate.parse(to_date_input.getText()), Integer.parseInt(customer_account_no.getText()));
+                setVisible(false);
+            }
+            else if(report_type_combo_box.getSelectedItem() == "Individual Performance Report"){
+                f.generateIndividualPerformanceReport(LocalDate.parse(from_date_input.getText()), LocalDate.parse(to_date_input.getText()));
+                setVisible(false);
+            }
+            else if (report_type_combo_box.getSelectedItem() == "Summary Performance Report"){
+                f.generateSummaryPerformanceReport(LocalDate.parse(from_date_input.getText()), LocalDate.parse(to_date_input.getText()));
+                setVisible(false);
+            }
+            to_date_input.setText("YYYY-MM-DD");
+            from_date_input.setText("YYYY-MM-DD");
+            customer_account_no.setText("Only For Customer Sales Report");
+            report_type_combo_box.setSelectedItem("Select Report Type");
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the required fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
+    private void auto_generate_buttonMouseClicked(MouseEvent evt){
+
+        if (!(report_type_combo_box.getSelectedItem() == "Select Report Type")){
+            if(report_type_combo_box.getSelectedItem() == "Customer Sales Report" && !customer_account_no.getText().isEmpty()){
+                f.generateJobSheet(LocalDate.now().minusDays(15), LocalDate.now(), Integer.parseInt(customer_account_no.getText()));
+                setVisible(false);
+            }
+            else if(report_type_combo_box.getSelectedItem() == "Individual Performance Report"){
+                f.generateIndividualPerformanceReport(LocalDate.now().minusDays(15), LocalDate.now());
+                setVisible(false);
+            }
+            else if (report_type_combo_box.getSelectedItem() == "Summary Performance Report"){
+                f.generateSummaryPerformanceReport(LocalDate.now().minusDays(7), LocalDate.now());
+                setVisible(false);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select a report type.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void customer_account_no(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_completion_deadline_inputFocusGained
+        customer_account_no.setText("");
+    }//GEN-LAST:event_completion_deadline_inputFocusGained
+
+    private void to_date_input( FocusEvent evt){
+        to_date_input.setText("");
+    }
+
+    private void from_date_input( FocusEvent evt){
+        from_date_input.setText("");
+    }
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }//GEN-LAST:event_back_buttonMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton auto_generate_button;
     private javax.swing.JButton back_button;
+    private javax.swing.JTextField customer_account_no;
     private javax.swing.JTextField from_date_input;
     private javax.swing.JButton generate_button;
     private javax.swing.JLabel jLabel1;
@@ -191,6 +314,7 @@ public class GenerateReport extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JComboBox<String> report_type_combo_box;
     private javax.swing.JButton sign_out_button;
     private javax.swing.JTextField to_date_input;
