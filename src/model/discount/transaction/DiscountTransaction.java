@@ -7,8 +7,11 @@ import model.discount.Discount;
 import model.discount.FixedDiscount;
 import model.discount.FlexibleDiscount;
 import model.discount.VariableDiscount;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DiscountTransaction implements Transaction {
@@ -29,7 +32,7 @@ public class DiscountTransaction implements Transaction {
             if (discountType == "fixed") {
                 return new FixedDiscount();
             }else if (discountType == "variable"){
-                return new VariableDiscount((DB_Connection) conn);
+                return new VariableDiscount();
             }else if (discountType == "flexible"){
                 return new FlexibleDiscount();
             }
@@ -40,13 +43,12 @@ public class DiscountTransaction implements Transaction {
     }
 
     @Override
-    public ArrayList<Model> getAll() {
+    public Model read(int id) {
         return null;
     }
 
-    @Override
-    public Model read(int id) {
-        return null;
+    protected void getJobId() {
+
     }
 
     @Override
