@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
  */
 public class ExtendTaskList extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -38,6 +38,7 @@ public class ExtendTaskList extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         sign_out_button = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();

@@ -5,16 +5,12 @@
  */
 package GUI;
 
-import model.database.Controller;
 import model.database.I_Bapers;
-import model.jobs.task.Task_List;
 import reports.job_performance_report.JobPerformanceReport;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -25,7 +21,7 @@ import java.util.ArrayList;
 
 public class JobSheet extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -48,6 +44,7 @@ public class JobSheet extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         print_button = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
         job_sheet = new javax.swing.JPanel();

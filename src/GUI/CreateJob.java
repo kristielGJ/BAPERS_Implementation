@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
  */
 public class CreateJob extends JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
     int id;
@@ -39,6 +39,7 @@ public class CreateJob extends JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();

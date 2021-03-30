@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ExistingTaskList extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -45,6 +45,7 @@ public class ExistingTaskList extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         task_table_input = new javax.swing.JTable();

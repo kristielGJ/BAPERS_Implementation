@@ -90,10 +90,17 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         passwordLabel = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
 
+        jPanel1.setBackground(Style.LIGHT_BLUE);
+        setBackground(Style.LIGHT_BLUE);
+
+        pageTitle.setForeground(Style.DARK_BLUE);
         pageTitle.setAlignment(java.awt.Label.CENTER);
-        pageTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pageTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         pageTitle.setText("Update Staff");
 
+        cancelButton.setBackground(Style.DARK_BLUE);
+        cancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cancelButton.setForeground(Style.LIGHT_BLUE);
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +108,9 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
             }
         });
 
-        updateButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        updateButton.setBackground(Style.DARK_BLUE);
+        updateButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        updateButton.setForeground(Style.LIGHT_BLUE);
         updateButton.setText("Update");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,22 +124,29 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
 
         nameInput.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nameLabel.setForeground(Style.DARK_BLUE);
+        nameLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nameLabel.setText("Name:");
 
-        emailLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        emailLabel.setForeground(Style.DARK_BLUE);
+        emailLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         emailLabel.setText("Email:");
 
-        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phoneLabel.setForeground(Style.DARK_BLUE);
+        phoneLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         phoneLabel.setText("Phone:");
 
-        roleLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        roleLabel.setForeground(Style.DARK_BLUE);
+        roleLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleLabel.setText("Role:");
 
-        roleDropdown.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        roleDropdown.setBackground(Style.DARK_BLUE);
+        roleDropdown.setForeground(Style.LIGHT_BLUE);
+        roleDropdown.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         roleDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Office Manager", "Shift Manager", "Receptionist", "Technician" }));
 
-        idLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        idLabel.setForeground(Style.DARK_BLUE);
+        idLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         idLabel.setText("ID to Update:");
 
         idSpinner.addChangeListener(new ChangeListener() {
@@ -140,7 +156,8 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
             }
         });
 
-        passwordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        passwordLabel.setForeground(Style.DARK_BLUE);
+        passwordLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordLabel.setText("Password:");
 
         jPasswordField1.setText("jPasswordField1");

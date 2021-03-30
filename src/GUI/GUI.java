@@ -22,7 +22,7 @@ public class GUI extends JFrame {
 		add(new LoginPanel(getWidth(), getHeight(), bapers));
 	}
 
-	public void staffManagement(String data) {
+	public void staffManagement() {
 		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
 	}
 
@@ -34,6 +34,10 @@ public class GUI extends JFrame {
 	public String findCustomer(String data) {
 		// TODO - implement GUI.findCustomer
 		throw new UnsupportedOperationException();
+	}
+
+	public void home(){
+		add(new Home(getWidth(),getHeight(), this, bapers));
 	}
 
 	public void createNewCustomer() {
@@ -54,6 +58,10 @@ public class GUI extends JFrame {
 
 	public void retrieveCustomer(){
 		add(new RetrieveCustomer(getWidth(),getHeight(),this, bapers));
+	}
+
+	public void viewJobs(){
+		add(new ViewJobs(getWidth(),getHeight(),  bapers,this));
 	}
 
 	public void addJob(int customer_acc_no) {

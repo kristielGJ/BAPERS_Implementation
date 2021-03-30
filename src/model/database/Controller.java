@@ -5,6 +5,14 @@ import model.admin.userAccount.transaction.UserAccountTransaction;
 import model.customers.Customer;
 import model.customers.transaction.CustomersTransaction;
 import model.customers.transaction.I_CustomersTransaction;
+import model.discounts.discount.transaction.DiscountTransaction;
+import model.discounts.discount.transaction.I_DiscountTransaction;
+import model.discounts.fixed_discount.transaction.FixedDiscountTransaction;
+import model.discounts.fixed_discount.transaction.I_FixedDiscountTransaction;
+import model.discounts.flexible_discount.transaction.FlexibleDiscountTransaction;
+import model.discounts.flexible_discount.transaction.I_FlexibleDiscountTransaction;
+import model.discounts.variable_discount.transaction.I_VariableDiscountTransaction;
+import model.discounts.variable_discount.transaction.VariableDiscountTransaction;
 import model.jobs.card_payment.transaction.Card_payment_Transaction;
 import model.jobs.card_payment.transaction.I_Card_payment_Transaction;
 import model.jobs.existing_tasks.ExistingTasks;
@@ -31,7 +39,6 @@ import reports.summary_performance_report.transaction.SummaryPerformanceReport_T
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -39,8 +46,12 @@ import java.util.ArrayList;
 public class Controller implements I_Bapers {
 
 	private static final DB_Connection mainConn = new DB_Connection();
+	private I_FixedDiscountTransaction fixedDiscount = new FixedDiscountTransaction(mainConn);
+	private I_FlexibleDiscountTransaction flexibleDiscount = new FlexibleDiscountTransaction(mainConn);
+	private I_VariableDiscountTransaction variableDiscount = new VariableDiscountTransaction(mainConn);
+	private I_DiscountTransaction discount = new DiscountTransaction(mainConn, fixedDiscount, flexibleDiscount, variableDiscount);
 	private I_Job_Transaction job = new Job_Transaction(mainConn);
-	private I_Task_Transaction task = new Task_Transaction(mainConn);
+	private I_Task_Transaction task = new Task_Transaction(mainConn, discount);
 	private I_ExistingTasks_Transaction existingTask = new ExistingTasks_Transaction(mainConn);
 	private I_Payment_Transaction payment = new Payment_Transaction(mainConn);
 	private I_Card_payment_Transaction card_payment = new Card_payment_Transaction(mainConn);

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class Invoice extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -42,6 +42,7 @@ public class Invoice extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         back_button = new javax.swing.JButton();
         print_button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -69,6 +70,16 @@ public class Invoice extends javax.swing.JPanel {
         completed_input = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
+        jTextField1.setEditable(false);
+        jTextField2.setEditable(false);
+        jTextField3.setEditable(false);
+        job_no_input.setEditable(false);
+        account_no_input.setEditable(false);
+        customer_name_input.setEditable(false);
+        phone_input.setEditable(false);
+        address_input.setEditable(false);
+        completed_input.setEditable(false);
+
         setBackground(new java.awt.Color(157, 195, 230));
         setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 500));
@@ -76,7 +87,7 @@ public class Invoice extends javax.swing.JPanel {
         back_button.setBackground(new java.awt.Color(1, 23, 71));
         back_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         back_button.setForeground(new java.awt.Color(157, 195, 230));
-        back_button.setText("Back");
+        back_button.setText("Home");
         back_button.setBorderPainted(false);
         back_button.setFocusPainted(false);
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,8 +340,7 @@ public class Invoice extends javax.swing.JPanel {
     }
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt, int payment_ID) {
-        String[] invoice = bapers.generateInvoice(payment_ID);
-        f.retrieveJobs(Integer.parseInt(invoice[6]));
+        f.home();
         setVisible(false);
     }
 

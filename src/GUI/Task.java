@@ -5,17 +5,16 @@
  */
 package GUI;
 
-        import model.database.Controller;
-        import model.database.I_Bapers;
-        import model.jobs.task.Task_List;
-        import javax.swing.*;
-        import javax.swing.table.DefaultTableModel;
-        import javax.swing.table.TableModel;
-        import javax.swing.table.TableRowSorter;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.MouseEvent;
-        import java.util.ArrayList;
-        import java.util.List;
+import model.database.I_Bapers;
+import model.jobs.task.Task_List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,7 +22,7 @@ package GUI;
  */
 public class Task extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -45,6 +44,7 @@ public class Task extends javax.swing.JPanel {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
+        this.bapers = bapers;
         f.setCurrentPanel(this);
         jLabel1 = new javax.swing.JLabel();
         refresh_button = new javax.swing.JButton();
@@ -79,11 +79,11 @@ public class Task extends javax.swing.JPanel {
         task_table_input.setForeground(new java.awt.Color(1, 23, 71));
         task_table_input.setModel(new javax.swing.table.DefaultTableModel(
                 new String [] {
-                        "Task ID", "Task Description", "Location", "Price(£)", "Duration(min)"
+                        "Task ID", "Task Description", "Location", "Status", "Price(£)"
                 },0
         ){
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -195,7 +195,7 @@ public class Task extends javax.swing.JPanel {
         model.setRowCount(0);
         ArrayList<Task_List> tasks = bapers.getAllTasks(job_ID);
         for(Task_List task : tasks){
-            model.addRow(new Object[]{task.getTask_id(), task.getTask_description(), task.getLocation(), task.getPrice(), task.getDuration()});
+            model.addRow(new Object[]{task.getTask_id(), task.getTask_description(), task.getLocation(), task.getStatus(), task.getPrice()});
         }
         table.setModel(model);
     }
@@ -222,7 +222,7 @@ public class Task extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         ArrayList<Task_List> tasks = bapers.getAllTasks(job_ID);
         for(Task_List task : tasks){
-            model.addRow(new Object[]{task.getTask_id(), task.getTask_description(), task.getLocation(), task.getPrice(), task.getDuration()});
+            model.addRow(new Object[]{task.getTask_id(), task.getTask_description(), task.getLocation(), task.getStatus(), task.getPrice()});
         }
         table.setModel(model);
     }

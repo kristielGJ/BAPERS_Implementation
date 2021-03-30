@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ViewJobs extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -43,6 +43,10 @@ public class ViewJobs extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents(int width, int height, I_Bapers bapers, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        f.setCurrentPanel(this);
+        this.bapers = bapers;
         jLabel1 = new javax.swing.JLabel();
         filter = new javax.swing.JComboBox<>();
         refresh_button = new javax.swing.JButton();
