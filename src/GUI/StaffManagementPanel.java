@@ -9,7 +9,12 @@ import model.database.Controller;
 import model.database.I_Bapers;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,6 +60,12 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         ascendingComboBox.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ascendingComboBox.setForeground(Style.LIGHT_BLUE);
         ascendingComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
+        ascendingComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ascendingComboBoxPerformed(e);
+            }
+        });
         //TODO: ascendingComboBox.add
 
 
@@ -131,6 +142,8 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         saveButton.setForeground(Style.LIGHT_BLUE);
         saveButton.setText("Save");
 
+
+
         backButton.setBackground(Style.DARK_BLUE);
         backButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         backButton.setForeground(Style.LIGHT_BLUE);
@@ -191,6 +204,23 @@ public class StaffManagementPanel extends javax.swing.JPanel {
                                 .addGap(57, 57, 57))
         );
     }
+
+    private void ascendingComboBoxPerformed(ActionEvent evt) {
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(staffTable.getModel());
+        staffTable.setRowSorter(sorter);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 0;
+        if (ascendingComboBox.getSelectedItem() == "Ascending"){
+            sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+        }
+        else {
+            sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
+        }
+
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+    }
+
 
     private void removeButtonActionPerformed(ActionEvent evt) {
         if (staffTable.getSelectedRow() == -1) {

@@ -240,8 +240,11 @@ public class Controller implements I_Bapers {
 		if (!alerts.isEmpty()) {
 			for (Alert alert : alerts) {
 				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this);
-				loadedAlerts.add(scheduledAlert);
-				scheduledAlert.runAlert();
+				if (scheduledAlert.runAlert()) {
+					loadedAlerts.add(scheduledAlert);
+				}else{
+					System.out.println("Failed adding alert " + alert.toString());
+				}
 			}
 		}
 	}
@@ -310,6 +313,11 @@ public class Controller implements I_Bapers {
 		}else{
 			return false;
 		}
+	}
+
+	@Override
+	public void logout() {
+		currentUser = null;
 	}
 
 	public Controller() {

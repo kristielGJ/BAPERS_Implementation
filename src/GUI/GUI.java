@@ -1,6 +1,5 @@
 package GUI;
 
-import model.admin.alert.ScheduledAlert;
 import model.database.Controller;
 import model.database.I_Bapers;
 
@@ -12,13 +11,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.HOURS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GUI extends JFrame {
 
@@ -26,15 +19,11 @@ public class GUI extends JFrame {
 	private I_Bapers bapers = new Controller();
 
 	public void login() {
-		add(new LoginPanel(getWidth(), getHeight(), bapers));
+		add(new LoginPanel(getWidth(), getHeight(), this, bapers));
 	}
 
 	public void staffManagement() {
 		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
-	}
-
-	public void menu() {
-		add(new Home(getWidth(), getHeight(), this));
 	}
 
 	public void logout() {
@@ -133,7 +122,7 @@ public class GUI extends JFrame {
 
 	//converts long to string (time hh:mm)
 	public String convertToString(long dur){
-		return String.format("%02d:%02d", SECONDS.toHours(dur), SECONDS.toMinutes(dur) - HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
+		return String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
 	}
 
 	//prints the JPanel

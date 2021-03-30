@@ -22,10 +22,14 @@ public class ScheduledAlert {
         this.parentPanel = parentPanel;
     }
 
-    public void runAlert() {
-        isRunning = true;
-        alertHandle = controller.getScheduler().schedule(alertRunner, alert.getTimeUntilExecutionInSeconds(), TimeUnit.SECONDS);
-        controller.getLoadedAlerts().add(this);
+    public boolean runAlert() {
+        if (alert.getTimeUntilExecutionInSeconds() > 0 && !isRunning) {
+            isRunning = true;
+            alertHandle = controller.getScheduler().schedule(alertRunner, alert.getTimeUntilExecutionInSeconds(), TimeUnit.SECONDS);
+            controller.getLoadedAlerts().add(this);
+            return true;
+        }
+        return false;
     }
 
     private void removeFromLoadedAlerts() {

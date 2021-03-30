@@ -113,6 +113,8 @@ public interface I_Bapers {
 
 	public boolean authenticateUser(int id, String password);
 
+	public void logout();
+
 	public void loadAllAlerts(JFrame parent);
 
 	public ScheduledExecutorService getScheduler();
