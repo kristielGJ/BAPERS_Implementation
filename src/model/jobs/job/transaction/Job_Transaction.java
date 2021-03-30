@@ -1,14 +1,10 @@
 package model.jobs.job.transaction;
 
-import model.Model;
 import model.database.DB_Connection;
 import model.jobs.job.Job;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import static model.database.DB_Connection.printQuery;
 
 /**
  *
@@ -58,6 +54,7 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setString(7, "Pending");
             Stm.setInt(8, customer_account_no);
             Stm.executeUpdate();
+            Stm.close();
 
             PreparedStatement Stm2 = conn.prepareStatement("select Subtotal_price from Job where Job_ID = ? ");
             Stm2.setInt(1, job_ID);
@@ -84,6 +81,7 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setInt(2,job_ID);
             if (job_status == "Processing"){
                 Stm.executeUpdate();
+                Stm.close();
                 addStart_time(job_ID);
             }
             else if (job_status == "Completed"){
@@ -97,8 +95,11 @@ public class Job_Transaction implements I_Job_Transaction {
                         update = false;
                     }
                 }
+                rs.close();
+                Stm2.close();
                 if (update == true){
                     Stm.executeUpdate();
+                    Stm.close();
                     Stm2 = conn.prepareStatement("SELECT * FROM Job WHERE Job_ID = ?;");
                     Stm2.setInt(1,job_ID);
                     ResultSet rs2 = Stm2.executeQuery();
@@ -112,12 +113,14 @@ public class Job_Transaction implements I_Job_Transaction {
                             }
                         }
                     }
+                    Stm2.close();
                     //adding completion time
                     addCompletion_time(job_ID);
                 }
             }
             else {
                 Stm.executeUpdate();
+                Stm.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,6 +134,7 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             Stm.setInt(2,job_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,6 +147,7 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             Stm.setInt(2,job_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,6 +160,7 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setTimestamp(1, Timestamp.valueOf(payment_deadline));
             Stm.setInt(2,job_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
