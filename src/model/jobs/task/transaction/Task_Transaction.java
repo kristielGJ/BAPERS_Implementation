@@ -231,6 +231,7 @@ public class Task_Transaction implements I_Task_Transaction {
                             rs.getInt(1),
                             rs1.getString(2),
                             rs1.getString(4),
+                            rs.getString(2),
                             rs1.getDouble(3),
                             rs1.getInt(5)
                     );
