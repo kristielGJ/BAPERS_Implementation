@@ -96,6 +96,7 @@ public class Home extends javax.swing.JPanel {
         });
 
         StaffButton.setBackground(new java.awt.Color(1, 23, 71));
+        StaffButton.setVisible(true);
         StaffButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         StaffButton.setForeground(new java.awt.Color(157, 195, 230));
         StaffButton.setText("Staff Managment");
@@ -109,6 +110,7 @@ public class Home extends javax.swing.JPanel {
         });
 
         TaskManagmentButton.setBackground(new java.awt.Color(1, 23, 71));
+        TaskManagmentButton.setVisible(true);
         TaskManagmentButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         TaskManagmentButton.setForeground(new java.awt.Color(157, 195, 230));
         TaskManagmentButton.setText("Task Managment");
@@ -147,6 +149,7 @@ public class Home extends javax.swing.JPanel {
             }
         });
 
+        BackupButton.setVisible(true);
         BackupButton.setBackground(new java.awt.Color(1, 23, 71));
         BackupButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         BackupButton.setForeground(new java.awt.Color(157, 195, 230));
@@ -253,7 +256,7 @@ public class Home extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        if (bapers.getCurrentUser().getRole() != "Office Manager") {
+        if (!bapers.getCurrentUser().getRole().equals("Office Manager")) {
             StaffButton.setVisible(false);
             BackupButton.setVisible(false);
             TaskManagmentButton.setVisible(false);
