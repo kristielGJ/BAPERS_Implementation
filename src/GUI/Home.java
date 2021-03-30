@@ -45,8 +45,8 @@ public class Home extends javax.swing.JPanel {
         RoleText = new javax.swing.JLabel();
         GenerateReportButton = new javax.swing.JButton();
         JobsButton = new javax.swing.JButton();
-        StaffButton = new javax.swing.JButton();
         TaskManagmentButton = new javax.swing.JButton();
+        StaffButton = new javax.swing.JButton();
         RefreshAlertsButton = new javax.swing.JButton();
         CustomerButton = new javax.swing.JButton();
         BackupButton = new javax.swing.JButton();
@@ -63,11 +63,11 @@ public class Home extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Logged in as:");
+        jLabel3.setText("Logged in as: " + bapers.getCurrentUser().getName());
 
         RoleText.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         RoleText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        RoleText.setText("Role: ");
+        RoleText.setText("Role: " + bapers.getCurrentUser().getRole());
 
         GenerateReportButton.setBackground(new java.awt.Color(1, 23, 71));
         GenerateReportButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -96,6 +96,7 @@ public class Home extends javax.swing.JPanel {
         });
 
         StaffButton.setBackground(new java.awt.Color(1, 23, 71));
+        StaffButton.setVisible(true);
         StaffButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         StaffButton.setForeground(new java.awt.Color(157, 195, 230));
         StaffButton.setText("Staff Managment");
@@ -109,6 +110,7 @@ public class Home extends javax.swing.JPanel {
         });
 
         TaskManagmentButton.setBackground(new java.awt.Color(1, 23, 71));
+        TaskManagmentButton.setVisible(true);
         TaskManagmentButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         TaskManagmentButton.setForeground(new java.awt.Color(157, 195, 230));
         TaskManagmentButton.setText("Task Managment");
@@ -147,6 +149,7 @@ public class Home extends javax.swing.JPanel {
             }
         });
 
+        BackupButton.setVisible(true);
         BackupButton.setBackground(new java.awt.Color(1, 23, 71));
         BackupButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         BackupButton.setForeground(new java.awt.Color(157, 195, 230));
@@ -252,6 +255,12 @@ public class Home extends javax.swing.JPanel {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        if (!bapers.getCurrentUser().getRole().equals("Office Manager")) {
+            StaffButton.setVisible(false);
+            BackupButton.setVisible(false);
+            TaskManagmentButton.setVisible(false);
+        }
     }// </editor-fold>
 
     private void GenerateReportButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,8 +269,8 @@ public class Home extends javax.swing.JPanel {
     }
 
     private void JobsButtonActionPerformed(java.awt.event.ActionEvent evt) {
-       f.viewJobs();
-       setVisible(false);
+        f.viewJobs();
+        setVisible(false);
     }
 
     private void StaffButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +288,8 @@ public class Home extends javax.swing.JPanel {
     }
 
     private void CustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        f.retrieveCustomer();
+        setVisible(false);
     }
 
     private void BackupButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +297,9 @@ public class Home extends javax.swing.JPanel {
     }
 
     private void SignOutButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        bapers.logout();
+        f.login();
+        setVisible(false);
     }
 
 
