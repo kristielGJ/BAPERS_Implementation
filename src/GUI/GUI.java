@@ -1,5 +1,6 @@
 package GUI;
 
+import model.admin.alert.ScheduledAlert;
 import model.database.Controller;
 import model.database.I_Bapers;
 
@@ -11,7 +12,13 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.HOURS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GUI extends JFrame {
 
@@ -22,7 +29,7 @@ public class GUI extends JFrame {
 		add(new LoginPanel(getWidth(), getHeight(), bapers));
 	}
 
-	public void staffManagement(String data) {
+	public void staffManagement() {
 		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
 	}
 
@@ -114,7 +121,7 @@ public class GUI extends JFrame {
 
 	//converts long to string (time hh:mm)
 	public String convertToString(long dur){
-		return String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
+		return String.format("%02d:%02d", SECONDS.toHours(dur), SECONDS.toMinutes(dur) - HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
 	}
 
 	//prints the JPanel
@@ -161,6 +168,10 @@ public class GUI extends JFrame {
 	}
 
 	public GUI(int width, int height) {
+		bapers.loadAllAlerts(this);
+		for (ScheduledAlert alert : bapers.getLoadedAlerts()) {
+			System.out.println(alert.getAlert().getName());
+		}
 		this.setSize(width,height);
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

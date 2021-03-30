@@ -84,7 +84,6 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         roleLabel = new javax.swing.JLabel();
         roleDropdown = new javax.swing.JComboBox<>();
         idLabel = new javax.swing.JLabel();
-        //Collections.reverse(Arrays.asList(getAllIds()));
         SpinnerListModel model = new SpinnerListModel(getAllIds());
         idSpinner = new javax.swing.JSpinner(model);
         passwordLabel = new javax.swing.JLabel();

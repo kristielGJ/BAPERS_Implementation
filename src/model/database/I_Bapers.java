@@ -1,5 +1,7 @@
 package model.database;
 
+import model.admin.alert.Alert;
+import model.admin.alert.ScheduledAlert;
 import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
 import model.jobs.existing_tasks.ExistingTasks;
@@ -15,6 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledExecutorService;
 
 public interface I_Bapers {
 
@@ -109,4 +112,10 @@ public interface I_Bapers {
 	public UserAccount getCurrentUser();
 
 	public boolean authenticateUser(int id, String password);
+
+	public void loadAllAlerts(JFrame parent);
+
+	public ScheduledExecutorService getScheduler();
+
+	public ArrayList<ScheduledAlert> getLoadedAlerts();
 }

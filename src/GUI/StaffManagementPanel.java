@@ -32,7 +32,6 @@ public class StaffManagementPanel extends javax.swing.JPanel {
     }
 
     private void initComponents() {
-
         pageTitle = new javax.swing.JLabel();
         ascendingComboBox = new javax.swing.JComboBox<>();
         sortByLabel = new javax.swing.JLabel();
