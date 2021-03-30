@@ -99,7 +99,6 @@ public class RegularCustomer extends JPanel {
 		retrieveJob.setBackground(new Color(1, 23, 71));
 		retrieveJob.addMouseListener(new retrieveListener());
 
-
 		miniBapersLabel = new JLabel();
 		miniBapersLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 		miniBapersLabel.setForeground(new java.awt.Color(1, 23, 71));
