@@ -1,14 +1,22 @@
-package model.discounts;
+package model.discounts.discount;
+
+/**
+ *
+ * @author Manpreet and Gera
+ */
 
 public class Discount {
 
     private int customer_acc_no;
     private String discount_type;
+    private double discount_rate;
 
     //constructor
-    public Discount(int new_customer_acc_no, String new_discount_type){
+    public Discount(int new_customer_acc_no, String new_discount_type, double new_discount_rate){
         customer_acc_no = new_customer_acc_no;
         discount_type = new_discount_type;
+        discount_rate = new_discount_rate;
+
     }
 
     //getters and setters
@@ -27,4 +35,8 @@ public class Discount {
     public void setCustomer_acc_no(int customer_acc_no) {
         this.customer_acc_no = customer_acc_no;
     }
+
+    public double getDiscount_rate() { return discount_rate; }
+
+    public void setDiscount_rate(double discount_rate) { this.discount_rate = discount_rate;  }
 }
