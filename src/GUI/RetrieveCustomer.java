@@ -1,7 +1,5 @@
 package GUI;
 
-import model.customers.Customer;
-import model.database.Controller;
 import model.database.I_Bapers;
 
 import javax.swing.*;
@@ -54,25 +52,34 @@ public class RetrieveCustomer extends JPanel {
 		retrieveLabel.setText("Retrieve Customer");
 		retrieveLabel.setHorizontalTextPosition(JLabel.CENTER);
 
-
 		backButton = new JButton();
 		backButton.setText("Back");
+		backButton.setForeground(Color.white);
+		backButton.setBackground(new Color(1, 23, 71));
 		backButton.addMouseListener(new backListener());
 
 		refresh = new JButton();
 		refresh.addMouseListener(new refreshListener());
+		refresh.setForeground(Color.white);
+		refresh.setBackground(new Color(1, 23, 71));
 		refresh.setText("Refresh");
 
 		retrieveButton = new JButton();
 		retrieveButton.addMouseListener(new retrieveListener());
+		retrieveButton.setForeground(Color.white);
+		retrieveButton.setBackground(new Color(1, 23, 71));
 		retrieveButton.setText("Retrieve");
 
 		remove = new JButton();
 		remove.addMouseListener(new removeListener());
+		remove.setForeground(Color.white);
+		remove.setBackground(new Color(1, 23, 71));
 		remove.setText("Remove");
 
 		newCust = new JButton();
 		newCust.addMouseListener(new addListener());
+		newCust.setForeground(Color.white);
+		newCust.setBackground(new Color(1, 23, 71));
 		newCust.setText("Add");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

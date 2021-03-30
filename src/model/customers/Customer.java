@@ -1,10 +1,6 @@
 package model.customers;
 
 import model.Model;
-import model.database.DB_Connection;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Customer extends Model {
 

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class CustomersTransaction implements I_CustomersTransaction {
 
-	private final Connection conn;
+	private final Connection conn; //private conn variable
 
 	public CustomersTransaction(DB_Connection conn) {
 		this.conn = conn.getConn();
-	}
+	} // constructor for class
 
 	public Customer addCustomer(String name, String Address, String Phone){
 		Customer cust = null;
@@ -32,7 +32,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			throwables.printStackTrace();
 		}
 		return cust;
-	}
+	} // adds customer entry to database
 
 	public Customer updateCustomer(String name, int Acc_no, String Address, String Phone, String valued){
 		Customer cust = null;
@@ -51,7 +51,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return cust;
-	}
+	} // updates current customer entry in database
 
 	public ArrayList<String[]> getAllCust() {
 		ArrayList<String[]> customers = null;
@@ -75,7 +75,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return customers;
-	}
+	} //get a list of arrays of strings of all customers in the database
 
 	public String[][] getData(ArrayList<String[]> customers){
 		String[][] array = new String[customers.size()][];
@@ -84,7 +84,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			array[i] = row;
 		}
 		return array;
-	}
+	} //convert the array list of Sting arrays into an array of string arrays
 
 	private Customer getCustomer(ResultSet rs) throws SQLException {
 		Customer cust;
@@ -96,12 +96,12 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		}
 
 		return cust;
-	}
+	} // return either a valuedCustomer or a Customer
 
 	@Override
 	public ArrayList<Customer> getAll() {
 		return null;
-	}
+	} //get all customers from database, didnt need to be implemented
 
 	@Override
 	public Customer read(int Acc_no) {
@@ -117,7 +117,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return cust;
-	}
+	} // return a specific customer from the database
 
 	@Override
 	public boolean remove(int Acc_no) {
@@ -132,7 +132,7 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return removed;
-	}
+	} // remove a customer entry from the database
 
 	public int getLastAccNo(){
 		int lastAccNo = 0 ;
@@ -148,5 +148,5 @@ public class CustomersTransaction implements I_CustomersTransaction {
 
 		}
 		return lastAccNo;
-	}
+	} //get the last used account number in the database
 }
