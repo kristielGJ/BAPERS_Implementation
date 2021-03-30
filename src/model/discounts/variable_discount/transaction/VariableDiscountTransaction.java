@@ -28,6 +28,7 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
             Stm.setDouble(2, discount_rate);
             Stm.setInt(3, catalog_id);
             Stm.executeUpdate();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +52,8 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
                     total_discount += rs1.getDouble(3)*(discount_rate/100);
                 }
             }
+            rs.close();
+            Stm.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,6 +71,8 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
             while (rs.next()){
                 discount_rate += rs.getDouble(2);
             }
+            rs.close();
+            Stm.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +90,8 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
                 catalog_ids[i-1] = rs.getInt(1);
                 i++;
             }
+            rs.close();
+            Stm.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,6 +114,8 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
                 );
                 discount_details.add(discount);
             }
+            rs.close();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

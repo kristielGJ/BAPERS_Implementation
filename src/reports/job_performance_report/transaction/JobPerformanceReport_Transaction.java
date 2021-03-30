@@ -63,9 +63,14 @@ public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_
                             );
                             report.add(details);
                         }
+                        rs3.close();
                     }
+                    rs2.close();
                 }
+                rs1.close();
             }
+            rs.close();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -51,7 +51,10 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     while (rs1.next()){
                         copy_room = Duration.between(rs1.getTimestamp(4).toLocalDateTime(), rs1.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
                     }
+                    rs1.close();
                 }
+                cr.close();
+                Stm.close();
 
                 //development
                 Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
@@ -68,7 +71,10 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     while(rs2.next()){
                         development = Duration.between(rs2.getTimestamp(4).toLocalDateTime(), rs2.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
                     }
+                    rs2.close();
                 }
+                ds.close();
+                Stm.close();
 
                 //finishing
                 Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
@@ -85,7 +91,10 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     while (rs3.next()){
                         finishing = Duration.between(rs3.getTimestamp(4).toLocalDateTime(), rs3.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
                     }
+                    rs3.close();
                 }
+                fs.close();
+                Stm.close();
 
                 //Packing
                 Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
@@ -102,7 +111,10 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     while (rs4.next()){
                         packing = Duration.between(rs4.getTimestamp(4).toLocalDateTime(), rs4.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
                     }
+                    rs4.close();
                 }
+                ps.close();
+                Stm.close();
 
                 SummaryPerformanceReport details = new SummaryPerformanceReport(
                         "Summary Performance Report",

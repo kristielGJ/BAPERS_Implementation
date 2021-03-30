@@ -31,6 +31,7 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
             Stm.setInt(1,customer_acc_no);
             Stm.executeUpdate();
             id = getGeneratedKey(Stm);
+            Stm.close();
 
             Stm = conn.prepareStatement("INSERT INTO `bapers`.`DiscountBand` (`lower`, `upper`, `discount_rate`, `DiscountBandCustomer_ID`) VALUES (?,?,?,?) ");
             Stm.setInt(1,lower_bound);
@@ -38,6 +39,7 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
             Stm.setDouble(3,discount_rate);
             Stm.setInt(4,id);
             Stm.executeUpdate();
+            Stm.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,6 +59,8 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
                 discount_rate = getDiscountRate(job_ID, customer_acc_no);
                 total_discount += rs.getDouble(8)*(discount_rate/100);
             }
+            rs.close();
+            Stm.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,8 +101,12 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
                             }
                         }
                     }
+                    rs3.close();
                 }
+                rs2.close();
             }
+            rs.close();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,6 +125,8 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
             while (rs.next()){
                 volume += rs.getDouble(1);
             }
+            rs.close();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
