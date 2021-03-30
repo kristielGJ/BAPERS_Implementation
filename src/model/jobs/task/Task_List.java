@@ -11,14 +11,16 @@ public class Task_List{
     private int task_id;
     private String task_description;
     private String location;
+    private String status;
     private double price;
     private int duration;
 
    //constructor
-    public Task_List( int new_task_id, String new_task_description, String new_location, double new_price, int new_duration ) {
+    public Task_List( int new_task_id, String new_task_description, String new_location, String new_status, double new_price, int new_duration ) {
         task_id = new_task_id;
         task_description = new_task_description;
         location = new_location;
+        status = new_status;
         price = new_price;
         duration = new_duration;
     }
@@ -64,4 +66,11 @@ public class Task_List{
         this.duration = duration;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
