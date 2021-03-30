@@ -58,7 +58,6 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                 Stm.setString(1, "Development");
                 ResultSet ds = Stm.executeQuery();
                 while (ds.next()){
-                    System.out.println(ds.getInt(1));
                     Stm = conn.prepareStatement("SELECT * FROM Task WHERE CAST(Task_start as DATE) = ? AND Task_CatalogCatalog_ID = ? AND Task_status = ? AND CAST(Task_start as TIME) BETWEEN ? AND ? ");
                     Stm.setDate(1, Date.valueOf(date));
                     Stm.setInt(2, ds.getInt(1));
@@ -67,7 +66,6 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     Stm.setTime(5, Time.valueOf(to_time));
                     ResultSet rs2 = Stm.executeQuery();
                     while(rs2.next()){
-                        System.out.print(rs2.getTimestamp(4));
                         development = Duration.between(rs2.getTimestamp(4).toLocalDateTime(), rs2.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
                     }
                 }
