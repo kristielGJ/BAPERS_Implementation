@@ -38,6 +38,7 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
             Stm.setString(3, department_name);
             Stm.setInt(4, task_duration);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,6 +50,7 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
             Stm = conn.prepareStatement("DELETE FROM `bapers`.`Task_Catalog` WHERE Catalog_ID =?;");
             Stm.setInt(1,existing_task_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,6 +66,7 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
             Stm.setInt(4, task_duration);
             Stm.setInt(5, existing_task_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

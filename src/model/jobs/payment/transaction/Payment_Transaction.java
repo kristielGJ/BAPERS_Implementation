@@ -39,12 +39,14 @@ public class Payment_Transaction implements I_Payment_Transaction {
             Stm.setDate(3,date);
             Stm.setDouble(4, job_ID);
             Stm.executeUpdate();
+            Stm.close();
 
             // updating the payment status of job to paid
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Payment_status = ? WHERE Job_ID =?;");
             Stm.setString(1, "Paid");
             Stm.setInt(2,job_ID);
             Stm.executeUpdate();
+            Stm.close();
 
             //generated id
             Stm = conn.prepareStatement("SELECT * FROM Payment WHERE JobJob_ID = ?;");
@@ -53,6 +55,8 @@ public class Payment_Transaction implements I_Payment_Transaction {
             while (rs.next()){
                 id = rs.getInt(1);
             }
+            rs.close();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,8 +91,12 @@ public class Payment_Transaction implements I_Payment_Transaction {
                         invoice_details[7] = rs2.getString(4);
                         invoice_details[8] = rs2.getString(5);
                     }
+                    rs2.close();
                 }
+                rs1.close();
             }
+            rs.close();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

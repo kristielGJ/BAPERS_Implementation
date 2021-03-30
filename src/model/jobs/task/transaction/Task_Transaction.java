@@ -42,6 +42,9 @@ public class Task_Transaction implements I_Task_Transaction {
             while (rs1.next()){
                 user_ID = rs1.getInt(1);
             }
+            rs.close();
+            rs1.close();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,6 +63,7 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setInt(4, ExistingTask_ID);
             Stm.setInt(5, Job_ID);
             Stm.executeUpdate();
+            Stm.close();
             calculateSub_price(Job_ID, ExistingTask_ID);
             discount.calculatePrice(Job_ID);
         } catch (Exception e) {
@@ -74,6 +78,7 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setString(1, Task_status);
             Stm.setInt(2,Task_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,6 +104,8 @@ public class Task_Transaction implements I_Task_Transaction {
             while(rs.next()){
                 task_price = rs.getDouble("Price");
             }
+            rs.close();
+            Stm.close();
 
             Stm = conn.prepareStatement("select Subtotal_price from Job where Job_ID = ? ");
             Stm.setInt(1, job_ID);
@@ -106,6 +113,8 @@ public class Task_Transaction implements I_Task_Transaction {
             while(rs2.next()){
                 subtotal_price = rs2.getDouble("Subtotal_price");
             }
+            rs2.close();
+            Stm.close();
 
             subtotal_price = subtotal_price + task_price;
 
@@ -113,7 +122,7 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setDouble(1, subtotal_price);
             Stm.setInt(2,job_ID);
             Stm.executeUpdate();
-
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -126,6 +135,7 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             Stm.setInt(2,Task_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,6 +148,7 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             Stm.setInt(2,Task_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -154,6 +165,8 @@ public class Task_Transaction implements I_Task_Transaction {
             while(rs1.next()){
                 rowCount = rs1.getInt(1);
             }
+            rs1.close();
+            Stm.close();
             Stm = conn.prepareStatement("SELECT Task_name FROM Task_Catalog");
             ResultSet rs = Stm.executeQuery();
             tasks = new String[rowCount+1];
@@ -162,6 +175,8 @@ public class Task_Transaction implements I_Task_Transaction {
                 tasks[i] = rs.getString(1);
                 i++;
             }
+            rs.close();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,6 +195,8 @@ public class Task_Transaction implements I_Task_Transaction {
             while(rs1.next()){
                 rowCount = rs1.getInt(1);
             }
+            rs1.close();
+            Stm.close();
             Stm = conn.prepareStatement("SELECT name FROM User_account WHERE role = ?");
             Stm.setString(1,"Technician");
             ResultSet rs = Stm.executeQuery();
@@ -189,6 +206,8 @@ public class Task_Transaction implements I_Task_Transaction {
                 technician[i] = rs.getString(1);
                 i++;
             }
+            rs.close();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -217,7 +236,10 @@ public class Task_Transaction implements I_Task_Transaction {
                     );
                     task_details.add(task);
                 }
+                rs1.close();
             }
+            rs.close();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

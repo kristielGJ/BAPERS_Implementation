@@ -60,8 +60,12 @@ public class IndividualPerformanceReport_Transaction implements I_IndividualPerf
                         );
                         report.add(details);
                     }
+                    rs2.close();
                 }
+                rs1.close();
             }
+            rs.close();
+            Stm.close();
 
         } catch (Exception e) {
             e.printStackTrace();

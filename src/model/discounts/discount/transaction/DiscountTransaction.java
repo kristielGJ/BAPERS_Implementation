@@ -39,6 +39,7 @@ public class DiscountTransaction implements I_DiscountTransaction {
             Stm.setInt(2,acc_no);
             Stm.setString(3, "Valued");
             Stm.executeUpdate();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,8 +73,11 @@ public class DiscountTransaction implements I_DiscountTransaction {
                         total_discount = 0.0;
                     }
                 }
+                rs1.close();
                 total_price = Double.parseDouble(decimalFormat.format(rs.getDouble(8) - total_discount));
             }
+            rs.close();
+            Stm.close();
             updateJobPrice(job_ID, total_price, total_discount);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,6 +92,7 @@ public class DiscountTransaction implements I_DiscountTransaction {
             Stm.setDouble(2,total_price);
             Stm.setInt(3, job_ID);
             Stm.executeUpdate();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

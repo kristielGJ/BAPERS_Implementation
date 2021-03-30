@@ -30,6 +30,7 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
             Stm.setDouble(1, discount_rate);
             Stm.setInt(2,customer_acc_no);
             Stm.executeUpdate();
+            Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,6 +48,8 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
                 discount_rate = getDiscountRate(customer_acc_no);
                 total_discount += rs.getDouble(8)*(discount_rate/100);
             }
+            rs.close();
+            Stm.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,6 +66,8 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
             while (rs.next()){
                 discount_rate += rs.getDouble(7);
             }
+            rs.close();
+            Stm.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,6 +89,8 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
                 );
                 discount_details.add(discount);
             }
+            rs.close();
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

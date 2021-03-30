@@ -1,7 +1,6 @@
 package model.jobs.job.transaction;
 
 import model.Model;
-import model.admin.alert.Alert;
 import model.admin.alert.transaction.AlertTransaction;
 import model.database.DB_Connection;
 import model.jobs.job.Job;
@@ -44,6 +43,7 @@ public class Job_Transaction implements I_Job_Transaction {
         else {
             deadline = LocalDateTime.now().plusHours(24);
         }
+
         new Job(job_ID, job_desc, priority, special_instructions, "Pending", "Pending", deadline, 0.0);
         saveJob(job_ID, job_desc, priority, time, special_instructions, "Pending", deadline, customer_account_no);
     }
@@ -159,6 +159,7 @@ public class Job_Transaction implements I_Job_Transaction {
             Stm.setInt(2,job_ID);
             Stm.executeUpdate();
             alertTransaction.create("payment", "", payment_deadline, job_ID);
+            Stm.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
