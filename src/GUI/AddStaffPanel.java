@@ -177,7 +177,7 @@ public class AddStaffPanel extends JPanel {
         String name = nameInput.getText();
         String email = emailInput.getText();
         String phone = phoneInput.getText();
-        String password = passwordInput.getPassword().toString();
+        String password = new String(passwordInput.getPassword());
         String role = roleDropdown.getSelectedItem().toString();
         if (controller.addStaffMember(new String[]{name, email, phone, password, role})) {
             clearAllInputFields();
