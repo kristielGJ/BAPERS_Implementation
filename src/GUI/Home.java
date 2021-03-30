@@ -5,10 +5,6 @@
  */
 package GUI;
 
-import model.database.I_Bapers;
-
-import javax.swing.*;
-
 import javax.swing.*;
 
 /**
@@ -252,7 +248,7 @@ public class Home extends javax.swing.JPanel {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
-    }// </editor-fold>
+    }
 
     private void GenerateReportButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -286,8 +282,6 @@ public class Home extends javax.swing.JPanel {
         // TODO add your handling code here:
     }
 
-
-    // Variables declaration - do not modify
     private javax.swing.JButton BackupButton;
     private javax.swing.JButton CustomerButton;
     private javax.swing.JButton GenerateReportButton;
@@ -300,5 +294,4 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    // End of variables declaration
 }
