@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class Invoice extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -42,6 +42,7 @@ public class Invoice extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         back_button = new javax.swing.JButton();
         print_button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();

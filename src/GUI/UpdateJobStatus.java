@@ -4,7 +4,6 @@ package GUI;/*
  * and open the template in the editor.
  */
 
-import model.database.Controller;
 import model.database.I_Bapers;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +15,7 @@ import java.awt.event.MouseEvent;
  */
 public class UpdateJobStatus extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
 
     /**
      * Creates new form UpdateJobStatus
@@ -34,7 +33,7 @@ public class UpdateJobStatus extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents(int job_id, I_Bapers bapers) {
 
-
+        this.bapers = bapers;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         status_input = new javax.swing.JComboBox<>();

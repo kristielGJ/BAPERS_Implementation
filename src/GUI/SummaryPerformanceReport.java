@@ -5,18 +5,13 @@
  */
 package GUI;
 
-import model.database.Controller;
 import model.database.I_Bapers;
-import reports.individual_performance_report.IndividualPerformanceReport;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -24,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SummaryPerformanceReport extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -47,6 +42,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         shift_type_combo_box = new javax.swing.JComboBox<>();
         back_button = new javax.swing.JButton();
         print_button = new javax.swing.JButton();
@@ -151,7 +147,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        //addReportDetails(summary_performance_report_shift, from_Date, to_Date);
+        addReportDetails(summary_performance_report_shift, from_Date, to_Date);
         summary_performance_report_shift.setGridColor(new java.awt.Color(1, 23, 71));
         summary_performance_report_shift.setShowGrid(true);
         summary_performance_report_shift.getTableHeader().setReorderingAllowed(false);

@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class GetPayment extends javax.swing.JPanel {
 
-    I_Bapers bapers = new Controller();
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -41,6 +41,7 @@ public class GetPayment extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         date_input = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         amount_input = new javax.swing.JTextField();
