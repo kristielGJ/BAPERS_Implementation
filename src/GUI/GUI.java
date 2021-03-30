@@ -36,6 +36,10 @@ public class GUI extends JFrame {
 		throw new UnsupportedOperationException();
 	}
 
+	public void home(){
+		add(new Home(getWidth(),getHeight(), this, bapers));
+	}
+
 	public void createNewCustomer() {
 		add(new CreateCustomerAccount(getWidth(),getHeight(), this, bapers));
 	}
@@ -54,6 +58,10 @@ public class GUI extends JFrame {
 
 	public void retrieveCustomer(){
 		add(new RetrieveCustomer(getWidth(),getHeight(),this, bapers));
+	}
+
+	public void viewJobs(){
+		add(new ViewJobs(getWidth(),getHeight(),  bapers,this));
 	}
 
 	public void addJob(int customer_acc_no) {

@@ -340,9 +340,7 @@ public class Invoice extends javax.swing.JPanel {
     }
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt, int payment_ID) {
-        //connect this to home
-        String[] invoice = bapers.generateInvoice(payment_ID);
-        f.retrieveJobs(Integer.parseInt(invoice[6]));
+        f.home();
         setVisible(false);
     }
 

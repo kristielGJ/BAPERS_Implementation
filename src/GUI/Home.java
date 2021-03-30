@@ -5,17 +5,25 @@
  */
 package GUI;
 
+import model.database.I_Bapers;
+
+import javax.swing.*;
+
 /**
  *
  * @author g_jah
  */
 public class Home extends javax.swing.JPanel {
 
+    private I_Bapers bapers;
+    private GUI f;
+    private JPanel lastPanel;
+
     /**
      * Creates new form Home
      */
-    public Home() {
-        initComponents();
+    public Home(int width, int height, GUI f, I_Bapers bapers) {
+        initComponents(width, height, f, bapers);
     }
 
     /**
@@ -25,8 +33,12 @@ public class Home extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initComponents(int width, int height, GUI f, I_Bapers bapers) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        this.bapers = bapers;
+        f.setCurrentPanel(this);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -243,19 +255,23 @@ public class Home extends javax.swing.JPanel {
     }// </editor-fold>
 
     private void GenerateReportButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        f.generateReport();
+        setVisible(false);
     }
 
     private void JobsButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+       f.viewJobs();
+       setVisible(false);
     }
 
     private void StaffButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        f.staffManagement();
+        setVisible(false);
     }
 
     private void TaskManagmentButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        f.viewExistingTasks();
+        setVisible(false);
     }
 
     private void RefreshAlertsButtonActionPerformed(java.awt.event.ActionEvent evt) {
