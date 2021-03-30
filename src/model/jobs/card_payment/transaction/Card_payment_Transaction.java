@@ -39,7 +39,6 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
             Stm.setString(3,last_digits);
             Stm.setInt(4,payment_ID);
             Stm.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

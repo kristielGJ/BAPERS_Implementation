@@ -1,7 +1,7 @@
 package model.jobs.task.transaction;
 
-import model.Model;
 import model.database.DB_Connection;
+import model.discounts.discount.transaction.I_DiscountTransaction;
 import model.jobs.task.Task;
 import model.jobs.task.Task_List;
 import java.sql.*;
@@ -17,10 +17,12 @@ public class Task_Transaction implements I_Task_Transaction {
 
     private PreparedStatement Stm = null;
     private Connection conn;
+    private I_DiscountTransaction discount;
 
     //constructor
-    public Task_Transaction(DB_Connection conn){
+    public Task_Transaction(DB_Connection conn, I_DiscountTransaction discount){
         this.conn = conn.getConn();
+        this.discount = discount;
     }
 
     //creates a new Task
@@ -59,6 +61,7 @@ public class Task_Transaction implements I_Task_Transaction {
             Stm.setInt(5, Job_ID);
             Stm.executeUpdate();
             calculateSub_price(Job_ID, ExistingTask_ID);
+            discount.calculatePrice(Job_ID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,7 +122,7 @@ public class Task_Transaction implements I_Task_Transaction {
     //stores the start_time of the task in the database
     public void start( int Task_ID) {
         try {
-            Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_start = ?WHERE Task_ID =?;");
+            Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_start = ? WHERE Task_ID =?;");
             Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             Stm.setInt(2,Task_ID);
             Stm.executeUpdate();
@@ -131,7 +134,7 @@ public class Task_Transaction implements I_Task_Transaction {
     //stores the finish_time of the task in the database
     public void finish( int Task_ID) {
         try {
-            Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_completion = ?WHERE Task_ID =?;");
+            Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_completion = ? WHERE Task_ID =?;");
             Stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             Stm.setInt(2,Task_ID);
             Stm.executeUpdate();
