@@ -4,7 +4,6 @@ package GUI;/*
  * and open the template in the editor.
  */
 
-import model.database.Controller;
 import model.database.I_Bapers;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -15,7 +14,7 @@ import java.awt.event.MouseEvent;
  */
 public class UpdateExistingTasks extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
     /**
@@ -37,6 +36,7 @@ public class UpdateExistingTasks extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         back_button = new javax.swing.JButton();
         sign_out_button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();

@@ -19,7 +19,7 @@ import java.time.LocalDate;
  */
 public class GenerateReport extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -42,6 +42,7 @@ public class GenerateReport extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         jLabel1 = new javax.swing.JLabel();
         generate_button = new javax.swing.JButton();
         auto_generate_button = new javax.swing.JButton();

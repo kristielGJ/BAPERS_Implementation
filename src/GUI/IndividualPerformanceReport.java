@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 public class IndividualPerformanceReport extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -46,6 +46,7 @@ public class IndividualPerformanceReport extends javax.swing.JPanel {
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
+        this.bapers = bapers;
         back_button = new javax.swing.JButton();
         print_button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
