@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class StaffManagementPanel extends javax.swing.JPanel {
     private GUI f;
@@ -48,14 +48,22 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
 
-        pageTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pageTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         pageTitle.setText("Staff Management");
+        pageTitle.setForeground(new java.awt.Color(1, 23, 71));
 
+        ascendingComboBox.setBackground(Style.DARK_BLUE);
+        ascendingComboBox.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ascendingComboBox.setForeground(Style.LIGHT_BLUE);
         ascendingComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
         //TODO: ascendingComboBox.add
 
-        sortByLabel.setText("Sort by");
 
+        this.setBackground(Style.LIGHT_BLUE);
+
+        addButton.setBackground(Style.DARK_BLUE);
+        addButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addButton.setForeground(Style.LIGHT_BLUE);
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +71,9 @@ public class StaffManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        updateButton.setBackground(Style.DARK_BLUE);
+        updateButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        updateButton.setForeground(Style.LIGHT_BLUE);
         updateButton.setText("Update");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +81,9 @@ public class StaffManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        removeButton.setBackground(Style.DARK_BLUE);
+        removeButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        removeButton.setForeground(Style.LIGHT_BLUE);
         removeButton.setText("Remove");
         removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +91,9 @@ public class StaffManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        refreshButton.setBackground(Style.DARK_BLUE);
+        refreshButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        refreshButton.setForeground(Style.LIGHT_BLUE);
         refreshButton.setText("Refresh");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,12 +122,19 @@ public class StaffManagementPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        staffTable.setGridColor(Style.DARK_BLUE);
+        staffTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(staffTable);
         controller.populateStaffTable(staffTable);
 
-
+        saveButton.setBackground(Style.DARK_BLUE);
+        saveButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        saveButton.setForeground(Style.LIGHT_BLUE);
         saveButton.setText("Save");
 
+        backButton.setBackground(Style.DARK_BLUE);
+        backButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        backButton.setForeground(Style.LIGHT_BLUE);
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

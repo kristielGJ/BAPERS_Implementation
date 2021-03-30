@@ -49,7 +49,10 @@ public class AddStaffPanel extends JPanel {
         emailLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
 
-        passwordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        setBackground(Style.LIGHT_BLUE);
+
+        passwordLabel.setForeground(Style.DARK_BLUE);
+        passwordLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordLabel.setText("Password:");
         passwordLabel.setToolTipText("");
 
@@ -64,10 +67,13 @@ public class AddStaffPanel extends JPanel {
             }
         });
 
-        roleLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        roleLabel.setForeground(Style.DARK_BLUE);
+        roleLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleLabel.setText("Role:");
 
-        addButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        addButton.setBackground(Style.DARK_BLUE);
+        addButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        addButton.setForeground(Style.LIGHT_BLUE);
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +81,9 @@ public class AddStaffPanel extends JPanel {
             }
         });
 
+        cancelButton.setBackground(Style.DARK_BLUE);
+        cancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cancelButton.setForeground(Style.LIGHT_BLUE);
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,22 +91,28 @@ public class AddStaffPanel extends JPanel {
             }
         });
 
+        pageTitle.setForeground(Style.DARK_BLUE);
         pageTitle.setAlignment(java.awt.Label.CENTER);
-        pageTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pageTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         pageTitle.setText("Add Staff");
 
         passwordInput.setInheritsPopupMenu(true);
 
-        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nameLabel.setForeground(Style.DARK_BLUE);
+        nameLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nameLabel.setText("Name:");
 
-        roleDropdown.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        roleDropdown.setBackground(Style.DARK_BLUE);
+        roleDropdown.setForeground(Style.LIGHT_BLUE);
+        roleDropdown.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Office Manager", "Shift Manager", "Receptionist", "Technician" }));
 
-        emailLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        emailLabel.setForeground(Style.DARK_BLUE);
+        emailLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         emailLabel.setText("Email:");
 
-        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phoneLabel.setForeground(Style.DARK_BLUE);
+        phoneLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         phoneLabel.setText("Phone:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
