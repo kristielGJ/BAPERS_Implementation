@@ -47,7 +47,7 @@ public class ValuedCustomer extends JPanel {
 		discountPlanButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		discountPlanButton.setForeground(Color.white);
 		discountPlanButton.setBackground(new Color(1, 23, 71));
-		discountPlanButton.setText("Add Discount Plan");
+		discountPlanButton.setText("Manage Discount");
 		discountPlanButton.addMouseListener(new addDiscountListener());
 
 		customer_name = new JLabel();
@@ -263,6 +263,7 @@ public class ValuedCustomer extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				f.addJob(Integer.parseInt(accNo));
+				setVisible(false);
 			}
 
 			@Override
@@ -289,6 +290,9 @@ public class ValuedCustomer extends JPanel {
 		class addDiscountListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			PopUpBox pub = new PopUpBox(400,300,"Add Discount");
+			pub.add(new CreateDiscountPlan());
+			pub.setVisible(true);
 
 		}
 
