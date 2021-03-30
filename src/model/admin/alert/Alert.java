@@ -2,6 +2,7 @@ package model.admin.alert;
 
 import model.Model;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Alert extends Model {
 	private String name;
@@ -15,6 +16,13 @@ public class Alert extends Model {
 		this.message = message;
 		this.time = time;
 		this.jobId = jobId;
+	}
+
+	public int getTimeUntilExecutionInSeconds() {
+		LocalDateTime alertTime = getTime();
+		LocalDateTime now = LocalDateTime.now();
+		int timeBetween =  (int) ChronoUnit.SECONDS.between(now, alertTime);
+		return timeBetween;
 	}
 
 	public String getName() {
