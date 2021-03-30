@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package discountGUI;
 
 /**
  *
@@ -31,10 +31,10 @@ public class VariableDiscount extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         ApplyDiscountButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        Task_Table = new javax.swing.JTable();
+        BackButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        RefreshButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 500));
 
@@ -55,7 +55,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         ApplyDiscountButton.setBorderPainted(false);
         ApplyDiscountButton.setFocusPainted(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Task_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -74,28 +74,28 @@ public class VariableDiscount extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(1, 23, 71));
-        jTable1.setSelectionBackground(new java.awt.Color(230, 238, 255));
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        Task_Table.setGridColor(new java.awt.Color(1, 23, 71));
+        Task_Table.setSelectionBackground(new java.awt.Color(230, 238, 255));
+        Task_Table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(Task_Table);
 
-        jButton3.setBackground(new java.awt.Color(1, 23, 71));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(157, 195, 230));
-        jButton3.setText("Back");
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusPainted(false);
+        BackButton.setBackground(new java.awt.Color(1, 23, 71));
+        BackButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        BackButton.setForeground(new java.awt.Color(157, 195, 230));
+        BackButton.setText("Back");
+        BackButton.setBorderPainted(false);
+        BackButton.setFocusPainted(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
         jLabel2.setText("Bapers");
 
-        jButton5.setBackground(new java.awt.Color(1, 23, 71));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(157, 195, 230));
-        jButton5.setText("Refresh");
-        jButton5.setBorderPainted(false);
-        jButton5.setFocusPainted(false);
+        RefreshButton.setBackground(new java.awt.Color(1, 23, 71));
+        RefreshButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        RefreshButton.setForeground(new java.awt.Color(157, 195, 230));
+        RefreshButton.setText("Refresh");
+        RefreshButton.setBorderPainted(false);
+        RefreshButton.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,12 +110,12 @@ public class VariableDiscount extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                         .addComponent(ApplyDiscountButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5))
+                        .addComponent(RefreshButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(363, 363, 363)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addComponent(BackButton)))
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,7 +126,7 @@ public class VariableDiscount extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
+                            .addComponent(RefreshButton)
                             .addComponent(ApplyDiscountButton)))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
@@ -137,7 +137,7 @@ public class VariableDiscount extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(BackButton)
                         .addGap(22, 22, 22))))
         );
 
@@ -160,12 +160,12 @@ public class VariableDiscount extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyDiscountButton;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton BackButton;
+    private javax.swing.JButton RefreshButton;
+    private javax.swing.JTable Task_Table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
