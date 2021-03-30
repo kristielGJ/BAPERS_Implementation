@@ -13,8 +13,8 @@ public class UpdateCustomerDetails extends JPanel {
 
 	private String customerName, accNo, CustomerAddress, CustomerPhone, valued;
 	private JTextArea customer_name_input, acc_no, address_input, phone_input;
-	private JLabel custLabel, accLabel, addLabel, phoneLabel, custDetLabel;
-	private JButton updateButton,backButton;
+	private JLabel custLabel, accLabel, addLabel, phoneLabel, custDetLabel, miniBapersLabel;
+	private JButton updateButton,backButton, menuButton;
 	private JCheckBox valuedCustomerBox;
 	private I_Bapers cT;
 	private GUI f;
@@ -42,81 +42,156 @@ public class UpdateCustomerDetails extends JPanel {
 		updateButton.setBackground(new Color(1, 23, 71));
 		updateButton.setText("Update Details");
 		updateButton.addMouseListener(new updateListener());
-		updateButton.setBounds((width / 2) - (138/2), (height / 2 + height / 5), 139, 29);
-		add(updateButton);
 
 		customer_name_input = new JTextArea();
-		customer_name_input.setBounds((width / 10) + (width / 4), height / 4, width / 2, height / 15);
 		customer_name_input.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		customer_name_input.setText(customerName);
-		add(customer_name_input);
 
 		acc_no = new JTextArea();
 		acc_no.setEditable(false);
-		acc_no.setBounds((width / 10) + (width / 4), height / 4 + height / 12, width / 2, height / 15);
 		acc_no.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		acc_no.setText(accNo);
-		add(acc_no);
 
 		address_input = new JTextArea();
-		address_input.setBounds((width / 10) + (width / 4), height / 4 + height / 6, width / 2, height / 15);
 		address_input.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		address_input.setText(CustomerAddress);
-		add(address_input);
 
 		phone_input = new JTextArea();
-		phone_input.setBounds((width / 10) + (width / 4), height / 2, width / 2, height / 15);
 		phone_input.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		phone_input.setText(CustomerPhone);
-		add(phone_input);
 
 		custLabel = new JLabel();
 		custLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		custLabel.setText("Name:");
-		custLabel.setBounds((width/10), height / 4, width / 5, height / 15);
-		add(custLabel);
 
 		accLabel = new JLabel();
 		accLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		accLabel.setText("Account No:");
-		accLabel.setBounds((width / 10), height / 4 + height / 12, width / 4, height / 15);
-		add(accLabel);
 
 		addLabel = new JLabel();
 		addLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		addLabel.setText("Address:");
-		addLabel.setBounds((width / 10), height / 4 + height / 6, width / 5, height / 15);
-		add(addLabel);
 
 		phoneLabel = new JLabel();
 		phoneLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		phoneLabel.setText("Phone:");
-		phoneLabel.setBounds((width / 10), height / 2, width / 4 + 50, height / 15);
-		add(phoneLabel);
 
 		valuedCustomerBox = new JCheckBox("Valued Customer?");
 		if(valued.equals("Valued")){
 			valuedCustomerBox.setSelected(true);
 		}
 		valuedCustomerBox.setFont(new Font("Tahoma", Font.BOLD, 14));
-		valuedCustomerBox.setBounds((width/2) - width/8,(height/2)+(height/8),width/4,height/15);
 		valuedCustomerBox.setOpaque(false);
 		valuedCustomerBox.setHorizontalAlignment(JCheckBox.CENTER);
-		add(valuedCustomerBox);
 
 		custDetLabel = new JLabel();
 		custDetLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		custDetLabel.setForeground(new Color(1, 23, 71));
 		custDetLabel.setText("Update Details");
 		custDetLabel.setHorizontalTextPosition(JLabel.CENTER);
-		custDetLabel.setBounds((width / 2) - (100), 0, 200, height / 4);
-		add(custDetLabel);
 
 		backButton = new JButton();
 		backButton.setText("Back");
+		backButton.setForeground(Color.white);
+		backButton.setBackground(new Color(1, 23, 71));
 		backButton.addMouseListener(new backListener());
-		backButton.setBounds(width - (width / 5), 0, width / 6, height / 15);
-		add(backButton);
+
+		menuButton = new JButton();
+		menuButton.setText("Menu");
+		menuButton.setForeground(Color.white);
+		menuButton.setBackground(new Color(1, 23, 71));
+		menuButton.addMouseListener(new menuListener());
+
+		miniBapersLabel = new JLabel();
+		miniBapersLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+		miniBapersLabel.setForeground(new java.awt.Color(1, 23, 71));
+		miniBapersLabel.setText("Bapers");
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGap(150,150,240)
+								.addComponent(custDetLabel)
+								.addGap(159, 159, 1000))
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+								.addGap(19, 19, 19)
+								.addComponent(backButton)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(menuButton)
+								.addGap(19, 19, 19))
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(layout.createSequentialGroup()
+												.addGap(65, 65, 1000)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(phoneLabel)
+														.addComponent(addLabel)
+														.addComponent(accLabel)
+														.addComponent(custLabel))
+												.addGap(29, 29, 29)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+														.addComponent(acc_no)
+														.addComponent(phone_input)
+														.addComponent(address_input, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+														.addComponent(customer_name_input, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+										.addGroup(layout.createSequentialGroup()
+												.addGap(345,345,345)
+												.addComponent(valuedCustomerBox))
+										.addGroup(layout.createSequentialGroup()
+												.addGap(250,250,250)
+												.addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGroup(layout.createSequentialGroup()
+												.addGap(379, 379, 379)
+												.addComponent(miniBapersLabel)))
+								.addContainerGap(70, 1000))
+		);
+		layout.setVerticalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(layout.createSequentialGroup()
+												.addGap(45, 45, 45)
+												.addComponent(custDetLabel))
+										.addGroup(layout.createSequentialGroup()
+												.addGap(19, 19, 19)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(menuButton)
+														.addComponent(backButton))))
+								.addGap(18, 18, 18)
+								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(layout.createSequentialGroup()
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(miniBapersLabel)
+												.addContainerGap())
+										.addGroup(layout.createSequentialGroup()
+												.addGap(18, 18, 18)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(custLabel)
+														.addComponent(customer_name_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGap(18, 18, 18)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(accLabel)
+														.addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGap(18, 18, 18)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(addLabel)
+														.addComponent(address_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGap(18, 18, 18)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(phoneLabel)
+														.addComponent(phone_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(valuedCustomerBox))
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(updateButton))
+												.addGap(55, 55, 55))))
+		);
+
+
 	}
 
 
@@ -158,10 +233,13 @@ public class UpdateCustomerDetails extends JPanel {
 		}
 	}
 
-	class addJobListener implements MouseListener {
+	class backListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-
+			f.setLastPanel(lastPanel);
+			f.getLastPanel().setVisible(true);
+			f.remove(f.getCurrentPanel());
+			f.setCurrentPanel(lastPanel);
 		}
 
 		@Override
@@ -185,13 +263,11 @@ public class UpdateCustomerDetails extends JPanel {
 		}
 	}
 
-	class backListener implements MouseListener {
+	class menuListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			f.setLastPanel(lastPanel);
-			f.getLastPanel().setVisible(true);
-			f.remove(f.getCurrentPanel());
-			f.setCurrentPanel(lastPanel);
+			f.home();
+			setVisible(false);
 		}
 
 		@Override

@@ -8,7 +8,7 @@ public class ValuedCustomer extends Customer {
 	public ValuedCustomer(String customer_name, int acc_no, String address, String phone, String Valued, String discount_plan) {
 		super(customer_name, acc_no, address, phone, Valued);
 		this.discount_plan = discount_plan;
-	}
+	} //constructor for ValuedCustomer
 
 	/**
 	 * 
@@ -16,11 +16,11 @@ public class ValuedCustomer extends Customer {
 	 */
 	public void setPaymentDeadline(Date paymentDeadline) {
 		this.paymentDeadline = paymentDeadline;
-	}
+	} // set paymentDeadline variable
 
 	public Date getPaymentDeadline() {
 		return this.paymentDeadline;
-	}
+	} // get paymentDeadline variable
 
 	/**
 	 * 
@@ -29,10 +29,10 @@ public class ValuedCustomer extends Customer {
 	public void setDiscount_plan(String discount_plan) {
 		this.discount_plan = discount_plan;
 		throw new UnsupportedOperationException();
-	}
+	} // set discount_plan variable
 
 	public String getDiscount_plan() {
 		return this.discount_plan;
-	}
+	} // get discount_plan variable
 
 }
