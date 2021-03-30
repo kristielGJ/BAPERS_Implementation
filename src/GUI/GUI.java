@@ -22,7 +22,7 @@ public class GUI extends JFrame {
 		add(new LoginPanel(getWidth(), getHeight(), bapers));
 	}
 
-	public void staffManagement(String data) {
+	public void staffManagement() {
 		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
 	}
 
