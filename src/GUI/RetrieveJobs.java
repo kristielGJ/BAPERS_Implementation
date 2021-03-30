@@ -4,7 +4,6 @@ package GUI;/*
  * and open the template in the editor.
  */
 
-import model.database.Controller;
 import model.database.I_Bapers;
 import model.jobs.job.Job;
 import javax.swing.*;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 public class RetrieveJobs extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -42,6 +41,7 @@ public class RetrieveJobs extends javax.swing.JPanel {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
+        this.bapers = bapers;
         f.setCurrentPanel(this);
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();

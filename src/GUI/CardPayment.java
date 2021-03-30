@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class CardPayment extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
     private GUI f;
     private JPanel lastPanel;
 
@@ -41,6 +41,7 @@ public class CardPayment extends javax.swing.JPanel {
 
         this.f = f;
         this.lastPanel = f.getCurrentPanel();
+        this.bapers = bapers;
         f.setCurrentPanel(this);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();

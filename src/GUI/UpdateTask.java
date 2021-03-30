@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import model.database.Controller;
 import model.database.I_Bapers;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +16,7 @@ import java.awt.event.MouseEvent;
  */
 public class UpdateTask extends javax.swing.JPanel {
 
-    private Controller bapers;
+    private I_Bapers bapers;
 
     /**
      * Creates new form UpdateTask
@@ -35,6 +34,7 @@ public class UpdateTask extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents(int task_id, I_Bapers bapers) {
 
+        this.bapers = bapers;
         jLabel1 = new javax.swing.JLabel();
         save_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
