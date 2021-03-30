@@ -2,11 +2,9 @@ package reports.summary_performance_report.transaction;
 
 import model.database.DB_Connection;
 import reports.summary_performance_report.SummaryPerformanceReport;
-
 import java.sql.*;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -19,10 +17,6 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
 
     private PreparedStatement Stm = null;
     private LocalDate date;
-    private long copy_room = 0;
-    private long development = 0;
-    private long finishing = 0;
-    private long packing = 0;
     private Connection conn;
 
     //constructor
@@ -37,49 +31,81 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
         try {
             report = new ArrayList<>();
             while ((date.isAfter(from_date) || date.isEqual(from_date)) && (date.isBefore(to_date) || date.isEqual(to_date))){
-                Stm = conn.prepareStatement("SELECT * FROM Task WHERE CAST(Task_start as DATE) ? AND Task_status = ? AND CAST(Task_start as TIME) BETWEEN ? AND ?;");
-                Stm.setDate(1, Date.valueOf(date));
-                Stm.setString(2, "Completed");
-                Stm.setTime(3, Time.valueOf(from_time));
-                Stm.setTime(4, Time.valueOf(to_time));
-                ResultSet rs = Stm.executeQuery();
-                while (rs.next()){
-                    //copy room
-                    Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ? AND Catalog_ID = ?;");
-                    Stm.setString(1, "Copy Room");
-                    Stm.setInt(1, rs.getInt(7));
-                    ResultSet cr = Stm.executeQuery();
-                    while(cr.next()){
-                        copy_room += Duration.between(rs.getTimestamp(4).toLocalDateTime(), rs.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
-                    }
+                long copy_room = 0;
+                long development = 0;
+                long finishing = 0;
+                long packing = 0;
 
-                    //development
-                    Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ? AND Catalog_ID = ?;");
-                    Stm.setString(1, "Development");
-                    Stm.setInt(1, rs.getInt(7));
-                    ResultSet dr = Stm.executeQuery();
-                    while(dr.next()){
-                        development += Duration.between(rs.getTimestamp(4).toLocalDateTime(), rs.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
-                    }
-
-                    //finishing
-                    Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ? AND Catalog_ID = ?;");
-                    Stm.setString(1, "Finishing");
-                    Stm.setInt(1, rs.getInt(7));
-                    ResultSet fr = Stm.executeQuery();
-                    while(fr.next()){
-                        finishing += Duration.between(rs.getTimestamp(4).toLocalDateTime(), rs.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
-                    }
-
-                    //packing
-                    Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ? AND Catalog_ID = ?;");
-                    Stm.setString(1, "Packing");
-                    Stm.setInt(1, rs.getInt(7));
-                    ResultSet pr = Stm.executeQuery();
-                    while(pr.next()){
-                        packing += Duration.between(rs.getTimestamp(4).toLocalDateTime(), rs.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                //copy room
+                Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
+                Stm.setString(1, "Copy Room");
+                ResultSet cr = Stm.executeQuery();
+                while(cr.next()){
+                    Stm = conn.prepareStatement("SELECT * FROM Task WHERE CAST(Task_start as DATE) = ? AND Task_CatalogCatalog_ID = ? AND Task_status = ? AND CAST(Task_start as TIME) BETWEEN ? AND ?");
+                    Stm.setDate(1, Date.valueOf(date));
+                    Stm.setInt(2, cr.getInt(1));
+                    Stm.setString(3, "Completed");
+                    Stm.setTime(4, Time.valueOf(from_time));
+                    Stm.setTime(5, Time.valueOf(to_time));
+                    ResultSet rs1 = Stm.executeQuery();
+                    while (rs1.next()){
+                        copy_room = Duration.between(rs1.getTimestamp(4).toLocalDateTime(), rs1.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
                     }
                 }
+
+                //development
+                Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
+                Stm.setString(1, "Development");
+                ResultSet ds = Stm.executeQuery();
+                while (ds.next()){
+                    System.out.println(ds.getInt(1));
+                    Stm = conn.prepareStatement("SELECT * FROM Task WHERE CAST(Task_start as DATE) = ? AND Task_CatalogCatalog_ID = ? AND Task_status = ? AND CAST(Task_start as TIME) BETWEEN ? AND ? ");
+                    Stm.setDate(1, Date.valueOf(date));
+                    Stm.setInt(2, ds.getInt(1));
+                    Stm.setString(3, "Completed");
+                    Stm.setTime(4, Time.valueOf(from_time));
+                    Stm.setTime(5, Time.valueOf(to_time));
+                    ResultSet rs2 = Stm.executeQuery();
+                    while(rs2.next()){
+                        System.out.print(rs2.getTimestamp(4));
+                        development = Duration.between(rs2.getTimestamp(4).toLocalDateTime(), rs2.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                    }
+                }
+
+                //finishing
+                Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
+                Stm.setString(1, "Finishing");
+                ResultSet fs = Stm.executeQuery();
+                while(fs.next()){
+                    Stm = conn.prepareStatement("SELECT * FROM Task WHERE CAST(Task_start as DATE) = ?  AND Task_CatalogCatalog_ID = ? AND Task_status = ? AND CAST(Task_start as TIME) BETWEEN ? AND ? ");
+                    Stm.setDate(1, Date.valueOf(date));
+                    Stm.setInt(2, fs.getInt(1));
+                    Stm.setString(3, "Completed");
+                    Stm.setTime(4, Time.valueOf(from_time));
+                    Stm.setTime(5, Time.valueOf(to_time));
+                    ResultSet rs3 = Stm.executeQuery();
+                    while (rs3.next()){
+                        finishing = Duration.between(rs3.getTimestamp(4).toLocalDateTime(), rs3.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                    }
+                }
+
+                //Packing
+                Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_department = ?");
+                Stm.setString(1, "Packing");
+                ResultSet ps = Stm.executeQuery();
+                while(ps.next()){
+                    Stm = conn.prepareStatement("SELECT * FROM Task WHERE CAST(Task_start as DATE) = ? AND Task_CatalogCatalog_ID = ? AND Task_status = ? AND CAST(Task_start as TIME) BETWEEN ? AND ?");
+                    Stm.setDate(1, Date.valueOf(date));
+                    Stm.setInt(2, ps.getInt(1));
+                    Stm.setString(3, "Completed");
+                    Stm.setTime(4, Time.valueOf(from_time));
+                    Stm.setTime(5, Time.valueOf(to_time));
+                    ResultSet rs4 = Stm.executeQuery();
+                    while (rs4.next()){
+                        packing = Duration.between(rs4.getTimestamp(4).toLocalDateTime(), rs4.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                    }
+                }
+
                 SummaryPerformanceReport details = new SummaryPerformanceReport(
                         "Summary Performance Report",
                         from_date,
@@ -92,7 +118,6 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                 );
                 report.add(details);
                 date = date.plusDays(1);
-                System.out.println(date);
             }
         } catch (Exception e) {
             e.printStackTrace();
