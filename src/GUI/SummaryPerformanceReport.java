@@ -8,6 +8,7 @@ package GUI;
 import model.database.I_Bapers;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -63,6 +64,16 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         to_date = new javax.swing.JTextField();
         shift_type = new javax.swing.JTextField();
 
+        period_input.setEditable(false);
+        period2_input.setEditable(false);
+        from_date.setEditable(false);
+        to_date.setEditable(false);
+        shift_type.setEditable(false);
+        period_input.setText(String.valueOf(from_Date));
+        period2_input.setText(String.valueOf(to_Date));
+        from_date.setText(String.valueOf(from_Date));
+        to_date.setText(String.valueOf(to_Date));
+
         setBackground(new java.awt.Color(157, 195, 230));
         setPreferredSize(new java.awt.Dimension(800, 500));
 
@@ -70,6 +81,11 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         shift_type_combo_box.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         shift_type_combo_box.setForeground(new java.awt.Color(157, 195, 230));
         shift_type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day Shift 1", "Day Shift 2", "Night Shift 1" }));
+        shift_type_combo_box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shift_type_combo_boxActionPerformed(evt, summary_performance_report_shift, from_Date, to_Date);
+            }
+        });
 
         back_button.setBackground(new java.awt.Color(1, 23, 71));
         back_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -98,14 +114,9 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(157, 195, 230));
 
         summary_performance_report_for_period.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
             new String [] {
                 "Date", "Copy Room", "Development", "Finishing", "Packing"
-            }
+            },0
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
@@ -122,6 +133,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        addPeriodTable(summary_performance_report_for_period, from_Date, to_Date);
         summary_performance_report_for_period.setGridColor(new java.awt.Color(1, 23, 71));
         summary_performance_report_for_period.setShowGrid(true);
         summary_performance_report_for_period.getTableHeader().setReorderingAllowed(false);
@@ -147,7 +159,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        addReportDetails(summary_performance_report_shift, from_Date, to_Date);
+        dayShift1(summary_performance_report_shift, from_Date, to_Date);
         summary_performance_report_shift.setGridColor(new java.awt.Color(1, 23, 71));
         summary_performance_report_shift.setShowGrid(true);
         summary_performance_report_shift.getTableHeader().setReorderingAllowed(false);
@@ -288,38 +300,48 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addReportDetails(JTable table, LocalDate from_date, LocalDate to_date) {
-        period_input.setText(String.valueOf(from_date));
-        period2_input.setText(String.valueOf(to_date));
-        if(shift_type_combo_box.getSelectedItem()=="Day Shift 2"){
-            DefaultTableModel model = (DefaultTableModel)table.getModel();
-            model.setRowCount(0);
-            ArrayList<reports.summary_performance_report.SummaryPerformanceReport> details = bapers.generateSummaryPerformanceReport(from_date, to_date, LocalTime.of(14,30,00), LocalTime.of(22,00,00));
-            for(reports.summary_performance_report.SummaryPerformanceReport report : details){
-                model.addRow(new Object[]{report.getDate(), f.convertToString(report.getCopy_room_time()), f.convertToString(report.getDevelopment_time()), f.convertToString(report.getFinishing_time()), f.convertToString(report.getPacking_time())});
-            }
-            shift_type.setText("Day shift 2 (2:30pm-10pm)");
-            table.setModel(model);
+    private void dayShift1(JTable table, LocalDate from_date, LocalDate to_date){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        ArrayList<reports.summary_performance_report.SummaryPerformanceReport> details = bapers.generateSummaryPerformanceReport(from_date, to_date, LocalTime.of(05,00,00), LocalTime.of(14,30,00));
+        for(reports.summary_performance_report.SummaryPerformanceReport report : details){
+            model.addRow(new Object[]{report.getDate(), f.convertToString(report.getCopy_room_time()), f.convertToString(report.getDevelopment_time()), f.convertToString(report.getFinishing_time()), f.convertToString(report.getPacking_time())});
         }
-        else if(shift_type_combo_box.getSelectedItem()=="Night Shift 1"){
-            DefaultTableModel model = (DefaultTableModel)table.getModel();
-            model.setRowCount(0);
-            ArrayList<reports.summary_performance_report.SummaryPerformanceReport> details = bapers.generateSummaryPerformanceReport(from_date, to_date, LocalTime.of(22,00,00), LocalTime.of(05,00,00));
-            for(reports.summary_performance_report.SummaryPerformanceReport report : details){
-                model.addRow(new Object[]{report.getDate(), f.convertToString(report.getCopy_room_time()), f.convertToString(report.getDevelopment_time()), f.convertToString(report.getFinishing_time()), f.convertToString(report.getPacking_time())});
-            }
-            shift_type.setText("Night shift 1 (10pm-5am)");
-            table.setModel(model);
+        shift_type.setText("Day shift 1 (5am-2:30pm)");
+        table.setModel(model);
+    }
+
+    private void dayShift2(JTable table, LocalDate from_date, LocalDate to_date){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        ArrayList<reports.summary_performance_report.SummaryPerformanceReport> details = bapers.generateSummaryPerformanceReport(from_date, to_date, LocalTime.of(14,30,00), LocalTime.of(22,00,00));
+        for(reports.summary_performance_report.SummaryPerformanceReport report : details){
+            model.addRow(new Object[]{report.getDate(), f.convertToString(report.getCopy_room_time()), f.convertToString(report.getDevelopment_time()), f.convertToString(report.getFinishing_time()), f.convertToString(report.getPacking_time())});
         }
-        else{
-            DefaultTableModel model = (DefaultTableModel)table.getModel();
-            model.setRowCount(0);
-            ArrayList<reports.summary_performance_report.SummaryPerformanceReport> details = bapers.generateSummaryPerformanceReport(from_date, to_date, LocalTime.of(05,00,00), LocalTime.of(14,30,00));
-            for(reports.summary_performance_report.SummaryPerformanceReport report : details){
-                model.addRow(new Object[]{report.getDate(), f.convertToString(report.getCopy_room_time()), f.convertToString(report.getDevelopment_time()), f.convertToString(report.getFinishing_time()), f.convertToString(report.getPacking_time())});
-            }
-            shift_type.setText("Day shift 1 (5am-2:30pm)");
-            table.setModel(model);
+        shift_type.setText("Day shift 2 (2:30pm-10pm)");
+        table.setModel(model);
+    }
+
+    private void nightShift1(JTable table, LocalDate from_date, LocalDate to_date){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        ArrayList<reports.summary_performance_report.SummaryPerformanceReport> details = bapers.generateSummaryPerformanceReport(from_date, to_date, LocalTime.of(22,00,00), LocalTime.of(05,00,00));
+        for(reports.summary_performance_report.SummaryPerformanceReport report : details){
+            model.addRow(new Object[]{report.getDate(), f.convertToString(report.getCopy_room_time()), f.convertToString(report.getDevelopment_time()), f.convertToString(report.getFinishing_time()), f.convertToString(report.getPacking_time())});
+        }
+        shift_type.setText("Night shift 1 (10pm-5am)");
+        table.setModel(model);
+    }
+
+    public void shift_type_combo_boxActionPerformed(ActionEvent evt, JTable table, LocalDate from_date, LocalDate to_date){
+        if (shift_type_combo_box.getSelectedItem() == "Day Shift 1"){
+            dayShift1(table, from_date, to_date);
+        }
+        else if (shift_type_combo_box.getSelectedItem() == "Day Shift 2"){
+            dayShift2(table, from_date, to_date);
+        }
+        else if(shift_type_combo_box.getSelectedItem() == "Night Shift 1"){
+            nightShift1(table, from_date, to_date);
         }
     }
 
@@ -328,12 +350,8 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         long development_total = 0;
         long finishing_total = 0;
         long packing_total = 0;
-        String copy_room;
-        String development;
-        String finishing;
-        String packing;
-        from_date.setText(String.valueOf(from_Date));
-        to_date.setText(String.valueOf(to_Date));
+
+        //Day shift 1
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         ArrayList<reports.summary_performance_report.SummaryPerformanceReport> dayShift1 = bapers.generateSummaryPerformanceReport(from_Date, to_Date, LocalTime.of(05,00,00), LocalTime.of(14,30,00));
         ArrayList<reports.summary_performance_report.SummaryPerformanceReport> dayShift2 = bapers.generateSummaryPerformanceReport(from_Date, to_Date, LocalTime.of(14,30,00), LocalTime.of(22,00,00));
@@ -344,12 +362,33 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
             finishing_total += report1.getFinishing_time();
             packing_total += report1.getPacking_time();
         }
+        model.addRow(new Object[]{"Day Shift 1", f.convertToString(copy_room_total), f.convertToString(development_total), f.convertToString(finishing_total), f.convertToString(packing_total)});
+
+        //Day shift 2
+        copy_room_total = 0;
+        development_total = 0;
+        finishing_total = 0;
+        packing_total = 0;
         for(reports.summary_performance_report.SummaryPerformanceReport report2 : dayShift2){
-
+            copy_room_total += report2.getCopy_room_time();
+            development_total += report2.getDevelopment_time();
+            finishing_total += report2.getFinishing_time();
+            packing_total += report2.getPacking_time();
         }
+        model.addRow(new Object[]{"Day Shift 2", f.convertToString(copy_room_total), f.convertToString(development_total), f.convertToString(finishing_total), f.convertToString(packing_total)});
+
+        //Night shift 1
+        copy_room_total = 0;
+        development_total = 0;
+        finishing_total = 0;
+        packing_total = 0;
         for(reports.summary_performance_report.SummaryPerformanceReport report3 : nightShift1){
-
+            copy_room_total += report3.getCopy_room_time();
+            development_total += report3.getDevelopment_time();
+            finishing_total += report3.getFinishing_time();
+            packing_total += report3.getPacking_time();
         }
+        model.addRow(new Object[]{"Night Shift 1", f.convertToString(copy_room_total), f.convertToString(development_total), f.convertToString(finishing_total), f.convertToString(packing_total)});
         table.setModel(model);
     }
 
