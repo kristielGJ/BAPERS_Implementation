@@ -33,6 +33,10 @@ public class GUI extends JFrame {
 		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
 	}
 
+	public void menu() {
+		add(new Home(getWidth(), getHeight(), this));
+	}
+
 	public void logout() {
 		// TODO - implement GUI.logout
 		throw new UnsupportedOperationException();
@@ -177,9 +181,6 @@ public class GUI extends JFrame {
 
 	public GUI(int width, int height) {
 		bapers.loadAllAlerts(this);
-		for (ScheduledAlert alert : bapers.getLoadedAlerts()) {
-			System.out.println(alert.getAlert().getName());
-		}
 		this.setSize(width,height);
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
