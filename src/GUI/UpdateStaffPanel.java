@@ -250,6 +250,7 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         );
         if (staffTable.getSelectedRow() != -1) {
             idSpinner.setValue(getRow(staffTable.getSelectedRow())[0]);
+            fillInputs(staffTable.getSelectedRow());
         }
     }
 

@@ -3,34 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
-
-import model.database.I_Bapers;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
+package discountGUI;
 
 /**
  *
  * @author g_jah
  */
-public class AddFlexibleDiscount extends javax.swing.JPanel {
-    private GUI f;
-    private JPanel lastPanel;
-    private I_Bapers bapers;
-    int acc_no;
-    /**
-     * Creates new form AddFlexibleDiscount
-     */
-    public AddFlexibleDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
-        this.acc_no=acc_no;
-        this.f=f;
-        this.lastPanel= f.getCurrentPanel();
-        f.setCurrentPanel(this);
-        this.bapers=bapers;
-        initComponents();
+public class EditFlexibleDiscount extends javax.swing.JPanel {
 
+    /**
+     * Creates new form EditFlexibleDiscount
+     */
+    public EditFlexibleDiscount() {
+        initComponents();
     }
 
     /**
@@ -45,7 +30,7 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        ApplyButton = new javax.swing.JButton();
+        UpdateButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         EnterDiscountRate = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -53,14 +38,9 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         UpperBound = new javax.swing.JTextField();
         LowerBound = new javax.swing.JTextField();
 
-        setMaximumSize(new java.awt.Dimension(400, 300));
-        setMinimumSize(new java.awt.Dimension(400, 300));
-        setPreferredSize(new java.awt.Dimension(400, 300));
-
         jPanel1.setBackground(new java.awt.Color(157, 195, 230));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 300));
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 300));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
@@ -70,15 +50,15 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
         jLabel2.setText("Discount Rate");
 
-        ApplyButton.setBackground(new java.awt.Color(1, 23, 71));
-        ApplyButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        ApplyButton.setForeground(new java.awt.Color(157, 195, 230));
-        ApplyButton.setText("Apply");
-        ApplyButton.setBorderPainted(false);
-        ApplyButton.setFocusPainted(false);
-        ApplyButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ApplyButtonMouseClicked(evt);
+        UpdateButton.setBackground(new java.awt.Color(1, 23, 71));
+        UpdateButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        UpdateButton.setForeground(new java.awt.Color(157, 195, 230));
+        UpdateButton.setText("Update");
+        UpdateButton.setBorderPainted(false);
+        UpdateButton.setFocusPainted(false);
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonActionPerformed(evt);
             }
         });
 
@@ -91,7 +71,6 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                 EnterDiscountRateActionPerformed(evt);
             }
         });
-
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(1, 23, 71));
@@ -118,33 +97,31 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ApplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel2))))
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(75, 75, 75))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EnterDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(UpperBound, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(LowerBound, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EnterDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UpperBound, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LowerBound, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
+                        .addGap(167, 167, 167)
                         .addComponent(jLabel3)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,12 +143,11 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                         .addComponent(UpperBound, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LowerBound, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ApplyButton))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(UpdateButton)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -190,9 +166,9 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ApplyButtonActionPerformed
+    }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void EnterDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterDiscountRateActionPerformed
         // TODO add your handling code here:
@@ -206,32 +182,11 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_LowerBoundActionPerformed
 
-    private void ApplyButtonMouseClicked(MouseEvent evt){
-        if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()||!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty()||!EnterDiscountRate.getText().isEmpty() && !UpperBound.getText().isEmpty()){
-            //apply the flexible discount (create if the button pressed before was add new, update if update button was pressed)
-            bapers.createFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
-            //flexible discount table should be updated (database)
-            bapers.updateFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
-        }
-        else{
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Please fill out the fields.",
-                    "BAPERS", JOptionPane.ERROR_MESSAGE
-            );
-        }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
-
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ApplyButton;
     private javax.swing.JTextField EnterDiscountRate;
     private javax.swing.JTextField LowerBound;
+    private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField UpperBound;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

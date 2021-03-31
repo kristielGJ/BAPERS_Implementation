@@ -5,16 +5,29 @@
  */
 package GUI;
 
+import model.database.I_Bapers;
+
+import javax.swing.*;
+
 /**
  *
  * @author g_jah
  */
 public class FixedDiscount extends javax.swing.JPanel {
 
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
     /**
      * Creates new form FixedDiscount
      */
-    public FixedDiscount() {
+    public FixedDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+        this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        f.setCurrentPanel(this);
+        this.bapers=bapers;
         initComponents();
     }
 
@@ -31,7 +44,6 @@ public class FixedDiscount extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ApplyButton = new javax.swing.JButton();
-        CancelButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         EnterDiscountRate = new javax.swing.JTextField();
 
@@ -64,13 +76,6 @@ public class FixedDiscount extends javax.swing.JPanel {
             }
         });
 
-        CancelButton.setBackground(new java.awt.Color(1, 23, 71));
-        CancelButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        CancelButton.setForeground(new java.awt.Color(157, 195, 230));
-        CancelButton.setText("Cancel");
-        CancelButton.setBorderPainted(false);
-        CancelButton.setFocusPainted(false);
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
         jLabel3.setText("Bapers");
@@ -85,12 +90,6 @@ public class FixedDiscount extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(ApplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -103,8 +102,11 @@ public class FixedDiscount extends javax.swing.JPanel {
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(81, 81, 81)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(ApplyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +117,9 @@ public class FixedDiscount extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EnterDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ApplyButton)
-                    .addComponent(CancelButton))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(ApplyButton)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -141,7 +141,29 @@ public class FixedDiscount extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
-        // TODO add your handling code here:
+        if (!EnterDiscountRate.getText().isEmpty()){
+            Double.parseDouble(EnterDiscountRate.getText());
+            //add a discount rate
+            bapers.addFixedDiscountRate(acc_no,Integer.parseInt(EnterDiscountRate.getText()));
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "A fixed rate has been applied.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+
     }//GEN-LAST:event_ApplyButtonActionPerformed
 
     private void EnterDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterDiscountRateActionPerformed
@@ -151,7 +173,6 @@ public class FixedDiscount extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyButton;
-    private javax.swing.JButton CancelButton;
     private javax.swing.JTextField EnterDiscountRate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

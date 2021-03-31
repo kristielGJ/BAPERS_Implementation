@@ -160,4 +160,41 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
         }
         return discount_details;
     }
+
+    public boolean removeFlexibleDiscount(int id,int acc_no) {
+        boolean removed = false;
+        try {
+            //ask...
+            PreparedStatement st = conn.prepareStatement("DELETE FROM DiscountBandCustomer WHERE DiscountBandCustomer_ID=? AND Account_no=?");
+            st.setInt(1, id);
+            st.setInt(2, acc_no);
+            int update = st.executeUpdate();
+            st.close();
+            System.out.println("Removed " + id);
+            removed = update == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return removed;
+    }
+    /**
+     * Update an existing DiscountBand, set your bounds, and discount rate for the respective bound (i.e. 1000-2000, 20%)
+     * and relate to the DiscountBandCustomer entry you made earlier
+     *
+     */
+    public void updateFlexibleDiscount(int ID,double lowerBound,double upperBound,double discount_rate) {
+        try {
+            //ask
+            Stm = conn.prepareStatement("UPDATE DiscountBand SET lower=?, upper=?, discount_rate=? WHERE DiscountBandCustomer_ID=?");
+            Stm.setDouble(1, lowerBound);
+            Stm.setDouble(2, upperBound);
+            Stm.setDouble(3, discount_rate);
+            Stm.setInt(4,ID );
+            Stm.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+

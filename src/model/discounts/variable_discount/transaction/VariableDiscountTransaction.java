@@ -80,22 +80,23 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
     }
 
     //return the list of catalog ids (existing tasks)
-    public int[] getCatalog_IDs(){
-        int i = 1;
-        int[] catalog_ids = new int[i];
-        try{
-            Stm = conn.prepareStatement("SELECT * FROM Task_catalog;");
+    public ArrayList<Integer> getCatalog_IDs(int accNo){
+        ArrayList<Integer> IDS = new ArrayList<Integer>();
+        int ID=0;
+        try {
+            Stm = conn.prepareStatement("SELECT Catalog_ID FROM CustomerTaskCatalog WHERE Account_no=?");
+            Stm.setInt(1,accNo);
             ResultSet rs = Stm.executeQuery();
-            while (rs.next()){
-                catalog_ids[i-1] = rs.getInt(1);
-                i++;
+            while(rs.next()){
+                ID=rs.getInt(1);
+                IDS.add(ID);
             }
             rs.close();
             Stm.close();
-        }catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return catalog_ids;
+        return IDS;
     }
 
     //returns a list of fixed discount which are associated with the customer
@@ -121,5 +122,86 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         }
         return discount_details;
     }
+    /**
+     * Retrieves the Prices associated to a Task ,from the database
+     * Task price- for variable discounts
+     */
+    public double GetTaskPrice(int Catalog_ID) {
+        double original_price = 0;
+        try {
 
-}
+            Stm = conn.prepareStatement("SELECT Price FROM Task_Catalog WHERE Catalog_ID=?");
+            Stm.setInt(1,Catalog_ID);
+            ResultSet rs = Stm.executeQuery();
+            while(rs.next()){
+                original_price=rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return original_price;
+
+    }
+    public String GetTaskName(int Catalog_ID) {
+        String name = " ";
+        try {
+
+            Stm = conn.prepareStatement("SELECT Task_name FROM Task_Catalog WHERE Catalog_ID=?");
+            Stm.setInt(1,Catalog_ID);
+            ResultSet rs = Stm.executeQuery();
+            while(rs.next()){
+                name=rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name;
+
+    }
+    /**
+     * calculates a discounted Task Price
+     *
+     * */
+    public double calculateNewPrice(double discount_rate, double price) {
+        double TotalPrice=0,multiplier;
+        System.out.println(price);
+        //Discount rate is a percentage
+        multiplier= 1-(discount_rate/100);
+        //calculate price
+        TotalPrice = price*multiplier;
+        //return new price
+        return TotalPrice;
+    }
+
+    public boolean removeVariableDiscount(int id, int acc_no){
+        boolean removed = false;
+        try {
+            PreparedStatement st = conn.prepareStatement("DELETE FROM CustomerTaskCatalog WHERE Account_no=? AND CustomerTaskCatalog_ID=?");
+            st.setInt(1, acc_no);
+            st.setInt(2, id);
+            int update = st.executeUpdate();
+            st.close();
+            System.out.println("Removed " + id);
+            removed = update == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return removed;
+    }
+
+    public void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id){
+        try {
+            Stm = conn.prepareStatement("UPDATE CustomerTaskCatalog SET discount_rate=? WHERE Account_no=? AND Catalog_ID=?");
+            Stm.setDouble(1, discount_rate);
+            Stm.setDouble(2, acc_no);
+            Stm.setInt(3, catalog_id);
+            Stm.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    }
+
+

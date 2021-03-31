@@ -3,18 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package discountGUI;
+package GUI;
+
+import model.database.I_Bapers;
+
+import javax.swing.*;
+import java.awt.event.MouseEvent;
 
 /**
  *
  * @author g_jah
  */
 public class VariableDiscount extends javax.swing.JPanel {
-
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
     /**
      * Creates new form VariableDiscount
      */
-    public VariableDiscount() {
+    public VariableDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+        this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        this.bapers=bapers;
+        f.setCurrentPanel(this);
         initComponents();
     }
 
@@ -29,11 +42,12 @@ public class VariableDiscount extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        ApplyDiscountButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Task_Table = new javax.swing.JTable();
         BackButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        UpdateDiscountButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
         RefreshButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 500));
@@ -47,27 +61,15 @@ public class VariableDiscount extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
         jLabel1.setText("Variable Discount");
 
-        ApplyDiscountButton.setBackground(new java.awt.Color(1, 23, 71));
-        ApplyDiscountButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ApplyDiscountButton.setForeground(new java.awt.Color(157, 195, 230));
-        ApplyDiscountButton.setText("Apply Discount");
-        ApplyDiscountButton.setActionCommand("");
-        ApplyDiscountButton.setBorderPainted(false);
-        ApplyDiscountButton.setFocusPainted(false);
-
         Task_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
             },
             new String [] {
-                "Task Name", "Original Price", "Discount Rate", "New Price "
+                "Task ID","Task Name", "Original Price", "Discount Rate", "New Price "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false,false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -78,6 +80,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         Task_Table.setSelectionBackground(new java.awt.Color(230, 238, 255));
         Task_Table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(Task_Table);
+        bapers.populateVariableTable(Task_Table,acc_no);
 
         BackButton.setBackground(new java.awt.Color(1, 23, 71));
         BackButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -85,10 +88,42 @@ public class VariableDiscount extends javax.swing.JPanel {
         BackButton.setText("Back");
         BackButton.setBorderPainted(false);
         BackButton.setFocusPainted(false);
+        BackButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
         jLabel2.setText("Bapers");
+
+        UpdateDiscountButton.setBackground(new java.awt.Color(1, 23, 71));
+        UpdateDiscountButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        UpdateDiscountButton.setForeground(new java.awt.Color(157, 195, 230));
+        UpdateDiscountButton.setText("Edit");
+        UpdateDiscountButton.setActionCommand("");
+        UpdateDiscountButton.setBorderPainted(false);
+        UpdateDiscountButton.setFocusPainted(false);
+        UpdateDiscountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateDiscountButtonActionPerformed(evt);
+            }
+        });
+
+
+        DeleteButton.setBackground(new java.awt.Color(1, 23, 71));
+        DeleteButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        DeleteButton.setForeground(new java.awt.Color(157, 195, 230));
+        DeleteButton.setText("Delete");
+        DeleteButton.setActionCommand("");
+        DeleteButton.setBorderPainted(false);
+        DeleteButton.setFocusPainted(false);
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
 
         RefreshButton.setBackground(new java.awt.Color(1, 23, 71));
         RefreshButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -96,49 +131,55 @@ public class VariableDiscount extends javax.swing.JPanel {
         RefreshButton.setText("Refresh");
         RefreshButton.setBorderPainted(false);
         RefreshButton.setFocusPainted(false);
+        RefreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                        .addComponent(ApplyDiscountButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RefreshButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(363, 363, 363)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BackButton)))
+                        .addGap(282, 282, 282)
+                        .addComponent(BackButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                                .addComponent(UpdateDiscountButton)
+                                .addGap(10, 10, 10)
+                                .addGap(5, 5, 5)
+                                .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(RefreshButton)))))
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RefreshButton)
-                            .addComponent(ApplyDiscountButton)))
-                    .addComponent(jLabel1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(UpdateDiscountButton)
+                        .addComponent(DeleteButton)
+                        .addComponent(RefreshButton)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(BackButton)
-                        .addGap(22, 22, 22))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BackButton)
+                    .addComponent(jLabel2))
+                .addGap(66, 66, 66))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -157,12 +198,60 @@ public class VariableDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void UpdateDiscountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateDiscountButtonActionPerformed
+        if (Task_Table.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an entry to edit!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        else{
+            int column = 0;
+            int row = Task_Table.getSelectedRow();
+            int id = Integer.parseInt(Task_Table.getModel().getValueAt(row, column).toString());
+
+            AddTaskDiscount addTaskDiscount = new AddTaskDiscount(400,300,bapers,f,acc_no,id);
+            openDialog(addTaskDiscount, "Update Task Discount");
+        }
+    }//GEN-LAST:event_UpdateDiscountButtonActionPerformed
+
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
+        bapers.populateVariableTable(Task_Table,acc_no);
+    }
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        if (Task_Table.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an entry to delete!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }else{
+            //fix id with manpreet
+            bapers.removeVariableDiscount(1,acc_no);
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
+
+    private void openDialog(JPanel panel, String title) {
+        final JDialog frame = new JDialog(f, title, true);
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ApplyDiscountButton;
     private javax.swing.JButton BackButton;
+    private javax.swing.JButton DeleteButton;
     private javax.swing.JButton RefreshButton;
     private javax.swing.JTable Task_Table;
+    private javax.swing.JButton UpdateDiscountButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

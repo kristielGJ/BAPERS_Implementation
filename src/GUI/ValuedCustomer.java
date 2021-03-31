@@ -290,9 +290,9 @@ public class ValuedCustomer extends JPanel {
 		class addDiscountListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			PopUpBox pub = new PopUpBox(400,300,"Add Discount");
-			pub.add(new CreateDiscountPlan());
-			pub.setVisible(true);
+			//PopUpBox pub = new PopUpBox(400,300,"Add Discount");
+			//pub.add(new CreateDiscountPlan());
+			//pub.setVisible(true);
 
 		}
 

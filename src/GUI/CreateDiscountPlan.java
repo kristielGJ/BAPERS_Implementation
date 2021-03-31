@@ -5,16 +5,36 @@
  */
 package GUI;
 
+import model.database.DB_Connection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import GUI.GUI;
+import model.database.I_Bapers;
+
+import javax.swing.*;
+
 /**
  *
  * @author g_jah
  */
 public class CreateDiscountPlan extends javax.swing.JPanel {
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
+    private static PreparedStatement Stm = null;
+    private static DB_Connection conn = new DB_Connection();
+
 
     /**
      * Creates new form CreateDiscountPlan
      */
-    public CreateDiscountPlan() {
+    public CreateDiscountPlan(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+        this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        f.setCurrentPanel(this);
+        this.bapers=bapers;
         initComponents();
     }
 
@@ -32,7 +52,6 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         DiscountTypeInput = new javax.swing.JComboBox<>();
         ApplyDiscountPlanChoice = new javax.swing.JButton();
-        cancel_button = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(400, 300));
@@ -64,13 +83,6 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
             }
         });
 
-        cancel_button.setBackground(new java.awt.Color(1, 23, 71));
-        cancel_button.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        cancel_button.setForeground(new java.awt.Color(157, 195, 230));
-        cancel_button.setText("Cancel");
-        cancel_button.setBorderPainted(false);
-        cancel_button.setFocusPainted(false);
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
         jLabel3.setText("Bapers");
@@ -80,17 +92,10 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(ApplyDiscountPlanChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(59, 59, 59)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,7 +104,10 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(168, 168, 168)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(ApplyDiscountPlanChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -111,11 +119,9 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ApplyDiscountPlanChoice)
-                    .addComponent(cancel_button))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(ApplyDiscountPlanChoice)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -137,14 +143,46 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ApplyDiscountPlanChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyDiscountPlanChoiceActionPerformed
-        // TODO add your handling code here:
+
+        if (!(DiscountTypeInput.getSelectedItem() == "Select Discount Plan")){
+            try {
+                Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_Type= ? WHERE Account_no= ?");
+
+
+                if (DiscountTypeInput.getSelectedItem()=="Fixed"){
+                    Stm.setString(1,"Fixed");
+                }
+                else if(DiscountTypeInput.getSelectedItem()=="Variable"){
+                    Stm.setString(1,"Variable");
+                }
+                else if(DiscountTypeInput.getSelectedItem()=="Flexible") {
+                    Stm.setString(1,"Flexible");
+                }
+                Stm.setInt(2, acc_no);
+                Stm.executeUpdate();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an discount plan.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+
     }//GEN-LAST:event_ApplyDiscountPlanChoiceActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyDiscountPlanChoice;
     private javax.swing.JComboBox<String> DiscountTypeInput;
-    private javax.swing.JButton cancel_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

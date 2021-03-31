@@ -222,6 +222,7 @@ public class CardPayment extends javax.swing.JPanel {
                 else{ lastFourDigits = card_number_input.getText(); }
                 bapers.createCard_payment(id, String.valueOf(jComboBox1.getSelectedItem()),expiry_date.getText(), lastFourDigits, amount, date, job_ID);
                 f.generateInvoice(id);
+                bapers.refreshAllAlerts(f);
                 setVisible(false);
             }
         }
