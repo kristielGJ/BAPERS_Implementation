@@ -5,17 +5,33 @@
  */
 package GUI;
 
+import model.database.DB_Connection;
+import model.database.I_Bapers;
+
+import javax.swing.*;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author g_jah
  */
 public class AddNewTaskDiscount extends javax.swing.JPanel {
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
+    private static PreparedStatement Stm = null;
+    private static DB_Connection conn = new DB_Connection();
 
     /**
      * Creates new form AddNewTaskDiscount
      */
-    public AddNewTaskDiscount() {
-
+    public AddNewTaskDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+        this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        f.setCurrentPanel(this);
+        this.bapers=bapers;
         initComponents();
     }
 
@@ -77,7 +93,7 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
         jLabel4.setText("Task");
 
         task_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        task_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Task" }));
+        task_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.existingTasks()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,7 +162,17 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        // TODO add your handling code here:
+        if(!(task_list_input.getSelectedItem() == "Select Task")){
+            //bapers.add();
+            //task_list_input.setSelectedItem("Select Task");
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void EnterDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterDiscountRateActionPerformed
