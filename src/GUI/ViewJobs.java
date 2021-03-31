@@ -14,9 +14,12 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -189,7 +192,8 @@ public class ViewJobs extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         ArrayList<Job> jobs = bapers.getActiveJobs();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT).withLocale(Locale.UK ).withZone(ZoneId.systemDefault() );
 
         for(Job job : jobs){
             model.addRow(new Object[]{job.getJob_ID(), job.getJob_desc(), job.getPriority(), job.getSpecial_instructions(),job.getCompletion_deadline().format(formatter)});
@@ -202,7 +206,8 @@ public class ViewJobs extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.setRowCount(0);
         ArrayList<Job> jobs = bapers.getActiveJobs();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT).withLocale(Locale.UK ).withZone(ZoneId.systemDefault() );
         for(Job job : jobs){
             model.addRow(new Object[]{job.getJob_ID(), job.getJob_desc(), job.getPriority(), job.getSpecial_instructions(),job.getCompletion_deadline().format(formatter)});
         }

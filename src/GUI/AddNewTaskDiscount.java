@@ -21,7 +21,6 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
     private I_Bapers bapers;
     int acc_no;
     private static PreparedStatement Stm = null;
-    private static DB_Connection conn = new DB_Connection();
 
     /**
      * Creates new form AddNewTaskDiscount
@@ -69,12 +68,12 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
         UpdateButton.setBackground(new java.awt.Color(1, 23, 71));
         UpdateButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         UpdateButton.setForeground(new java.awt.Color(157, 195, 230));
-        UpdateButton.setText("Update");
+        UpdateButton.setText("Save");
         UpdateButton.setBorderPainted(false);
         UpdateButton.setFocusPainted(false);
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButtonActionPerformed(evt);
+                UpdateButtonActionPerformed(evt, acc_no);
             }
         });
 
@@ -161,10 +160,11 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_UpdateButtonActionPerformed
         if(!(task_list_input.getSelectedItem() == "Select Task")){
-            //bapers.add();
-            //task_list_input.setSelectedItem("Select Task");
+           bapers.createVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate.getText()), String.valueOf(task_list_input.getSelectedItem()));
+            task_list_input.setSelectedItem("Select Task");
+            EnterDiscountRate.setText("");
         }
         else{
             JOptionPane.showMessageDialog(

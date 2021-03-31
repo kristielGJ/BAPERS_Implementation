@@ -9,6 +9,7 @@ import model.database.I_Bapers;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -18,20 +19,16 @@ public class AddTaskDiscount extends javax.swing.JPanel {
     private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
-    int acc_no;
-    int catalog_id;
     /**
      * Creates new form AddTaskDiscount
      */
-    public AddTaskDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no,int catalog_id) {
+    public AddTaskDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no, String catalog_name) {
         this.f=f;
         this.lastPanel= f.getCurrentPanel();
         f.setCurrentPanel(this);
         this.bapers=bapers;
-        this.acc_no=acc_no;
-        this.catalog_id=catalog_id;
 
-        initComponents();
+        initComponents(width, height, bapers, f, acc_no, catalog_name);
     }
 
     /**
@@ -41,7 +38,7 @@ public class AddTaskDiscount extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int width, int height, I_Bapers bapers,GUI f, int acc_no, String catalog_name) {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -69,22 +66,16 @@ public class AddTaskDiscount extends javax.swing.JPanel {
         ApplyButton.setText("Apply");
         ApplyButton.setBorderPainted(false);
         ApplyButton.setFocusPainted(false);
-        ApplyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ApplyButtonActionPerformed(evt);
+        ApplyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ApplyButtonMouseClicked(evt, acc_no, catalog_name);
             }
         });
-
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
         jLabel3.setText("Bapers");
 
-        EnterDiscountRate2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EnterDiscountRate2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,13 +133,9 @@ public class AddTaskDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
+    private void ApplyButtonMouseClicked(MouseEvent evt, int acc_no, String catalog_name){
         if (!EnterDiscountRate2.getText().isEmpty()){
-            //apply the variable discount (create if the button pressed before was add new, update if update button was pressed)
-             //bapers.(EnterDiscountRate2.getText());
-            //variable discounts table should be updated (database)
-            // bapers.updateExistingTask(Integer.parseInt(data[0]), desc_input.getText(), Double.parseDouble(price_input.getText()), Integer.parseInt(duration_input.getText()), String.valueOf(department_list.getSelectedItem()));
-
+            bapers.updateVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate2.getText()), catalog_name);
         }
         else{
             JOptionPane.showMessageDialog(
@@ -157,30 +144,9 @@ public class AddTaskDiscount extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
-    }//GEN-LAST:event_ApplyButtonActionPerformed
-
-    private void EnterDiscountRate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterDiscountRate2ActionPerformed
-        // TODO add your handling code here:
-        if (!EnterDiscountRate2.getText().isEmpty()){
-            //update task discount for that id...
-            bapers.updateVariableDiscount(acc_no,Integer.parseInt(EnterDiscountRate2.getText()),catalog_id);
-        }
-        else{
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Please fill out the fields.",
-                    "BAPERS", JOptionPane.ERROR_MESSAGE
-            );
-        }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
-    }//GEN-LAST:event_EnterDiscountRate2ActionPerformed
+        JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
+    }
 
 
 

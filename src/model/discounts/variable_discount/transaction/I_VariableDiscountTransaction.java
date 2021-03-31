@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface I_VariableDiscountTransaction {
 
     //adding variable discount
-    void addVariableDiscount(int customer_acc_no, int discount_rate, int catalog_id);
+    void addVariableDiscount(int customer_acc_no, Double discount_rate, String catalog_name);
 
     //returns total discount for a job
     double getTotal_Discount(int job_ID, int customer_acc_no);
@@ -36,6 +36,6 @@ public interface I_VariableDiscountTransaction {
 
     boolean removeVariableDiscount(int id,int acc_no);
 
-    void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id);
+    void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 
     }

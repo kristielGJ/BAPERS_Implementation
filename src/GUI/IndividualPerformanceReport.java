@@ -12,8 +12,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -233,7 +236,8 @@ public class IndividualPerformanceReport extends javax.swing.JPanel {
         period_input2.setText(String.valueOf(to_date));
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         ArrayList<reports.individual_performance_report.IndividualPerformanceReport> details = bapers.generateIndividualPerformance_Report(from_date, to_date);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT).withLocale(Locale.UK ).withZone(ZoneId.systemDefault() );
         for(reports.individual_performance_report.IndividualPerformanceReport report : details){
             model.addRow(new Object[]{report.getTechnician(), report.getTask_ID(), report.getLocation(), report.getStart().format(formatter), report.getTime_taken()});
             dur += report.getDur();
