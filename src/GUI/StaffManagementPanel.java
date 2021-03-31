@@ -213,7 +213,6 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         else {
             sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
         }
-
         sorter.setSortKeys(sortKeys);
         sorter.sort();
     }

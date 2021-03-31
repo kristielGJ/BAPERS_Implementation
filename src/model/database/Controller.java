@@ -254,11 +254,12 @@ public class Controller implements I_Bapers {
 				if (scheduledAlert.canRunAlert()) {
 					scheduledAlert.runAlert();
 				}else{
-					System.out.println("Failed adding alert " + alert.toString());
+					System.out.println(alert.toString() + " is most likely already complete.");
+					scheduledAlert.removeFromLoadedAlerts();
 				}
 			}
 			for (ScheduledAlert scheduledAlert1 : getLoadedAlerts()) {
-				System.out.println("Alert loaded: " + scheduledAlert1.getAlert().getTimeUntilExecutionInSeconds() + "s until execution.");
+				System.out.println(scheduledAlert1.toString() + " " + scheduledAlert1.getAlert().getTimeUntilExecutionInSeconds() + "s until execution.");
 			}
 		}
 	}
