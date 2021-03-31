@@ -28,7 +28,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         this.lastPanel= f.getCurrentPanel();
         this.bapers=bapers;
         f.setCurrentPanel(this);
-        initComponents();
+        initComponents(acc_no);
     }
 
     /**
@@ -38,7 +38,7 @@ public class VariableDiscount extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int acc_no) {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -47,6 +47,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         BackButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         UpdateDiscountButton = new javax.swing.JButton();
+        AddDiscountButton = new javax.swing.JButton();
         DeleteButton = new javax.swing.JButton();
         RefreshButton = new javax.swing.JButton();
 
@@ -107,7 +108,19 @@ public class VariableDiscount extends javax.swing.JPanel {
         UpdateDiscountButton.setFocusPainted(false);
         UpdateDiscountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateDiscountButtonActionPerformed(evt);
+                UpdateDiscountButtonActionPerformed(evt,acc_no);
+            }
+        });
+        AddDiscountButton.setBackground(new java.awt.Color(1, 23, 71));
+        AddDiscountButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        AddDiscountButton.setForeground(new java.awt.Color(157, 195, 230));
+        AddDiscountButton.setText("Edit");
+        AddDiscountButton.setActionCommand("");
+        AddDiscountButton.setBorderPainted(false);
+        AddDiscountButton.setFocusPainted(false);
+        AddDiscountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddDiscountButtonActionPerformed(evt,acc_no);
             }
         });
 
@@ -155,7 +168,10 @@ public class VariableDiscount extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                                .addComponent(UpdateDiscountButton)
+                                    .addComponent(AddDiscountButton)
+                                    .addGap(10, 10, 10)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(UpdateDiscountButton)
                                 .addGap(10, 10, 10)
                                 .addGap(5, 5, 5)
                                 .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,6 +187,7 @@ public class VariableDiscount extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(UpdateDiscountButton)
+                        .addComponent(AddDiscountButton)
                         .addComponent(DeleteButton)
                         .addComponent(RefreshButton)))
                 .addGap(18, 18, 18)
@@ -198,7 +215,25 @@ public class VariableDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UpdateDiscountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateDiscountButtonActionPerformed
+    private void UpdateDiscountButtonActionPerformed(java.awt.event.ActionEvent evt,int acc_no) {//GEN-FIRST:event_UpdateDiscountButtonActionPerformed
+        if (Task_Table.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an entry to edit!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        else{
+            int column = 0;
+            int row = Task_Table.getSelectedRow();
+            int id = Integer.parseInt(Task_Table.getModel().getValueAt(row, column).toString());
+
+            AddNewTaskDiscount addNewTaskDiscount = new AddNewTaskDiscount(400,300,bapers,f,acc_no);
+            openDialog(addNewTaskDiscount, "Update Task Discount");
+        }
+    }//GEN-LAST:event_UpdateDiscountButtonActionPerformed
+
+    private void AddDiscountButtonActionPerformed(java.awt.event.ActionEvent evt,int acc_no) {
         if (Task_Table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(
                     this,
@@ -214,8 +249,7 @@ public class VariableDiscount extends javax.swing.JPanel {
             AddTaskDiscount addTaskDiscount = new AddTaskDiscount(400,300,bapers,f,acc_no,id);
             openDialog(addTaskDiscount, "Update Task Discount");
         }
-    }//GEN-LAST:event_UpdateDiscountButtonActionPerformed
-
+    }
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
         bapers.populateVariableTable(Task_Table,acc_no);
     }
@@ -252,6 +286,7 @@ public class VariableDiscount extends javax.swing.JPanel {
     private javax.swing.JButton RefreshButton;
     private javax.swing.JTable Task_Table;
     private javax.swing.JButton UpdateDiscountButton;
+    private javax.swing.JButton AddDiscountButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
