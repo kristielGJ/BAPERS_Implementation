@@ -6,9 +6,12 @@
 package GUI;
 
 import model.database.I_Bapers;
+import model.discounts.flexible_discount.FlexibleDiscount;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,12 +21,10 @@ public class VariableDiscount extends javax.swing.JPanel {
     private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
-    int acc_no;
     /**
      * Creates new form VariableDiscount
      */
     public VariableDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
-        this.acc_no=acc_no;
         this.f=f;
         this.lastPanel= f.getCurrentPanel();
         this.bapers=bapers;
@@ -63,11 +64,9 @@ public class VariableDiscount extends javax.swing.JPanel {
         jLabel1.setText("Variable Discount");
 
         Task_Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-            },
             new String [] {
-                "Task ID","Task Name", "Original Price", "Discount Rate", "New Price "
-            }
+                "Task ID","Task Name", "Discount Rate"
+            },0
         ) {
             boolean[] canEdit = new boolean [] {
                 false,false, false, false, false
@@ -77,11 +76,11 @@ public class VariableDiscount extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        populateTable(Task_Table, acc_no);
         Task_Table.setGridColor(new java.awt.Color(1, 23, 71));
         Task_Table.setSelectionBackground(new java.awt.Color(230, 238, 255));
         Task_Table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(Task_Table);
-        bapers.populateVariableTable(Task_Table,acc_no);
 
         BackButton.setBackground(new java.awt.Color(1, 23, 71));
         BackButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -108,13 +107,13 @@ public class VariableDiscount extends javax.swing.JPanel {
         UpdateDiscountButton.setFocusPainted(false);
         UpdateDiscountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateDiscountButtonActionPerformed(evt,acc_no);
+                UpdateDiscountButtonActionPerformed(evt, Task_Table, acc_no);
             }
         });
         AddDiscountButton.setBackground(new java.awt.Color(1, 23, 71));
         AddDiscountButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         AddDiscountButton.setForeground(new java.awt.Color(157, 195, 230));
-        AddDiscountButton.setText("Edit");
+        AddDiscountButton.setText("Add");
         AddDiscountButton.setActionCommand("");
         AddDiscountButton.setBorderPainted(false);
         AddDiscountButton.setFocusPainted(false);
@@ -134,7 +133,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         DeleteButton.setFocusPainted(false);
         DeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteButtonActionPerformed(evt);
+                DeleteButtonActionPerformed(evt, Task_Table, acc_no);
             }
         });
 
@@ -146,7 +145,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         RefreshButton.setFocusPainted(false);
         RefreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RefreshButtonActionPerformed(evt);
+                RefreshButtonActionPerformed(evt, Task_Table, acc_no);
             }
         });
 
@@ -215,25 +214,14 @@ public class VariableDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UpdateDiscountButtonActionPerformed(java.awt.event.ActionEvent evt,int acc_no) {//GEN-FIRST:event_UpdateDiscountButtonActionPerformed
-        if (Task_Table.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Please select an entry to edit!",
-                    "BAPERS", JOptionPane.ERROR_MESSAGE
-            );
-        }
-        else{
-            int column = 0;
-            int row = Task_Table.getSelectedRow();
-            int id = Integer.parseInt(Task_Table.getModel().getValueAt(row, column).toString());
-
+    //adding the new task
+    private void AddDiscountButtonActionPerformed(java.awt.event.ActionEvent evt,int acc_no) {//GEN-FIRST:event_UpdateDiscountButtonActionPerformed
             AddNewTaskDiscount addNewTaskDiscount = new AddNewTaskDiscount(400,300,bapers,f,acc_no);
-            openDialog(addNewTaskDiscount, "Update Task Discount");
-        }
+            openDialog(addNewTaskDiscount, "Add Task Discount");
     }//GEN-LAST:event_UpdateDiscountButtonActionPerformed
 
-    private void AddDiscountButtonActionPerformed(java.awt.event.ActionEvent evt,int acc_no) {
+    //updating the task
+    private void UpdateDiscountButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int acc_no) {
         if (Task_Table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(
                     this,
@@ -242,28 +230,49 @@ public class VariableDiscount extends javax.swing.JPanel {
             );
         }
         else{
-            int column = 0;
+            int column = 1;
             int row = Task_Table.getSelectedRow();
-            int id = Integer.parseInt(Task_Table.getModel().getValueAt(row, column).toString());
-
-            AddTaskDiscount addTaskDiscount = new AddTaskDiscount(400,300,bapers,f,acc_no,id);
+            String catalog_name = table.getModel().getValueAt(row, column).toString();
+            AddTaskDiscount addTaskDiscount = new AddTaskDiscount(400,300,bapers,f,acc_no,catalog_name);
             openDialog(addTaskDiscount, "Update Task Discount");
+            RefreshButtonActionPerformed(evt, table, acc_no);
         }
     }
-    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
-        bapers.populateVariableTable(Task_Table,acc_no);
+
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int customer_acc_no) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        ArrayList<model.discounts.variable_discount.VariableDiscount> discounts = bapers.getVariableDiscount(customer_acc_no);
+        for( model.discounts.variable_discount.VariableDiscount variable : discounts){
+            model.addRow(new Object[]{variable.getCatalog_ID(), variable.getTask_name(), variable.getDiscount_rate()});
+        }
+        table.setModel(model);
     }
 
-    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-        if (Task_Table.getSelectedRow() == -1) {
+    private void populateTable(JTable table, int customer_acc_no){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        ArrayList<model.discounts.variable_discount.VariableDiscount> discounts = bapers.getVariableDiscount(customer_acc_no);
+        for( model.discounts.variable_discount.VariableDiscount variable : discounts){
+            model.addRow(new Object[]{variable.getCatalog_ID(), variable.getTask_name(), variable.getDiscount_rate()});
+        }
+        table.setModel(model);
+    }
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int acc_no) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        try
+        {
+            int column = 0;
+            int row = table.getSelectedRow();
+            int id = Integer.parseInt(table.getModel().getValueAt(row, column).toString());
+            bapers.removeVariableDiscount(id, acc_no);
+            RefreshButtonActionPerformed(evt, table, acc_no);
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(
                     this,
-                    "Please select an entry to delete!",
+                    "Please select a task to remove.",
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
-        }else{
-            //fix id with manpreet
-            bapers.removeVariableDiscount(1,acc_no);
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
@@ -273,6 +282,7 @@ public class VariableDiscount extends javax.swing.JPanel {
         frame.pack();
         frame.setVisible(true);
     }
+
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
         f.setLastPanel(lastPanel);
         f.getLastPanel().setVisible(true);

@@ -12,8 +12,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  *
@@ -236,7 +239,8 @@ public class JobSheet extends javax.swing.JPanel {
         jTextField1.setText(String.valueOf(date));
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         ArrayList<JobPerformanceReport> details = bapers.generateJobSheet(from_date, to_date, customer_id);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT).withLocale(Locale.UK ).withZone(ZoneId.systemDefault() );
         for(JobPerformanceReport report : details){
             model.addRow(new Object[]{report.getJob_id(), report.getPrice(), report.getTask_id(), report.getLocation(), report.getStart_time().format(formatter), report.getTime_taken(), report.getTechnician()});
         }

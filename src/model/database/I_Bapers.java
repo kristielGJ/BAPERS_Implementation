@@ -5,6 +5,7 @@ import model.admin.alert.ScheduledAlert;
 import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
 import model.discounts.flexible_discount.FlexibleDiscount;
+import model.discounts.variable_discount.VariableDiscount;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
 import model.jobs.task.Task_List;
@@ -109,14 +110,16 @@ public interface I_Bapers {
 
 	void populateVariableTable(JTable table,int acc_no);
 
+	ArrayList<VariableDiscount> getVariableDiscount(int customer_acc_no);
+
 	void removeFlexibleDiscount(int id);
 	public boolean removeVariableDiscount(int id, int acc_no);
 
 	public void createFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);
 	public void updateFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);
 
-	public void createVariableDiscount(int acc_no, int discount_rate, int catalog_id);
-	public void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id);
+	public void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
+	public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 
 	public void addFixedDiscountRate(int customer_acc_no, int discount_rate);
 

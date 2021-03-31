@@ -124,8 +124,8 @@ public class GUI extends JFrame {
 		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
-	public void addTaskDiscount(int acc_no,int catalog_id){
-		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no,catalog_id));
+	public void addTaskDiscount(int acc_no, String catalog_name){
+		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no, catalog_name));
 	}
 
 	public void flexibleDiscount(int acc_no){
