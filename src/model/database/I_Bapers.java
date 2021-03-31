@@ -117,7 +117,11 @@ public interface I_Bapers {
 
 	public void loadAllAlerts(JFrame parent);
 
+	public void refreshAllAlerts(JFrame parent);
+
 	public ScheduledExecutorService getScheduler();
 
 	public ArrayList<ScheduledAlert> getLoadedAlerts();
+
+	public void removeAlert(Alert alert);
 }

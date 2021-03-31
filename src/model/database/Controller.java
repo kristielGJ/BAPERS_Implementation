@@ -86,7 +86,7 @@ public class Controller implements I_Bapers {
 	}
 
 	@Override
-	public void createNewCustomer(String name, String address, String phone){
+	public void createNewCustomer(String name, String address, String phone) {
 		customer.addCustomer(name,address,phone);
 	}
 
@@ -225,12 +225,17 @@ public class Controller implements I_Bapers {
 		return loadedAlerts;
 	}
 
+	@Override
+	public void removeAlert(Alert alert) {
+		alertTransaction.remove(alert.getId());
+	}
 
-	private void refreshAllAlerts(JFrame parent) {
+	@Override
+	public void refreshAllAlerts(JFrame parent) {
 		for (ScheduledAlert scheduledAlert : loadedAlerts) {
 			scheduledAlert.cancelSchedule();
-			loadedAlerts.remove(scheduledAlert);
 		}
+		loadedAlerts.clear();
 		loadAllAlerts(parent);
 	}
 
@@ -240,11 +245,14 @@ public class Controller implements I_Bapers {
 		if (!alerts.isEmpty()) {
 			for (Alert alert : alerts) {
 				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this);
-				if (scheduledAlert.runAlert()) {
-					loadedAlerts.add(scheduledAlert);
+				if (scheduledAlert.canRunAlert()) {
+					scheduledAlert.runAlert();
 				}else{
 					System.out.println("Failed adding alert " + alert.toString());
 				}
+			}
+			for (ScheduledAlert scheduledAlert1 : getLoadedAlerts()) {
+				System.out.println("Alert loaded: " + scheduledAlert1.getAlert().getTimeUntilExecutionInSeconds() + "s until execution.");
 			}
 		}
 	}
