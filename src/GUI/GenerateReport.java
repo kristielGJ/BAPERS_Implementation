@@ -148,7 +148,7 @@ public class GenerateReport extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel6.setText("Customer Account No");
+        jLabel6.setText("Customer Acc. (Optional)");
 
         customer_account_no.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         customer_account_no.setText("Only for Customer Sales Report");
@@ -286,7 +286,7 @@ public class GenerateReport extends javax.swing.JPanel {
         }
     }
 
-    private void customer_account_no(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_completion_deadline_inputFocusGained
+    private void customer_account_no(FocusEvent evt) {//GEN-FIRST:event_completion_deadline_inputFocusGained
         customer_account_no.setText("");
     }//GEN-LAST:event_completion_deadline_inputFocusGained
 
