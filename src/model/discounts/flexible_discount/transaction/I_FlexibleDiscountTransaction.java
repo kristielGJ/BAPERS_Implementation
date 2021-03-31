@@ -25,4 +25,10 @@ public interface I_FlexibleDiscountTransaction {
     //returns a list of flexible discount which are associated with the customer
     ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no);
 
-}
+    //deletes a discount
+    boolean removeFlexibleDiscount(int id, int acc_no);
+
+    //updates an existing discount
+    void updateFlexibleDiscount(int ID,double lowerBound,double upperBound,double discount_rate);
+
+    }

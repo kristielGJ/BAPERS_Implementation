@@ -101,13 +101,27 @@ public interface I_Bapers {
 	//generates summary performance report
 	ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time);
 
+	public void populateVariableTable(JTable table,int acc_no);
+	public void populateFlexibleTable(JTable table,int acc_no);
+
+	public boolean removeFlexibleDiscount(int id, int acc_no);
+	public boolean removeVariableDiscount(int id, int acc_no);
+
+	public void createFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);
+	public void updateFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);
+
+	public void createVariableDiscount(int acc_no, int discount_rate, int catalog_id);
+	public void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id);
+
+	public void addFixedDiscountRate(int customer_acc_no, int discount_rate);
+
+	public void populateStaffTable(JTable table);
+
 	public boolean updateStaffMember(Object[] values);
 
 	public boolean addStaffMember(String[] values);
 
 	public boolean removeStaffMember(int id);
-
-	public void populateStaffTable(JTable table);
 
 	public UserAccount getCurrentUser();
 

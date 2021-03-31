@@ -5,17 +5,31 @@
  */
 package GUI;
 
+import model.database.I_Bapers;
+
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author g_jah
  */
 public class FlexibleDiscount extends javax.swing.JPanel {
-
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
     /**
      * Creates new form FlexibleDiscount
      */
-    public FlexibleDiscount() {
+    public FlexibleDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+        this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        this.bapers=bapers;
+        f.setCurrentPanel(this);
         initComponents();
+
     }
 
     /**
@@ -63,18 +77,13 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         });
 
         FlexibleDiscountTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
+            new Object [][] {},
             new String [] {
-                "Bound", "Discount Rate"
+                "ID","Lower Bound","Upper Bound", "Discount Rate"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false,false,false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -85,6 +94,9 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         FlexibleDiscountTable.setSelectionBackground(new java.awt.Color(230, 238, 255));
         FlexibleDiscountTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(FlexibleDiscountTable);
+        //CHECK!
+        bapers.populateFlexibleTable(FlexibleDiscountTable,acc_no);
+
 
         BackButton.setBackground(new java.awt.Color(1, 23, 71));
         BackButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -92,6 +104,11 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         BackButton.setText("Back");
         BackButton.setBorderPainted(false);
         BackButton.setFocusPainted(false);
+        BackButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
@@ -103,6 +120,12 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         RefreshButton.setText("Refresh");
         RefreshButton.setBorderPainted(false);
         RefreshButton.setFocusPainted(false);
+        RefreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshButtonActionPerformed(evt);
+            }
+        });
+
 
         DeleteBoundButton.setBackground(new java.awt.Color(1, 23, 71));
         DeleteBoundButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -133,79 +156,116 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
-                .addGap(72, 72, 72)
-                .addComponent(UpdateBoundButton)
-                .addGap(10, 10, 10)
-                .addComponent(AddNewButton2)
-                .addGap(5, 5, 5)
-                .addComponent(DeleteBoundButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(RefreshButton))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(392, 392, 392)
-                .addComponent(jLabel2)
-                .addGap(261, 261, 261)
-                .addComponent(BackButton))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(29, 29, 29)
+                                                .addComponent(jLabel1)
+                                                .addGap(72, 72, 72)
+                                                .addComponent(UpdateBoundButton)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(AddNewButton2)
+                                                .addGap(5, 5, 5)
+                                                .addComponent(DeleteBoundButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(RefreshButton))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel2)
+                                                .addGap(283, 283, 283)
+                                                .addComponent(BackButton)))
+                                .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(UpdateBoundButton)
-                            .addComponent(AddNewButton2)
-                            .addComponent(DeleteBoundButton)
-                            .addComponent(RefreshButton))))
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel2))
-                    .addComponent(BackButton)))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(9, 9, 9)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(UpdateBoundButton)
+                                                        .addComponent(AddNewButton2)
+                                                        .addComponent(DeleteBoundButton)
+                                                        .addComponent(RefreshButton))))
+                                .addGap(15, 15, 15)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(87, 87, 87)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(BackButton)
+                                        .addComponent(jLabel2))
+                                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateBoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBoundButtonActionPerformed
-        // TODO add your handling code here:
+        if (FlexibleDiscountTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an entry to edit!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }else{
+            AddFlexibleDiscount addFlexibleDiscount = new AddFlexibleDiscount(400,300,bapers,f,acc_no);
+            openDialog(addFlexibleDiscount, "Update Bounds");
+        }
     }//GEN-LAST:event_UpdateBoundButtonActionPerformed
 
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
+        bapers.populateFlexibleTable(FlexibleDiscountTable,acc_no);
+    }
+
     private void DeleteBoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
-        // TODO add your handling code here:
+        if (FlexibleDiscountTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please select an entry to delete!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }else{
+            //fix id with manpreet
+            bapers.removeFlexibleDiscount(1,acc_no);
+        }
     }//GEN-LAST:event_DeleteBoundButtonActionPerformed
 
     private void AddNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddNewButton2ActionPerformed
-        // TODO add your handling code here:
+            AddFlexibleDiscount addFlexibleDiscount = new AddFlexibleDiscount(400,300,bapers,f,acc_no);
+            openDialog(addFlexibleDiscount, "Add New Bound");
     }//GEN-LAST:event_AddNewButton2ActionPerformed
 
+    private void openDialog(JPanel panel, String title) {
+        final JDialog frame = new JDialog(f, title, true);
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setVisible(true);
+    }
 
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddNewButton2;
     private javax.swing.JButton BackButton;
