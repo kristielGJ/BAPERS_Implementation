@@ -81,11 +81,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         shift_type_combo_box.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         shift_type_combo_box.setForeground(new java.awt.Color(157, 195, 230));
         shift_type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day Shift 1", "Day Shift 2", "Night Shift 1" }));
-        shift_type_combo_box.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                shift_type_combo_boxActionPerformed(evt, summary_performance_report_shift, from_Date, to_Date);
-            }
-        });
+
 
         back_button.setBackground(new java.awt.Color(1, 23, 71));
         back_button.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -105,11 +101,12 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
         print_button.setText("Print");
         print_button.setBorderPainted(false);
         print_button.setFocusPainted(false);
-        print_button.addActionListener(new java.awt.event.ActionListener() {
+        shift_type_combo_box.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                f.printPanel(jPanel1, "Print Summary Performance Report");
+                shift_type_combo_boxActionPerformed(evt, summary_performance_report_shift, from_Date, to_Date);
             }
         });
+
 
         jPanel1.setBackground(new java.awt.Color(157, 195, 230));
 
@@ -221,7 +218,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(period_input, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(period_input, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,15 +252,15 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
                     .addComponent(period2_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(shift_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(from_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(to_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3))
         );

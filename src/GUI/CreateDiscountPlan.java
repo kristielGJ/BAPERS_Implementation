@@ -12,12 +12,14 @@ import GUI.GUI;
 import model.database.I_Bapers;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 /**
  *
  * @author g_jah
  */
 public class CreateDiscountPlan extends javax.swing.JPanel {
+    private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
     int acc_no;
@@ -28,10 +30,13 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     /**
      * Creates new form CreateDiscountPlan
      */
-    public CreateDiscountPlan(int width, int height, I_Bapers bapers, int acc_no) {
+    public CreateDiscountPlan(I_Bapers bapers,GUI f, int acc_no) {
         this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        f.setCurrentPanel(this);
         this.bapers=bapers;
-        initComponents();
+        initComponents(bapers,f, acc_no);
     }
 
     /**
@@ -41,8 +46,9 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(I_Bapers bapers,GUI f, int acc_no) {
 
+        this.bapers = bapers;
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,6 +72,11 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
 
         DiscountTypeInput.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DiscountTypeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Discount Plan", "Fixed", "Variable", "Flexible" }));
+        DiscountTypeInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DiscountTypeInputActionPerformed(evt);
+            }
+        });
 
         ApplyDiscountPlanChoice.setBackground(new java.awt.Color(1, 23, 71));
         ApplyDiscountPlanChoice.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -138,6 +149,10 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void DiscountTypeInputActionPerformed(ActionEvent evt){
+
+    }
+
     private void ApplyDiscountPlanChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyDiscountPlanChoiceActionPerformed
 
         if (!(DiscountTypeInput.getSelectedItem() == "Select Discount Plan")){
@@ -168,6 +183,10 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
 
     }//GEN-LAST:event_ApplyDiscountPlanChoiceActionPerformed
 
