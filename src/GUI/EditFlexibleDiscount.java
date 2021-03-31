@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package discountGUI;
+package GUI;
+
+import model.database.I_Bapers;
+
+import javax.swing.*;
 
 /**
  *
@@ -11,11 +15,15 @@ package discountGUI;
  */
 public class EditFlexibleDiscount extends javax.swing.JPanel {
 
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
     /**
      * Creates new form EditFlexibleDiscount
      */
-    public EditFlexibleDiscount() {
-        initComponents();
+    public EditFlexibleDiscount(String[] data, I_Bapers bapers, GUI f) {
+        initComponents(data, bapers, f);
     }
 
     /**
@@ -25,8 +33,12 @@ public class EditFlexibleDiscount extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(String[] data, I_Bapers bapers, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        this.bapers = bapers;
+        f.setCurrentPanel(this);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -37,6 +49,9 @@ public class EditFlexibleDiscount extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         UpperBound = new javax.swing.JTextField();
         LowerBound = new javax.swing.JTextField();
+        LowerBound.setText(data[1]);
+        UpperBound.setText(data[2]);
+        EnterDiscountRate.setText(data[3]);
 
         jPanel1.setBackground(new java.awt.Color(157, 195, 230));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 300));
@@ -58,7 +73,7 @@ public class EditFlexibleDiscount extends javax.swing.JPanel {
         UpdateButton.setFocusPainted(false);
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButtonActionPerformed(evt);
+                UpdateButtonActionPerformed(evt, data);
             }
         });
 
@@ -166,8 +181,26 @@ public class EditFlexibleDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        // TODO add your handling code here:
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt, String data[]) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()){
+            //apply the flexible discount (create if the button pressed before was add new, update if update button was pressed)
+            bapers.updateFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
+        }
+        else if(!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && UpperBound.getText().isEmpty()){
+            bapers.updateFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),0,Double.parseDouble(EnterDiscountRate.getText()));
+        }
+        else if(!EnterDiscountRate.getText().isEmpty() && !UpperBound.getText().isEmpty() && LowerBound.getText().isEmpty()){
+            bapers.updateFlexibleDiscount(acc_no,0,Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void EnterDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterDiscountRateActionPerformed

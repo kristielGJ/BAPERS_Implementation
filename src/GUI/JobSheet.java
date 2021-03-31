@@ -8,6 +8,7 @@ package GUI;
 import model.database.I_Bapers;
 import reports.job_performance_report.JobPerformanceReport;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -107,9 +108,11 @@ public class JobSheet extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(1, 23, 71));
         jLabel7.setText("Description of work in progress:");
 
+        job_sheet_table_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        job_sheet_table_input.setForeground(new java.awt.Color(1, 23, 71));
         job_sheet_table_input.setModel(new javax.swing.table.DefaultTableModel(
             new String [] {
-                "Job", "Price", "Task", "Department", "Start Time", "Time Taken", "Compeleted by"
+                "Job", "Price", "Task", "Department", "Start Time", "Time Taken", "Completed by"
             },0
         ) {
             Class[] types = new Class [] {
@@ -129,8 +132,20 @@ public class JobSheet extends javax.swing.JPanel {
         });
         addJobSheet(job_sheet_table_input, from_date, to_date, customer_id);
         job_sheet_table_input.setGridColor(new java.awt.Color(1, 23, 71));
+        job_sheet_table_input.setSelectionBackground(new java.awt.Color(230, 238, 255));
+        job_sheet_table_input.setSelectionForeground(new java.awt.Color(1, 23, 71));
         job_sheet_table_input.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(job_sheet_table_input);
+        job_sheet_table_input.setShowGrid(true);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        job_sheet_table_input.getColumn("Job").setCellRenderer(dtcr);
+        job_sheet_table_input.getColumn("Price").setCellRenderer(dtcr);
+        job_sheet_table_input.getColumn("Task").setCellRenderer(dtcr);
+        job_sheet_table_input.getColumn("Department").setCellRenderer(dtcr);
+        job_sheet_table_input.getColumn("Start Time").setCellRenderer(dtcr);
+        job_sheet_table_input.getColumn("Time Taken").setCellRenderer(dtcr);
+        job_sheet_table_input.getColumn("Completed by").setCellRenderer(dtcr);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));

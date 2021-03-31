@@ -8,6 +8,7 @@ package GUI;
 import model.database.I_Bapers;
 import model.jobs.task.Task_List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -75,7 +76,7 @@ public class Task extends javax.swing.JPanel {
             }
         });
 
-        task_table_input.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        task_table_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         task_table_input.setForeground(new java.awt.Color(1, 23, 71));
         task_table_input.setModel(new javax.swing.table.DefaultTableModel(
                 new String [] {
@@ -102,6 +103,14 @@ public class Task extends javax.swing.JPanel {
         task_table_input.setSelectionBackground(new java.awt.Color(230, 238, 255));
         task_table_input.setSelectionForeground(new java.awt.Color(1, 23, 71));
         jScrollPane1.setViewportView(task_table_input);
+        task_table_input.setShowGrid(true);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        task_table_input.getColumn("Task ID").setCellRenderer(dtcr);
+        task_table_input.getColumn("Task Description").setCellRenderer(dtcr);
+        task_table_input.getColumn("Location").setCellRenderer(dtcr);
+        task_table_input.getColumn("Status").setCellRenderer(dtcr);
+        task_table_input.getColumn("Price(£)").setCellRenderer(dtcr);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
