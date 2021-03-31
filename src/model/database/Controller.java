@@ -3,6 +3,7 @@ package model.database;
 import model.admin.alert.Alert;
 import model.admin.alert.ScheduledAlert;
 import model.admin.alert.transaction.AlertTransaction;
+import model.discounts.variable_discount.VariableDiscount;
 import model.admin.userAccount.UserAccount;
 import model.admin.userAccount.transaction.UserAccountTransaction;
 import model.customers.Customer;
@@ -12,6 +13,7 @@ import model.discounts.discount.transaction.DiscountTransaction;
 import model.discounts.discount.transaction.I_DiscountTransaction;
 import model.discounts.fixed_discount.transaction.FixedDiscountTransaction;
 import model.discounts.fixed_discount.transaction.I_FixedDiscountTransaction;
+import model.discounts.flexible_discount.FlexibleDiscount;
 import model.discounts.flexible_discount.transaction.FlexibleDiscountTransaction;
 import model.discounts.flexible_discount.transaction.I_FlexibleDiscountTransaction;
 import model.discounts.variable_discount.transaction.I_VariableDiscountTransaction;
@@ -301,6 +303,77 @@ public class Controller implements I_Bapers {
 			});
 		}
 	}
+	public void addFixedDiscountRate(int customer_acc_no, int discount_rate){
+		fixedDiscount.addFixedDiscountRate(customer_acc_no,discount_rate);
+	}
+
+	public boolean removeFlexibleDiscount(int id, int acc_no){
+		return flexibleDiscount.removeFlexibleDiscount(id,acc_no);
+	}
+
+	public ArrayList<FlexibleDiscount> getAllFlexibleDiscounts(int acc_no) {
+		return flexibleDiscount.getFlexibleDiscount(acc_no);
+	}
+
+	public void updateFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate){
+		flexibleDiscount.updateFlexibleDiscount(acc_no,lowerBound,UpperBound,DiscountRate);
+
+	}
+	public void createFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate){
+		flexibleDiscount.addFlexibleDiscount(acc_no,lowerBound,UpperBound,DiscountRate);
+	}
+
+	@Override
+	public void populateFlexibleTable(JTable table , int acc_no ) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		ArrayList<FlexibleDiscount> flexibleDiscounts =getAllFlexibleDiscounts(acc_no);
+		for (FlexibleDiscount a : flexibleDiscounts) {
+			model.addRow(new Object[] {
+					a.getCustomer_acc_no(),a.getLower_bound()+"< ", " >"+ a.getUpper_bound(),a.getDiscount_rate()
+			//replace account number with discount band customer Id
+			});
+		}
+	}
+
+
+	public boolean removeVariableDiscount(int id, int acc_no){
+		return variableDiscount.removeVariableDiscount(id,acc_no);
+	}
+	public ArrayList<VariableDiscount> getAllVariableDiscounts(int acc_no) {
+		return variableDiscount.getVariableDiscount(acc_no);
+	}
+	public void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id){
+		variableDiscount.updateVariableDiscount( acc_no, discount_rate, catalog_id);
+	}
+
+	public void createVariableDiscount(int acc_no, int discount_rate, int catalog_id){
+		variableDiscount.addVariableDiscount(acc_no,  discount_rate, catalog_id);
+	}
+
+	@Override
+	public void populateVariableTable(JTable table,int acc_no) {
+		double price,newPrice,discount;
+		int i=0;
+		ArrayList<Integer> catalogId= new ArrayList<Integer>();
+		catalogId=variableDiscount.getCatalog_IDs(acc_no);
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		ArrayList<VariableDiscount> variableDiscounts =getAllVariableDiscounts(acc_no);
+
+		for (VariableDiscount a : variableDiscounts) {
+			//make sure all tasks in catalog are displayed on the table so the user can edit the rates.
+			int id = catalogId.get(i);
+			price= variableDiscount.GetTaskPrice(id);
+			newPrice=variableDiscount.calculateNewPrice(a.getDiscount_rate(),price);
+			model.addRow(new Object[] {
+					id,variableDiscount.GetTaskName(i),price,a.getDiscount_rate(),newPrice
+			});
+			i++;
+		}
+
+		}
+
 
 	@Override
 	public UserAccount getCurrentUser() { return currentUser; }
