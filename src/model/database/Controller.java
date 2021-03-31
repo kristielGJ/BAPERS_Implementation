@@ -1,5 +1,8 @@
 package model.database;
 
+import model.admin.alert.Alert;
+import model.admin.alert.ScheduledAlert;
+import model.admin.alert.transaction.AlertTransaction;
 import model.admin.userAccount.UserAccount;
 import model.admin.userAccount.transaction.UserAccountTransaction;
 import model.customers.Customer;
@@ -40,8 +43,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Controller implements I_Bapers {
 
@@ -60,7 +69,10 @@ public class Controller implements I_Bapers {
 	private I_SummaryPerformanceReport_Transaction summaryPerformanceReport = new SummaryPerformanceReport_Transaction(mainConn);
 	private I_CustomersTransaction customer = new CustomersTransaction(mainConn);
 	UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
+	AlertTransaction alertTransaction = new AlertTransaction(mainConn);
 	private UserAccount currentUser;
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	private ArrayList<ScheduledAlert> loadedAlerts = new ArrayList<>();
 
 	public void main() {
 
@@ -209,6 +221,40 @@ public class Controller implements I_Bapers {
 	}
 
 	@Override
+	public ArrayList<ScheduledAlert> getLoadedAlerts() {
+		return loadedAlerts;
+	}
+
+
+	private void refreshAllAlerts(JFrame parent) {
+		for (ScheduledAlert scheduledAlert : loadedAlerts) {
+			scheduledAlert.cancelSchedule();
+			loadedAlerts.remove(scheduledAlert);
+		}
+		loadAllAlerts(parent);
+	}
+
+	@Override
+	public void loadAllAlerts(JFrame parent) {
+		ArrayList<Alert> alerts = alertTransaction.getAll();
+		if (!alerts.isEmpty()) {
+			for (Alert alert : alerts) {
+				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this);
+				if (scheduledAlert.runAlert()) {
+					loadedAlerts.add(scheduledAlert);
+				}else{
+					System.out.println("Failed adding alert " + alert.toString());
+				}
+			}
+		}
+	}
+
+	@Override
+	public ScheduledExecutorService getScheduler() {
+		return scheduler;
+	}
+
+	@Override
 	public boolean updateStaffMember(Object[] values) {
 		try {
 			userAccountTransaction.update(
@@ -267,6 +313,11 @@ public class Controller implements I_Bapers {
 		}else{
 			return false;
 		}
+	}
+
+	@Override
+	public void logout() {
+		currentUser = null;
 	}
 
 	public Controller() {

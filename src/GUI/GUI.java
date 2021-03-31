@@ -19,7 +19,7 @@ public class GUI extends JFrame {
 	private I_Bapers bapers = new Controller();
 
 	public void login() {
-		add(new LoginPanel(getWidth(), getHeight(), bapers));
+		add(new LoginPanel(getWidth(), getHeight(), this, bapers));
 	}
 
 	public void staffManagement() {
@@ -169,6 +169,7 @@ public class GUI extends JFrame {
 	}
 
 	public GUI(int width, int height) {
+		bapers.loadAllAlerts(this);
 		this.setSize(width,height);
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

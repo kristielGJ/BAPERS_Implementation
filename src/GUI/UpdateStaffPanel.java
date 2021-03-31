@@ -84,7 +84,6 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         roleLabel = new javax.swing.JLabel();
         roleDropdown = new javax.swing.JComboBox<>();
         idLabel = new javax.swing.JLabel();
-        //Collections.reverse(Arrays.asList(getAllIds()));
         SpinnerListModel model = new SpinnerListModel(getAllIds());
         idSpinner = new javax.swing.JSpinner(model);
         passwordLabel = new javax.swing.JLabel();
@@ -264,7 +263,7 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         String name = nameInput.getText();
         String email = emailInput.getText();
         String phone = phoneInput.getText();
-        String password = jPasswordField1.getPassword().toString();
+        String password = new String(jPasswordField1.getPassword());
         String role = roleDropdown.getSelectedItem().toString();
         if (controller.updateStaffMember(new Object[]{id, name, email, phone, password, role})) {
             controller.populateStaffTable(staffTable);

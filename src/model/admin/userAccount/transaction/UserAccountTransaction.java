@@ -47,19 +47,20 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM User_account WHERE user_account_id = ?");
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if (password.equals(rs.getString("password"))) {
-                account = new UserAccount(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6)
-                );
+            if (rs.next()) {
+                if (password.equals(rs.getString("password"))) {
+                    account = new UserAccount(
+                            rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6)
+                    );
+                }
             }
             rs.close();
             st.close();
-            System.out.println("Queried " + account.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
