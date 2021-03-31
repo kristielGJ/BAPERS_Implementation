@@ -97,6 +97,10 @@ public class Controller implements I_Bapers {
 		customer.updateCustomer(name,Acc_no,Address,Phone, valued);
 	}
 
+	public String getDiscountType(int accNo){
+		return customer.getDiscountType(accNo);
+	}
+
 	@Override
 	public ArrayList<String[]> getAllCustomers() {
 		return customer.getAllCust();

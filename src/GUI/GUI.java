@@ -53,7 +53,7 @@ public class GUI extends JFrame {
 	}
 
 	public void valuedCustomer(String[] customerData){
-		add(new ValuedCustomer(getWidth(),getHeight(),customerData,this));
+		add(new ValuedCustomer(getWidth(),getHeight(),customerData,bapers,this));
 	}
 
 	public void updateCustomer(String[] customerData){
@@ -126,13 +126,6 @@ public class GUI extends JFrame {
 
 	public void addTaskDiscount(int acc_no,int catalog_id){
 		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no,catalog_id));
-	}
-	public Component createDiscountPlan(int acc_no){
-		return add(new CreateDiscountPlan(bapers, this,acc_no));
-	}
-
-	public void fixedDiscount(int acc_no){
-		add(new FixedDiscount(getWidth(), getHeight(), bapers, this,acc_no));
 	}
 
 	public void flexibleDiscount(int acc_no){

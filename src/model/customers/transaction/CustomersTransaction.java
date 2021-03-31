@@ -149,4 +149,22 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		}
 		return lastAccNo;
 	} //get the last used account number in the database
+
+	@Override
+	public String getDiscountType(int accNo) {
+		String discountType = null;
+		try {
+			PreparedStatement st = conn.prepareStatement("SELECT * FROM Customer WHERE Account_no = ?");
+			st.setInt(1, accNo);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			discountType = rs.getString("Discount_type");
+			rs.close();
+			st.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return discountType;
+	}
+
 }

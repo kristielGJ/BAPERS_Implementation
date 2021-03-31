@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 
 public class CreateCustomerAccount extends JPanel {
 
+	//private global variables in CreateCustomerAccount
 	private JButton save_button;
 	private JTextField customer_name_input, acc_no, address_input, phone_input;
 	private JLabel custLabel, accLabel, addLabel, phoneLabel, custAccLabel, miniBapersLabel;
@@ -17,6 +18,8 @@ public class CreateCustomerAccount extends JPanel {
 	private GUI f;
 	private JPanel lastPanel;
 
+
+	//constructor for CreateCustomer, initialises global variables and sets layout for frame
 	public CreateCustomerAccount(int width, int height, GUI f, I_Bapers cT) {
 		setSize(width, height);
 		setName("Create Customer Account");
@@ -27,6 +30,7 @@ public class CreateCustomerAccount extends JPanel {
 		this.lastPanel = f.getCurrentPanel();
 		f.setCurrentPanel(this);
 
+		//Initialisation of components for JPanel
 		save_button = new JButton();
 		save_button.setFont(new Font("Tahoma", Font.BOLD, 16));
 		save_button.setForeground(Color.white);
@@ -165,7 +169,6 @@ public class CreateCustomerAccount extends JPanel {
 
 	}
 
-
 	//mouse listener for save button, adds new customer too database
 	class saveListener implements MouseListener {
 		@Override
@@ -176,6 +179,8 @@ public class CreateCustomerAccount extends JPanel {
 				} catch (Exception eX) {
 					eX.printStackTrace();
 				}
+			} else {
+				JOptionPane.showMessageDialog(f.getCurrentPanel(), "Please fill all entries", "BAPERS", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 

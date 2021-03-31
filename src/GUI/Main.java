@@ -15,17 +15,6 @@ import javax.swing.JFrame;
 public class Main {
     
     public static void main(String[] args) {
-        /**FlatLightLaf.install();
-        JFrame f = new JFrame();
-        f.add(new UserManagement());
-        //498,320
-        f.setSize(800,500);
-        f.setResizable(false);
-        f.setVisible(true);**/
-        GUI f= new GUI(400,300);
-        f.createDiscountPlan(3);
-        //f.flexibleDiscount(3);
-        f.setVisible(true);
 
     }
     
