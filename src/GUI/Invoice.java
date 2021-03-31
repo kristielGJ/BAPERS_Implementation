@@ -5,10 +5,10 @@
  */
 package GUI;
 
-import model.database.Controller;
 import model.database.I_Bapers;
 import model.jobs.task.Task_List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -128,7 +128,7 @@ public class Invoice extends javax.swing.JPanel {
 
         Invoice_table.setModel(new javax.swing.table.DefaultTableModel(
                 new String [] {
-                        "Task IDs", "Price(�)"
+                        "Task ID", "Price"
                 },0
         ) {
             Class[] types = new Class [] {
@@ -149,7 +149,13 @@ public class Invoice extends javax.swing.JPanel {
         addInvoiceDetails(Invoice_table, payment_ID);
         Invoice_table.setGridColor(new java.awt.Color(1, 23, 71));
         Invoice_table.setSelectionBackground(new java.awt.Color(230, 238, 255));
+        Invoice_table.setSelectionForeground(new java.awt.Color(1, 23, 71));
         jScrollPane1.setViewportView(Invoice_table);
+        Invoice_table.setShowGrid(true);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        Invoice_table.getColumn("Task ID").setCellRenderer(dtcr);
+        Invoice_table.getColumn("Price").setCellRenderer(dtcr);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(1, 23, 71));
