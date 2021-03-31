@@ -22,17 +22,23 @@ public class ScheduledAlert {
         this.parentPanel = parentPanel;
     }
 
-    public boolean runAlert() {
-        if (alert.getTimeUntilExecutionInSeconds() > 0 && !isRunning) {
+    public boolean canRunAlert() {
+        return alert.getTimeUntilExecutionInSeconds() > 0 && !isRunning;
+    }
+
+    public void runAlert() {
+        if (canRunAlert()) {
             isRunning = true;
             alertHandle = controller.getScheduler().schedule(alertRunner, alert.getTimeUntilExecutionInSeconds(), TimeUnit.SECONDS);
             controller.getLoadedAlerts().add(this);
-            return true;
+        }else if (alert.getTimeUntilExecutionInSeconds() < 0) {
+            // Alert is already completed, get rid of it
+            removeFromLoadedAlerts();
         }
-        return false;
     }
 
     private void removeFromLoadedAlerts() {
+        controller.removeAlert(getAlert());
         controller.getLoadedAlerts().remove(this);
     }
 
@@ -61,7 +67,6 @@ public class ScheduledAlert {
     public void cancelSchedule() {
         if (isRunning) {
             alertHandle.cancel(false);
-            removeFromLoadedAlerts();
         }
     }
 
