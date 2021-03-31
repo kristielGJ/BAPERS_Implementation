@@ -175,6 +175,10 @@ public class GUI extends JFrame {
 		}
 	}
 
+	public void AddNewTaskDiscount(int acc_no) {
+		add(new AddNewTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no));
+	}
+
 	public void setLastPanel(JPanel panel){
 		this.lastPanel = panel;
 	}
@@ -196,6 +200,5 @@ public class GUI extends JFrame {
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 
 }

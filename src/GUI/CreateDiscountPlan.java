@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import model.database.DB_Connection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import GUI.GUI;
 import model.database.I_Bapers;
 
@@ -20,6 +23,10 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     private JPanel lastPanel;
     private I_Bapers bapers;
     int acc_no;
+    private static PreparedStatement Stm = null;
+    private static DB_Connection conn = new DB_Connection();
+
+
     /**
      * Creates new form CreateDiscountPlan
      */
@@ -147,20 +154,27 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     }
 
     private void ApplyDiscountPlanChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyDiscountPlanChoiceActionPerformed
-        if (!(DiscountTypeInput.getSelectedItem() == "Select Discount Plan")){
-            if (DiscountTypeInput.getSelectedItem()=="Fixed"){
-                f.fixedDiscount(acc_no);
-                setVisible(false);
-            }
-            else if(DiscountTypeInput.getSelectedItem()=="Variable"){
-                f.variableDiscount(acc_no);
-                setVisible(false);
 
+        if (!(DiscountTypeInput.getSelectedItem() == "Select Discount Plan")){
+            try {
+                Stm = conn.connect().prepareStatement("UPDATE Customer SET Discount_Type= ? WHERE Account_no= ?");
+
+
+                if (DiscountTypeInput.getSelectedItem()=="Fixed"){
+                    Stm.setString(1,"Fixed");
+                }
+                else if(DiscountTypeInput.getSelectedItem()=="Variable"){
+                    Stm.setString(1,"Variable");
+                }
+                else if(DiscountTypeInput.getSelectedItem()=="Flexible") {
+                    Stm.setString(1,"Flexible");
+                }
+                Stm.setInt(2, acc_no);
+                Stm.executeUpdate();
+            }catch (Exception e) {
+                e.printStackTrace();
             }
-            else if(DiscountTypeInput.getSelectedItem()=="Flexible") {
-                f.flexibleDiscount(acc_no);
-                setVisible(false);
-            }
+
         }
         else{
             JOptionPane.showMessageDialog(
