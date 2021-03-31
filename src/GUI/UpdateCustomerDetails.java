@@ -209,10 +209,14 @@ public class UpdateCustomerDetails extends JPanel {
 			} else {
 				valued = "Regular";
 			}
-			try {
-				cT.updateCustomerDetails(customer_name_input.getText(),Integer.parseInt(accNo),address_input.getText(), phone_input.getText(), valued);
-			} catch (SQLException throwables) {
-				throwables.printStackTrace();
+			if(!customer_name_input.getText().isEmpty() && !address_input.getText().isEmpty() && !phone_input.getText().isEmpty()) {
+				try {
+					cT.updateCustomerDetails(customer_name_input.getText(), Integer.parseInt(accNo), address_input.getText(), phone_input.getText(), valued);
+				} catch (SQLException throwables) {
+					throwables.printStackTrace();
+				}
+			} else {
+				JOptionPane.showMessageDialog(f.getCurrentPanel(), "Please fill all entries", "BAPERS", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
