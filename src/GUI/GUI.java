@@ -1,6 +1,5 @@
 package GUI;
 
-import model.admin.alert.ScheduledAlert;
 import model.database.Controller;
 import model.database.I_Bapers;
 
@@ -125,6 +124,26 @@ public class GUI extends JFrame {
 		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
+	public void addFlexibleDiscount(int acc_no){
+		add(new AddFlexibleDiscount(getWidth(), getHeight(), bapers, this,acc_no) );
+	}
+	public void addTaskDiscount(int acc_no,int catalog_id){
+		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no,catalog_id));
+	}
+	public Component createDiscountPlan(int acc_no){
+		return add(new CreateDiscountPlan(bapers, this,acc_no));
+	}
+
+	public void fixedDiscount(int acc_no){
+		add(new FixedDiscount(getWidth(), getHeight(), bapers, this,acc_no));
+	}
+	public void flexibleDiscount(int acc_no){
+		add(new FlexibleDiscount(getWidth(), getHeight(), bapers, this, acc_no));
+	}
+	public void variableDiscount(int acc_no){
+		add(new VariableDiscount(getWidth(), getHeight(), bapers, this,acc_no));
+	}
+
 	//converts long to string (time hh:mm)
 	public String convertToString(long dur){
 		return String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
@@ -155,24 +174,6 @@ public class GUI extends JFrame {
 				JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
 			}
 		}
-	}
-	public void addFlexibleDiscount(int acc_no){
-		add(new AddFlexibleDiscount(getWidth(), getHeight(), bapers, this,acc_no) );
-	}
-	public void addTaskDiscount(int acc_no,int catalog_id){
-		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no,catalog_id));
-	}
-	public void createDiscountPlan(int acc_no){
-		add(new CreateDiscountPlan(getWidth(), getHeight(), bapers, this,acc_no));
-	}
-	public void fixedDiscount(int acc_no){
-		add(new FixedDiscount(getWidth(), getHeight(), bapers, this,acc_no));
-	}
-	public void flexibleDiscount(int acc_no){
-		add(new FlexibleDiscount(getWidth(), getHeight(), bapers, this, acc_no));
-	}
-	public void variableDiscount(int acc_no){
-		add(new VariableDiscount(getWidth(), getHeight(), bapers, this,acc_no));
 	}
 
 	public void setLastPanel(JPanel panel){

@@ -94,10 +94,6 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         FlexibleDiscountTable.setSelectionBackground(new java.awt.Color(230, 238, 255));
         FlexibleDiscountTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(FlexibleDiscountTable);
-        //CHECK!
-        bapers.populateFlexibleTable(FlexibleDiscountTable,acc_no);
-
-
         BackButton.setBackground(new java.awt.Color(1, 23, 71));
         BackButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BackButton.setForeground(new java.awt.Color(157, 195, 230));
@@ -125,7 +121,6 @@ public class FlexibleDiscount extends javax.swing.JPanel {
                 RefreshButtonActionPerformed(evt);
             }
         });
-
 
         DeleteBoundButton.setBackground(new java.awt.Color(1, 23, 71));
         DeleteBoundButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -232,7 +227,11 @@ public class FlexibleDiscount extends javax.swing.JPanel {
     }//GEN-LAST:event_UpdateBoundButtonActionPerformed
 
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
-        bapers.populateFlexibleTable(FlexibleDiscountTable,acc_no);
+        //bapers.populateFlexibleTable(FlexibleDiscountTable,acc_no);
+    }
+
+    private void populateTable(){
+
     }
 
     private void DeleteBoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed

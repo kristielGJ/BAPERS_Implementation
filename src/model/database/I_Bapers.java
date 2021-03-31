@@ -4,6 +4,7 @@ import model.admin.alert.Alert;
 import model.admin.alert.ScheduledAlert;
 import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
+import model.discounts.flexible_discount.FlexibleDiscount;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
 import model.jobs.task.Task_List;
@@ -101,8 +102,11 @@ public interface I_Bapers {
 	//generates summary performance report
 	ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time);
 
-	public void populateVariableTable(JTable table,int acc_no);
-	public void populateFlexibleTable(JTable table,int acc_no);
+	//returns the list of flexible discounts
+	ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no);
+
+	void populateVariableTable(JTable table,int acc_no);
+	void populateFlexibleTable(JTable table,int acc_no);
 
 	public boolean removeFlexibleDiscount(int id, int acc_no);
 	public boolean removeVariableDiscount(int id, int acc_no);

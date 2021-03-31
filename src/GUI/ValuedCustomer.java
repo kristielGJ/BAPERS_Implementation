@@ -291,7 +291,12 @@ public class ValuedCustomer extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			//PopUpBox pub = new PopUpBox(400,300,"Add Discount");
-			//pub.add(new CreateDiscountPlan());
+			//pub.add(new CreateDiscountPlan(Integer.parseInt(accNo)));
+			//pub.add(f.createDiscountPlan(Integer.parseInt(accNo)));
+			final JDialog frame = new JDialog(f, "Add Discount", true);
+			frame.getContentPane().add(f.createDiscountPlan(Integer.parseInt(accNo)));
+			frame.pack();
+			frame.setVisible(true);
 			//pub.setVisible(true);
 
 		}

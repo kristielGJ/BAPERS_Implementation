@@ -331,6 +331,10 @@ public class Controller implements I_Bapers {
 		flexibleDiscount.addFlexibleDiscount(acc_no,lowerBound,UpperBound,DiscountRate);
 	}
 
+	public ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no) {
+		return flexibleDiscount.getFlexibleDiscount(customer_acc_no);
+	}
+
 	@Override
 	public void populateFlexibleTable(JTable table , int acc_no ) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
