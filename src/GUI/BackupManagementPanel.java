@@ -251,6 +251,12 @@ public class BackupManagementPanel extends javax.swing.JPanel {
                 );
             }
             populateTable();
+        }else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "You need to select an entry!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 
@@ -292,6 +298,12 @@ public class BackupManagementPanel extends javax.swing.JPanel {
                 );
             }
             populateTable();
+        }else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "You need to select an entry!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 
