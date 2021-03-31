@@ -19,4 +19,6 @@ public interface I_CustomersTransaction extends Transaction {
     String[][] getData(ArrayList<String[]> customers);
 
     int getLastAccNo();
+
+    String getDiscountType(int accNo);
 }

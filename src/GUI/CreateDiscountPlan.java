@@ -18,7 +18,6 @@ import javax.swing.*;
  * @author g_jah
  */
 public class CreateDiscountPlan extends javax.swing.JPanel {
-    private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
     int acc_no;
@@ -29,11 +28,8 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     /**
      * Creates new form CreateDiscountPlan
      */
-    public CreateDiscountPlan(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+    public CreateDiscountPlan(int width, int height, I_Bapers bapers, int acc_no) {
         this.acc_no=acc_no;
-        this.f=f;
-        this.lastPanel= f.getCurrentPanel();
-        f.setCurrentPanel(this);
         this.bapers=bapers;
         initComponents();
     }
@@ -172,10 +168,6 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
 
     }//GEN-LAST:event_ApplyDiscountPlanChoiceActionPerformed
 

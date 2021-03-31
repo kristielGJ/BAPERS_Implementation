@@ -32,6 +32,8 @@ public interface I_Bapers {
 
 	void updateCustomerDetails(String name, int Acc_no, String Address, String Phone, String valued) throws SQLException;
 
+	String getDiscountType(int accNo);
+
 	ArrayList<String[]> getAllCustomers();
 
 	String[][] getCustomerData(ArrayList<String[]> customers);
