@@ -102,6 +102,8 @@ public class Job_Transaction implements I_Job_Transaction {
                 }
                 if (update == true){
                     Stm.executeUpdate();
+                    //adding completion time
+                    addCompletion_time(job_ID);
                     Stm2 = conn.prepareStatement("SELECT * FROM Job WHERE Job_ID = ?;");
                     Stm2.setInt(1,job_ID);
                     ResultSet rs2 = Stm2.executeQuery();
@@ -115,8 +117,6 @@ public class Job_Transaction implements I_Job_Transaction {
                             }
                         }
                     }
-                    //adding completion time
-                    addCompletion_time(job_ID);
                 }
             }
             else {

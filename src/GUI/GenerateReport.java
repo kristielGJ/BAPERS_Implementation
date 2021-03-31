@@ -143,6 +143,7 @@ public class GenerateReport extends javax.swing.JPanel {
         report_type_combo_box.setBackground(new java.awt.Color(1, 23, 71));
         report_type_combo_box.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         report_type_combo_box.setForeground(new java.awt.Color(157, 195, 230));
+        report_type_combo_box.setPreferredSize(new java.awt.Dimension(244, 30));
         report_type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Report Type", "Customer Sales Report", "Individual Performance Report", "Summary Performance Report" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
@@ -213,7 +214,7 @@ public class GenerateReport extends javax.swing.JPanel {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(customer_account_no, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(customer_account_no, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)

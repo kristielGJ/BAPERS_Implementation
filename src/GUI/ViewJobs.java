@@ -8,6 +8,7 @@ import model.database.Controller;
 import model.database.I_Bapers;
 import model.jobs.job.Job;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -86,7 +87,7 @@ public class ViewJobs extends javax.swing.JPanel {
             }
         });
 
-        jobs_list_input.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jobs_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jobs_list_input.setForeground(new java.awt.Color(1, 23, 71));
         jobs_list_input.setModel(new javax.swing.table.DefaultTableModel(
             new String [] {
@@ -113,6 +114,14 @@ public class ViewJobs extends javax.swing.JPanel {
         jobs_list_input.setSelectionBackground(new java.awt.Color(230, 238, 255));
         jobs_list_input.setSelectionForeground(new java.awt.Color(1, 23, 71));
         jScrollPane1.setViewportView(jobs_list_input);
+        jobs_list_input.setShowGrid(true);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        jobs_list_input.getColumn("Job ID").setCellRenderer(dtcr);
+        jobs_list_input.getColumn("Description").setCellRenderer(dtcr);
+        jobs_list_input.getColumn("Priority").setCellRenderer(dtcr);
+        jobs_list_input.getColumn("Special Instruction").setCellRenderer(dtcr);
+        jobs_list_input.getColumn("Completion Deadline").setCellRenderer(dtcr);
 
         back_button.setBackground(new java.awt.Color(1, 23, 71));
         back_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -144,7 +153,7 @@ public class ViewJobs extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(filter, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -193,8 +202,9 @@ public class ViewJobs extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.setRowCount(0);
         ArrayList<Job> jobs = bapers.getActiveJobs();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for(Job job : jobs){
-            model.addRow(new Object[]{job.getJob_ID(), job.getJob_desc(), job.getPriority(), job.getSpecial_instructions(),job.getCompletion_deadline()});
+            model.addRow(new Object[]{job.getJob_ID(), job.getJob_desc(), job.getPriority(), job.getSpecial_instructions(),job.getCompletion_deadline().format(formatter)});
         }
         table.setModel(model);
     }
