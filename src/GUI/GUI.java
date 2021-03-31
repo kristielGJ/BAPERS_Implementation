@@ -1,5 +1,6 @@
 package GUI;
 
+import model.admin.alert.ScheduledAlert;
 import model.database.Controller;
 import model.database.I_Bapers;
 
@@ -37,6 +38,10 @@ public class GUI extends JFrame {
 	}
 
 	public void home(){
+		if (bapers.getCurrentUser().getRole().equals("Shift Manager") ||
+			bapers.getCurrentUser().getRole().equals("Office Manager")) {
+			bapers.loadAllAlerts(this);
+		}
 		add(new Home(getWidth(),getHeight(), this, bapers));
 	}
 
@@ -187,7 +192,6 @@ public class GUI extends JFrame {
 	}
 
 	public GUI(int width, int height) {
-		bapers.loadAllAlerts(this);
 		this.setSize(width,height);
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

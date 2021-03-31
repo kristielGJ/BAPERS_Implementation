@@ -34,7 +34,6 @@ public class AlertTransaction implements I_AlertTransaction {
             int id = Utils.getGeneratedKey(st);
             alert = new Alert(id, name, message, time, jobId);
             st.close();
-            System.out.println("Created ");
         } catch (Exception e) {
             e.printStackTrace();
         }
