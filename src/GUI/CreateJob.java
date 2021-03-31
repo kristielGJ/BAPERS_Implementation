@@ -278,6 +278,7 @@ public class CreateJob extends JPanel {
             priority_list_input.setSelectedItem("Select Priority Level");
             completion_deadline_input.setText("Optional (for custom priority only)");
             special_instructions_input.setText("");
+            bapers.refreshAllAlerts(f);
         }
         else{
             JOptionPane.showMessageDialog(

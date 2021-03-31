@@ -284,7 +284,7 @@ public class Home extends javax.swing.JPanel {
     }
 
     private void RefreshAlertsButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        bapers.refreshAllAlerts(f);
     }
 
     private void CustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {

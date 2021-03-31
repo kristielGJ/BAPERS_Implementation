@@ -1,5 +1,7 @@
 package model.database;
 
+import database.Secrets;
+
 import java.sql.*;
 
 /**

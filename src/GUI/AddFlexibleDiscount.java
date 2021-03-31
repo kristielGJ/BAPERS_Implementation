@@ -5,17 +5,32 @@
  */
 package GUI;
 
+import model.database.I_Bapers;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author g_jah
  */
 public class AddFlexibleDiscount extends javax.swing.JPanel {
-
+    private GUI f;
+    private JPanel lastPanel;
+    private I_Bapers bapers;
+    int acc_no;
     /**
      * Creates new form AddFlexibleDiscount
      */
-    public AddFlexibleDiscount() {
+    public AddFlexibleDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+        this.acc_no=acc_no;
+        this.f=f;
+        this.lastPanel= f.getCurrentPanel();
+        f.setCurrentPanel(this);
+        this.bapers=bapers;
         initComponents();
+
     }
 
     /**
@@ -31,7 +46,6 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ApplyButton = new javax.swing.JButton();
-        CancelButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         EnterDiscountRate = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -62,18 +76,11 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         ApplyButton.setText("Apply");
         ApplyButton.setBorderPainted(false);
         ApplyButton.setFocusPainted(false);
-        ApplyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ApplyButtonActionPerformed(evt);
+        ApplyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ApplyButtonMouseClicked(evt);
             }
         });
-
-        CancelButton.setBackground(new java.awt.Color(1, 23, 71));
-        CancelButton.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        CancelButton.setForeground(new java.awt.Color(157, 195, 230));
-        CancelButton.setText("Cancel");
-        CancelButton.setBorderPainted(false);
-        CancelButton.setFocusPainted(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
@@ -84,6 +91,7 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                 EnterDiscountRateActionPerformed(evt);
             }
         });
+
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(1, 23, 71));
@@ -126,8 +134,7 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                                     .addComponent(jLabel2))))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(75, 75, 75))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,8 +168,7 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                         .addComponent(LowerBound, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ApplyButton)
-                    .addComponent(CancelButton))
+                    .addComponent(ApplyButton))
                 .addGap(31, 31, 31)
                 .addComponent(jLabel3)
                 .addContainerGap())
@@ -200,10 +206,30 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_LowerBoundActionPerformed
 
+    private void ApplyButtonMouseClicked(MouseEvent evt){
+        if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()||!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty()||!EnterDiscountRate.getText().isEmpty() && !UpperBound.getText().isEmpty()){
+            //apply the flexible discount (create if the button pressed before was add new, update if update button was pressed)
+            bapers.createFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
+            //flexible discount table should be updated (database)
+            bapers.updateFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
+        }
+        else{
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill out the fields.",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+        }
+        f.setLastPanel(lastPanel);
+        f.getLastPanel().setVisible(true);
+        f.remove(f.getCurrentPanel());
+        f.setCurrentPanel(lastPanel);
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyButton;
-    private javax.swing.JButton CancelButton;
     private javax.swing.JTextField EnterDiscountRate;
     private javax.swing.JTextField LowerBound;
     private javax.swing.JTextField UpperBound;
