@@ -106,9 +106,8 @@ public interface I_Bapers {
 	ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no);
 
 	void populateVariableTable(JTable table,int acc_no);
-	void populateFlexibleTable(JTable table,int acc_no);
 
-	public boolean removeFlexibleDiscount(int id, int acc_no);
+	void removeFlexibleDiscount(int id);
 	public boolean removeVariableDiscount(int id, int acc_no);
 
 	public void createFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);

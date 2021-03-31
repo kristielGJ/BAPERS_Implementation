@@ -315,8 +315,8 @@ public class Controller implements I_Bapers {
 		fixedDiscount.addFixedDiscountRate(customer_acc_no,discount_rate);
 	}
 
-	public boolean removeFlexibleDiscount(int id, int acc_no){
-		return flexibleDiscount.removeFlexibleDiscount(id,acc_no);
+	public void removeFlexibleDiscount(int id){
+		flexibleDiscount.removeFlexibleDiscount(id);
 	}
 
 	public ArrayList<FlexibleDiscount> getAllFlexibleDiscounts(int acc_no) {
@@ -334,20 +334,6 @@ public class Controller implements I_Bapers {
 	public ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no) {
 		return flexibleDiscount.getFlexibleDiscount(customer_acc_no);
 	}
-
-	@Override
-	public void populateFlexibleTable(JTable table , int acc_no ) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.setRowCount(0);
-		ArrayList<FlexibleDiscount> flexibleDiscounts =getAllFlexibleDiscounts(acc_no);
-		for (FlexibleDiscount a : flexibleDiscounts) {
-			model.addRow(new Object[] {
-					a.getCustomer_acc_no(),a.getLower_bound()+"< ", " >"+ a.getUpper_bound(),a.getDiscount_rate()
-			//replace account number with discount band customer Id
-			});
-		}
-	}
-
 
 	public boolean removeVariableDiscount(int id, int acc_no){
 		return variableDiscount.removeVariableDiscount(id,acc_no);

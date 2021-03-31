@@ -23,14 +23,8 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
     /**
      * Creates new form AddFlexibleDiscount
      */
-    public AddFlexibleDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
-        this.acc_no=acc_no;
-        this.f=f;
-        this.lastPanel= f.getCurrentPanel();
-        f.setCurrentPanel(this);
-        this.bapers=bapers;
-        initComponents();
-
+    public AddFlexibleDiscount(int acc_no, I_Bapers bapers, GUI f) {
+        initComponents(acc_no, bapers, f);
     }
 
     /**
@@ -40,8 +34,12 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int acc_no, I_Bapers bapers, GUI f) {
 
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
+        this.bapers = bapers;
+        f.setCurrentPanel(this);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -78,7 +76,7 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         ApplyButton.setFocusPainted(false);
         ApplyButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ApplyButtonMouseClicked(evt);
+                ApplyButtonMouseClicked(evt, acc_no);
             }
         });
 
@@ -206,12 +204,16 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_LowerBoundActionPerformed
 
-    private void ApplyButtonMouseClicked(MouseEvent evt){
-        if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()||!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty()||!EnterDiscountRate.getText().isEmpty() && !UpperBound.getText().isEmpty()){
+    private void ApplyButtonMouseClicked(MouseEvent evt, int acc_no){
+        if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()){
             //apply the flexible discount (create if the button pressed before was add new, update if update button was pressed)
             bapers.createFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
-            //flexible discount table should be updated (database)
-            bapers.updateFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
+        }
+        else if(!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && UpperBound.getText().isEmpty()){
+            bapers.createFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),0,Double.parseDouble(EnterDiscountRate.getText()));
+        }
+        else if(!EnterDiscountRate.getText().isEmpty() && !UpperBound.getText().isEmpty() && LowerBound.getText().isEmpty()){
+            bapers.createFlexibleDiscount(acc_no,0,Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
         }
         else{
             JOptionPane.showMessageDialog(
@@ -220,10 +222,8 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
+        JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
 
     }
 

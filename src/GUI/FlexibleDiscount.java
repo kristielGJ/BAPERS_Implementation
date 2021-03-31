@@ -6,9 +6,12 @@
 package GUI;
 
 import model.database.I_Bapers;
+import model.jobs.task.Task_List;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -72,15 +75,14 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         UpdateBoundButton.setFocusPainted(false);
         UpdateBoundButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateBoundButtonActionPerformed(evt);
+                UpdateBoundButtonActionPerformed(evt, FlexibleDiscountTable, acc_no );
             }
         });
 
         FlexibleDiscountTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
             new String [] {
-                "ID","Lower Bound","Upper Bound", "Discount Rate"
-            }
+                "Discount Band ID","Lower Bound","Upper Bound", "Discount Rate"
+            },0
         ) {
             boolean[] canEdit = new boolean [] {
                 false, false,false,false
@@ -90,6 +92,7 @@ public class FlexibleDiscount extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        populateTable(FlexibleDiscountTable, acc_no);
         FlexibleDiscountTable.setGridColor(new java.awt.Color(1, 23, 71));
         FlexibleDiscountTable.setSelectionBackground(new java.awt.Color(230, 238, 255));
         FlexibleDiscountTable.getTableHeader().setReorderingAllowed(false);
@@ -118,7 +121,7 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         RefreshButton.setFocusPainted(false);
         RefreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RefreshButtonActionPerformed(evt);
+                RefreshButtonActionPerformed(evt, FlexibleDiscountTable, acc_no);
             }
         });
 
@@ -131,7 +134,7 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         DeleteBoundButton.setFocusPainted(false);
         DeleteBoundButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteBoundButtonActionPerformed(evt);
+                DeleteBoundButtonActionPerformed(evt, FlexibleDiscountTable, acc_no);
             }
         });
 
@@ -144,7 +147,7 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         AddNewButton2.setFocusPainted(false);
         AddNewButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddNewButton2ActionPerformed(evt);
+                AddNewButton2ActionPerformed(evt, acc_no);
             }
         });
 
@@ -213,51 +216,72 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UpdateBoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBoundButtonActionPerformed
-        if (FlexibleDiscountTable.getSelectedRow() == -1) {
+    private void UpdateBoundButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int acc_no) {//GEN-FIRST:event_UpdateBoundButtonActionPerformed
+        try
+        {
+            int row = table.getSelectedRow();
+            String[] data = new String[4];
+            for( int i=0; i < 4; i++){
+                data[i] = table.getModel().getValueAt(row, i).toString();
+            }
+            final JDialog frame = new JDialog(f, "Add Task", true);
+            frame.getContentPane().add(new EditFlexibleDiscount(data, bapers, f));
+            frame.pack();
+            frame.setVisible(true);
+
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(
                     this,
-                    "Please select an entry to edit!",
+                    "Please select a task to update.",
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
-        }else{
-            AddFlexibleDiscount addFlexibleDiscount = new AddFlexibleDiscount(400,300,bapers,f,acc_no);
-            openDialog(addFlexibleDiscount, "Update Bounds");
         }
     }//GEN-LAST:event_UpdateBoundButtonActionPerformed
 
-    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
-        //bapers.populateFlexibleTable(FlexibleDiscountTable,acc_no);
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int customer_acc_no) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.setRowCount(0);
+        ArrayList<model.discounts.flexible_discount.FlexibleDiscount> discounts = bapers.getFlexibleDiscount(customer_acc_no);
+        for(model.discounts.flexible_discount.FlexibleDiscount flexible : discounts){
+            model.addRow(new Object[]{flexible.getDiscount_band_id(),flexible.getLower_bound(), flexible.getUpper_bound(), flexible.getDiscount_rate()});
+        }
+        table.setModel(model);
     }
 
-    private void populateTable(){
-
+    private void populateTable(JTable table, int customer_acc_no){
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        ArrayList<model.discounts.flexible_discount.FlexibleDiscount> discounts = bapers.getFlexibleDiscount(customer_acc_no);
+        for(model.discounts.flexible_discount.FlexibleDiscount flexible : discounts){
+            model.addRow(new Object[]{flexible.getDiscount_band_id(), flexible.getLower_bound(), flexible.getUpper_bound(), flexible.getDiscount_rate()});
+        }
+        table.setModel(model);
     }
 
-    private void DeleteBoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
-        if (FlexibleDiscountTable.getSelectedRow() == -1) {
+    private void DeleteBoundButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int acc_no) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
+        try
+        {
+            int column = 0;
+            int row = table.getSelectedRow();
+            int id = Integer.parseInt(table.getModel().getValueAt(row, column).toString());
+            bapers.removeFlexibleDiscount(id);
+            RefreshButtonActionPerformed(evt, table, acc_no);
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(
                     this,
-                    "Please select an entry to delete!",
+                    "Please select a task to remove.",
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
-        }else{
-            //fix id with manpreet
-            bapers.removeFlexibleDiscount(1,acc_no);
         }
     }//GEN-LAST:event_DeleteBoundButtonActionPerformed
 
-    private void AddNewButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddNewButton2ActionPerformed
-            AddFlexibleDiscount addFlexibleDiscount = new AddFlexibleDiscount(400,300,bapers,f,acc_no);
-            openDialog(addFlexibleDiscount, "Add New Bound");
-    }//GEN-LAST:event_AddNewButton2ActionPerformed
-
-    private void openDialog(JPanel panel, String title) {
-        final JDialog frame = new JDialog(f, title, true);
-        frame.getContentPane().add(panel);
+    private void AddNewButton2ActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_AddNewButton2ActionPerformed
+        final JDialog frame = new JDialog(f, "Add Task", true);
+        frame.getContentPane().add(new AddFlexibleDiscount(acc_no, bapers, f));
         frame.pack();
         frame.setVisible(true);
-    }
+    }//GEN-LAST:event_AddNewButton2ActionPerformed
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
         f.setLastPanel(lastPanel);

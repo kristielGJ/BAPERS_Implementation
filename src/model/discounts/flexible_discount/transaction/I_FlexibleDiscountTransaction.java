@@ -26,7 +26,7 @@ public interface I_FlexibleDiscountTransaction {
     ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no);
 
     //deletes a discount
-    boolean removeFlexibleDiscount(int id, int acc_no);
+    void removeFlexibleDiscount(int id);
 
     //updates an existing discount
     void updateFlexibleDiscount(int ID,double lowerBound,double upperBound,double discount_rate);

@@ -124,9 +124,6 @@ public class GUI extends JFrame {
 		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
-	public void addFlexibleDiscount(int acc_no){
-		add(new AddFlexibleDiscount(getWidth(), getHeight(), bapers, this,acc_no) );
-	}
 	public void addTaskDiscount(int acc_no,int catalog_id){
 		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no,catalog_id));
 	}
@@ -137,9 +134,11 @@ public class GUI extends JFrame {
 	public void fixedDiscount(int acc_no){
 		add(new FixedDiscount(getWidth(), getHeight(), bapers, this,acc_no));
 	}
+
 	public void flexibleDiscount(int acc_no){
 		add(new FlexibleDiscount(getWidth(), getHeight(), bapers, this, acc_no));
 	}
+
 	public void variableDiscount(int acc_no){
 		add(new VariableDiscount(getWidth(), getHeight(), bapers, this,acc_no));
 	}
