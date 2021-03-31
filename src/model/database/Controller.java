@@ -341,35 +341,37 @@ public class Controller implements I_Bapers {
 	public ArrayList<VariableDiscount> getAllVariableDiscounts(int acc_no) {
 		return variableDiscount.getVariableDiscount(acc_no);
 	}
-	public void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id){
-		variableDiscount.updateVariableDiscount( acc_no, discount_rate, catalog_id);
+	public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
+		variableDiscount.updateVariableDiscount( acc_no, discount_rate, catalog_name);
 	}
 
-	public void createVariableDiscount(int acc_no, int discount_rate, int catalog_id){
-		variableDiscount.addVariableDiscount(acc_no,  discount_rate, catalog_id);
+	public void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
+		variableDiscount.addVariableDiscount(acc_no,  discount_rate, catalog_name);
 	}
 
+	public ArrayList<VariableDiscount> getVariableDiscount(int customer_acc_no){
+		return variableDiscount.getVariableDiscount(customer_acc_no);
+	}
 	@Override
 	public void populateVariableTable(JTable table,int acc_no) {
-		double price,newPrice,discount;
-		int i=0;
-		ArrayList<Integer> catalogId= new ArrayList<Integer>();
-		catalogId=variableDiscount.getCatalog_IDs(acc_no);
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.setRowCount(0);
-		ArrayList<VariableDiscount> variableDiscounts =getAllVariableDiscounts(acc_no);
+			double price,newPrice,discount;
+			int i=0;
+			ArrayList<Integer> catalogId= new ArrayList<Integer>();
+			catalogId=variableDiscount.getCatalog_IDs(acc_no);
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.setRowCount(0);
+			ArrayList<VariableDiscount> variableDiscounts =getAllVariableDiscounts(acc_no);
 
-		for (VariableDiscount a : variableDiscounts) {
-			//make sure all tasks in catalog are displayed on the table so the user can edit the rates.
-			int id = catalogId.get(i);
-			price= variableDiscount.GetTaskPrice(id);
-			newPrice=variableDiscount.calculateNewPrice(a.getDiscount_rate(),price);
-			model.addRow(new Object[] {
-					id,variableDiscount.GetTaskName(i),price,a.getDiscount_rate(),newPrice
-			});
-			i++;
-		}
-
+			for (VariableDiscount a : variableDiscounts) {
+				//make sure all tasks in catalog are displayed on the table so the user can edit the rates.
+				int id = catalogId.get(i);
+				price= variableDiscount.GetTaskPrice(id);
+				newPrice=variableDiscount.calculateNewPrice(a.getDiscount_rate(),price);
+				model.addRow(new Object[] {
+						id,variableDiscount.GetTaskName(i),price,a.getDiscount_rate(),newPrice
+				});
+				i++;
+			}
 		}
 
 

@@ -21,13 +21,20 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
     }
 
     //adding variable discount
-    public void addVariableDiscount(int customer_acc_no, int discount_rate, int catalog_id){
+    public void addVariableDiscount(int customer_acc_no, Double discount_rate, String catalog_name){
         try {
-            Stm = conn.prepareStatement("INSERT INTO `bapers`.`CustomerTaskCatalog` (`Account_no`, `discount_rate`, `Catalog_ID`) VALUES (?,?,?)");
-            Stm.setInt(1,customer_acc_no);
-            Stm.setDouble(2, discount_rate);
-            Stm.setInt(3, catalog_id);
-            Stm.executeUpdate();
+            PreparedStatement Stm1 = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_name = ?;");
+            Stm1.setString(1, catalog_name);
+            ResultSet rs = Stm1.executeQuery();
+            while (rs.next()){
+                Stm = conn.prepareStatement("INSERT INTO `bapers`.`CustomerTaskCatalog` (`Account_no`, `discount_rate`, `Catalog_ID`) VALUES (?,?,?)");
+                Stm.setInt(1,customer_acc_no);
+                Stm.setDouble(2, discount_rate);
+                Stm.setInt(3, rs.getInt(1));
+                Stm.executeUpdate();
+                Stm.close();
+            }
+            rs.close();
             Stm.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,12 +115,18 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
             Stm.setInt(1, customer_acc_no);
             ResultSet rs = Stm.executeQuery();
             while (rs.next()) {
-                 VariableDiscount discount = new VariableDiscount(
-                        customer_acc_no,
-                        rs.getDouble(2),
-                        rs.getInt(3)
-                );
-                discount_details.add(discount);
+                Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Catalog_ID = ?");
+                Stm.setInt(1, rs.getInt(3));
+                ResultSet rs1 = Stm.executeQuery();
+                while (rs1.next()){
+                    VariableDiscount discount = new VariableDiscount(
+                            customer_acc_no,
+                            rs.getDouble(2),
+                            rs.getInt(4),
+                            rs1.getString(2)
+                    );
+                    discount_details.add(discount);
+                }
             }
             rs.close();
             Stm.close();
@@ -122,6 +135,7 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         }
         return discount_details;
     }
+
     /**
      * Retrieves the Prices associated to a Task ,from the database
      * Task price- for variable discounts
@@ -189,14 +203,21 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         return removed;
     }
 
-    public void updateVariableDiscount(int acc_no, int discount_rate, int catalog_id){
+    public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
         try {
-            Stm = conn.prepareStatement("UPDATE CustomerTaskCatalog SET discount_rate=? WHERE Account_no=? AND Catalog_ID=?");
-            Stm.setDouble(1, discount_rate);
-            Stm.setDouble(2, acc_no);
-            Stm.setInt(3, catalog_id);
-            Stm.executeUpdate();
-
+            PreparedStatement Stm1 = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_name = ?;");
+            Stm1.setString(1, catalog_name);
+            ResultSet rs = Stm1.executeQuery();
+            while (rs.next()){
+                Stm = conn.prepareStatement("UPDATE CustomerTaskCatalog SET discount_rate = ? WHERE Account_no = ? AND Catalog_ID = ?");
+                Stm.setDouble(1, discount_rate);
+                Stm.setDouble(2, acc_no);
+                Stm.setInt(3, rs.getInt(1));
+                Stm.executeUpdate();
+                Stm.close();
+            }
+            rs.close();
+            Stm1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
