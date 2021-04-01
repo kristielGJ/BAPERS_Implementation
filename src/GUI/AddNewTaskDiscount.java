@@ -161,7 +161,7 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        if(!(task_list_input.getSelectedItem() == "Select Task")){
+        if((!(task_list_input.getSelectedItem() == "Select Task")&&(!EnterDiscountRate.getText().isEmpty()))){
            bapers.createVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate.getText()), String.valueOf(task_list_input.getSelectedItem()));
             task_list_input.setSelectedItem("Select Task");
             EnterDiscountRate.setText("");
