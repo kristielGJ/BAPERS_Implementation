@@ -42,10 +42,10 @@ public class IndividualPerformanceReport_Transaction implements I_IndividualPerf
                 ResultSet rs1 = Stm.executeQuery();
                 while (rs1.next()){
                     Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Catalog_ID = ?");
-                    Stm.setInt(1, rs1.getInt(7));
+                    Stm.setInt(1, rs1.getInt(6));
                     ResultSet rs2 = Stm.executeQuery();
                     while (rs2.next()){
-                        long dur = Duration.between(rs1.getTimestamp(4).toLocalDateTime(), rs1.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                        long dur = Duration.between(rs1.getTimestamp(3).toLocalDateTime(), rs1.getTimestamp(4).toLocalDateTime()).getSeconds() / 60;
                         String total_time = String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
                         IndividualPerformanceReport details = new IndividualPerformanceReport(
                                 "Individual Performance Report",
@@ -54,7 +54,7 @@ public class IndividualPerformanceReport_Transaction implements I_IndividualPerf
                                 rs.getString(2),
                                 rs2.getInt(1),
                                 rs2.getString(4),
-                                rs1.getTimestamp(4).toLocalDateTime(),
+                                rs1.getTimestamp(3).toLocalDateTime(),
                                 total_time,
                                 dur
                         );
