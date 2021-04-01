@@ -4,7 +4,9 @@ import model.Transaction;
 import model.customers.Customer;
 import java.util.ArrayList;
 
-//interface for CustomersTransaction class that interacts with customer table in database
+/**
+ *interface for CustomersTransaction class that interacts with customer table in database
+ */
 public interface I_CustomersTransaction extends Transaction {
 
     Customer addCustomer(String name, String Company, String Address, String Phone);

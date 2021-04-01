@@ -6,14 +6,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- *
- * @author Jacob
- */
-
 public class ValuedCustomer extends JPanel {
 
-	//defining global variables
+	/**
+	 *  	defining global variables
+	 */
 	private String customerName, company, accNo, CustomerAddress, CustomerPhone;
 	private JLabel customer_name,Cust_company, acc_no, address, phone, custLabel,companyLabel, accLabel, addLabel, phoneLabel, custDetLabel, miniBapersLabel;
 	private JButton updateButton, addJobButton, retrieveJob, backButton, discountPlanButton, menuButton, createDiscountButton;
@@ -21,7 +18,14 @@ public class ValuedCustomer extends JPanel {
 	private JPanel lastPanel;
 	private I_Bapers bapers;
 
-	//constructor for panel, initialise components for panel, initalise global variables and add layout manager
+	/**
+	 * constructor for panel, initialise components for panel, initalise global variables and add layout manager
+	 * @param width
+	 * @param height
+	 * @param customerData
+	 * @param bapers
+	 * @param f
+	 */
 	public ValuedCustomer(int width, int height, String[] customerData,I_Bapers bapers, GUI f) {
 		this.customerName = customerData[0];
 		this.accNo = customerData[1];
@@ -38,7 +42,9 @@ public class ValuedCustomer extends JPanel {
 		setName("Customer Details");
 		setBackground(new Color(157, 195, 230));
 
-		//initialise components for panel
+		/**
+		 * initialise components for panel
+		 */
 		updateButton = new JButton();
 		updateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		updateButton.setForeground(Color.white);
@@ -137,7 +143,9 @@ public class ValuedCustomer extends JPanel {
 		miniBapersLabel.setForeground(new java.awt.Color(1, 23, 71));
 		miniBapersLabel.setText("Bapers");
 
-		//create layout manager for panel
+		/**
+		 * create layout manager for panel
+		 */
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
@@ -273,7 +281,9 @@ public class ValuedCustomer extends JPanel {
 			}
 		}
 
-		//mouse listener for update button, will send GUI to update customer Panel
+	/**
+	 *  mouse listener for update button, will send GUI to update customer Panel
+	 */
 		class updateListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -303,7 +313,9 @@ public class ValuedCustomer extends JPanel {
 			}
 		}
 
-		//mouse listener for add job button, will send GUI to add Job Panel
+		/**
+		 * mouse listener for add job button, will send GUI to add Job Panel
+		 */
 		class addJobListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -339,7 +351,9 @@ public class ValuedCustomer extends JPanel {
 			frame.setVisible(true);
 		}
 
-		//mouse listener for create Discount button, will add a pop up box with the panel CreateDiscountPlan
+		/**
+		 * mouse listener for create Discount button, will add a pop up box with the panel CreateDiscountPlan
+		 */
 		class createDiscountListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -375,10 +389,10 @@ public class ValuedCustomer extends JPanel {
 		}
 	}
 
-		/*
-		mouse listener for manage discount button, will send GUI to Flexible Panel,
-		Variable panel or a new pop up box for Fixed Discount depending on type of discount owned by customer
-		*/
+		/**
+		 *mouse listener for manage discount button, will send GUI to Flexible Panel,
+		 *Variable panel or a new pop up box for Fixed Discount depending on type of discount owned by customer
+		 */
 		class DiscountListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -419,7 +433,9 @@ public class ValuedCustomer extends JPanel {
 			}
 		}
 
-		//mouse listener for retrieve jobs button, will send gui to retrieveJobs panel
+		/**
+		 *mouse listener for retrieve jobs button, will send gui to retrieveJobs panel
+		 */
 		class retrieveListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -448,7 +464,9 @@ public class ValuedCustomer extends JPanel {
 		}
 	}
 
-		//mouse listener for menu button, will send gui back to menu
+		/**
+		 *mouse listener for menu button, will send gui back to menu
+		 */
 		class menuListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {

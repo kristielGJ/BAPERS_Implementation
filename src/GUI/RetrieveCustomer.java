@@ -9,14 +9,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-/**
- *
- * @author Jacob
- */
-
 public class RetrieveCustomer extends JPanel {
 
-	//private global variables in RetrieveCustomer
+	/**
+	 *private global variables in RetrieveCustomer
+	 */
 	private JLabel retrieveLabel;
 	private JTable customerTable;
 	private JButton backButton, retrieveButton, refresh, remove, newCust;
@@ -26,7 +23,13 @@ public class RetrieveCustomer extends JPanel {
 	private String[][] data;
 	private ArrayList<String[]> customers;
 
-	//constructor for panel, initialise components for panel, initalise global variables and add layout manager
+	/**
+	 * constructor for panel, initialise components for panel, initalise global variables and add layout manager
+	 * @param width
+	 * @param height
+	 * @param f
+	 * @param cT
+	 */
 	public RetrieveCustomer(int width, int height, GUI f, I_Bapers cT) {
 		this.f = f;
 		this.lastPanel = f.getCurrentPanel();
@@ -38,7 +41,9 @@ public class RetrieveCustomer extends JPanel {
 		setName("Customer Details");
 		setBackground(new Color(157, 195, 230));
 
-		//initialises components for panel
+		/**
+		 *initialises components for panel
+		 */
 		customerTable = new JTable();
 		String[] columnNames = {"Name", "Account no.", "Address", "Phone", "Customer Type", "Discount type", "Company"};
 		customerTable.setModel(new DefaultTableModel(columnNames,0) {
@@ -90,7 +95,9 @@ public class RetrieveCustomer extends JPanel {
 		newCust.setBackground(new Color(1, 23, 71));
 		newCust.setText("Add");
 
-		//layout manager for panel
+		/**
+		 *layout manager for panel
+		 */
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
@@ -135,7 +142,9 @@ public class RetrieveCustomer extends JPanel {
 		);
 	}
 
-	//back button listener, will send GUI back to last panel
+	/**
+	 * back button listener, will send GUI back to last panel
+	 */
 	class backListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -166,7 +175,9 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
-	//retrieve button listener, will retrieve customer details from selected row or if no row selected sends error message
+	/**
+	 * retrieve button listener, will retrieve customer details from selected row or if no row selected sends error message
+	 */
 	class retrieveListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -210,7 +221,9 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
-	//refresh button listener, will update data in table to latest version
+	/**
+	 * refresh button listener, will update data in table to latest version
+	 */
 	class refreshListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -240,7 +253,9 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
-	//remove button listener, will remove an entry from the table
+	/**
+	 * remove button listener, will remove an entry from the table
+	 */
 	class removeListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -273,7 +288,9 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
-	//add customer listener, will send GUI to createNewCustomer
+	/**
+	 * add customer listener, will send GUI to createNewCustomer
+	 */
 	class addListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -302,7 +319,10 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
-	//adds data from customer database to table
+	/**
+	 * adds data from customer database to table
+	 * @param table
+	 */
 	private void addData(JTable table){
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
 		model.setRowCount(0);

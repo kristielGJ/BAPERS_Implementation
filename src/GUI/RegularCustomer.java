@@ -5,21 +5,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- *
- * @author Jacob
- */
-
 public class RegularCustomer extends JPanel {
 
-	//private global variables in RegularCustomer
+	/**
+	 *	private global variables in RegularCustomer
+	 */
 	private String customerName, accNo, CustomerAddress, CustomerPhone,company, Valued;
 	private JLabel customer_name, Cust_company, acc_no, address, phone, custLabel, accLabel, companyLabel, addLabel, phoneLabel, custDetLabel, miniBapersLabel;
 	private JButton updateButton, addJobButton, backButton, menuButton, retrieveJob;
 	private GUI f;
 	private JPanel lastPanel;
 
-	//constructor for panel, initialise components for panel, initalise global variables and add layout manager
+	/**
+	 * constructor for panel, initialise components for panel, initalise global variables and add layout manager
+	 * @param width
+	 * @param height
+	 * @param customerData
+	 * @param f
+	 */
 	public RegularCustomer(int width, int height, String[] customerData, GUI f) {
 		this.customerName = customerData[0];
 		this.accNo = customerData[1];
@@ -36,8 +39,9 @@ public class RegularCustomer extends JPanel {
 		setBackground(new Color(157, 195, 230));
 		setLayout(null);
 
-
-		//initialises components for panel
+		/**
+		 *  initialises components for panel
+		 */
 		updateButton = new JButton();
 		updateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		updateButton.setForeground(Color.white);
@@ -123,7 +127,9 @@ public class RegularCustomer extends JPanel {
 		miniBapersLabel.setText("Bapers");
 
 
-		//layout manager for panel
+		/**
+		 *  layout manager for panel
+		 */
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
@@ -216,7 +222,9 @@ public class RegularCustomer extends JPanel {
 		);
 	}
 
-	//mouse listener for back button, returns to previous panel
+	/**
+	 mouse listener for back button, returns to previous panel
+	 */
 	class backListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -247,7 +255,9 @@ public class RegularCustomer extends JPanel {
 		}
 	}
 
-	//mouse listener for update button, will send GUI to update customer Panel
+	/**
+	 * mouse listener for update button, will send GUI to update customer Panel
+	 */
 	class updateListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -277,7 +287,9 @@ public class RegularCustomer extends JPanel {
 		}
 	}
 
-	//mouse listener for add job button, will send GUI to add Job Panel
+	/**
+	 * mouse listener for add job button, will send GUI to add Job Panel
+	 */
 	class addJobListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -306,7 +318,9 @@ public class RegularCustomer extends JPanel {
 		}
 	}
 
-	//mouse listener for retrieve jobs button, will send gui to retrieveJobs panel
+	/**
+	 * mouse listener for retrieve jobs button, will send gui to retrieveJobs panel
+	 */
 	class retrieveListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -335,7 +349,9 @@ public class RegularCustomer extends JPanel {
 		}
 	}
 
-	//mouse listener for menu button, returns to menu button
+	/**
+	 * mouse listener for menu button, returns to menu button
+	 */
 	class menuListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
