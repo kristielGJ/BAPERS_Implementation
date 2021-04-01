@@ -96,7 +96,7 @@ public interface I_Bapers {
 	String[] generateInvoice(int payment_ID);
 
 	//creates a new card payment
-	void createCard_payment(int payment_id, String card_type, String expiry_date, String last_digits, double payment_amount, Date date, int job_ID);
+	void createCard_payment(int payment_id, String card_type, String expiry_date, String last_digits, String security_code, double payment_amount, Date date, int job_ID);
 
 	//generates job sheet
 	ArrayList<JobPerformanceReport> generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_id);
