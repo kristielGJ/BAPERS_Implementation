@@ -433,6 +433,11 @@ public class Controller implements I_Bapers {
 		return TaskNames;
 	}
 
+	public String getDiscountRate(int acc_no){
+
+		return String.valueOf(fixedDiscount.getDiscountRate(acc_no));
+	}
+
 
 	@Override
 	public UserAccount getCurrentUser() { return currentUser; }
@@ -454,5 +459,7 @@ public class Controller implements I_Bapers {
 
 	public Controller() {
 	}
+
+
 
 }

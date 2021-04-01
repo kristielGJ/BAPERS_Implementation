@@ -157,4 +157,6 @@ public interface I_Bapers {
 	void removeAlert(Alert alert);
 
 	I_Job_Transaction getJob();
+
+	String getDiscountRate(int acc_no);
 }
