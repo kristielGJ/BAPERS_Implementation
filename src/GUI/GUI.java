@@ -35,10 +35,17 @@ public class GUI extends JFrame {
 		add(new Home(getWidth(),getHeight(), this, bapers));
 	}
 
+	/**
+	 * adds a new Panel of type CreateNewCustomer
+	 */
 	public void createNewCustomer() {
 		add(new CreateCustomerAccount(getWidth(),getHeight(), this, bapers));
 	}
 
+	/**
+	 * adds a new Panel of type RegularCustomer with customer data passed in an array
+	 * @param customerData
+	 */
 	public void regularCustomer(String[] customerData){
 		add(new RegularCustomer(getWidth(),getHeight(),customerData,this));
 	}
@@ -48,14 +55,25 @@ public class GUI extends JFrame {
 		add(new BackupManagementPanel(getWidth(),getHeight(), this));
 	}
 
+	/**
+	 * adds a new Panel of type ValuedCustomer with customer data passed in an array
+	 * @param customerData
+	 */
 	public void valuedCustomer(String[] customerData){
 		add(new ValuedCustomer(getWidth(),getHeight(),customerData,bapers,this));
 	}
 
+	/**
+	 * adds a new Panel of type UpdateCustomer with customer data passed in an array
+	 * @param customerData
+	 */
 	public void updateCustomer(String[] customerData){
 		add(new UpdateCustomerDetails(getWidth(),getHeight(),customerData,this, bapers));
 	}
 
+	/**
+	 * adds a new Panel of type RetrieveCustomer
+	 */
 	public void retrieveCustomer(){
 		add(new RetrieveCustomer(getWidth(),getHeight(),this, bapers));
 	}
