@@ -49,7 +49,7 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     Stm.setTime(5, Time.valueOf(to_time));
                     ResultSet rs1 = Stm.executeQuery();
                     while (rs1.next()){
-                        copy_room = Duration.between(rs1.getTimestamp(4).toLocalDateTime(), rs1.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                        copy_room = Duration.between(rs1.getTimestamp(3).toLocalDateTime(), rs1.getTimestamp(4).toLocalDateTime()).getSeconds() / 60;
                     }
                     rs1.close();
                 }
@@ -69,7 +69,7 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     Stm.setTime(5, Time.valueOf(to_time));
                     ResultSet rs2 = Stm.executeQuery();
                     while(rs2.next()){
-                        development = Duration.between(rs2.getTimestamp(4).toLocalDateTime(), rs2.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                        development = Duration.between(rs2.getTimestamp(3).toLocalDateTime(), rs2.getTimestamp(4).toLocalDateTime()).getSeconds() / 60;
                     }
                     rs2.close();
                 }
@@ -89,7 +89,7 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     Stm.setTime(5, Time.valueOf(to_time));
                     ResultSet rs3 = Stm.executeQuery();
                     while (rs3.next()){
-                        finishing = Duration.between(rs3.getTimestamp(4).toLocalDateTime(), rs3.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                        finishing = Duration.between(rs3.getTimestamp(3).toLocalDateTime(), rs3.getTimestamp(4).toLocalDateTime()).getSeconds() / 60;
                     }
                     rs3.close();
                 }
@@ -109,7 +109,7 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
                     Stm.setTime(5, Time.valueOf(to_time));
                     ResultSet rs4 = Stm.executeQuery();
                     while (rs4.next()){
-                        packing = Duration.between(rs4.getTimestamp(4).toLocalDateTime(), rs4.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                        packing = Duration.between(rs4.getTimestamp(3).toLocalDateTime(), rs4.getTimestamp(4).toLocalDateTime()).getSeconds() / 60;
                     }
                     rs4.close();
                 }
