@@ -52,6 +52,11 @@ public class GUI extends JFrame {
 		add(new RegularCustomer(getWidth(),getHeight(),customerData,this));
 	}
 
+
+	public void backupManagement() {
+		add(new BackupManagementPanel(getWidth(),getHeight(), this));
+	}
+
 	public void valuedCustomer(String[] customerData){
 		add(new ValuedCustomer(getWidth(),getHeight(),customerData,bapers,this));
 	}
@@ -193,5 +198,4 @@ public class GUI extends JFrame {
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 }
