@@ -50,8 +50,13 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-public class Controller implements I_Bapers {
+/**
+ * The main class which acts as a bridge between the database logic and the GUI.
+ * Things such as the main DB connection instance, transactions between database and client
+ * and schedulers (and their respective thread pools) are stored here.
+ */
 
+public class Controller implements I_Bapers {
 	private static final DB_Connection mainConn = new DB_Connection();
 	private I_FixedDiscountTransaction fixedDiscount = new FixedDiscountTransaction(mainConn);
 	private I_FlexibleDiscountTransaction flexibleDiscount = new FlexibleDiscountTransaction(mainConn);
@@ -72,13 +77,6 @@ public class Controller implements I_Bapers {
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private ArrayList<ScheduledAlert> loadedAlerts = new ArrayList<>();
 
-	public void main() {
-
-	}
-
-	/**
-	 *
-	 */
 	public Customer identifyCustomer(int Account_no){
 		return (Customer) customer.read(Account_no);
 	}
@@ -251,19 +249,29 @@ public class Controller implements I_Bapers {
 		loadAllAlerts(parent);
 	}
 
+	/**
+	 * Loads all alerts into the system.
+	 * Runs:
+	 * 	On GUI load
+	 * 	When Refresh Alerts is clicked
+	 * 	On creation of Jobs and Payments.
+	 * @param parent Takes a parent GUI frame to display a Popup box on.
+	 */
 	@Override
 	public void loadAllAlerts(JFrame parent) {
 		ArrayList<Alert> alerts = alertTransaction.getAll();
 		if (!alerts.isEmpty()) {
 			for (Alert alert : alerts) {
+				// Create a new shceduledAlert object.
 				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this, mainConn);
 				if (scheduledAlert.canRunAlert()) {
-					scheduledAlert.runAlert();
+					scheduledAlert.runAlert(); // Run the alrt.
 				}else{
 					System.out.println(alert.toString() + " is most likely already complete.");
-					scheduledAlert.removeFromLoadedAlerts();
+					scheduledAlert.removeFromLoadedAlerts(); // Remove the alert if it cannot run.
 				}
 			}
+			// Print all alerts for debugging and convenience in the console
 			for (ScheduledAlert scheduledAlert1 : getLoadedAlerts()) {
 				System.out.println(scheduledAlert1.toString() + " " + scheduledAlert1.getAlert().getTimeUntilExecutionInSeconds() + "s until execution.");
 			}
@@ -275,9 +283,16 @@ public class Controller implements I_Bapers {
 		return scheduler;
 	}
 
+	/**
+	 * Update a Staff Member using a UserAccountTransaction
+	 * @param values The values that will be updated from the GUI.
+	 * @return A boolean value which reflects the success of the action.
+	 */
 	@Override
 	public boolean updateStaffMember(Object[] values) {
 		try {
+			// Lengths are checked to see if a customer is a technician.
+			// If a customer is a technician, they will have one more argument.
 			if (values.length == 6) {
 				userAccountTransaction.update(
 						(int) values[0], (String) values[1],
@@ -299,6 +314,11 @@ public class Controller implements I_Bapers {
 		return false;
 	}
 
+	/**
+	 * Adds a Staff Member using a UserAccountTransaction.
+	 * @param values The values that will be added from the GUI.
+	 * @return A boolean value which reflects the success of the action.
+	 */
 	@Override
 	public boolean addStaffMember(String[] values) {
 		//TODO: Add verification
@@ -313,6 +333,11 @@ public class Controller implements I_Bapers {
 		return false;
 	}
 
+	/**
+	 * Removes a Staff Member using a UserAccountTransaction.
+	 * @param id The id from the GUI for the target Staff Account to be removed.
+	 * @return A boolean value which reflects the success of the action.
+	 */
 	@Override
 	public boolean removeStaffMember(int id) {
 		try {
@@ -322,12 +347,17 @@ public class Controller implements I_Bapers {
 		return false;
 	}
 
+	/**
+	 * Populates a table with Staff Account data.
+	 * @param table The table which will be populated.
+	 */
 	@Override
 	public void populateStaffTable(JTable table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 		ArrayList<UserAccount> userAccounts = userAccountTransaction.getAll();
 		for (UserAccount act : userAccounts) {
+			// Handle Technician differently, as their department needs to be displayed
 			if (act.getRole().equals("Technician")) {
 				String roleAndDepartment = act.getRole() + " (" + act.getDepartment() + ")";
 				model.addRow(new Object[] {
@@ -441,6 +471,13 @@ public class Controller implements I_Bapers {
 	@Override
 	public UserAccount getCurrentUser() { return currentUser; }
 
+	/**
+	 * Authenticate a user if their ID and Password match from the database.
+	 * On success, currentUser is set and used throughout the system.
+	 * @param id The ID to check.
+	 * @param password The password to check.
+	 * @return A boolean value reflecting the success of the action.
+	 */
 	@Override
 	public boolean authenticateUser(int id, String password) {
 		if (userAccountTransaction.authenticate(id, password) != null) {
@@ -451,14 +488,13 @@ public class Controller implements I_Bapers {
 		}
 	}
 
+	/**
+	 * Removes currentUser reflecting the Logout functionality.
+	 */
 	@Override
 	public void logout() {
 		currentUser = null;
 	}
 
-	public Controller() {
-	}
-
-
-
+	public Controller() { }
 }
