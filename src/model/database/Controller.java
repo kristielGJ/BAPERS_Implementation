@@ -45,14 +45,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 public class Controller implements I_Bapers {
 
@@ -421,6 +417,21 @@ public class Controller implements I_Bapers {
 				i++;
 			}
 		}
+	public ArrayList<String> ManageVariableTable(int acc_no) {
+		double price, newPrice, discount;
+		int id;
+		ArrayList<Integer> catalogId = new ArrayList<Integer>();
+		ArrayList<String> TaskNames = new ArrayList<String>();
+
+		catalogId = variableDiscount.getCatalog_IDs(acc_no);
+
+		for (int i = 0; i < catalogId.size(); i++){
+			//allows us to check if a task has already assigned a discount
+			id = catalogId.get(i);
+			TaskNames.add(variableDiscount.GetTaskName(id));
+		}
+		return TaskNames;
+	}
 
 
 	@Override
