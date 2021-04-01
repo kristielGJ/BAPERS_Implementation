@@ -18,18 +18,36 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public ExistingTasks_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-   //creating a new existing task
+    /**
+     * creating a new existing task
+     *
+     * @param task_description
+     * @param task_price
+     * @param task_duration
+     * @param department_name
+     */
     public void extendTaskList(String task_description, double task_price, int task_duration, String department_name){
         new ExistingTasks(1, task_description, task_price, task_duration, department_name);
         saveTask(task_description, task_price, task_duration, department_name);
     }
 
-    //saves the existing task in the database
+    /**
+     * saves the existing task in the database
+     *
+     * @param task_description
+     * @param task_price
+     * @param task_duration
+     * @param department_name
+     */
     public void saveTask(String task_description, double task_price, int task_duration, String department_name){
         try {
             Stm = conn.prepareStatement("INSERT INTO `bapers`.`Task_Catalog` (`Task_name`, `Price`, `Task_department`, `Task_duration`) VALUES (?,?,?,?) ");
@@ -44,7 +62,11 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
         }
     }
 
-    //remove the existing task from the database
+    /**
+     * remove the existing task from the database
+     *
+     * @param existing_task_ID
+     */
     public void removeExistingTask(int existing_task_ID) {
         try {
             Stm = conn.prepareStatement("DELETE FROM `bapers`.`Task_Catalog` WHERE Catalog_ID =?;");
@@ -56,7 +78,15 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
         }
     }
 
-   //updates the existing task details
+    /**
+     * updates the existing task details
+     *
+     * @param existing_task_ID
+     * @param task_name
+     * @param task_price
+     * @param task_duration
+     * @param department_name
+     */
     public void updateExistingTask(int existing_task_ID, String task_name, Double task_price, int task_duration, String department_name) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task_Catalog` SET Task_name = ?, Price = ?, Task_department = ?, Task_duration = ? WHERE Catalog_ID =?;");
@@ -72,7 +102,11 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
         }
     }
 
-    //returns a list of exiting tasks
+    /**
+     * returns a list of exiting tasks
+     *
+     * @return task_catalog_details
+     */
     public ArrayList<ExistingTasks> getExistingTasks() {
         ArrayList<ExistingTasks> task_catalog_details = null;
         try {
@@ -97,6 +131,11 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
         return task_catalog_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return existingTasks
+     */
     @Override
     public ExistingTasks read(int id) {
         ExistingTasks existingTasks = null;
@@ -120,6 +159,10 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
         return existingTasks;
     }
 
+    /**
+     *
+     * @return task_catalog_details
+     */
     @Override
     public ArrayList<ExistingTasks> getAll() {
         ArrayList<ExistingTasks> task_catalog_details = null;
@@ -145,6 +188,11 @@ public class ExistingTasks_Transaction implements I_ExistingTasks_Transaction {
         return task_catalog_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return removed
+     */
     @Override
     public boolean remove(int id) {
         boolean removed = false;

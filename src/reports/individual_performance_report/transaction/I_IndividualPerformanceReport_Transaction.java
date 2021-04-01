@@ -11,7 +11,11 @@ import java.util.ArrayList;
 
 public interface I_IndividualPerformanceReport_Transaction {
 
-    //generate individual performance report
+    /**
+     * generate individual performance report
+     * @param from_date
+     * @param to_date
+     */
     ArrayList<IndividualPerformanceReport> generateIndividualPerformance_Report(LocalDate from_date, LocalDate to_date);
 
 }

@@ -17,19 +17,39 @@ public class Payment_Transaction implements I_Payment_Transaction {
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public Payment_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //creates a new Payment
+    /**
+     * creates a new Payment
+     *
+     * @param payment_amount
+     * @param payment_type
+     * @param date
+     * @param job_ID
+     * @return
+     */
     public int makePayment(double payment_amount, String payment_type, Date date, int job_ID){
         new Payment(payment_amount, payment_type, date);
         int id = storePaymentDetails(payment_type, payment_amount, date, job_ID);
         return id;
     }
 
-    //store payment details in the database and returns the generated id
+    /**
+     * store payment details in the database and returns the generated id
+     *
+     * @param payment_type
+     * @param payment_amount
+     * @param date
+     * @param job_ID
+     * @return
+     */
     public int storePaymentDetails(String payment_type, Double payment_amount, Date date, int job_ID) {
         int id = -1;
         try {
@@ -63,7 +83,12 @@ public class Payment_Transaction implements I_Payment_Transaction {
         return id;
     }
 
-    //generates a invoice
+    /**
+     * generates a invoice
+     *
+     * @param payment_ID
+     * @return invoice_details
+     */
     public String[] generateInvoice(int payment_ID) {
         String[] invoice_details = new String[9];
         try {
@@ -103,6 +128,11 @@ public class Payment_Transaction implements I_Payment_Transaction {
         return invoice_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return payment
+     */
     @Override
     public Payment read(int id) {
         Payment payment = null;
@@ -124,6 +154,10 @@ public class Payment_Transaction implements I_Payment_Transaction {
         return payment;
     }
 
+    /**
+     *
+     * @return payment_details
+     */
     @Override
     public ArrayList<Payment> getAll() {
         ArrayList<Payment> payment_details = null;
@@ -147,6 +181,11 @@ public class Payment_Transaction implements I_Payment_Transaction {
         return payment_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return removed
+     */
     @Override
     public boolean remove(int id) {
         boolean removed = false;

@@ -19,12 +19,24 @@ public class SummaryPerformanceReport_Transaction implements I_SummaryPerformanc
     private LocalDate date;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public SummaryPerformanceReport_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //generates summary performance report
+    /**
+     * generates summary performance report
+     *
+     * @param from_date
+     * @param to_date
+     * @param from_time
+     * @param to_time
+     * @return
+     */
     public ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time) {
         ArrayList<SummaryPerformanceReport> report = null;
         date = from_date;

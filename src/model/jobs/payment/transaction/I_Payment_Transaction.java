@@ -13,12 +13,24 @@ import java.util.ArrayList;
 
 public interface I_Payment_Transaction extends Transaction {
 
-    //creates a new payment and return the generated id
+    /**
+     * creates a new payment and return the generated id
+     *
+     * @param payment_amount
+     * @param payment_type
+     * @param date
+     * @param job_ID
+     * @return
+     */
     int makePayment(double payment_amount, String payment_type, Date date, int job_ID);
 
-    //generate a invoice
+    /**
+     * generate a invoice
+     *
+     * @param payment_ID
+     */
     String[] generateInvoice(int payment_ID);
 
-    public ArrayList<Payment> getAll();
+    ArrayList<Payment> getAll();
 
 }
