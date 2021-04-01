@@ -24,7 +24,7 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
     }
 
     //adding the fixed discount rate
-    public void addFixedDiscountRate(int customer_acc_no, int discount_rate){
+    public void addFixedDiscountRate(int customer_acc_no, double discount_rate){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Customer` SET Fixed_discount = ? WHERE Account_no =?;");
             Stm.setDouble(1, discount_rate);

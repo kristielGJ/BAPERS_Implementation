@@ -124,11 +124,12 @@ public class GUI extends JFrame {
 		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
+	public void createDiscountPlan(int acc_no){
+		add (new CreateDiscountPlan(getWidth(), getHeight(), bapers,this, acc_no));
+	}
+
 	public void addTaskDiscount(int acc_no, String catalog_name){
 		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no, catalog_name));
-	}
-	public Component createDiscountPlan(int acc_no){
-		return add(new CreateDiscountPlan(bapers, this,acc_no));
 	}
 
 	public void fixedDiscount(int acc_no){

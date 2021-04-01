@@ -7,6 +7,7 @@ package GUI;/*
 import model.database.Controller;
 import model.database.I_Bapers;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 
 
@@ -87,9 +88,14 @@ public class AddTask extends javax.swing.JPanel {
 
         task_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         task_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.existingTasks()));
+        task_list_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                task_list_input(evt, technician_list_input);
+            }
+        });
 
         technician_list_input.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        technician_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.retrieveTechnicians()));
+        technician_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.retrieveTechnicians(String.valueOf(task_list_input.getSelectedItem()))));
 
         save_task_button.setBackground(new java.awt.Color(1, 23, 71));
         save_task_button.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
@@ -178,6 +184,10 @@ public class AddTask extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
+    }
+
+    private void task_list_input(ActionEvent evt, JComboBox technician_list_input){
+        technician_list_input.setModel(new javax.swing.DefaultComboBoxModel<>(bapers.retrieveTechnicians(String.valueOf(task_list_input.getSelectedItem()))));
     }
 
     //switch to previous panel

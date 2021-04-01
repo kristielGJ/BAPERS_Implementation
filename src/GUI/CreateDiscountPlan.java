@@ -22,7 +22,6 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
-    int acc_no;
     private static PreparedStatement Stm = null;
     private static DB_Connection conn = new DB_Connection();
 
@@ -30,13 +29,12 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     /**
      * Creates new form CreateDiscountPlan
      */
-    public CreateDiscountPlan(I_Bapers bapers,GUI f, int acc_no) {
-        this.acc_no=acc_no;
+    public CreateDiscountPlan(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
         this.f=f;
         this.lastPanel= f.getCurrentPanel();
         f.setCurrentPanel(this);
         this.bapers=bapers;
-        initComponents(bapers,f, acc_no);
+        initComponents(width, height, bapers,f, acc_no);
     }
 
     /**
@@ -46,37 +44,34 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(I_Bapers bapers,GUI f, int acc_no) {
+    private void initComponents(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
 
-        this.bapers = bapers;
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         DiscountTypeInput = new javax.swing.JComboBox<>();
         ApplyDiscountPlanChoice = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        manage_button = new javax.swing.JButton();
+        back_button = new javax.swing.JButton();
+        sign_out_button = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel2.setBackground(new java.awt.Color(157, 195, 230));
-        jPanel2.setMaximumSize(new java.awt.Dimension(400, 300));
-        jPanel2.setMinimumSize(new java.awt.Dimension(400, 300));
+        jPanel2.setMaximumSize(new java.awt.Dimension(800, 500));
+        jPanel2.setMinimumSize(new java.awt.Dimension(800, 500));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
         jLabel1.setText("Choose Discount Plan");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
         jLabel2.setText("Discount Type");
 
-        DiscountTypeInput.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DiscountTypeInput.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         DiscountTypeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Discount Plan", "Fixed", "Variable", "Flexible" }));
-        DiscountTypeInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DiscountTypeInputActionPerformed(evt);
-            }
-        });
 
         ApplyDiscountPlanChoice.setBackground(new java.awt.Color(1, 23, 71));
         ApplyDiscountPlanChoice.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -86,7 +81,7 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
         ApplyDiscountPlanChoice.setFocusPainted(false);
         ApplyDiscountPlanChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ApplyDiscountPlanChoiceActionPerformed(evt);
+                ApplyDiscountPlanChoiceActionPerformed(evt, acc_no);
             }
         });
 
@@ -94,58 +89,87 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
         jLabel3.setText("Bapers");
 
+        manage_button.setBackground(new java.awt.Color(1, 23, 71));
+        manage_button.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        manage_button.setForeground(new java.awt.Color(157, 195, 230));
+        manage_button.setText("Manage");
+        manage_button.setBorderPainted(false);
+
+        back_button.setBackground(new java.awt.Color(1, 23, 71));
+        back_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        back_button.setForeground(new java.awt.Color(157, 195, 230));
+        back_button.setText("Back");
+        back_button.setBorderPainted(false);
+
+        sign_out_button.setBackground(new java.awt.Color(1, 23, 71));
+        sign_out_button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        sign_out_button.setForeground(new java.awt.Color(157, 195, 230));
+        sign_out_button.setText("Sign Out");
+        sign_out_button.setBorderPainted(false);
+        sign_out_button.setFocusPainted(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(ApplyDiscountPlanChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addComponent(manage_button, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(ApplyDiscountPlanChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(369, 369, 369))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(91, 91, 91)
+                        .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(160, 160, 160))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(199, 199, 199))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(back_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sign_out_button)
+                .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(ApplyDiscountPlanChoice)
-                .addGap(41, 41, 41)
+                    .addComponent(sign_out_button)
+                    .addComponent(back_button))
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1)
+                .addGap(67, 67, 67)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DiscountTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ApplyDiscountPlanChoice)
+                    .addComponent(manage_button))
+                .addGap(84, 84, 84)
                 .addComponent(jLabel3)
-                .addContainerGap())
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -153,7 +177,7 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
 
     }
 
-    private void ApplyDiscountPlanChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyDiscountPlanChoiceActionPerformed
+    private void ApplyDiscountPlanChoiceActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_ApplyDiscountPlanChoiceActionPerformed
 
         if (!(DiscountTypeInput.getSelectedItem() == "Select Discount Plan")){
             try {
@@ -190,13 +214,33 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
 
     }//GEN-LAST:event_ApplyDiscountPlanChoiceActionPerformed
 
+    private void jButton1ActionPerformed(ActionEvent evt, int acc_no){
+        if (DiscountTypeInput.getSelectedItem()=="Fixed"){
+            final JDialog frame = new JDialog(f, "Update Status", true);
+            frame.getContentPane().add(new FixedDiscount(getWidth(), getHeight(),bapers,f, acc_no));
+            frame.pack();
+            frame.setVisible(true);
+        }
+        else if(DiscountTypeInput.getSelectedItem()=="Variable"){
+            f.variableDiscount(acc_no);
+            f.setVisible(true);
+        }
+        else if(DiscountTypeInput.getSelectedItem()=="Flexible") {
+            f.flexibleDiscount(acc_no);
+            f.setVisible(true);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyDiscountPlanChoice;
     private javax.swing.JComboBox<String> DiscountTypeInput;
+    private javax.swing.JButton back_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton manage_button;
+    private javax.swing.JButton sign_out_button;
     // End of variables declaration//GEN-END:variables
 }

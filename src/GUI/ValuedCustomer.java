@@ -200,7 +200,12 @@ public class ValuedCustomer extends JPanel {
 		);
 		}
 
-		class backListener implements MouseListener {
+	private void discountPlanButtonMouseClicked(MouseEvent evt, int acc_no) {
+		f.createDiscountPlan(acc_no);
+		f.setVisible(true);
+	}
+
+	class backListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				f.setLastPanel(lastPanel);
@@ -293,13 +298,12 @@ public class ValuedCustomer extends JPanel {
 			//PopUpBox pub = new PopUpBox(400,300,"Add Discount");
 			//pub.add(new CreateDiscountPlan(Integer.parseInt(accNo)));
 			//pub.add(f.createDiscountPlan(Integer.parseInt(accNo)));
-			final JDialog frame = new JDialog(f, "Add Discount", true);
-			frame.getContentPane().add(f.createDiscountPlan(Integer.parseInt(accNo)));
-			frame.pack();
-			frame.setVisible(true);
+			f.createDiscountPlan(Integer.parseInt(accNo));
+			f.setVisible(true);
 			//pub.setVisible(true);
 
 		}
+
 
 		@Override
 		public void mousePressed(MouseEvent e) {

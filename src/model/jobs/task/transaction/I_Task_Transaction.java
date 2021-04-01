@@ -21,7 +21,7 @@ public interface I_Task_Transaction extends Transaction {
     String[] retrieveExistingTasks();
 
     //returns a list of technician names
-    String[] retrieveTechnicians();
+    String[] retrieveTechnicians(String existing_task);
 
     //returns a list of task which are associated with the job
     ArrayList<Task_List> getAllTasks(int job_ID);
