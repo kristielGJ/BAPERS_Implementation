@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package GUI;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import model.database.I_Bapers;
 import model.discounts.flexible_discount.FlexibleDiscount;
 
@@ -88,11 +89,8 @@ public class VariableDiscount extends javax.swing.JPanel {
         BackButton.setText("Back");
         BackButton.setBorderPainted(false);
         BackButton.setFocusPainted(false);
-        BackButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                back_buttonMouseClicked(evt);
-            }
-        });
+        BackButton.addMouseListener(new backListener());
+
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
@@ -282,13 +280,37 @@ public class VariableDiscount extends javax.swing.JPanel {
         frame.pack();
         frame.setVisible(true);
     }
+    class backListener implements MouseListener{
 
-    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            setVisible(false);
+            f.setLastPanel(lastPanel);
+            f.getLastPanel().setVisible(true);
+            f.remove(f.getCurrentPanel());
+            f.setCurrentPanel(lastPanel);
+        }
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;

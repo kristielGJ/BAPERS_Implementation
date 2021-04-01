@@ -295,6 +295,7 @@ public class RetrieveCustomer extends JPanel {
 	//adds data from customer database to table
 	private void addData(JTable table){
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		model.setRowCount(0);
 		customers = cT.getAllCustomers();
 		data = cT.getCustomerData(customers);
 		for(String[] a : data){

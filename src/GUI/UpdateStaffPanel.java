@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class UpdateStaffPanel extends javax.swing.JPanel {
     private I_Bapers controller;
@@ -289,6 +289,16 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         String password = new String(jPasswordField1.getPassword());
         String role = (String) roleDropdown.getSelectedItem();
         String department = (String) technicianDropdown.getSelectedItem();
+
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please make sure all fields are filled out!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
         boolean updateStaffMember = false;
         if (role == "Technician") {
             updateStaffMember = controller.updateStaffMember(new Object[]{id, name, email, phone, password, role, department});

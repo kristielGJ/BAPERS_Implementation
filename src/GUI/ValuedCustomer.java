@@ -312,15 +312,23 @@ public class ValuedCustomer extends JPanel {
 			}
 		}
 
+		private void openDialog(JPanel panel, String title) {
+			final JDialog frame = new JDialog(f, title, true);
+			frame.getContentPane().add(panel);
+			frame.pack();
+			frame.setVisible(true);
+		}
+
 		//mouse listener for create Discount button, will add a pop up box with the panel CreateDiscountPlan
 		class createDiscountListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			//PopUpBox pub = new PopUpBox(400,300,"Add Discount");
-			//pub.add(new CreateDiscountPlan(Integer.parseInt(accNo)));
+			//pub.add(new CreateDiscountPlan());
+
 			//pub.add(f.createDiscountPlan(Integer.parseInt(accNo)));
-			f.createDiscountPlan(Integer.parseInt(accNo));
-			f.setVisible(true);
+			//f.createDiscountPlan(Integer.parseInt(accNo));
+			openDialog(new ChooseDiscountPlan(400, 300, bapers, f, Integer.parseInt(accNo)), "Create Discount Plan");
 			//pub.setVisible(true);
 
 		}
@@ -357,7 +365,7 @@ public class ValuedCustomer extends JPanel {
 				String discountType = bapers.getDiscountType(Integer.parseInt(accNo));
 				if (discountType.equals("Fixed")) {
 					PopUpBox pub = new PopUpBox(400, 300, "Fixed Discount");
-					pub.add(new FixedDiscount(400, 300, bapers, Integer.parseInt(accNo)));
+					pub.add(new FixedDiscount(400, 300, bapers, f, Integer.parseInt(accNo)));
 					pub.setVisible(true);
 				} else if (discountType.equals("Flexible")) {
 					f.flexibleDiscount(Integer.parseInt(accNo));

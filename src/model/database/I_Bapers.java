@@ -2,12 +2,14 @@ package model.database;
 
 import model.admin.alert.Alert;
 import model.admin.alert.ScheduledAlert;
+import model.admin.alert.transaction.AlertTransaction;
 import model.admin.userAccount.UserAccount;
 import model.customers.Customer;
 import model.discounts.flexible_discount.FlexibleDiscount;
 import model.discounts.variable_discount.VariableDiscount;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
+import model.jobs.job.transaction.I_Job_Transaction;
 import model.jobs.task.Task_List;
 import reports.individual_performance_report.IndividualPerformanceReport;
 import reports.job_performance_report.JobPerformanceReport;
@@ -44,9 +46,9 @@ public interface I_Bapers {
 
 	int getLastAccNo();
 
-	abstract void backup();
+	void backup();
 
-	abstract void restore();
+	void restore();
 
 	//creates a new job
 	void createJob(int job_ID, String job_desc, String priority, String job_status, int time, String special_instructions, int customer_account_no);
@@ -113,37 +115,48 @@ public interface I_Bapers {
 	ArrayList<VariableDiscount> getVariableDiscount(int customer_acc_no);
 
 	void removeFlexibleDiscount(int id);
-	public boolean removeVariableDiscount(int id, int acc_no);
+	boolean removeVariableDiscount(int id, int acc_no);
 
-	public void createFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);
-	public void updateFlexibleDiscount(int acc_no,int lowerBound,int UpperBound,double DiscountRate);
+	void createFlexibleDiscount(int acc_no, int lowerBound, int UpperBound, double DiscountRate);
+	void updateFlexibleDiscount(int acc_no, int lowerBound, int UpperBound, double DiscountRate);
 
-	public void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
-	public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
+	void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 
-	public void addFixedDiscountRate(int customer_acc_no, double discount_rate);
+	void updateDiscountPlan(int acc_no, String discountPlan);
 
-	public void populateStaffTable(JTable table);
+	void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 
-	public boolean updateStaffMember(Object[] values);
+	void addFixedDiscountRate(int customer_acc_no, double discount_rate);
 
-	public boolean addStaffMember(String[] values);
+	ArrayList<String> ManageVariableTable(int acc_no);
 
-	public boolean removeStaffMember(int id);
+	void populateStaffTable(JTable table);
 
-	public UserAccount getCurrentUser();
+	boolean updateStaffMember(Object[] values);
 
-	public boolean authenticateUser(int id, String password);
+	boolean addStaffMember(String[] values);
 
-	public void logout();
+	boolean removeStaffMember(int id);
 
-	public void loadAllAlerts(JFrame parent);
+	UserAccount getCurrentUser();
 
-	public void refreshAllAlerts(JFrame parent);
+	boolean authenticateUser(int id, String password);
 
-	public ScheduledExecutorService getScheduler();
+	void logout();
 
-	public ArrayList<ScheduledAlert> getLoadedAlerts();
+	void loadAllAlerts(JFrame parent);
 
-	public void removeAlert(Alert alert);
+	void refreshAllAlerts(JFrame parent);
+
+	AlertTransaction getAlertTransaction();
+
+	ScheduledExecutorService getScheduler();
+
+	ArrayList<ScheduledAlert> getLoadedAlerts();
+
+	void removeAlert(Alert alert);
+
+	I_Job_Transaction getJob();
+
+	String getDiscountRate(int acc_no);
 }

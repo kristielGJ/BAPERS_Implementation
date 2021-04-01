@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class BackupInterval extends javax.swing.JPanel {
 

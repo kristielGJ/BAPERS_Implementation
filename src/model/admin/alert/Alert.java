@@ -21,8 +21,7 @@ public class Alert extends Model {
 	public int getTimeUntilExecutionInSeconds() {
 		LocalDateTime alertTime = getTime();
 		LocalDateTime now = LocalDateTime.now();
-		int timeBetween =  (int) ChronoUnit.SECONDS.between(now, alertTime);
-		return timeBetween;
+		return (int) ChronoUnit.SECONDS.between(now, alertTime);
 	}
 
 	public String getName() {

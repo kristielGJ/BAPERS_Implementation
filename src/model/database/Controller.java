@@ -45,14 +45,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 public class Controller implements I_Bapers {
 
@@ -70,8 +66,8 @@ public class Controller implements I_Bapers {
 	private I_JobPerformanceReport_Transaction jobPerformanceReport = new JobPerformanceReport_Transaction(mainConn);
 	private I_SummaryPerformanceReport_Transaction summaryPerformanceReport = new SummaryPerformanceReport_Transaction(mainConn);
 	private I_CustomersTransaction customer = new CustomersTransaction(mainConn);
-	UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
-	AlertTransaction alertTransaction = new AlertTransaction(mainConn);
+	private UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
+	private AlertTransaction alertTransaction = new AlertTransaction(mainConn);
 	private UserAccount currentUser;
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private ArrayList<ScheduledAlert> loadedAlerts = new ArrayList<>();
@@ -181,6 +177,11 @@ public class Controller implements I_Bapers {
 		existingTask.extendTaskList(task_description, task_price, task_duration, department_name);
 	}
 
+	@Override
+	public AlertTransaction getAlertTransaction() {
+		return alertTransaction;
+	}
+
 	//returns a list of existing task with details
 	public ArrayList<ExistingTasks> getExistingTasks(){
 		return existingTask.getExistingTasks();
@@ -194,6 +195,11 @@ public class Controller implements I_Bapers {
 	//updates a existing task
 	public void updateExistingTask(int existing_task_ID, String task_name, Double task_price, int task_duration, String department_name){
 		existingTask.updateExistingTask(existing_task_ID, task_name, task_price, task_duration, department_name);
+	}
+
+	// Gets Job transaction instance
+	public I_Job_Transaction getJob() {
+		return job;
 	}
 
 	//creates a new payment
@@ -250,7 +256,7 @@ public class Controller implements I_Bapers {
 		ArrayList<Alert> alerts = alertTransaction.getAll();
 		if (!alerts.isEmpty()) {
 			for (Alert alert : alerts) {
-				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this);
+				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this, mainConn);
 				if (scheduledAlert.canRunAlert()) {
 					scheduledAlert.runAlert();
 				}else{
@@ -340,6 +346,12 @@ public class Controller implements I_Bapers {
 
 		}
 	}
+
+	@Override
+	public void updateDiscountPlan(int acc_no, String discountPlan) {
+		discount.assignDiscountType(acc_no, discountPlan);
+	}
+
 	public void addFixedDiscountRate(int customer_acc_no, double discount_rate){
 		fixedDiscount.addFixedDiscountRate(customer_acc_no,discount_rate);
 	}
@@ -370,9 +382,12 @@ public class Controller implements I_Bapers {
 	public ArrayList<VariableDiscount> getAllVariableDiscounts(int acc_no) {
 		return variableDiscount.getVariableDiscount(acc_no);
 	}
+
 	public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
 		variableDiscount.updateVariableDiscount( acc_no, discount_rate, catalog_name);
 	}
+
+
 
 	public void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
 		variableDiscount.addVariableDiscount(acc_no,  discount_rate, catalog_name);
@@ -402,6 +417,26 @@ public class Controller implements I_Bapers {
 				i++;
 			}
 		}
+	public ArrayList<String> ManageVariableTable(int acc_no) {
+		double price, newPrice, discount;
+		int id;
+		ArrayList<Integer> catalogId = new ArrayList<Integer>();
+		ArrayList<String> TaskNames = new ArrayList<String>();
+
+		catalogId = variableDiscount.getCatalog_IDs(acc_no);
+
+		for (int i = 0; i < catalogId.size(); i++){
+			//allows us to check if a task has already assigned a discount
+			id = catalogId.get(i);
+			TaskNames.add(variableDiscount.GetTaskName(id));
+		}
+		return TaskNames;
+	}
+
+	public String getDiscountRate(int acc_no){
+
+		return String.valueOf(fixedDiscount.getDiscountRate(acc_no));
+	}
 
 
 	@Override
@@ -424,5 +459,7 @@ public class Controller implements I_Bapers {
 
 	public Controller() {
 	}
+
+
 
 }
