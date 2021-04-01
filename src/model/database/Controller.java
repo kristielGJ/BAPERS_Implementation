@@ -213,8 +213,8 @@ public class Controller implements I_Bapers {
 	}
 
 	//creates a new card payment
-	public  void createCard_payment(int payment_id, String card_type, String expiry_date, String last_digits, double payment_amount, Date date, int job_ID){
-		card_payment.makeCard_payment(payment_id, payment_amount, card_type, expiry_date, last_digits, date, job_ID);
+	public  void createCard_payment(int payment_id, String card_type, String expiry_date, String last_digits, String security_code, double payment_amount, Date date, int job_ID){
+		card_payment.makeCard_payment(payment_id, payment_amount, card_type, expiry_date, last_digits, security_code, date, job_ID);
 	}
 
 	//generates job sheet
