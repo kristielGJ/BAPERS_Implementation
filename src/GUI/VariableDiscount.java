@@ -15,6 +15,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
+ * Allows Managment of Variable Discounts of a valued customer
+ * Displays a table with all data a customer has once a "manage discount" button is clickd on the Valued Customer Gui Frame
+ * allows the user to add new discounts, delete discounts and update existing discounts
+ * Also allows the user to go back to the previous page
+ * Also alows the user to refresh the page to update the table that populates using the database
  *
  * @author Gera
  */

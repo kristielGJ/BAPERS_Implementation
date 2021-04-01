@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 /**
+ * Pop up window that allows the user to Update a row that has a flexible discount plan to a customer
+ * Bounds and a discount rate are set here
+ * Changes an existing Discount plan
  *
  * @author Gera
  */

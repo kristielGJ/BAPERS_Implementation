@@ -10,6 +10,8 @@ import model.database.I_Bapers;
 import javax.swing.*;
 
 /**
+ *  Allows the user to view the current set discount rate or update it
+ *  A popup window
  *
  * @author Gera
  */
@@ -154,6 +156,14 @@ public class FixedDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Calls the apropriate i_Bapers method that is connected to other interfaces in the discount package
+     * allows us to use a method in the Fixed discount class (model package)
+     *
+     * updates and creates a fixed discount rate
+     *
+     * @param evt
+     */
     private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
         if (!EnterDiscountRate.getText().isEmpty()){
             Double.parseDouble(EnterDiscountRate.getText());

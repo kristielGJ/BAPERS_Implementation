@@ -14,7 +14,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- *
+ * Allows Managment of Flexible Discounts of a valued customer
+ * Displays a table with all data a customer has once a "manage discount" button is clickd on the Valued Customer Gui Frame
+ * allows the user to add new discounts, delete discounts and update existing discounts
+ * Also allows the user to go back to the previous page
+ * Also alows the user to refresh the page to update the table that populates using the database
  * @author Gera
  */
 public class FlexibleDiscount extends javax.swing.JPanel {
@@ -216,6 +220,12 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Opend the EditFlexibleDiscount Gui form
+     * @param evt
+     * @param table
+     * @param acc_no
+     */
     private void UpdateBoundButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int acc_no) {//GEN-FIRST:event_UpdateBoundButtonActionPerformed
         try
         {
@@ -238,10 +248,21 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_UpdateBoundButtonActionPerformed
 
+    /**
+     * Populates the table with data fresh from the database (updates new changes)
+     * @param evt
+     * @param table
+     * @param customer_acc_no
+     */
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int customer_acc_no) {
         populateTable(table, acc_no);
     }
 
+    /**
+     * Populates the table with info from the database
+     * @param table
+     * @param customer_acc_no
+     */
     private void populateTable(JTable table, int customer_acc_no){
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
@@ -252,6 +273,12 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         table.setModel(model);
     }
 
+    /**
+     * Deletes a row from the table on screen since the database erases the selected row's data
+     * @param evt
+     * @param table
+     * @param acc_no
+     */
     private void DeleteBoundButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int acc_no) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
         try
         {
@@ -270,6 +297,11 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_DeleteBoundButtonActionPerformed
 
+    /**
+     * Opens the AddFlexibleDiscount Gui frame
+     * @param evt
+     * @param acc_no
+     */
     private void AddNewButton2ActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_AddNewButton2ActionPerformed
         final JDialog frame = new JDialog(f, "Add Task", true);
         frame.getContentPane().add(new AddFlexibleDiscount(acc_no, bapers, FlexibleDiscountTable, f));
@@ -277,6 +309,10 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         frame.setVisible(true);
     }//GEN-LAST:event_AddNewButton2ActionPerformed
 
+    /**
+     * Goes to the previous frame
+     * @param evt
+     */
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
         setVisible(false);
         f.setLastPanel(lastPanel);

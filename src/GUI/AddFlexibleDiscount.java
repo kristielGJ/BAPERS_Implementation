@@ -10,11 +10,13 @@ import model.discounts.flexible_discount.FlexibleDiscount;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
+ * Pop up window that allows the user to Create a row that has a flexible discount plan of a customer
+ * Bounds and a discount rate are set here
+ * Creates a new Flexible Discount
  *
  * @author Gera
  */
@@ -26,6 +28,12 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
     int acc_no;
     /**
      * Creates new form AddFlexibleDiscount
+     *
+     * @param acc_no
+     * @param bapers
+     * @param f
+     * @param flexibleDiscountTable
+     *
      */
     public AddFlexibleDiscount(int acc_no, I_Bapers bapers, JTable flexibleDiscountTable, GUI f) {
         this.flexibleDiscountTable = flexibleDiscountTable;
@@ -209,6 +217,12 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_LowerBoundActionPerformed
 
+    /**
+     * Adds a new row to the table in FlexibleDiscount (in the GUI package) with the bounds entered in the prompt boxes
+     *
+     * @param table
+     * @param customer_acc_no
+     */
     private void populateTable(JTable table, int customer_acc_no){
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
@@ -219,9 +233,20 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         table.setModel(model);
     }
 
+    /**
+     * Updates the database by adding a new flexible discount to the respective tables
+     * acesses the sql statements through I_bapers which is an interface for controller
+     *
+     * I_bapers also allows access to te Flexible Discount classes where the methods use below are written
+     *
+     * Displays an error message if the fields are not entered
+     *
+     * @param evt
+     * @param acc_no
+     */
     private void ApplyButtonMouseClicked(MouseEvent evt, int acc_no){
         if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()){
-            //apply the flexible discount (create if the button pressed before was add new, update if update button was pressed)
+
             bapers.createFlexibleDiscount(acc_no,Integer.parseInt(LowerBound.getText()),Integer.parseInt(UpperBound.getText()),Double.parseDouble(EnterDiscountRate.getText()));
         }
         else if(!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && UpperBound.getText().isEmpty()){

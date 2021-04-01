@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 /**
+ * Creates a New Task discount in the database and updates the Jtable on the
  *
  * @author Gera
  */
@@ -26,6 +27,13 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
 
     /**
      * Creates new form AddNewTaskDiscount
+     *
+     * @param acc_no
+     * @param bapers
+     * @param f
+     * @param width
+     * @param height
+     *
      */
     public AddNewTaskDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
         this.acc_no=acc_no;
@@ -156,6 +164,13 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Checks if a task has an assigned discount, if it does a discount cannot be applied (error popup)
+     *  If the task has no discount assigned to it , a new Discount is added and associated with the chsen task from the dropdown
+     *
+     * @param evt
+     * @param acc_no
+     */
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_UpdateButtonActionPerformed
         ArrayList<String> TaskNames = new ArrayList<String>();
         TaskNames=bapers.ManageVariableTable(acc_no);

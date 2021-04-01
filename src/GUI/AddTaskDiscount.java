@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 
-/**
+/** Updates the database and an existing task discount rate on the Jtable displayed in VariableDiscount
  *
  * @author Gera
  */
@@ -133,6 +133,13 @@ public class AddTaskDiscount extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Adds a discount rate , uses the I_bapers interface t get the needed method
+     *
+     * @param evt
+     * @param acc_no
+     * @param catalog_name
+     */
     private void ApplyButtonMouseClicked(MouseEvent evt, int acc_no, String catalog_name){
         if (!EnterDiscountRate2.getText().isEmpty()){
             bapers.updateVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate2.getText()), catalog_name);
