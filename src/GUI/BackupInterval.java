@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * This is the GUI for changing the Backup Inerval in BackupManagement.
  * @author Mushfikur
  */
 public class BackupInterval extends javax.swing.JPanel {
@@ -21,7 +21,7 @@ public class BackupInterval extends javax.swing.JPanel {
     private BackupManager backupManager;
 
     /**
-     * Creates new form AddStaff
+     * Creates new form BackupInterval
      */
     public BackupInterval(JTable backupTable, BackupManager backupManager) {
         this.backupTable = backupTable;
@@ -29,6 +29,7 @@ public class BackupInterval extends javax.swing.JPanel {
         initComponents();
     }
 
+    // Auto generated code for the GUI.
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
@@ -104,6 +105,9 @@ public class BackupInterval extends javax.swing.JPanel {
         );
     }
 
+    /**
+     * Closes the JDialog that it belongs to.
+     */
     private void close() {
         JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
         frame.dispose();

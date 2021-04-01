@@ -23,11 +23,10 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- *
+ * This class is for the GUI that displays the Backup Management.
  * @author Mushfikur
  */
 public class BackupManagementPanel extends javax.swing.JPanel {
-
     BackupManager backupManager = new BackupManager();
     private int width;
     private int height;
@@ -46,6 +45,7 @@ public class BackupManagementPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    // Auto generated
     private void initComponents() {
 
         restoreButton = new javax.swing.JButton();
@@ -203,8 +203,8 @@ public class BackupManagementPanel extends javax.swing.JPanel {
                                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(57, 57, 57))
         );
-        populateTable();
-    }// </editor-fold>
+        populateTable();  // Populates the table with backups.
+    }
 
     private void ascendingComboBoxActionPerformed(ActionEvent e) {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(backupTable.getModel());
@@ -225,6 +225,7 @@ public class BackupManagementPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) backupTable.getModel();
         model.setRowCount(0);
         for (BackupJob job : backupManager.getAllBackups()) {
+            // This formats the date to be well presented in a shorter format.
             DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                             .withLocale( Locale.UK )
                             .withZone( ZoneId.systemDefault() );
@@ -241,6 +242,7 @@ public class BackupManagementPanel extends javax.swing.JPanel {
     }
 
     private void removeButtonActionPerformed(ActionEvent evt) {
+        // Checks if something is actually selected in the table.
         if (backupTable.getSelectedRow() != -1) {
             String id = (String) getRow(backupTable.getSelectedRow())[0];
             if (!backupManager.abortBackup(id)) {
@@ -265,7 +267,7 @@ public class BackupManagementPanel extends javax.swing.JPanel {
     }
 
     private void backButtonActionPerformed(ActionEvent evt) {
-        if (lastPanel == null) return;
+        if (lastPanel == null) return;  // If the last panel is null, dont execute the rest of the code.
         f.setLastPanel(lastPanel);
         f.getLastPanel().setVisible(true);
         f.remove(f.getCurrentPanel());
@@ -277,6 +279,11 @@ public class BackupManagementPanel extends javax.swing.JPanel {
         populateTable();
     }
 
+    /**
+     * Gets all the values in a row.
+     * @param row The respective row that you want to retrieve the values for
+     * @return All the data in the row (may need to be casted to actual type).
+     */
     private Object[] getRow(int row) {
         Object[] rowData = new Object[backupTable.getColumnCount()];
         for (int i = 0; i < backupTable.getColumnCount(); i++) {
@@ -307,6 +314,11 @@ public class BackupManagementPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Function that setups the creation of a JDialog and adds the panel to it.
+     * @param panel The panel to add to the JDialog
+     * @param title The title of the dialog box.
+     */
     private void openDialog(JPanel panel, String title) {
         final JDialog frame = new JDialog(f, title, true);
         frame.getContentPane().add(panel);

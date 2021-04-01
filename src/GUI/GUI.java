@@ -27,18 +27,9 @@ public class GUI extends JFrame {
 		add(new LoginPanel(getWidth(), getHeight(), this, bapers));
 	}
 
+	// Handles the transition into the Staff Management panel.
 	public void staffManagement() {
 		add(new StaffManagementPanel(getWidth(), getHeight(), this, bapers));
-	}
-
-	public void logout() {
-		// TODO - implement GUI.logout
-		throw new UnsupportedOperationException();
-	}
-
-	public String findCustomer(String data) {
-		// TODO - implement GUI.findCustomer
-		throw new UnsupportedOperationException();
 	}
 
 	public void home(){
@@ -57,7 +48,7 @@ public class GUI extends JFrame {
 		add(new RegularCustomer(getWidth(),getHeight(),customerData,this));
 	}
 
-
+	// Handles the transition into the Backup Management panel.
 	public void backupManagement() {
 		add(new BackupManagementPanel(getWidth(),getHeight(), this));
 	}

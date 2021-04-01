@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * This is the GUI for logging in presented at the start of the program.
  * @author Mushfikur
  */
 public class LoginPanel extends javax.swing.JPanel {

@@ -12,8 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author  Mushfikur
+ *@author  Mushfikur
+ * This is the GUI for Adding staff in Staff Management
  */
 public class AddStaffPanel extends JPanel {
     private I_Bapers controller;
@@ -218,6 +218,7 @@ public class AddStaffPanel extends JPanel {
         String role = (String) roleDropdown.getSelectedItem();
         String department = (String) TechnicianComboBox.getSelectedItem();
 
+        // This checks if the fields are empty, and displays a dialog box to warn the user there is one empty.
         if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(
                     this,
@@ -226,17 +227,18 @@ public class AddStaffPanel extends JPanel {
             );
             return;
         }
-        boolean addStaffMember = false;
+
+        boolean addStaffMember = false;  // This boolean is used to model the success rate of adding a staff member.
         if (role == "Technician") {
             addStaffMember = controller.addStaffMember(new String[]{name, email, phone, password, role, department});
         }else{
             addStaffMember = controller.addStaffMember(new String[]{name, email, phone, password, role});
         }
 
-        if (addStaffMember) {
+        if (addStaffMember) { // On success..
             clearAllInputFields();
-            controller.populateStaffTable(staffTable);
-        }else{
+            controller.populateStaffTable(staffTable); // This refreshes the staff table
+        }else{ // On failure..
             JOptionPane.showMessageDialog(
                     this,
                     "There was an error with your addition",

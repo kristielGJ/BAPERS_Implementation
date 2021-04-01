@@ -1,7 +1,5 @@
 package model.database;
 
-import model.database.Secrets;
-
 import java.sql.*;
 
 /**
@@ -36,7 +34,6 @@ public class DB_Connection implements DB_Connectivity {
 
 	/**
 	 * Creates a connection to the model.database.
-	 * TODO: Remove this from interface, as it is only called when an instance is created.
 	 * @return Connection, which can be queried/updated.
 	 */
 	public Connection connect() {
