@@ -21,12 +21,21 @@ public class IndividualPerformanceReport_Transaction implements I_IndividualPerf
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public IndividualPerformanceReport_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //generates individual performance report
+    /**
+     * generates individual performance report
+     *
+     * @param from_date
+     * @param to_date
+     */
     public ArrayList<IndividualPerformanceReport> generateIndividualPerformance_Report(LocalDate from_date, LocalDate to_date) {
         ArrayList<IndividualPerformanceReport> report = null;
         try {

@@ -15,14 +15,22 @@ public class Payment extends Model {
 	private String payment_type;
 	private Date date;
 
-	//constructor
+	/**
+	 * constructor
+	 *
+	 * @param new_payment_amount
+	 * @param new_payment_type
+	 * @param new_date
+	 */
 	public Payment(double new_payment_amount, String new_payment_type, Date new_date) {
 		payment_amount = new_payment_amount;
 		payment_type = new_payment_type;
 		date = new_date;
 	}
 
-	//setters and getters
+	/**
+	 *setters and getters
+	 */
 	public void setPayment_amount(double payment_amount) {
 		this.payment_amount = payment_amount;
 	}

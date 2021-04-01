@@ -19,13 +19,25 @@ public class Task_Transaction implements I_Task_Transaction {
     private Connection conn;
     private I_DiscountTransaction discount;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     * @param discount
+     */
     public Task_Transaction(DB_Connection conn, I_DiscountTransaction discount){
         this.conn = conn.getConn();
         this.discount = discount;
     }
 
-    //creates a new Task
+    /**
+     * creates a new Task
+     *
+     * @param existing_task
+     * @param Job_ID
+     * @param technician
+     * @param task_status
+     */
     public void addTask(String existing_task, int Job_ID, String technician, String task_status) {
         int ExistingTask_ID = 0;
         int user_ID = 0;
@@ -53,7 +65,14 @@ public class Task_Transaction implements I_Task_Transaction {
         storeTaskDetails(ExistingTask_ID, Job_ID, user_ID, task_status);
     }
 
-    //store task details in the database
+    /**
+     * store task details in the database
+     *
+     * @param ExistingTask_ID
+     * @param Job_ID
+     * @param user_ID
+     * @param task_status
+     */
     public void storeTaskDetails(int ExistingTask_ID, int Job_ID, int user_ID, String task_status) {
         try {
             Stm = conn.prepareStatement("INSERT INTO `bapers`.`Task` (`Task_status`,`Task_start`, `User_accountUser_ID`,`Task_CatalogCatalog_ID`, `JobJob_ID`) VALUES (?,?,?,?,?) ");
@@ -71,7 +90,12 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    //updates the task status in the database
+    /**
+     * updates the task status in the database
+     *
+     * @param Task_ID
+     * @param Task_status
+     */
     public void updateTaskStatus(int Task_ID, String Task_status) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_status = ? WHERE Task_ID =?;");
@@ -92,7 +116,12 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    //calculates the sub total price of a job
+    /**
+     * calculates the sub total price of a job
+     *
+     * @param job_ID
+     * @param ExistingTask_ID
+     */
     public void calculateSub_price(int job_ID, int ExistingTask_ID){
         try {
             double task_price = 0;
@@ -128,7 +157,11 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    //stores the start_time of the task in the database
+    /**
+     * stores the start_time of the task in the database
+     *
+     * @param Task_ID
+     */
     public void start( int Task_ID) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_start = ? WHERE Task_ID =?;");
@@ -141,7 +174,11 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    //stores the finish_time of the task in the database
+    /**
+     * stores the finish_time of the task in the database
+     *
+     * @param Task_ID
+     */
     public void finish( int Task_ID) {
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Task` SET Task_completion = ? WHERE Task_ID =?;");
@@ -154,7 +191,11 @@ public class Task_Transaction implements I_Task_Transaction {
         }
     }
 
-    //returns a list of existing task names
+    /**
+     * returns a list of existing task names
+     *
+     * @return tasks
+     */
     public String[] retrieveExistingTasks(){
         int i = 1;
         String[] tasks = new String[0];
@@ -183,7 +224,12 @@ public class Task_Transaction implements I_Task_Transaction {
         return tasks;
     }
 
-    //returns a list of technician names
+    /**
+     * returns a list of technician names
+     *
+     * @param existing_task
+     * @return technician
+     */
     public String[] retrieveTechnicians(String existing_task){
         int i = 1;
         String department = null;
@@ -222,7 +268,12 @@ public class Task_Transaction implements I_Task_Transaction {
         return technician;
     }
 
-    //returns a list of task which are associated with the job
+    /**
+     * returns a list of task which are associated with the job
+     *
+     * @param job_ID
+     * @return task_details
+     */
     public ArrayList<Task_List> getAllTasks(int job_ID) {
         ArrayList<Task_List> task_details = null;
         try {
@@ -255,6 +306,11 @@ public class Task_Transaction implements I_Task_Transaction {
         return task_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return task
+     */
     @Override
     public Task read(int id) {
         Task task = null;
@@ -274,6 +330,11 @@ public class Task_Transaction implements I_Task_Transaction {
         return task;
     }
 
+    /**
+     *
+     * @param id
+     * @return removed
+     */
     @Override
     public boolean remove(int id) {
         boolean removed = false;
