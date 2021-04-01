@@ -1,6 +1,5 @@
 package model.admin.userAccount.transaction;
 
-import model.Model;
 import model.Utils;
 import model.admin.userAccount.UserAccount;
 import model.database.DB_Connection;
@@ -32,6 +31,31 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
             st.executeUpdate();
             int id = Utils.getGeneratedKey(st);
             account = new UserAccount(id, name, email, phone, password, role);
+            st.close();
+            System.out.println("Created " + account.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @Override
+    public UserAccount create(String name, String email, String phone, String password, String role, String department) {
+        UserAccount account = null;
+        try {
+            PreparedStatement st = conn.prepareStatement(
+                    "INSERT INTO User_account (name, email, phone, password, role, department) VALUES (?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            );
+            st.setString(1, name);
+            st.setString(2, email);
+            st.setString(3, phone);
+            st.setString(4, password);
+            st.setString(5, role);
+            st.setString(6, department);
+            st.executeUpdate();
+            int id = Utils.getGeneratedKey(st);
+            account = new UserAccount(id, name, email, phone, password, role, department);
             st.close();
             System.out.println("Created " + account.toString());
         } catch (Exception e) {
@@ -113,6 +137,29 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
     }
 
     @Override
+    public UserAccount update(int id, String name, String email, String phone, String password, String role, String department) {
+        UserAccount account = null;
+        try {
+            PreparedStatement st = conn.prepareStatement(
+                    "UPDATE User_account SET name=?, email=?, phone=?, role=?, department=? WHERE user_account_id=?");
+            st.setString(1, name);
+            st.setString(2, email);
+            st.setString(3, phone);
+            st.setString(4, role);
+            st.setString(5, department);
+            st.setInt(6, id);
+            st.executeUpdate();
+            account = new UserAccount(id, name, email, phone, password, role, department);
+            st.close();
+            System.out.println("Updated " + account.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+
+    @Override
     public ArrayList<UserAccount> getAll() {
         ArrayList<UserAccount> accounts = null;
         try {
@@ -126,7 +173,8 @@ public class UserAccountTransaction implements I_UserAccountTransaction {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6)
+                        rs.getString(6),
+                        rs.getString(7)
                 );
                 accounts.add(account);
             }

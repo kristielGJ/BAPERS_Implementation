@@ -272,11 +272,20 @@ public class Controller implements I_Bapers {
 	@Override
 	public boolean updateStaffMember(Object[] values) {
 		try {
-			userAccountTransaction.update(
-					(int) values[0], (String) values[1],
-					(String) values[2], (String) values[3],
-					(String) values[4], (String) values[5]
-			);
+			if (values.length == 6) {
+				userAccountTransaction.update(
+						(int) values[0], (String) values[1],
+						(String) values[2], (String) values[3],
+						(String) values[4], (String) values[5]
+				);
+			}else if (values.length == 7) {
+				userAccountTransaction.update(
+						(int) values[0], (String) values[1],
+						(String) values[2], (String) values[3],
+						(String) values[4], (String) values[5],
+						(String) values[6]
+				);
+			}
 			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -288,7 +297,11 @@ public class Controller implements I_Bapers {
 	public boolean addStaffMember(String[] values) {
 		//TODO: Add verification
 		try {
-			userAccountTransaction.create(values[0], values[1], values[2], values[3], values[4]);
+			if (values.length == 5) {
+				userAccountTransaction.create(values[0], values[1], values[2], values[3], values[4]);
+			}else if (values.length == 6) {
+				userAccountTransaction.create(values[0], values[1], values[2], values[3], values[4], values[5]);
+			}
 			return true;
 		} catch (Exception e) { e.printStackTrace(); }
 		return false;
@@ -309,11 +322,22 @@ public class Controller implements I_Bapers {
 		model.setRowCount(0);
 		ArrayList<UserAccount> userAccounts = userAccountTransaction.getAll();
 		for (UserAccount act : userAccounts) {
-			model.addRow(new Object[] {
-					act.getId(), act.getName(),
-					act.getEmail(), act.getPhone(),
-					act.getRole()
-			});
+			if (act.getRole().equals("Technician")) {
+				String roleAndDepartment = act.getRole() + " (" + act.getDepartment() + ")";
+				model.addRow(new Object[] {
+						act.getId(), act.getName(),
+						act.getEmail(), act.getPhone(),
+						roleAndDepartment
+				});
+			}else{
+				System.out.println(act.getName());
+				model.addRow(new Object[] {
+						act.getId(), act.getName(),
+						act.getEmail(), act.getPhone(),
+						act.getRole()
+				});
+			}
+
 		}
 	}
 	public void addFixedDiscountRate(int customer_acc_no, int discount_rate){
