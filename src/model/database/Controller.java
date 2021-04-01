@@ -336,7 +336,6 @@ public class Controller implements I_Bapers {
 						roleAndDepartment
 				});
 			}else{
-				System.out.println(act.getName());
 				model.addRow(new Object[] {
 						act.getId(), act.getName(),
 						act.getEmail(), act.getPhone(),

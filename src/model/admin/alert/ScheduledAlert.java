@@ -50,9 +50,11 @@ public class ScheduledAlert {
             PreparedStatement st = conn.prepareStatement("SELECT Payment_deadline FROM Job WHERE Job_ID = ?");
             st.setInt(1, jobId);
             ResultSet rs = st.executeQuery();
-            paymentDeadline = rs.getTimestamp("Payment_deadline");
-            rs.close();
-            st.close();
+            while (rs.next()) {
+                paymentDeadline = rs.getTimestamp("Payment_deadline");
+                rs.close();
+                st.close();
+            }
         } catch (Exception e) { e.printStackTrace(); }
         return paymentDeadline;
     }
@@ -63,21 +65,21 @@ public class ScheduledAlert {
     }
 
     Runnable alertRunner = () -> {
+        Job job = (Job) controller.getJob().read(alert.getJobId());
         if (alert.getName().equals("job")) {
             if (controller.getCurrentUser().getRole().equals("Shift Manager") || controller.getCurrentUser().getRole().equals("Office Manager")) {
                 JOptionPane.showMessageDialog(
                         parentPanel,
-                        "Job deadline has been reached!",
+                        "Job " + job.getJob_ID() + " deadline has been reached!",
                         "BAPERS", JOptionPane.WARNING_MESSAGE
                 );
             }
         }else if (alert.getName().equals("payment")) {
             if (controller.getCurrentUser().getRole().equals("Shift Manager") || controller.getCurrentUser().getRole().equals("Office Manager")) {
-                Job job = (Job) controller.getJob().read(alert.getJobId());
                 if (!job.getJob_status().equals("Completed")) {
                     JOptionPane.showMessageDialog(
                             parentPanel,
-                            "Payment deadline requires payment!",
+                            "Job " + job.getJob_ID()  + " deadline requires payment!",
                             "BAPERS", JOptionPane.WARNING_MESSAGE
                     );
                     LocalDateTime newTime = getPaymentDeadlineFromJobId(alert.getJobId()).toLocalDateTime().plusMinutes(15);
@@ -85,7 +87,7 @@ public class ScheduledAlert {
                 }else{
                     JOptionPane.showMessageDialog(
                             parentPanel,
-                            "Payment deadline has been reached!",
+                            "Job " + job.getJob_ID()  + " has received payment!",
                             "BAPERS", JOptionPane.WARNING_MESSAGE
                     );
                 }
