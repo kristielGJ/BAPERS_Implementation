@@ -37,7 +37,7 @@ public class ScheduledAlert {
         }
     }
 
-    private void removeFromLoadedAlerts() {
+    public void removeFromLoadedAlerts() {
         controller.removeAlert(getAlert());
         controller.getLoadedAlerts().remove(this);
     }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class RetrieveCustomer extends JPanel {
 
+	//private global variables in RetrieveCustomer
 	private JLabel retrieveLabel;
 	private JTable customerTable;
 	private JButton backButton, retrieveButton, refresh, remove, newCust;
@@ -20,6 +21,7 @@ public class RetrieveCustomer extends JPanel {
 	private String[][] data;
 	private ArrayList<String[]> customers;
 
+	//constructor for panel, initialise components for panel, initalise global variables and add layout manager
 	public RetrieveCustomer(int width, int height, GUI f, I_Bapers cT) {
 		this.f = f;
 		this.lastPanel = f.getCurrentPanel();
@@ -31,6 +33,7 @@ public class RetrieveCustomer extends JPanel {
 		setName("Customer Details");
 		setBackground(new Color(157, 195, 230));
 
+		//initialises components for panel
 		customerTable = new JTable();
 		String[] columnNames = {"Name", "Account no.", "Address", "Phone", "Customer Type", "Discount type"};
 		customerTable.setModel(new DefaultTableModel(columnNames,0) {
@@ -82,6 +85,7 @@ public class RetrieveCustomer extends JPanel {
 		newCust.setBackground(new Color(1, 23, 71));
 		newCust.setText("Add");
 
+		//layout manager for panel
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
@@ -126,6 +130,7 @@ public class RetrieveCustomer extends JPanel {
 		);
 	}
 
+	//back button listener, will send GUI back to last panel
 	class backListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -156,13 +161,13 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
+	//retrieve button listener, will retrieve customer details from selected row or if no row selected sends error message
 	class retrieveListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = customerTable.getSelectedRow();
-
 			if(row == -1){
-				showErrorMessage("No row selected");
+				JOptionPane.showMessageDialog(f.getCurrentPanel(), "No row selected", "BAPERS", JOptionPane.ERROR_MESSAGE);
 			} else {
 				String customerData[] = {customerTable.getValueAt(row, 0).toString(), customerTable.getValueAt(row, 1).toString(), customerTable.getValueAt(row, 2).toString(), customerTable.getValueAt(row, 3).toString(), customerTable.getValueAt(row, 4).toString()};
 				if (customerData[4].equals("Valued")) {
@@ -195,6 +200,7 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
+	//refresh button listener, will update data in table to latest version
 	class refreshListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -224,12 +230,13 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
+	//remove button listener, will remove an entry from the table
 	class removeListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = customerTable.getSelectedRow();
 			if(row == -1){
-				showErrorMessage("No row selected");
+				JOptionPane.showMessageDialog(f.getCurrentPanel(), "No row selected", "BAPERS", JOptionPane.ERROR_MESSAGE);
 			} else {
 				cT.removeCustomer(Integer.parseInt(customerTable.getValueAt(row, 1).toString()));
 			}
@@ -256,6 +263,7 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
+	//add customer listener, will send GUI to createNewCustomer
 	class addListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -284,14 +292,7 @@ public class RetrieveCustomer extends JPanel {
 		}
 	}
 
-	public void showErrorMessage(String message){
-		JOptionPane.showMessageDialog(
-				this,
-				message,
-				"BAPERS", JOptionPane.ERROR_MESSAGE
-		);
-	}
-
+	//adds data from customer database to table
 	private void addData(JTable table){
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
 		customers = cT.getAllCustomers();

@@ -141,6 +141,7 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         saveButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         saveButton.setForeground(Style.LIGHT_BLUE);
         saveButton.setText("Save");
+        saveButton.setVisible(false);
         backButton.setBackground(Style.DARK_BLUE);
         backButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         backButton.setForeground(Style.LIGHT_BLUE);
@@ -213,11 +214,9 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         else {
             sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
         }
-
         sorter.setSortKeys(sortKeys);
         sorter.sort();
     }
-
 
     private void removeButtonActionPerformed(ActionEvent evt) {
         if (staffTable.getSelectedRow() == -1) {

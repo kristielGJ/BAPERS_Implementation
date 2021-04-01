@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
  * @author g_jah
  */
 public class CreateDiscountPlan extends javax.swing.JPanel {
-    private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
     private static PreparedStatement Stm = null;
@@ -207,10 +206,6 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
 
     }//GEN-LAST:event_ApplyDiscountPlanChoiceActionPerformed
 

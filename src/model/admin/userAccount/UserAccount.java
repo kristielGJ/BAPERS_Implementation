@@ -9,6 +9,7 @@ public class UserAccount extends Model {
 	private String phone;
 	private String password;
 	private String role;
+	private String department;
 
 	public UserAccount(int id, String name, String email, String phone, String password, String role) {
 		setId(id);
@@ -17,6 +18,24 @@ public class UserAccount extends Model {
 		this.phone = phone;
 		this.password = password;
 		this.role = role;
+	}
+
+	public UserAccount(int id, String name, String email, String phone, String password, String role, String department) {
+		setId(id);
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.role = role;
+		this.department = department;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	protected void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public String getName() {
