@@ -17,12 +17,14 @@ public class FixedDiscount extends javax.swing.JPanel {
 
     private I_Bapers bapers;
     int acc_no;
+    private GUI f;
     /**
      * Creates new form FixedDiscount
      */
-    public FixedDiscount(int width, int height, I_Bapers bapers, int acc_no) {
+    public FixedDiscount(int width, int height, I_Bapers bapers, GUI f, int acc_no) {
         this.acc_no=acc_no;
         this.bapers=bapers;
+        this.f = f;
         initComponents();
     }
 
@@ -140,7 +142,7 @@ public class FixedDiscount extends javax.swing.JPanel {
             Double.parseDouble(EnterDiscountRate.getText());
             //add a discount rate
             bapers.addFixedDiscountRate(acc_no,Double.parseDouble(EnterDiscountRate.getText()));
-            JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+            PopUpBox frame = (PopUpBox) SwingUtilities.getWindowAncestor(this);
             frame.dispose();
         }
         else{

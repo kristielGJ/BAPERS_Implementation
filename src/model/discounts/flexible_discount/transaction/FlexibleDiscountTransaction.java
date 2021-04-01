@@ -185,6 +185,7 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
             e.printStackTrace();
         }
     }
+
     /**
      * Update an existing DiscountBand, set your bounds, and discount rate for the respective bound (i.e. 1000-2000, 20%)
      * and relate to the DiscountBandCustomer entry you made earlier
@@ -192,14 +193,13 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
      */
     public void updateFlexibleDiscount(int ID,double lowerBound,double upperBound,double discount_rate) {
         try {
-            Stm = conn.prepareStatement("UPDATE DiscountBand SET lower=?, upper=?, discount_rate=? WHERE DiscountBandCustomer_ID=?");
+            Stm = conn.prepareStatement("UPDATE DiscountBand SET lower=?, upper=?, discount_rate=? WHERE discount_band_id=?");
             Stm.setDouble(1, lowerBound);
             Stm.setDouble(2, upperBound);
             Stm.setDouble(3, discount_rate);
-            Stm.setInt(4,ID );
+            Stm.setInt(4, ID);
             Stm.executeUpdate();
             Stm.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

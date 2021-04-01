@@ -340,6 +340,12 @@ public class Controller implements I_Bapers {
 
 		}
 	}
+
+	@Override
+	public void updateDiscountPlan(int acc_no, String discountPlan) {
+		discount.assignDiscountType(acc_no, discountPlan);
+	}
+
 	public void addFixedDiscountRate(int customer_acc_no, double discount_rate){
 		fixedDiscount.addFixedDiscountRate(customer_acc_no,discount_rate);
 	}
@@ -370,9 +376,12 @@ public class Controller implements I_Bapers {
 	public ArrayList<VariableDiscount> getAllVariableDiscounts(int acc_no) {
 		return variableDiscount.getVariableDiscount(acc_no);
 	}
+
 	public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
 		variableDiscount.updateVariableDiscount( acc_no, discount_rate, catalog_name);
 	}
+
+
 
 	public void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
 		variableDiscount.addVariableDiscount(acc_no,  discount_rate, catalog_name);
