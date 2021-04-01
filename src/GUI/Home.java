@@ -293,7 +293,8 @@ public class Home extends javax.swing.JPanel {
     }
 
     private void BackupButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        f.backupManagement();
+        setVisible(false);
     }
 
     private void SignOutButtonActionPerformed(java.awt.event.ActionEvent evt) {

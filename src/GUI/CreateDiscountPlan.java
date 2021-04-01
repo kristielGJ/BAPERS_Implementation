@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
  * @author g_jah
  */
 public class CreateDiscountPlan extends javax.swing.JPanel {
-    private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
     int acc_no;
@@ -30,13 +29,10 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
     /**
      * Creates new form CreateDiscountPlan
      */
-    public CreateDiscountPlan(I_Bapers bapers,GUI f, int acc_no) {
+    public CreateDiscountPlan(int width, int height, I_Bapers bapers, int acc_no) {
         this.acc_no=acc_no;
-        this.f=f;
-        this.lastPanel= f.getCurrentPanel();
-        f.setCurrentPanel(this);
         this.bapers=bapers;
-        initComponents(bapers,f, acc_no);
+        initComponents(acc_no);
     }
 
     /**
@@ -46,9 +42,8 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(I_Bapers bapers,GUI f, int acc_no) {
+    private void initComponents(int acc_no) {
 
-        this.bapers = bapers;
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -183,10 +178,6 @@ public class CreateDiscountPlan extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
-        f.setLastPanel(lastPanel);
-        f.getLastPanel().setVisible(true);
-        f.remove(f.getCurrentPanel());
-        f.setCurrentPanel(lastPanel);
 
     }//GEN-LAST:event_ApplyDiscountPlanChoiceActionPerformed
 
