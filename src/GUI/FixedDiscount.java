@@ -139,13 +139,9 @@ public class FixedDiscount extends javax.swing.JPanel {
         if (!EnterDiscountRate.getText().isEmpty()){
             Double.parseDouble(EnterDiscountRate.getText());
             //add a discount rate
-            bapers.addFixedDiscountRate(acc_no,Integer.parseInt(EnterDiscountRate.getText()));
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "A fixed rate has been applied.",
-                    "BAPERS", JOptionPane.ERROR_MESSAGE
-            );
+            bapers.addFixedDiscountRate(acc_no,Double.parseDouble(EnterDiscountRate.getText()));
+            JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
+            frame.dispose();
         }
         else{
             JOptionPane.showMessageDialog(

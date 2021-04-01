@@ -162,8 +162,8 @@ public class Controller implements I_Bapers {
 	}
 
 	//returns a list of technician names
-	public String[] retrieveTechnicians(){
-		return task.retrieveTechnicians();
+	public String[] retrieveTechnicians(String existing_task){
+		return task.retrieveTechnicians(existing_task);
 	}
 
 	//returns a list of task associated with a job
@@ -340,7 +340,7 @@ public class Controller implements I_Bapers {
 
 		}
 	}
-	public void addFixedDiscountRate(int customer_acc_no, int discount_rate){
+	public void addFixedDiscountRate(int customer_acc_no, double discount_rate){
 		fixedDiscount.addFixedDiscountRate(customer_acc_no,discount_rate);
 	}
 

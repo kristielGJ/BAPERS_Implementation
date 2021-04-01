@@ -218,8 +218,12 @@ public class ValuedCustomer extends JPanel {
 		);
 		}
 
-		//mouse listener for back button, will send GUI to last used panel
-		class backListener implements MouseListener {
+	private void discountPlanButtonMouseClicked(MouseEvent evt, int acc_no) {
+		f.createDiscountPlan(acc_no);
+		f.setVisible(true);
+	}
+
+	class backListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				f.setLastPanel(lastPanel);
@@ -312,11 +316,15 @@ public class ValuedCustomer extends JPanel {
 		class createDiscountListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			PopUpBox pub = new PopUpBox(400,300,"Add Discount");
-			pub.add(new CreateDiscountPlan(400,300, bapers, Integer.parseInt(accNo)));
-			pub.setVisible(true);
+			//PopUpBox pub = new PopUpBox(400,300,"Add Discount");
+			//pub.add(new CreateDiscountPlan(Integer.parseInt(accNo)));
+			//pub.add(f.createDiscountPlan(Integer.parseInt(accNo)));
+			f.createDiscountPlan(Integer.parseInt(accNo));
+			f.setVisible(true);
+			//pub.setVisible(true);
 
 		}
+
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -441,4 +449,3 @@ public class ValuedCustomer extends JPanel {
 		}
 	}
 }
-

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface I_FixedDiscountTransaction {
 
     //adding the fixed discount rate
-    void addFixedDiscountRate(int customer_acc_no, int discount_rate);
+    void addFixedDiscountRate(int customer_acc_no, double discount_rate);
 
     //returns the total discount for a job
     double getTotalDiscount(int job_ID, int customer_acc_no);

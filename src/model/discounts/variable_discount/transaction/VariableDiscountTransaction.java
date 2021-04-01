@@ -156,6 +156,7 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         return original_price;
 
     }
+
     public String GetTaskName(int Catalog_ID) {
         String name = " ";
         try {
@@ -172,6 +173,7 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         return name;
 
     }
+
     /**
      * calculates a discounted Task Price
      *

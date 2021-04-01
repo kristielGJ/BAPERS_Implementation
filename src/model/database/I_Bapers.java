@@ -64,7 +64,7 @@ public interface I_Bapers {
 	String[] existingTasks();
 
 	//returns the list of technicians
-	String[] retrieveTechnicians();
+	String[] retrieveTechnicians(String existing_task);
 
 	//updates the task status
 	void updateTaskStatus(int Task_ID, String Task_status);
@@ -121,7 +121,7 @@ public interface I_Bapers {
 	public void createVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 	public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 
-	public void addFixedDiscountRate(int customer_acc_no, int discount_rate);
+	public void addFixedDiscountRate(int customer_acc_no, double discount_rate);
 
 	public void populateStaffTable(JTable table);
 
