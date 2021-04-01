@@ -13,6 +13,8 @@ import java.text.DecimalFormat;
 /**
  *
  * @author Manpreet and Gera
+ * Generalised Discount Methods are in this class
+ *
  */
 
 public class DiscountTransaction implements I_DiscountTransaction {
@@ -23,7 +25,15 @@ public class DiscountTransaction implements I_DiscountTransaction {
     private I_VariableDiscountTransaction variableDiscount;
     private DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
-    //constructor
+    /**
+     * Constructor
+     *
+     * @param conn
+     * @param fixedDiscount
+     * @param flexibleDiscount
+     * @param variableDiscount
+     *
+     */
     public DiscountTransaction(DB_Connection conn, I_FixedDiscountTransaction fixedDiscount, I_FlexibleDiscountTransaction flexibleDiscount, I_VariableDiscountTransaction variableDiscount){
         this.conn = conn.getConn();
         this.fixedDiscount = fixedDiscount;
@@ -31,7 +41,14 @@ public class DiscountTransaction implements I_DiscountTransaction {
         this.variableDiscount = variableDiscount;
     }
 
-    //assigning a discount plan to a valued customer
+    /**
+     * Assigns a discount plan to a valued customer
+     * Updates the Database
+     *
+     * @param discount_type
+     * @param acc_no
+     *
+     */
     public void assignDiscountType(int acc_no, String discount_type){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Customer` SET Discount_type = ? WHERE Account_no =? AND Customer_type = ?;");
@@ -45,7 +62,13 @@ public class DiscountTransaction implements I_DiscountTransaction {
         }
     }
 
-    //calculating the total price of a job
+    /**
+     * Calculates the total price of a Job
+     * Retrieves the needed data from the Database
+     *
+     * @param job_ID
+     *
+     */
     public void calculatePrice(int job_ID){
         double total_price = 0.0;
         double total_discount = 0.0;
@@ -84,7 +107,15 @@ public class DiscountTransaction implements I_DiscountTransaction {
         }
     }
 
-    //updating total price and total discount in jobs table
+    /**
+     * Updates the  total price and total discount in Jobs table
+     * Updates the Database
+     *
+     * @param job_ID
+     * @param total_price
+     * @param total_discount
+     *
+     */
     public void updateJobPrice(int job_ID, double total_price, double total_discount){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Total_discount = ?, Total_price = ? WHERE Job_ID = ?;");

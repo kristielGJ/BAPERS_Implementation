@@ -1,7 +1,6 @@
 package model.discounts.flexible_discount.transaction;
 
 import model.database.DB_Connection;
-import model.discounts.discount.Discount;
 import model.discounts.flexible_discount.FlexibleDiscount;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -19,12 +18,25 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * Constructor
+     *
+     * @param conn
+     *
+     */
     public FlexibleDiscountTransaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //adding the flexible discount to the valued customer
+    /**
+     * Adding the flexible discount to the valued customer
+     *
+     * @param customer_acc_no
+     * @param discount_rate
+     * @param lower_bound
+     * @param upper_bound
+     *
+     */
     public void addFlexibleDiscount(int customer_acc_no, int lower_bound, int upper_bound, double discount_rate){
         int id = -1;
         try {
@@ -46,8 +58,13 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
             e.printStackTrace();
         }
     }
-
-    //returns total discount for a job
+    /**
+     * Returns total discount for a job
+     *
+     * @param job_ID
+     * @param customer_acc_no
+     *
+     */
     public double getTotalDiscount(int job_ID, int customer_acc_no){
         double total_discount = 0.0;
         double discount_rate = 0.0;
@@ -67,8 +84,13 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
         }
         return total_discount;
     }
-
-    //returns the discount rate (in percentage)
+    /**
+     * Returns the discount rate (As a percentage)
+     *
+     * @param customer_acc_no
+     * @param job_ID
+     *
+     */
     public double getDiscountRate(int job_ID, int customer_acc_no){
         double volume = 0.0;
         double discount_rate = 0.0;
@@ -113,8 +135,13 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
         }
         return discount_rate;
     }
-
-    //returns the volume of jobs (for past 1 month)
+    /**
+     * Returns the volume of jobs (for the past month)
+     * From one respective customer
+     *
+     * @param customer_acc_no
+     *
+     */
     public double getJobVolume(int customer_acc_no){
         double volume = 0.0;
         try {
@@ -133,8 +160,13 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
         }
         return volume;
     }
-
-    //returns a list of flexible discount which are associated with the customer
+    /**
+     * Returns a list of flexible discount
+     * which are associated with the customer
+     *
+     * @param customer_acc_no
+     *
+     */
     public ArrayList<FlexibleDiscount> getFlexibleDiscount(int customer_acc_no) {
         ArrayList<FlexibleDiscount> discount_details = null;
         try {
@@ -162,7 +194,12 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
         }
         return discount_details;
     }
-
+    /**
+     * Deletes a Flexible discount from the Database
+     *
+     * @param id
+     *
+     */
     public void removeFlexibleDiscount(int id) {
         try {
             Stm = conn.prepareStatement("SELECT * FROM DiscountBand WHERE discount_band_id = ?");
@@ -187,8 +224,16 @@ public class FlexibleDiscountTransaction implements I_FlexibleDiscountTransactio
     }
 
     /**
-     * Update an existing DiscountBand, set your bounds, and discount rate for the respective bound (i.e. 1000-2000, 20%)
-     * and relate to the DiscountBandCustomer entry you made earlier
+     * Update an existing DiscountBand,
+     * set your bounds, and discount rate for the
+     * respective bound (i.e. 1000-2000, 20%)
+     * and relate to the DiscountBandCustomer
+     * entry you made earlier
+     *
+     * @param discount_rate
+     * @param ID
+     * @param lowerBound
+     * @param upperBound
      *
      */
     public void updateFlexibleDiscount(int ID,double lowerBound,double upperBound,double discount_rate) {
