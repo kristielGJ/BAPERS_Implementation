@@ -6,11 +6,16 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ *
+ * @author Jacob
+ */
+
 public class ValuedCustomer extends JPanel {
 
 	//defining global variables
-	private String customerName, accNo, CustomerAddress, CustomerPhone;
-	private JLabel customer_name, acc_no, address, phone, custLabel, accLabel, addLabel, phoneLabel, custDetLabel, miniBapersLabel;
+	private String customerName, company, accNo, CustomerAddress, CustomerPhone;
+	private JLabel customer_name,Cust_company, acc_no, address, phone, custLabel,companyLabel, accLabel, addLabel, phoneLabel, custDetLabel, miniBapersLabel;
 	private JButton updateButton, addJobButton, retrieveJob, backButton, discountPlanButton, menuButton, createDiscountButton;
 	private GUI f;
 	private JPanel lastPanel;
@@ -22,6 +27,7 @@ public class ValuedCustomer extends JPanel {
 		this.accNo = customerData[1];
 		this.CustomerAddress = customerData[2];
 		this.CustomerPhone = customerData[3];
+		this.company = customerData[5];
 		this.f = f;
 		this.bapers = bapers;
 		this.lastPanel = f.getCurrentPanel();
@@ -65,6 +71,10 @@ public class ValuedCustomer extends JPanel {
 		customer_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		customer_name.setText(customerName);
 
+		Cust_company = new JLabel();
+		Cust_company.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Cust_company.setText(company);
+
 		acc_no = new JLabel();
 		acc_no.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		acc_no.setText(accNo);
@@ -80,6 +90,10 @@ public class ValuedCustomer extends JPanel {
 		custLabel = new JLabel();
 		custLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		custLabel.setText("Name:");
+
+		companyLabel = new JLabel();
+		companyLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		companyLabel.setText("Company:");
 
 		accLabel = new JLabel();
 		accLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -142,17 +156,19 @@ public class ValuedCustomer extends JPanel {
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addGroup(layout.createSequentialGroup()
-												.addGap(65, 65, 1000)
+												.addGap(29, 29, 1000)
 												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
 														.addComponent(phoneLabel)
 														.addComponent(addLabel)
 														.addComponent(accLabel)
+														.addComponent(companyLabel)
 														.addComponent(custLabel))
 												.addGap(29, 29, 29)
 												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 														.addComponent(acc_no)
 														.addComponent(phone)
-														.addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+														.addComponent(address)
+														.addComponent(Cust_company, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
 														.addComponent(customer_name, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 										.addGroup(layout.createSequentialGroup()
 												.addGap(30, 30, 30)
@@ -193,6 +209,10 @@ public class ValuedCustomer extends JPanel {
 												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(custLabel)
 														.addComponent(customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGap(18, 18, 18)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(companyLabel)
+														.addComponent(Cust_company, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 												.addGap(18, 18, 18)
 												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(accLabel)
@@ -257,7 +277,7 @@ public class ValuedCustomer extends JPanel {
 		class updateListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String[] cD = {customerName,accNo,CustomerAddress,CustomerPhone,"Valued"};
+				String[] cD = {customerName,accNo,CustomerAddress,CustomerPhone,"Valued",company};
 				f.updateCustomer(cD);
 				setVisible(false);
 			}

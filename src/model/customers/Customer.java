@@ -4,11 +4,8 @@ import model.Model;
 
 public class Customer extends Model {
 
-	private String customer_name;
 	private int acc_no;
-	private String address;
-	private String phone;
-	private String valued;
+	private String customer_name, company, address, phone, valued;
 
 	public Customer() {
 
@@ -17,12 +14,14 @@ public class Customer extends Model {
 	/**
 	 *
 	 * @param customer_name
+	 * @param company
 	 * @param acc_no
 	 * @param address
 	 * @param phone
 	 */
-	public Customer(String customer_name, int acc_no, String address, String phone, String Valued) {
+	public Customer(String customer_name, int acc_no, String address, String phone, String Valued, String company) {
 		this.customer_name = customer_name;
+		this.company = company;
 		this.acc_no = acc_no;
 		this.address = address;
 		this.phone = phone;
@@ -40,6 +39,14 @@ public class Customer extends Model {
 	public String getCustomer_name() {
 		return this.customer_name;
 	} //return the value of local String customer_name
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
 	/**
 	 *
