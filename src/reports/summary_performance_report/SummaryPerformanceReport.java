@@ -16,7 +16,18 @@ public class SummaryPerformanceReport extends Reports {
 	private long finishing_time;
 	private long packing_time;
 
-	//constructor
+	/**
+	 * constructor
+	 *
+	 * @param report_type
+	 * @param from_date
+	 * @param to_date
+	 * @param new_date
+	 * @param new_copy_room_time
+	 * @param new_development_time
+	 * @param new_finishing_time
+	 * @param new_packing_time
+	 */
 	public SummaryPerformanceReport(String report_type, LocalDate from_date, LocalDate to_date, LocalDate new_date, long new_copy_room_time, long new_development_time, long new_finishing_time, long new_packing_time) {
 		super(report_type, from_date, to_date);
 		date = new_date;
@@ -26,7 +37,10 @@ public class SummaryPerformanceReport extends Reports {
 		packing_time = new_packing_time;
 	}
 
-	//getters and setters
+	/**
+	 *getters and setters
+	 *
+	 */
 	public long getPacking_time() {
 		return packing_time;
 	}

@@ -19,18 +19,41 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public Card_payment_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //creates a new card payment and call the save method
+    /**
+     * creates a new card payment and call the save method
+     *
+     * @param payment_id
+     * @param payment_amount
+     * @param card_type
+     * @param expiry_date
+     * @param last_digits
+     * @param security_code
+     * @param date
+     * @param job_ID
+     */
     public void makeCard_payment(int payment_id, double payment_amount, String card_type, String expiry_date, String last_digits, String security_code, Date date, int job_ID){
         new Card_payment(payment_amount, card_type, expiry_date, last_digits, date, security_code);
         storeCard_details(payment_id, card_type, expiry_date, last_digits, security_code);
     }
 
-    //save the card details in the database
+    /**
+     * save the card details in the database
+     *
+     * @param payment_ID
+     * @param card_type
+     * @param expiry_date
+     * @param last_digits
+     * @param security_code
+     */
     public void storeCard_details(int payment_ID, String card_type, String expiry_date, String last_digits, String security_code){
         try {
             Stm = conn.prepareStatement("INSERT INTO `bapers`.`Card_details` (`Card_type`, `Expiry_date`, `Last_four_digits`, `Payment_ID`, `Security_code`) VALUES (?,?,?,?,?) ");
@@ -46,6 +69,11 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Card_payment read(int id) {
         Card_payment card_payment = null;
@@ -73,6 +101,10 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
         return card_payment;
     }
 
+    /**
+     *
+     * @return card_details
+     */
     @Override
     public ArrayList<Card_payment> getAll() {
         ArrayList<Card_payment> card_details = null;
@@ -99,6 +131,11 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
         return card_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return removed
+     */
     @Override
     public boolean remove(int id) {
         boolean removed = false;

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
  * @author Manpreet
  */
 
-//existing task list
 public class JobPerformanceReport{
 
     private int job_id;
@@ -18,7 +17,17 @@ public class JobPerformanceReport{
     private String time_taken;
     private String technician;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param new_job_id
+     * @param new_price
+     * @param new_task_id
+     * @param new_location
+     * @param new_start_time
+     * @param new_time_taken
+     * @param new_technician
+     */
     public JobPerformanceReport( int new_job_id, double new_price, int new_task_id, String new_location, LocalDateTime new_start_time, String new_time_taken, String new_technician) {
         job_id = new_job_id;
         price = new_price;
@@ -29,7 +38,10 @@ public class JobPerformanceReport{
         technician = new_technician;
     }
 
-    //getters and setters
+    /**
+     * getters and setters
+     *
+     */
     public String getTime_taken() {
         return time_taken;
     }

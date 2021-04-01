@@ -21,12 +21,23 @@ public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public JobPerformanceReport_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //generates job sheet
+    /**
+     * generates job sheet
+     *
+     * @param from_date
+     * @param to_date
+     * @param customer_ID
+     * @return
+     */
     public ArrayList<JobPerformanceReport> generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_ID) {
         ArrayList<JobPerformanceReport> report = null;
         try {
@@ -43,21 +54,21 @@ public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_
                 ResultSet rs1 = Stm.executeQuery();
                 while (rs1.next()){
                     Stm = conn.prepareStatement("SELECT * FROM User_account WHERE user_account_id = ?");
-                    Stm.setInt(1, rs1.getInt(6));
+                    Stm.setInt(1, rs1.getInt(5));
                     ResultSet rs2 = Stm.executeQuery();
                     while (rs2.next()){
                         Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Catalog_ID = ?");
-                        Stm.setInt(1, rs1.getInt(7));
+                        Stm.setInt(1, rs1.getInt(6));
                         ResultSet rs3 = Stm.executeQuery();
                         while (rs3.next()){
-                            long dur = Duration.between(rs1.getTimestamp(4).toLocalDateTime(), rs1.getTimestamp(5).toLocalDateTime()).getSeconds() / 60;
+                            long dur = Duration.between(rs1.getTimestamp(3).toLocalDateTime(), rs1.getTimestamp(4).toLocalDateTime()).getSeconds() / 60;
                             String total_time = String.format("%02d:%02d", TimeUnit.SECONDS.toHours(dur), TimeUnit.SECONDS.toMinutes(dur) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(dur)));
                             JobPerformanceReport details = new JobPerformanceReport(
                                     rs.getInt(1),
                                     rs3.getDouble(3),
                                     rs3.getInt(1),
                                     rs3.getString(4),
-                                    rs1.getTimestamp(4).toLocalDateTime(),
+                                    rs1.getTimestamp(3).toLocalDateTime(),
                                     total_time,
                                     rs2.getString(2)
                             );

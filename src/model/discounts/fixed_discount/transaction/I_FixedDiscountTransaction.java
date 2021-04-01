@@ -6,20 +6,41 @@ import java.util.ArrayList;
 /**
  *
  * @author Manpreet and Gera
+ * Interface that interacts with I_Bapers
  */
 
 public interface I_FixedDiscountTransaction {
 
-    //adding the fixed discount rate
+    /**
+     * Adding the fixed discount rate
+     *
+     * @param discount_rate
+     * @param customer_acc_no
+     *
+     */
     void addFixedDiscountRate(int customer_acc_no, double discount_rate);
-
-    //returns the total discount for a job
+    /**
+     * Returns the total discount for a job
+     *
+     * @param customer_acc_no
+     * @param job_ID
+     *
+     */
     double getTotalDiscount(int job_ID, int customer_acc_no);
-
-    //returns the discount rate
+    /**
+     * Returns the discount rate
+     *
+     * @param customer_acc_no
+     *
+     */
     double getDiscountRate(int customer_acc_no);
-
-    //returns a list of fixed discount which are associated with the customer
+    /**
+     * Returns a list of a fixed discount's details from the Database
+     * which are associated with the customer
+     *
+     * @param customer_acc_no
+     *
+     */
     ArrayList<FixedDiscount> getFixedDiscount(int customer_acc_no);
 
 }

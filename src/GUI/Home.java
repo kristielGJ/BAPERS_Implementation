@@ -11,7 +11,7 @@ import javax.swing.*;
 
 /**
  *
- * @author g_jah
+ * @author Gera
  */
 public class Home extends javax.swing.JPanel {
 

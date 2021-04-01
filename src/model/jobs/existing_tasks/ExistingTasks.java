@@ -15,7 +15,15 @@ public class ExistingTasks extends Model {
 	private int task_duration;
 	private String department_name;
 
-	//constructor
+	/**
+	 * constructor
+	 *
+	 * @param new_exg_task_ID
+	 * @param new_task_description
+	 * @param new_task_price
+	 * @param new_task_duration
+	 * @param new_department_name
+	 */
 	public ExistingTasks(int new_exg_task_ID, String new_task_description, double new_task_price, int new_task_duration, String new_department_name) {
 		exg_Task_ID = new_exg_task_ID;
 		task_description = new_task_description;
@@ -24,7 +32,10 @@ public class ExistingTasks extends Model {
 		department_name = new_department_name;
 	}
 
-	//getters and setters
+	/**
+	 * getters and setters
+	 *
+	 */
 	public void setExg_Task_ID(int exg_Task_ID){ this.exg_Task_ID = exg_Task_ID; }
 
 	public int getExg_Task_ID(){ return this.exg_Task_ID; }

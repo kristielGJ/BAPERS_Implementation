@@ -14,8 +14,16 @@ public class Card_payment extends model.jobs.payment.Payment {
     private String last_digits;
     private String security_code;
 
-
-   //constructor
+    /**
+     * constructor
+     *
+     * @param new_payment_amount
+     * @param new_card_type
+     * @param new_expiry_date
+     * @param new_last_digits
+     * @param date
+     * @param new_security_code
+     */
     public Card_payment(double new_payment_amount, String new_card_type, String new_expiry_date, String new_last_digits, Date date, String new_security_code) {
         super(new_payment_amount, "Card Payment", date);
         card_type = new_card_type;
@@ -24,8 +32,10 @@ public class Card_payment extends model.jobs.payment.Payment {
         security_code = new_security_code;
     }
 
-    //getters and setters
-
+    /**
+     * getters and setters
+     *
+     */
     public String getSecurity_code() {
         return security_code;
     }

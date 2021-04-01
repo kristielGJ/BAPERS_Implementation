@@ -13,6 +13,13 @@ import java.util.ArrayList;
 
 public interface I_SummaryPerformanceReport_Transaction {
 
+    /**
+     *
+     * @param from_date
+     * @param to_date
+     * @param from_time
+     * @param to_time
+     */
     ArrayList<SummaryPerformanceReport> generateSummaryPerformanceReport(LocalDate from_date, LocalDate to_date, LocalTime from_time, LocalTime to_time);
 
 }

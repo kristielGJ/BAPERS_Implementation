@@ -3,9 +3,10 @@ package model.jobs.task;
 /**
  *
  * @author Manpreet
+ *
+ * existing task list
  */
 
-//existing task list
 public class Task_List{
 
     private int task_id;
@@ -15,7 +16,16 @@ public class Task_List{
     private double price;
     private int duration;
 
-   //constructor
+    /**
+     * constructor
+     *
+     * @param new_task_id
+     * @param new_task_description
+     * @param new_location
+     * @param new_status
+     * @param new_price
+     * @param new_duration
+     */
     public Task_List( int new_task_id, String new_task_description, String new_location, String new_status, double new_price, int new_duration ) {
         task_id = new_task_id;
         task_description = new_task_description;
@@ -25,7 +35,9 @@ public class Task_List{
         duration = new_duration;
     }
 
-    //getters and setters
+    /**
+     * getters and setters
+     */
     public int getTask_id() {
         return task_id;
     }

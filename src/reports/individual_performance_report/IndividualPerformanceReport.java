@@ -18,7 +18,19 @@ public class IndividualPerformanceReport extends Reports {
 	private String time_taken;
 	private long dur;
 
-	//constructors
+	/**
+	 * constructor
+	 *
+	 * @param report_type
+	 * @param from_date
+	 * @param to_date
+	 * @param new_technician
+	 * @param new_task_ID
+	 * @param new_location
+	 * @param new_start
+	 * @param new_time_taken
+	 * @param new_dur
+	 */
 	public IndividualPerformanceReport(String report_type, LocalDate from_date, LocalDate to_date, String new_technician, int new_task_ID, String new_location,  LocalDateTime new_start, String new_time_taken, long new_dur){
 		super(report_type, from_date, to_date);
 		technician = new_technician;
@@ -29,7 +41,10 @@ public class IndividualPerformanceReport extends Reports {
 		dur = new_dur;
 	}
 
-	//setters and getters
+	/**
+	 * setters and getters
+	 *
+	 */
 	public String getTime_taken() {
 		return time_taken;
 	}

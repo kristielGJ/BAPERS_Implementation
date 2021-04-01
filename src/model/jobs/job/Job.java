@@ -19,7 +19,18 @@ public class Job extends Model {
 	private LocalDateTime completion_deadline;
 	private Double price;
 
-	//constructor
+	/**
+	 * constructor
+	 *
+	 * @param new_job_ID
+	 * @param new_job_desc
+	 * @param new_priority
+	 * @param new_special_instructions
+	 * @param new_job_status
+	 * @param new_payment_status
+	 * @param new_completion_deadline
+	 * @param new_price
+	 */
 	public Job(int new_job_ID, String new_job_desc, String new_priority, String new_special_instructions, String new_job_status, String new_payment_status, LocalDateTime new_completion_deadline, Double new_price) {
 		job_ID = new_job_ID;
 		job_desc = new_job_desc;
@@ -31,7 +42,11 @@ public class Job extends Model {
 		price = new_price;
 	}
 
-	//setters and getters
+	/**
+	 * setters and getters
+	 *
+	 * @param job_ID
+	 */
 	public void setJob_ID(int job_ID){ this.job_ID = job_ID; }
 
 	public int getJob_ID(){ return this.job_ID; }
