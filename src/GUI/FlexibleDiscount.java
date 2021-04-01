@@ -278,6 +278,7 @@ public class FlexibleDiscount extends javax.swing.JPanel {
     }//GEN-LAST:event_AddNewButton2ActionPerformed
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
         f.setLastPanel(lastPanel);
         f.getLastPanel().setVisible(true);
         f.remove(f.getCurrentPanel());
