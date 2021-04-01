@@ -52,6 +52,11 @@ public class GUI extends JFrame {
 		add(new RegularCustomer(getWidth(),getHeight(),customerData,this));
 	}
 
+
+	public void backupManagement() {
+		add(new BackupManagementPanel(getWidth(),getHeight(), this));
+	}
+
 	public void valuedCustomer(String[] customerData){
 		add(new ValuedCustomer(getWidth(),getHeight(),customerData,bapers,this));
 	}
@@ -124,8 +129,16 @@ public class GUI extends JFrame {
 		add(new SummaryPerformanceReport(getWidth(), getHeight(), from_date, to_date, bapers, this));
 	}
 
+	public void createDiscountPlan(int acc_no){
+		add (new ChooseDiscountPlan(getWidth(), getHeight(), bapers,this, acc_no));
+	}
+
 	public void addTaskDiscount(int acc_no, String catalog_name){
 		add(new AddTaskDiscount(getWidth(), getHeight(), bapers, this,acc_no, catalog_name));
+	}
+
+	public void fixedDiscount(int acc_no){
+		add(new FixedDiscount(getWidth(), getHeight(), bapers, this, acc_no));
 	}
 
 	public void flexibleDiscount(int acc_no){
@@ -193,5 +206,4 @@ public class GUI extends JFrame {
 		this.setTitle("BAPERS");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 }

@@ -2,7 +2,7 @@ package GUI;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class LoginFrame extends javax.swing.JPanel {
 

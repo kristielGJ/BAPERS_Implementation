@@ -3,6 +3,7 @@ package GUI;
 import model.database.I_Bapers;
 import model.jobs.job.Job;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -102,6 +103,20 @@ public class RetrieveJobs extends javax.swing.JPanel {
         jTable1.setSelectionBackground(new java.awt.Color(230, 238, 255));
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.setSelectionForeground(new java.awt.Color(1, 23, 71));
+        jTable1.setShowGrid(true);
+        jTable1.getTableHeader().setResizingAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable1);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.getColumn("Job ID").setCellRenderer(dtcr);
+        jTable1.getColumn("Description").setCellRenderer(dtcr);
+        jTable1.getColumn("Priority").setCellRenderer(dtcr);
+        jTable1.getColumn("Status").setCellRenderer(dtcr);
+        jTable1.getColumn("Special Instructions").setCellRenderer(dtcr);
+        jTable1.getColumn("Price").setCellRenderer(dtcr);
+
 
         jButton3.setBackground(new java.awt.Color(1, 23, 71));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

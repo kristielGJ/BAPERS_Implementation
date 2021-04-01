@@ -218,8 +218,12 @@ public class ValuedCustomer extends JPanel {
 		);
 		}
 
-		//mouse listener for back button, will send GUI to last used panel
-		class backListener implements MouseListener {
+	private void discountPlanButtonMouseClicked(MouseEvent evt, int acc_no) {
+		f.createDiscountPlan(acc_no);
+		f.setVisible(true);
+	}
+
+	class backListener implements MouseListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				f.setLastPanel(lastPanel);
@@ -308,15 +312,27 @@ public class ValuedCustomer extends JPanel {
 			}
 		}
 
+		private void openDialog(JPanel panel, String title) {
+			final JDialog frame = new JDialog(f, title, true);
+			frame.getContentPane().add(panel);
+			frame.pack();
+			frame.setVisible(true);
+		}
+
 		//mouse listener for create Discount button, will add a pop up box with the panel CreateDiscountPlan
 		class createDiscountListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			PopUpBox pub = new PopUpBox(400,300,"Add Discount");
-			pub.add(new CreateDiscountPlan(400,300, bapers, Integer.parseInt(accNo)));
-			pub.setVisible(true);
+			//PopUpBox pub = new PopUpBox(400,300,"Add Discount");
+			//pub.add(new CreateDiscountPlan());
+
+			//pub.add(f.createDiscountPlan(Integer.parseInt(accNo)));
+			//f.createDiscountPlan(Integer.parseInt(accNo));
+			openDialog(new ChooseDiscountPlan(400, 300, bapers, f, Integer.parseInt(accNo)), "Create Discount Plan");
+			//pub.setVisible(true);
 
 		}
+
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -349,7 +365,7 @@ public class ValuedCustomer extends JPanel {
 				String discountType = bapers.getDiscountType(Integer.parseInt(accNo));
 				if (discountType.equals("Fixed")) {
 					PopUpBox pub = new PopUpBox(400, 300, "Fixed Discount");
-					pub.add(new FixedDiscount(400, 300, bapers, Integer.parseInt(accNo)));
+					pub.add(new FixedDiscount(400, 300, bapers, f, Integer.parseInt(accNo)));
 					pub.setVisible(true);
 				} else if (discountType.equals("Flexible")) {
 					f.flexibleDiscount(Integer.parseInt(accNo));
@@ -441,4 +457,3 @@ public class ValuedCustomer extends JPanel {
 		}
 	}
 }
-

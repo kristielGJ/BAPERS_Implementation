@@ -6,10 +6,13 @@
 package GUI;
 
 import model.database.I_Bapers;
+import model.discounts.flexible_discount.FlexibleDiscount;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,11 +22,13 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
     private GUI f;
     private JPanel lastPanel;
     private I_Bapers bapers;
+    private JTable flexibleDiscountTable;
     int acc_no;
     /**
      * Creates new form AddFlexibleDiscount
      */
-    public AddFlexibleDiscount(int acc_no, I_Bapers bapers, GUI f) {
+    public AddFlexibleDiscount(int acc_no, I_Bapers bapers, JTable flexibleDiscountTable, GUI f) {
+        this.flexibleDiscountTable = flexibleDiscountTable;
         initComponents(acc_no, bapers, f);
     }
 
@@ -204,6 +209,16 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_LowerBoundActionPerformed
 
+    private void populateTable(JTable table, int customer_acc_no){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        ArrayList<FlexibleDiscount> discounts = bapers.getFlexibleDiscount(customer_acc_no);
+        for(FlexibleDiscount flexible : discounts) {
+            model.addRow(new Object[]{flexible.getDiscount_band_id(), flexible.getLower_bound(), flexible.getUpper_bound(), flexible.getDiscount_rate()});
+        }
+        table.setModel(model);
+    }
+
     private void ApplyButtonMouseClicked(MouseEvent evt, int acc_no){
         if (!EnterDiscountRate.getText().isEmpty() && !LowerBound.getText().isEmpty() && !UpperBound.getText().isEmpty()){
             //apply the flexible discount (create if the button pressed before was add new, update if update button was pressed)
@@ -222,9 +237,9 @@ public class AddFlexibleDiscount extends javax.swing.JPanel {
                     "BAPERS", JOptionPane.ERROR_MESSAGE
             );
         }
+        populateTable(flexibleDiscountTable, acc_no);
         JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
         frame.dispose();
-
     }
 
 

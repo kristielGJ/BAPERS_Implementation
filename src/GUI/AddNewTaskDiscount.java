@@ -7,9 +7,11 @@ package GUI;
 
 import model.database.DB_Connection;
 import model.database.I_Bapers;
+import model.discounts.variable_discount.VariableDiscount;
 
 import javax.swing.*;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 /**
  *
@@ -80,12 +82,6 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 23, 71));
         jLabel3.setText("Bapers");
-
-        EnterDiscountRate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EnterDiscountRateActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(1, 23, 71));
@@ -161,12 +157,24 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        if(!(task_list_input.getSelectedItem() == "Select Task")){
-           bapers.createVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate.getText()), String.valueOf(task_list_input.getSelectedItem()));
+        ArrayList<String> TaskNames = new ArrayList<String>();
+        TaskNames=bapers.ManageVariableTable(acc_no);
+        if((!(task_list_input.getSelectedItem() == "Select Task")&&(!EnterDiscountRate.getText().isEmpty()))){
+            if (TaskNames.contains(String.valueOf(task_list_input.getSelectedItem()))){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "This Task has an assigned discount.",
+                        "BAPERS", JOptionPane.ERROR_MESSAGE
+                );
+
+            }else{
+                bapers.createVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate.getText()), String.valueOf(task_list_input.getSelectedItem()));
+            }
+            //bapers.createVariableDiscount(acc_no, Double.parseDouble(EnterDiscountRate.getText()), String.valueOf(task_list_input.getSelectedItem()));
             task_list_input.setSelectedItem("Select Task");
             EnterDiscountRate.setText("");
-        }
-        else{
+
+        } else{
             JOptionPane.showMessageDialog(
                     this,
                     "Please fill out the fields.",
@@ -175,9 +183,6 @@ public class AddNewTaskDiscount extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
-    private void EnterDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterDiscountRateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EnterDiscountRateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

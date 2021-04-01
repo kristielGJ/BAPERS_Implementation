@@ -7,7 +7,7 @@ package GUI;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class LoginForm extends javax.swing.JPanel {
 

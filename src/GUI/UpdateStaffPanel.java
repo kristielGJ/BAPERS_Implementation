@@ -12,10 +12,11 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class UpdateStaffPanel extends javax.swing.JPanel {
     private I_Bapers controller;
@@ -83,6 +84,7 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         phoneLabel = new javax.swing.JLabel();
         roleLabel = new javax.swing.JLabel();
         roleDropdown = new javax.swing.JComboBox<>();
+        technicianDropdown = new javax.swing.JComboBox<>();
         idLabel = new javax.swing.JLabel();
         SpinnerListModel model = new SpinnerListModel(getAllIds());
         idSpinner = new javax.swing.JSpinner(model);
@@ -139,10 +141,20 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         roleLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleLabel.setText("Role:");
 
-        roleDropdown.setBackground(Style.DARK_BLUE);
-        roleDropdown.setForeground(Style.LIGHT_BLUE);
-        roleDropdown.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        roleDropdown.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Office Manager", "Shift Manager", "Receptionist", "Technician" }));
+        roleDropdown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                roleDropdownActionPerformed(e);
+            }
+        });
+
+        technicianDropdown.setModel(new DefaultComboBoxModel<>(new String[] {"Copy Room", "Development", "Finishing", "Packing"}));
+        technicianDropdown.setVisible(false);
+        if (roleDropdown.getSelectedItem() == "Technician") {
+            technicianDropdown.setVisible(true);
+        }
 
         idLabel.setForeground(Style.DARK_BLUE);
         idLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -188,6 +200,7 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
                                                         .addComponent(nameInput)
                                                         .addComponent(phoneInput)
                                                         .addComponent(roleDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(technicianDropdown,0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(idSpinner)
                                                         .addComponent(jPasswordField1))))
                                 .addContainerGap())
@@ -219,8 +232,9 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
                                         .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(roleDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(roleDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(roleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(technicianDropdown,0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -254,6 +268,14 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         }
     }
 
+    private void roleDropdownActionPerformed(ActionEvent e) {
+        if (roleDropdown.getSelectedItem() == "Technician") {
+            technicianDropdown.setVisible(true);
+        }else{
+            technicianDropdown.setVisible(false);
+        }
+    }
+
     private void cancelButtonActionPerformed(ActionEvent evt) {
         JDialog frame = (JDialog) SwingUtilities.getWindowAncestor(this);
         frame.dispose();
@@ -265,8 +287,26 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
         String email = emailInput.getText();
         String phone = phoneInput.getText();
         String password = new String(jPasswordField1.getPassword());
-        String role = roleDropdown.getSelectedItem().toString();
-        if (controller.updateStaffMember(new Object[]{id, name, email, phone, password, role})) {
+        String role = (String) roleDropdown.getSelectedItem();
+        String department = (String) technicianDropdown.getSelectedItem();
+
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please make sure all fields are filled out!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        boolean updateStaffMember = false;
+        if (role == "Technician") {
+            updateStaffMember = controller.updateStaffMember(new Object[]{id, name, email, phone, password, role, department});
+        }else{
+            updateStaffMember = controller.updateStaffMember(new Object[]{id, name, email, phone, password, role});
+        }
+
+        if (updateStaffMember) {
             controller.populateStaffTable(staffTable);
         }else{
             JOptionPane.showMessageDialog(
@@ -285,6 +325,7 @@ public class UpdateStaffPanel extends javax.swing.JPanel {
     private javax.swing.JLabel idLabel;
     private javax.swing.JSpinner idSpinner;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> technicianDropdown;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField nameInput;
     private javax.swing.JLabel nameLabel;

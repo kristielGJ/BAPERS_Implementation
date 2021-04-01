@@ -184,21 +184,29 @@ public class Task_Transaction implements I_Task_Transaction {
     }
 
     //returns a list of technician names
-    public String[] retrieveTechnicians(){
+    public String[] retrieveTechnicians(String existing_task){
         int i = 1;
+        String department = null;
         String[] technician = new String[0];
         int rowCount = 0;
         try {
-            Stm = conn.prepareStatement("SELECT COUNT(*) FROM User_account WHERE role = ?");
-            Stm.setString(1,"Technician");
+            PreparedStatement Stm1 = conn.prepareStatement("select Task_department from Task_Catalog where Task_name = ? ");
+            Stm1.setString(1,existing_task);
+            ResultSet rs2 = Stm1.executeQuery();
+            while (rs2.next()){
+                department = rs2.getString(1);
+            }
+
+            Stm = conn.prepareStatement("SELECT COUNT(*) FROM User_account WHERE department= ?");
+            Stm.setString(1,department);
             ResultSet rs1 = Stm.executeQuery();
             while(rs1.next()){
                 rowCount = rs1.getInt(1);
             }
             rs1.close();
             Stm.close();
-            Stm = conn.prepareStatement("SELECT name FROM User_account WHERE role = ?");
-            Stm.setString(1,"Technician");
+            Stm = conn.prepareStatement("SELECT name FROM User_account WHERE department = ?");
+            Stm.setString(1,department);
             ResultSet rs = Stm.executeQuery();
             technician = new String[rowCount+1];
             technician[0] = "Select Technician";
@@ -224,7 +232,7 @@ public class Task_Transaction implements I_Task_Transaction {
             ResultSet rs = Stm.executeQuery();
             while (rs.next()) {
                 Stm = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Catalog_ID = ?");
-                Stm.setInt(1, rs.getInt(7));
+                Stm.setInt(1, rs.getInt(6));
                 ResultSet rs1 = Stm.executeQuery();
                 while (rs1.next()){
                     Task_List task = new Task_List(

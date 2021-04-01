@@ -6,8 +6,11 @@
 package GUI;
 
 import model.database.I_Bapers;
+import model.discounts.flexible_discount.FlexibleDiscount;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,10 +22,13 @@ public class EditFlexibleDiscount extends javax.swing.JPanel {
     private JPanel lastPanel;
     private I_Bapers bapers;
     int acc_no;
+    JTable flexibleDiscountTable;
     /**
      * Creates new form EditFlexibleDiscount
      */
-    public EditFlexibleDiscount(String[] data, I_Bapers bapers, GUI f) {
+    public EditFlexibleDiscount(String[] data, I_Bapers bapers, JTable flexibleDiscountTable, GUI f) {
+        this.flexibleDiscountTable = flexibleDiscountTable;
+        this.acc_no = Integer.parseInt(data[0]);
         initComponents(data, bapers, f);
     }
 
@@ -59,7 +65,7 @@ public class EditFlexibleDiscount extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 23, 71));
-        jLabel1.setText("  Flexible Discount");
+        jLabel1.setText("Flexible Discount");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 23, 71));
