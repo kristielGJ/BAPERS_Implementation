@@ -113,7 +113,7 @@ public class BackupInterval extends javax.swing.JPanel {
         String id = backupManager.changeFrequency((String) jComboBox1.getSelectedItem());
         JOptionPane.showMessageDialog(
                 this,
-                "Restored at ID: " + id + "",
+                "Changed frequency: " + id,
                 "BAPERS", JOptionPane.INFORMATION_MESSAGE
         );
         close();
