@@ -84,13 +84,13 @@ public class Controller implements I_Bapers {
 	}
 
 	@Override
-	public void createNewCustomer(String name, String address, String phone) {
-		customer.addCustomer(name,address,phone);
+	public void createNewCustomer(String name, String company, String address, String phone) {
+		customer.addCustomer(name,company, address,phone);
 	}
 
 	@Override
-	public void updateCustomerDetails(String name, int Acc_no, String Address, String Phone, String valued){
-		customer.updateCustomer(name,Acc_no,Address,Phone, valued);
+	public void updateCustomerDetails(String name, String Company, int Acc_no, String Address, String Phone, String valued){
+		customer.updateCustomer(name,Company,Acc_no,Address,Phone, valued);
 	}
 
 	public String getDiscountType(int accNo){
@@ -336,7 +336,6 @@ public class Controller implements I_Bapers {
 						roleAndDepartment
 				});
 			}else{
-				System.out.println(act.getName());
 				model.addRow(new Object[] {
 						act.getId(), act.getName(),
 						act.getEmail(), act.getPhone(),

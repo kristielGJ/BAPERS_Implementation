@@ -32,9 +32,9 @@ public interface I_Bapers {
      */
 	Customer identifyCustomer(int Account_no) throws SQLException;
 
-	void createNewCustomer(String name, String address, String phone) throws SQLException;
+	void createNewCustomer(String name, String company, String address, String phone) throws SQLException;
 
-	void updateCustomerDetails(String name, int Acc_no, String Address, String Phone, String valued) throws SQLException;
+	void updateCustomerDetails(String name, String Company, int Acc_no, String Address, String Phone, String valued) throws SQLException;
 
 	String getDiscountType(int accNo);
 

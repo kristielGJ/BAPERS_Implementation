@@ -1,12 +1,13 @@
 package model.customers;
 import java.util.Date;
+
 public class ValuedCustomer extends Customer {
 
 	private Date paymentDeadline;
 	private String discount_plan;
 
-	public ValuedCustomer(String customer_name, int acc_no, String address, String phone, String Valued, String discount_plan) {
-		super(customer_name, acc_no, address, phone, Valued);
+	public ValuedCustomer(String customer_name, int acc_no, String address, String phone, String Valued, String discount_plan, String company) {
+		super(customer_name, acc_no, address, phone, Valued, company);
 		this.discount_plan = discount_plan;
 	} //constructor for ValuedCustomer
 

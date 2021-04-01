@@ -9,6 +9,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Jacob
+ */
+
 public class RetrieveCustomer extends JPanel {
 
 	//private global variables in RetrieveCustomer
@@ -35,10 +40,10 @@ public class RetrieveCustomer extends JPanel {
 
 		//initialises components for panel
 		customerTable = new JTable();
-		String[] columnNames = {"Name", "Account no.", "Address", "Phone", "Customer Type", "Discount type"};
+		String[] columnNames = {"Name", "Account no.", "Address", "Phone", "Customer Type", "Discount type", "Company"};
 		customerTable.setModel(new DefaultTableModel(columnNames,0) {
 			boolean[] canEdit = new boolean[]{
-					false, false, false, false, false, false
+					false, false, false, false, false, false, false
 			};
 				public boolean isCellEditable ( int rowIndex, int columnIndex){ return canEdit[columnIndex];}
 		});
@@ -169,7 +174,12 @@ public class RetrieveCustomer extends JPanel {
 			if(row == -1){
 				JOptionPane.showMessageDialog(f.getCurrentPanel(), "No row selected", "BAPERS", JOptionPane.ERROR_MESSAGE);
 			} else {
-				String customerData[] = {customerTable.getValueAt(row, 0).toString(), customerTable.getValueAt(row, 1).toString(), customerTable.getValueAt(row, 2).toString(), customerTable.getValueAt(row, 3).toString(), customerTable.getValueAt(row, 4).toString()};
+				String customerData[];
+				if(!(customerTable.getValueAt(row,6) == null)) {
+					customerData = new String[] {customerTable.getValueAt(row, 0).toString(), customerTable.getValueAt(row, 1).toString(), customerTable.getValueAt(row, 2).toString(), customerTable.getValueAt(row, 3).toString(), customerTable.getValueAt(row, 4).toString(), customerTable.getValueAt(row, 6).toString()};
+				} else {
+					customerData = new String[] {customerTable.getValueAt(row, 0).toString(), customerTable.getValueAt(row, 1).toString(), customerTable.getValueAt(row, 2).toString(), customerTable.getValueAt(row, 3).toString(), customerTable.getValueAt(row, 4).toString(), null};
+				}
 				if (customerData[4].equals("Valued")) {
 					f.valuedCustomer(customerData);
 				} else {
@@ -299,7 +309,7 @@ public class RetrieveCustomer extends JPanel {
 		customers = cT.getAllCustomers();
 		data = cT.getCustomerData(customers);
 		for(String[] a : data){
-			model.addRow(new Object[]{a[0], a[1], a[2], a[3], a[4], a[5]});
+			model.addRow(new Object[]{a[0], a[1], a[2], a[3], a[4], a[5],a[6]});
 		}
 		table.setModel(model);
 	}

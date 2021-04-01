@@ -1,20 +1,23 @@
 package GUI;
-import model.customers.transaction.CustomersTransaction;
-import model.database.DB_Connection;
-import model.database.I_Bapers;
 
+import model.database.I_Bapers;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
+/**
+ *
+ * @author Jacob
+ */
+
 public class UpdateCustomerDetails extends JPanel {
 
 	//private global variables in UpdateCustomerAccount
-	private String customerName, accNo, CustomerAddress, CustomerPhone, valued;
-	private JTextArea customer_name_input, acc_no, address_input, phone_input;
-	private JLabel custLabel, accLabel, addLabel, phoneLabel, custDetLabel, miniBapersLabel;
+	private String customerName, accNo, CustomerAddress, CustomerPhone, company,valued;
+	private JTextArea customer_name_input, acc_no, company_input, address_input, phone_input;
+	private JLabel custLabel, accLabel, addLabel, phoneLabel, companyLabel, custDetLabel, miniBapersLabel;
 	private JButton updateButton,backButton, menuButton;
 	private JCheckBox valuedCustomerBox;
 	private I_Bapers cT;
@@ -28,6 +31,7 @@ public class UpdateCustomerDetails extends JPanel {
 		this.CustomerAddress = customerData[2];
 		this.CustomerPhone = customerData[3];
 		this.valued = customerData[4];
+		this.company = customerData[5];
 		this.f = f;
 		this.cT= cT;
 		this.lastPanel = f.getCurrentPanel();
@@ -49,6 +53,10 @@ public class UpdateCustomerDetails extends JPanel {
 		customer_name_input = new JTextArea();
 		customer_name_input.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		customer_name_input.setText(customerName);
+
+		company_input = new JTextArea();
+		company_input.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		company_input.setText(company);
 
 		acc_no = new JTextArea();
 		acc_no.setEditable(false);
@@ -78,6 +86,10 @@ public class UpdateCustomerDetails extends JPanel {
 		phoneLabel = new JLabel();
 		phoneLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		phoneLabel.setText("Phone:");
+
+		companyLabel = new JLabel();
+		companyLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		companyLabel.setText("Phone:");
 
 		valuedCustomerBox = new JCheckBox("Valued Customer?");
 		if(valued.equals("Valued")){
@@ -135,12 +147,14 @@ public class UpdateCustomerDetails extends JPanel {
 														.addComponent(phoneLabel)
 														.addComponent(addLabel)
 														.addComponent(accLabel)
+														.addComponent(companyLabel)
 														.addComponent(custLabel))
 												.addGap(29, 29, 29)
 												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 														.addComponent(acc_no)
 														.addComponent(phone_input)
-														.addComponent(address_input, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+														.addComponent(address_input)
+														.addComponent(company_input, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
 														.addComponent(customer_name_input, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 										.addGroup(layout.createSequentialGroup()
 												.addGap(345,345,345)
@@ -178,6 +192,10 @@ public class UpdateCustomerDetails extends JPanel {
 														.addComponent(customer_name_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 												.addGap(18, 18, 18)
 												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(companyLabel)
+														.addComponent(company_input, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGap(18, 18, 18)
+												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(accLabel)
 														.addComponent(acc_no, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
 												.addGap(18, 18, 18)
@@ -211,7 +229,7 @@ public class UpdateCustomerDetails extends JPanel {
 			}
 			if(!customer_name_input.getText().isEmpty() && !address_input.getText().isEmpty() && !phone_input.getText().isEmpty()) {
 				try {
-					cT.updateCustomerDetails(customer_name_input.getText(), Integer.parseInt(accNo), address_input.getText(), phone_input.getText(), valued);
+					cT.updateCustomerDetails(customer_name_input.getText(),company_input.getText(), Integer.parseInt(accNo), address_input.getText(), phone_input.getText(), valued);
 				} catch (SQLException throwables) {
 					throwables.printStackTrace();
 				}

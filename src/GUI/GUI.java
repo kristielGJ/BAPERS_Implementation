@@ -13,6 +13,11 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *
+ * @author Jacob
+ */
+
 public class GUI extends JFrame {
 
 	private JPanel lastPanel= null, currentPanel = null;
