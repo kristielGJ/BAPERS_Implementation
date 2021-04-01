@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author g_jah
+ * @author Gera
  */
 public class AddFlexibleDiscount extends javax.swing.JPanel {
     private GUI f;
