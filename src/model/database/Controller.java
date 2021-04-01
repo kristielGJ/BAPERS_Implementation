@@ -70,8 +70,8 @@ public class Controller implements I_Bapers {
 	private I_JobPerformanceReport_Transaction jobPerformanceReport = new JobPerformanceReport_Transaction(mainConn);
 	private I_SummaryPerformanceReport_Transaction summaryPerformanceReport = new SummaryPerformanceReport_Transaction(mainConn);
 	private I_CustomersTransaction customer = new CustomersTransaction(mainConn);
-	UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
-	AlertTransaction alertTransaction = new AlertTransaction(mainConn);
+	private UserAccountTransaction userAccountTransaction = new UserAccountTransaction(mainConn);
+	private AlertTransaction alertTransaction = new AlertTransaction(mainConn);
 	private UserAccount currentUser;
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private ArrayList<ScheduledAlert> loadedAlerts = new ArrayList<>();
@@ -181,6 +181,11 @@ public class Controller implements I_Bapers {
 		existingTask.extendTaskList(task_description, task_price, task_duration, department_name);
 	}
 
+	@Override
+	public AlertTransaction getAlertTransaction() {
+		return alertTransaction;
+	}
+
 	//returns a list of existing task with details
 	public ArrayList<ExistingTasks> getExistingTasks(){
 		return existingTask.getExistingTasks();
@@ -194,6 +199,11 @@ public class Controller implements I_Bapers {
 	//updates a existing task
 	public void updateExistingTask(int existing_task_ID, String task_name, Double task_price, int task_duration, String department_name){
 		existingTask.updateExistingTask(existing_task_ID, task_name, task_price, task_duration, department_name);
+	}
+
+	// Gets Job transaction instance
+	public I_Job_Transaction getJob() {
+		return job;
 	}
 
 	//creates a new payment
@@ -250,7 +260,7 @@ public class Controller implements I_Bapers {
 		ArrayList<Alert> alerts = alertTransaction.getAll();
 		if (!alerts.isEmpty()) {
 			for (Alert alert : alerts) {
-				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this);
+				ScheduledAlert scheduledAlert = new ScheduledAlert(alert, parent, this, mainConn);
 				if (scheduledAlert.canRunAlert()) {
 					scheduledAlert.runAlert();
 				}else{

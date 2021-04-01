@@ -2,12 +2,15 @@ package model.database;
 
 import model.admin.alert.Alert;
 import model.admin.alert.ScheduledAlert;
+import model.admin.alert.transaction.AlertTransaction;
 import model.admin.userAccount.UserAccount;
+import model.admin.userAccount.transaction.UserAccountTransaction;
 import model.customers.Customer;
 import model.discounts.flexible_discount.FlexibleDiscount;
 import model.discounts.variable_discount.VariableDiscount;
 import model.jobs.existing_tasks.ExistingTasks;
 import model.jobs.job.Job;
+import model.jobs.job.transaction.I_Job_Transaction;
 import model.jobs.task.Task_List;
 import reports.individual_performance_report.IndividualPerformanceReport;
 import reports.job_performance_report.JobPerformanceReport;
@@ -144,9 +147,13 @@ public interface I_Bapers {
 
 	void refreshAllAlerts(JFrame parent);
 
+	AlertTransaction getAlertTransaction();
+
 	ScheduledExecutorService getScheduler();
 
 	ArrayList<ScheduledAlert> getLoadedAlerts();
 
 	void removeAlert(Alert alert);
+
+	I_Job_Transaction getJob();
 }
