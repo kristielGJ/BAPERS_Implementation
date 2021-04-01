@@ -256,6 +256,11 @@ public class Home extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        RefreshAlertsButton.setVisible(false);
+        if (bapers.getCurrentUser().getRole().equals("Office Manager") || bapers.getCurrentUser().getRole().equals("Shift Manager")) {
+            RefreshAlertsButton.setVisible(true);
+        }
+
         if (!bapers.getCurrentUser().getRole().equals("Office Manager")) {
             StaffButton.setVisible(false);
             BackupButton.setVisible(false);
