@@ -217,6 +217,15 @@ public class AddStaffPanel extends JPanel {
         String password = new String(passwordInput.getPassword());
         String role = (String) roleDropdown.getSelectedItem();
         String department = (String) TechnicianComboBox.getSelectedItem();
+
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Please make sure all fields are filled out!",
+                    "BAPERS", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
         boolean addStaffMember = false;
         if (role == "Technician") {
             addStaffMember = controller.addStaffMember(new String[]{name, email, phone, password, role, department});
