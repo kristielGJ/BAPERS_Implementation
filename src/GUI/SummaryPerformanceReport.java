@@ -112,7 +112,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
 
         summary_performance_report_for_period.setModel(new javax.swing.table.DefaultTableModel(
             new String [] {
-                "Date", "Copy Room", "Development", "Finishing", "Packing"
+                "Date", "Copy Room(HH:MM)", "Development(HH:MM)", "Finishing(HH:MM)", "Packing(HH:MM)"
             },0
         ) {
             Class[] types = new Class [] {
@@ -138,7 +138,7 @@ public class SummaryPerformanceReport extends javax.swing.JPanel {
 
         summary_performance_report_shift.setModel(new javax.swing.table.DefaultTableModel(
             new String [] {
-                "Date", "Copy Room", "Development", "Finishing", "Packing"
+                "Date", "Copy Room(HH:MM)", "Development(HH:MM)", "Finishing(HH:MM)", "Packing(HH:MM)"
             },0
         ) {
             Class[] types = new Class [] {
