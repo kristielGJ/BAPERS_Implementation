@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class Main {
     

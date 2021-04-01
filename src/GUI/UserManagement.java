@@ -7,7 +7,7 @@ package GUI;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class UserManagement extends javax.swing.JPanel {
 

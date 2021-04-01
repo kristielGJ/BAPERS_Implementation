@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class LoginPanel extends javax.swing.JPanel {
 

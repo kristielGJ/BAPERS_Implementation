@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author msy
+ * @author Mushfikur
  */
 public class UpdateStaffPanel extends javax.swing.JPanel {
     private I_Bapers controller;
