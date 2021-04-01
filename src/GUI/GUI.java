@@ -130,7 +130,7 @@ public class GUI extends JFrame {
 	}
 
 	public void createDiscountPlan(int acc_no){
-		add (new CreateDiscountPlan(getWidth(), getHeight(), bapers,this, acc_no));
+		add (new ChooseDiscountPlan(getWidth(), getHeight(), bapers,this, acc_no));
 	}
 
 	public void addTaskDiscount(int acc_no, String catalog_name){
@@ -138,7 +138,7 @@ public class GUI extends JFrame {
 	}
 
 	public void fixedDiscount(int acc_no){
-		add(new FixedDiscount(getWidth(), getHeight(), bapers, this,acc_no));
+		add(new FixedDiscount(getWidth(), getHeight(), bapers, this, acc_no));
 	}
 
 	public void flexibleDiscount(int acc_no){

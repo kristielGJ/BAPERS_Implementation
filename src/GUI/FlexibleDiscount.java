@@ -25,11 +25,11 @@ public class FlexibleDiscount extends javax.swing.JPanel {
     /**
      * Creates new form FlexibleDiscount
      */
-    public FlexibleDiscount(int width, int height, I_Bapers bapers,GUI f, int acc_no) {
+    public FlexibleDiscount(int width, int height, I_Bapers bapers, GUI f, int acc_no) {
         this.acc_no=acc_no;
-        this.f=f;
-        this.lastPanel= f.getCurrentPanel();
-        this.bapers=bapers;
+        this.bapers = bapers;
+        this.f = f;
+        this.lastPanel = f.getCurrentPanel();
         f.setCurrentPanel(this);
         initComponents();
 
@@ -225,10 +225,9 @@ public class FlexibleDiscount extends javax.swing.JPanel {
                 data[i] = table.getModel().getValueAt(row, i).toString();
             }
             final JDialog frame = new JDialog(f, "Add Task", true);
-            frame.getContentPane().add(new EditFlexibleDiscount(data, bapers, f));
+            frame.getContentPane().add(new EditFlexibleDiscount(data, bapers, FlexibleDiscountTable, f));
             frame.pack();
             frame.setVisible(true);
-
         } catch (Exception e)
         {
             JOptionPane.showMessageDialog(
@@ -239,18 +238,13 @@ public class FlexibleDiscount extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_UpdateBoundButtonActionPerformed
 
-    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int customer_acc_no) {//GEN-FIRST:event_DeleteBoundButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
-        model.setRowCount(0);
-        ArrayList<model.discounts.flexible_discount.FlexibleDiscount> discounts = bapers.getFlexibleDiscount(customer_acc_no);
-        for(model.discounts.flexible_discount.FlexibleDiscount flexible : discounts){
-            model.addRow(new Object[]{flexible.getDiscount_band_id(),flexible.getLower_bound(), flexible.getUpper_bound(), flexible.getDiscount_rate()});
-        }
-        table.setModel(model);
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt, JTable table, int customer_acc_no) {
+        populateTable(table, acc_no);
     }
 
     private void populateTable(JTable table, int customer_acc_no){
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         ArrayList<model.discounts.flexible_discount.FlexibleDiscount> discounts = bapers.getFlexibleDiscount(customer_acc_no);
         for(model.discounts.flexible_discount.FlexibleDiscount flexible : discounts){
             model.addRow(new Object[]{flexible.getDiscount_band_id(), flexible.getLower_bound(), flexible.getUpper_bound(), flexible.getDiscount_rate()});
@@ -278,7 +272,7 @@ public class FlexibleDiscount extends javax.swing.JPanel {
 
     private void AddNewButton2ActionPerformed(java.awt.event.ActionEvent evt, int acc_no) {//GEN-FIRST:event_AddNewButton2ActionPerformed
         final JDialog frame = new JDialog(f, "Add Task", true);
-        frame.getContentPane().add(new AddFlexibleDiscount(acc_no, bapers, f));
+        frame.getContentPane().add(new AddFlexibleDiscount(acc_no, bapers, FlexibleDiscountTable, f));
         frame.pack();
         frame.setVisible(true);
     }//GEN-LAST:event_AddNewButton2ActionPerformed
