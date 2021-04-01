@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author g_jah
+ * @author Gera
  */
 public class AddNewTaskDiscount extends javax.swing.JPanel {
     private GUI f;

@@ -23,13 +23,27 @@ public class Job_Transaction implements I_Job_Transaction {
     private Connection conn;
     private AlertTransaction alertTransaction;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public Job_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
         alertTransaction = new AlertTransaction(conn);
     }
 
-   //creates a new job
+    /**
+     * creates a new job
+     *
+     * @param job_ID
+     * @param job_desc
+     * @param priority
+     * @param job_status
+     * @param time
+     * @param special_instructions
+     * @param customer_account_no
+     */
     public void addJob(int job_ID, String job_desc, String priority, String job_status, int time, String special_instructions, int customer_account_no){
         LocalDateTime deadline;
         if (priority == "Urgent"){
@@ -48,7 +62,18 @@ public class Job_Transaction implements I_Job_Transaction {
         saveJob(job_ID, job_desc, priority, time, special_instructions, "Pending", deadline, customer_account_no);
     }
 
-    //save the job details in the database
+    /**
+     * save the job details in the database
+     *
+     * @param job_ID
+     * @param job_desc
+     * @param priority
+     * @param time
+     * @param special_instructions
+     * @param job_status
+     * @param deadline
+     * @param customer_account_no
+     */
     public void saveJob(int job_ID, String job_desc, String priority, int time, String special_instructions, String job_status, LocalDateTime deadline, int customer_account_no) {
         try {
             Stm = conn.prepareStatement("INSERT INTO `bapers`.`Job` (`Job_ID`, `Job_desc`, `Urgency_level`, `Completion_deadline`, `Special_instruction`, `Status`, `Payment_status`, `CustomerAccount_no`) VALUES (?,?,?,?,?,?,?,?) ");
@@ -79,7 +104,12 @@ public class Job_Transaction implements I_Job_Transaction {
         }
     }
 
-   //update the job status
+    /**
+     * update the job status
+     *
+     * @param job_ID
+     * @param job_status
+     */
     public void updateJobStatus(int job_ID, String job_status){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Status = ? WHERE Job_ID =?;");
@@ -127,7 +157,11 @@ public class Job_Transaction implements I_Job_Transaction {
         }
     }
 
-    //adding the completion_time of the job in the database
+    /**
+     * adding the completion_time of the job in the database
+     *
+     * @param job_ID
+     */
     public void addCompletion_time(int job_ID){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Completion_date_time = ? WHERE Job_ID =?;");
@@ -139,7 +173,11 @@ public class Job_Transaction implements I_Job_Transaction {
         }
     }
 
-    //adding the start_time of the job in the database
+    /**
+     * adding the start_time of the job in the database
+     *
+     * @param job_ID
+     */
     public void addStart_time(int job_ID){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Start = ? WHERE Job_ID =?;");
@@ -151,7 +189,12 @@ public class Job_Transaction implements I_Job_Transaction {
         }
     }
 
-   //adding the payment deadline in the database for valued customers
+    /**
+     * adding the payment deadline in the database for valued customers
+     *
+     * @param job_ID
+     * @param payment_deadline
+     */
     public void addPaymentDeadline(int job_ID, LocalDateTime payment_deadline){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Job` SET Payment_deadline = ? WHERE Job_ID =?;");
@@ -165,7 +208,13 @@ public class Job_Transaction implements I_Job_Transaction {
         }
     }
 
-    //returns a list of jobs associated with the customer
+    /**
+     * returns a list of jobs associated with the customer
+     *
+     * @param customer_id
+     * @param type
+     * @return job_details
+     */
     public ArrayList<Job> getJobs(int customer_id, String type) {
         ArrayList<Job> job_details = null;
         try {
@@ -203,7 +252,11 @@ public class Job_Transaction implements I_Job_Transaction {
         return job_details;
     }
 
-    //returns a list of active jobs (not completed)
+    /**
+     * returns a list of active jobs (not completed)
+     *
+     * @return job_details
+     */
     public ArrayList<Job> getActiveJobs() {
         ArrayList<Job> job_details = null;
         try {
@@ -232,6 +285,11 @@ public class Job_Transaction implements I_Job_Transaction {
         return job_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return job
+     */
     @Override
     public Job read(int id) {
         Job job = null;
@@ -258,6 +316,10 @@ public class Job_Transaction implements I_Job_Transaction {
         return job;
     }
 
+    /**
+     *
+     * @return job_details
+     */
     @Override
     public ArrayList<Job> getAll() {
         ArrayList<Job> job_details = null;
@@ -286,6 +348,11 @@ public class Job_Transaction implements I_Job_Transaction {
         return job_details;
     }
 
+    /**
+     *
+     * @param id
+     * @return removed
+     */
     @Override
     public boolean remove(int id) {
         boolean removed = false;

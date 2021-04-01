@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author g_jah
+ * @author Gera
  */
 public class EditFlexibleDiscount extends javax.swing.JPanel {
 

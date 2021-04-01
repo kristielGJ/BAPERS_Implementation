@@ -7,14 +7,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
-/**
- *
- * @author Jacob
- */
-
 public class UpdateCustomerDetails extends JPanel {
 
-	//private global variables in UpdateCustomerAccount
+	/**
+	 *  private global variables in UpdateCustomerAccount
+	 */
 	private String customerName, accNo, CustomerAddress, CustomerPhone, company,valued;
 	private JTextArea customer_name_input, acc_no, company_input, address_input, phone_input;
 	private JLabel custLabel, accLabel, addLabel, phoneLabel, companyLabel, custDetLabel, miniBapersLabel;
@@ -24,7 +21,14 @@ public class UpdateCustomerDetails extends JPanel {
 	private GUI f;
 	private JPanel lastPanel;
 
-	//constructor for UpdateCustomerDetails, initialises global variables and sets layout for frame
+	/**
+	 * constructor for UpdateCustomerDetails, initialises global variables and sets layout for frame
+	 * @param width
+	 * @param height
+	 * @param customerData
+	 * @param f
+	 * @param cT
+	 */
 	public UpdateCustomerDetails(int width, int height, String[] customerData, GUI f, I_Bapers cT) {
 		this.customerName = customerData[0];
 		this.accNo = customerData[1];
@@ -42,7 +46,9 @@ public class UpdateCustomerDetails extends JPanel {
 		setBackground(new Color(157, 195, 230));
 		setLayout(null);
 
-		//Initialisation of components for JPanel
+		/**
+		 *  Initialisation of components for JPanel
+		 */
 		updateButton = new JButton();
 		updateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		updateButton.setForeground(Color.white);
@@ -123,7 +129,9 @@ public class UpdateCustomerDetails extends JPanel {
 		miniBapersLabel.setText("Bapers");
 
 
-		//layout manager for JPanel
+		/**
+		 * layout manager for JPanel
+		 */
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
@@ -217,7 +225,9 @@ public class UpdateCustomerDetails extends JPanel {
 
 	}
 
-	//mouse listener for update button, updates customer info to database
+	/**
+	 * mouse listener for update button, updates customer info to database
+	 */
 	class updateListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -260,7 +270,9 @@ public class UpdateCustomerDetails extends JPanel {
 		}
 	}
 
-	//mouse listener for back button, returns to previous panel
+	/**
+	 * mouse listener for back button, returns to previous panel
+	 */
 	class backListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -291,7 +303,9 @@ public class UpdateCustomerDetails extends JPanel {
 		}
 	}
 
-	//mouse listener for menu button, returns to menu button
+	/**
+	 * mouse listener for menu button, returns to menu button
+	 */
 	class menuListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author g_jah
+ * @author Gera
  */
 public class VariableDiscount extends javax.swing.JPanel {
     private GUI f;

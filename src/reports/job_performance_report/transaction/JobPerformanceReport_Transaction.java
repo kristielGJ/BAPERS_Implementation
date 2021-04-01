@@ -21,12 +21,23 @@ public class JobPerformanceReport_Transaction implements I_JobPerformanceReport_
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * constructor
+     *
+     * @param conn
+     */
     public JobPerformanceReport_Transaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //generates job sheet
+    /**
+     * generates job sheet
+     *
+     * @param from_date
+     * @param to_date
+     * @param customer_ID
+     * @return
+     */
     public ArrayList<JobPerformanceReport> generateJobSheet(LocalDate from_date, LocalDate to_date, int customer_ID) {
         ArrayList<JobPerformanceReport> report = null;
         try {

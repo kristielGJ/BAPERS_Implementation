@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 
 /**
  *
- * @author g_jah
+ * @author Gera
  */
 public class AddTaskDiscount extends javax.swing.JPanel {
     private GUI f;

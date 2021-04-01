@@ -2,11 +2,6 @@ package GUI;
 
 import javax.swing.*;
 
-/**
- *
- * @author Jacob
- */
-
 public class PopUpBox extends JFrame {
 
     public PopUpBox(int width, int height, String title) {

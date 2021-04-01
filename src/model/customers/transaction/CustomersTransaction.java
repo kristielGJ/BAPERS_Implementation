@@ -10,12 +10,27 @@ import java.util.ArrayList;
 
 public class CustomersTransaction implements I_CustomersTransaction {
 
-	private final Connection conn; //private conn variable
+	/**
+	 * private conn variable
+	 */
+	private final Connection conn;
 
+	/**
+	 * constructor for class
+	 * @param conn
+	 */
 	public CustomersTransaction(DB_Connection conn) {
 		this.conn = conn.getConn();
-	} // constructor for class
+	}
 
+	/**
+	 * adds customer entry to database// adds customer entry to database
+	 * @param name
+	 * @param Company
+	 * @param Address
+	 * @param Phone
+	 * @return
+	 */
 	public Customer addCustomer(String name, String Company, String Address, String Phone){
 		Customer cust = null;
 		try {
@@ -33,8 +48,18 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			throwables.printStackTrace();
 		}
 		return cust;
-	} // adds customer entry to database
+	}
 
+	/**
+	 * updates current customer entry in database
+	 * @param name
+	 * @param Company
+	 * @param Acc_no
+	 * @param Address
+	 * @param Phone
+	 * @param valued
+	 * @return
+	 */
 	public Customer updateCustomer(String name, String Company, int Acc_no, String Address, String Phone, String valued){
 		Customer cust = null;
 		try{
@@ -53,8 +78,11 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return cust;
-	} // updates current customer entry in database
+	}
 
+	/**
+	 * get a list of arrays of strings of all customers in the database
+	 */
 	public ArrayList<String[]> getAllCust() {
 		ArrayList<String[]> customers = null;
 		try{
@@ -78,8 +106,13 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return customers;
-	} //get a list of arrays of strings of all customers in the database
+	}
 
+	/**
+	 * //convert the array list of Sting arrays into an array of string arrays
+	 * @param customers
+	 * @return
+	 */
 	public String[][] getData(ArrayList<String[]> customers){
 		String[][] array = new String[customers.size()][];
 		for (int i = 0; i < customers.size(); i++) {
@@ -87,8 +120,14 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			array[i] = row;
 		}
 		return array;
-	} //convert the array list of Sting arrays into an array of string arrays
+	}
 
+	/**
+	 * return either a valuedCustomer or a Customer
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private Customer getCustomer(ResultSet rs) throws SQLException {
 		Customer cust;
 		rs.next();
@@ -99,13 +138,22 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		}
 
 		return cust;
-	} // return either a valuedCustomer or a Customer
+	}
 
+	/**
+	 * get all customers from database, didnt need to be implemented
+	 * @return
+	 */
 	@Override
 	public ArrayList<Customer> getAll() {
 		return null;
-	} //get all customers from database, didnt need to be implemented
+	}
 
+	/**
+	 * return a specific customer from the database
+	 * @param Acc_no
+	 * @return
+	 */
 	@Override
 	public Customer read(int Acc_no) {
 		Customer cust = null;
@@ -120,8 +168,13 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return cust;
-	} // return a specific customer from the database
+	}
 
+	/**
+	 * remove a customer entry from the database
+	 * @param Acc_no
+	 * @return
+	 */
 	@Override
 	public boolean remove(int Acc_no) {
 		boolean removed = false;
@@ -135,8 +188,12 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			e.printStackTrace();
 		}
 		return removed;
-	} // remove a customer entry from the database
+	}
 
+	/**
+	 * get the last used account number in the database
+	 * @return
+	 */
 	public int getLastAccNo(){
 		int lastAccNo = 0 ;
 		try {
@@ -151,8 +208,13 @@ public class CustomersTransaction implements I_CustomersTransaction {
 
 		}
 		return lastAccNo;
-	} //get the last used account number in the database
+	}
 
+	/**
+	 * gets the discount type
+	 * @param accNo
+	 * @return
+	 */
 	@Override
 	public String getDiscountType(int accNo) {
 		String discountType = null;
