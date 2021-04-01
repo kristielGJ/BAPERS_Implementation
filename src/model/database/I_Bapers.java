@@ -14,7 +14,6 @@ import model.jobs.task.Task_List;
 import reports.individual_performance_report.IndividualPerformanceReport;
 import reports.job_performance_report.JobPerformanceReport;
 import reports.summary_performance_report.SummaryPerformanceReport;
-
 import javax.swing.*;
 import java.sql.Date;
 import java.sql.SQLException;

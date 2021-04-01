@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * This is the GUI that handles the management of Staff Accounts.
  * @author Mushfikur
  */
 public class StaffManagementPanel extends javax.swing.JPanel {
@@ -219,7 +219,7 @@ public class StaffManagementPanel extends javax.swing.JPanel {
     }
 
     private void removeButtonActionPerformed(ActionEvent evt) {
-        if (staffTable.getSelectedRow() == -1) {
+        if (staffTable.getSelectedRow() == -1) { // If a row isn't selected.
             JOptionPane.showMessageDialog(
                     this,
                     "Please select an entry to delete!",
@@ -240,9 +240,14 @@ public class StaffManagementPanel extends javax.swing.JPanel {
     }
 
     private void refreshButtonActionPerformed(ActionEvent evt) {
-        controller.populateStaffTable(staffTable);
+        controller.populateStaffTable(staffTable); // Calling this method refreshes the table.
     }
 
+    /**
+     * Opens a JDialog and adds the provided JPanel to it.
+     * @param panel Panel to add to the JDialog.
+     * @param title Title of the JDialog frame.
+     */
     private void openDialog(JPanel panel, String title) {
         final JDialog frame = new JDialog(f, title, true);
         frame.getContentPane().add(panel);

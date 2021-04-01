@@ -4,6 +4,12 @@ import model.Model;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Alert model class.
+ * Used to model the database table: Alert.
+ * Holds information that is assigned by @AlertTransaction.
+ */
+
 public class Alert extends Model {
 	private String name;
 	private String message;
@@ -18,6 +24,10 @@ public class Alert extends Model {
 		this.jobId = jobId;
 	}
 
+	/**
+	 * Calculates the execution time based from present moment and the time set in database.
+	 * @return The time in seconds.
+	 */
 	public int getTimeUntilExecutionInSeconds() {
 		LocalDateTime alertTime = getTime();
 		LocalDateTime now = LocalDateTime.now();

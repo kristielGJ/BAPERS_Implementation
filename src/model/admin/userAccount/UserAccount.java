@@ -2,7 +2,10 @@ package model.admin.userAccount;
 
 import model.Model;
 
-//TODO: Hash passwords in database
+/**
+ * A UserAccount class which models a Staff Account.
+ * Holds the data retrieved from the database through @UserAccountTransaction.
+ */
 public class UserAccount extends Model {
 	private String name;
 	private String email;
@@ -20,6 +23,7 @@ public class UserAccount extends Model {
 		this.role = role;
 	}
 
+	// This constructor is overloaded the handle the edge case of a Technician having a department.
 	public UserAccount(int id, String name, String email, String phone, String password, String role, String department) {
 		setId(id);
 		this.name = name;
