@@ -11,19 +11,30 @@ import java.util.ArrayList;
 /**
  *
  * @author Manpreet and Gera
+ *
  */
 
 public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
 
     private PreparedStatement Stm = null;
     private Connection conn;
-
-    //constructor
+    /**
+     * Constructor
+     *
+     * @param conn
+     *
+     */
     public FixedDiscountTransaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
-
-    //adding the fixed discount rate
+    /**
+     * Set's the fixed discount rate
+     * Updates the database
+     *
+     * @param customer_acc_no
+     * @param discount_rate
+     *
+     */
     public void addFixedDiscountRate(int customer_acc_no, double discount_rate){
         try {
             Stm = conn.prepareStatement("UPDATE `bapers`.`Customer` SET Fixed_discount = ? WHERE Account_no =?;");
@@ -35,8 +46,13 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
             e.printStackTrace();
         }
     }
-
-    //returns the total discount for a job
+    /**
+     * Returns the total discount for a job
+     *
+     * @param job_ID
+     * @param customer_acc_no
+     *
+     */
     public double getTotalDiscount(int job_ID, int customer_acc_no){
         double total_discount = 0.0;
         double discount_rate = 0.0;
@@ -55,8 +71,12 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
         }
         return total_discount;
     }
-
-    //returns the discount rate (in percentage)
+    /**
+     * Returns the discount rate (as a percentage)
+     *
+     * @param customer_acc_no
+     *
+     */
     public double getDiscountRate(int customer_acc_no){
         double discount_rate = 0.0;
         try{
@@ -73,8 +93,13 @@ public class FixedDiscountTransaction implements I_FixedDiscountTransaction {
         }
         return discount_rate;
     }
-
-    //returns a list of fixed discount which are associated with the customer
+    /**
+     * Returns a list of a fixed discount's details
+     * which are associated with the customer
+     *
+     * @param customer_acc_no
+     *
+     */
     public ArrayList<FixedDiscount> getFixedDiscount(int customer_acc_no) {
         ArrayList<FixedDiscount> discount_details = null;
         try {

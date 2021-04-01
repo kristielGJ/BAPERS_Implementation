@@ -15,12 +15,23 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
     private PreparedStatement Stm = null;
     private Connection conn;
 
-    //constructor
+    /**
+     * Constructor
+     *
+     * @param conn
+     */
     public VariableDiscountTransaction(DB_Connection conn){
         this.conn = conn.getConn();
     }
 
-    //adding variable discount
+    /**
+     * Adding variable discount
+     *
+     * @param customer_acc_no
+     * @param discount_rate
+     * @param catalog_name
+     *
+     */
     public void addVariableDiscount(int customer_acc_no, Double discount_rate, String catalog_name){
         try {
             PreparedStatement Stm1 = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_name = ?;");
@@ -40,8 +51,14 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
             e.printStackTrace();
         }
     }
-
-    //returns total discount for a job
+    /**
+     * Returns total discount for a job
+     *
+     * @param job_ID
+     * @param customer_acc_no
+     * @return
+     *
+     */
     public double getTotal_Discount(int job_ID, int customer_acc_no){
         double total_discount = 0.0;
         double discount_rate = 0.0;
@@ -66,8 +83,14 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         }
         return total_discount;
     }
-
-    //returns discount rate for each task (discount in percentage)
+    /**
+     * Returns discount rate for each task (discount in percentage)
+     *
+     * @param catalog_id
+     * @param customer_acc_no
+     * @return
+     *
+     */
     public double getDiscountRate(int catalog_id, int customer_acc_no){
         double discount_rate = 0.0;
         try{
@@ -86,7 +109,13 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         return discount_rate;
     }
 
-    //return the list of catalog ids (existing tasks)
+    /**
+     * Return the list of catalog ids (existing tasks)
+     *
+     * @param accNo
+     * @return
+     *
+     */
     public ArrayList<Integer> getCatalog_IDs(int accNo){
         ArrayList<Integer> IDS = new ArrayList<Integer>();
         int ID=0;
@@ -105,8 +134,13 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         }
         return IDS;
     }
-
-    //returns a list of fixed discount which are associated with the customer
+    /**
+     * Returns a list of fixed discount which are associated with the customer
+     *
+     * @param customer_acc_no
+     * @return
+     *
+     */
     public ArrayList<VariableDiscount> getVariableDiscount(int customer_acc_no) {
         ArrayList<VariableDiscount> discount_details = null;
         try {
@@ -138,7 +172,11 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
 
     /**
      * Retrieves the Prices associated to a Task ,from the database
-     * Task price- for variable discounts
+     * Task price is used for variable discounts
+     *
+     * @param Catalog_ID
+     * @return
+     *
      */
     public double GetTaskPrice(int Catalog_ID) {
         double original_price = 0;
@@ -157,6 +195,13 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
 
     }
 
+    /**
+     * Retrieves a Task name from the database
+     *
+     * @param Catalog_ID
+     * @return
+     *
+     */
     public String GetTaskName(int Catalog_ID) {
         String name = " ";
         try {
@@ -175,9 +220,13 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
     }
 
     /**
-     * calculates a discounted Task Price
+     * Calculates a discounted Task Price
      *
-     * */
+     * @param discount_rate
+     * @param price
+     * @return
+     *
+     */
     public double calculateNewPrice(double discount_rate, double price) {
         double TotalPrice=0,multiplier;
         System.out.println(price);
@@ -189,6 +238,14 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         return TotalPrice;
     }
 
+    /**
+     * Removes a Task discount from the Database
+     *
+     * @param id
+     * @param acc_no
+     * @return
+     *
+     */
     public boolean removeVariableDiscount(int id, int acc_no){
         boolean removed = false;
         try {
@@ -205,6 +262,14 @@ public class VariableDiscountTransaction implements I_VariableDiscountTransactio
         return removed;
     }
 
+    /**
+     * Updates a Task discount's rate
+     *
+     * @param acc_no
+     * @param discount_rate
+     * @param catalog_name
+     *
+     */
     public void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name){
         try {
             PreparedStatement Stm1 = conn.prepareStatement("SELECT * FROM Task_Catalog WHERE Task_name = ?;");

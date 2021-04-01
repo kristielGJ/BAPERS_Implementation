@@ -3,6 +3,8 @@ package model.discounts.discount;
 /**
  *
  * @author Manpreet and Gera
+ * Discount Class
+ *
  */
 
 public class Discount {
@@ -11,7 +13,14 @@ public class Discount {
     private String discount_type;
     private double discount_rate;
 
-    //constructor
+    /**
+     * Constructor
+     *
+     * @param new_customer_acc_no
+     * @param new_discount_type
+     * @param new_discount_rate
+     *
+     */
     public Discount(int new_customer_acc_no, String new_discount_type, double new_discount_rate){
         customer_acc_no = new_customer_acc_no;
         discount_type = new_discount_type;
@@ -19,7 +28,10 @@ public class Discount {
 
     }
 
-    //getters and setters
+    /**
+     * Getters and Setters
+     *
+     */
     public String getDiscount_type() {
         return discount_type;
     }
