@@ -25,19 +25,20 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
     }
 
     //creates a new card payment and call the save method
-    public void makeCard_payment(int payment_id, double payment_amount, String card_type, String expiry_date, String last_digits, Date date, int job_ID){
-        new Card_payment(payment_amount, card_type, expiry_date, last_digits, date);
-        storeCard_details(payment_id, card_type, expiry_date, last_digits);
+    public void makeCard_payment(int payment_id, double payment_amount, String card_type, String expiry_date, String last_digits, String security_code, Date date, int job_ID){
+        new Card_payment(payment_amount, card_type, expiry_date, last_digits, date, security_code);
+        storeCard_details(payment_id, card_type, expiry_date, last_digits, security_code);
     }
 
     //save the card details in the database
-    public void storeCard_details(int payment_ID, String card_type, String expiry_date, String last_digits){
+    public void storeCard_details(int payment_ID, String card_type, String expiry_date, String last_digits, String security_code){
         try {
-            Stm = conn.prepareStatement("INSERT INTO `bapers`.`Card_details` (`Card_type`, `Expiry_date`, `Last_four_digits`, `Payment_ID`) VALUES (?,?,?,?) ");
+            Stm = conn.prepareStatement("INSERT INTO `bapers`.`Card_details` (`Card_type`, `Expiry_date`, `Last_four_digits`, `Payment_ID`, `Security_code`) VALUES (?,?,?,?,?) ");
             Stm.setString(1,card_type);
             Stm.setString(2,expiry_date);
             Stm.setString(3,last_digits);
             Stm.setInt(4,payment_ID);
+            Stm.setString(5, security_code);
             Stm.executeUpdate();
             Stm.close();
         } catch (Exception e) {
@@ -60,7 +61,8 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
                     rs.getString(2),
                     rs.getString(4),
                     rs.getString(5),
-                    rs1.getDate(2)
+                    rs1.getDate(2),
+                    rs1.getString(6)
             );
             rs.close();
             Stm.close();
@@ -84,7 +86,8 @@ public class Card_payment_Transaction implements I_Card_payment_Transaction {
                         rs.getString(2),
                         rs.getString(4),
                         rs.getString(5),
-                        Date.valueOf("2021-03-28")
+                        Date.valueOf("2021-03-28"),
+                        rs.getString(6)
                 );
                 card_details.add(card_payment);
             }
