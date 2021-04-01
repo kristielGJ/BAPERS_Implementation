@@ -4,9 +4,9 @@ import model.Utils;
 import model.customers.Customer;
 import model.customers.ValuedCustomer;
 import model.database.DB_Connection;
-
 import java.sql.*;
 import java.util.ArrayList;
+
 
 public class CustomersTransaction implements I_CustomersTransaction {
 
@@ -16,17 +16,18 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		this.conn = conn.getConn();
 	} // constructor for class
 
-	public Customer addCustomer(String name, String Address, String Phone){
+	public Customer addCustomer(String name, String Company, String Address, String Phone){
 		Customer cust = null;
 		try {
-			PreparedStatement pS = conn.prepareStatement("INSERT INTO Customer (Customer_name, Customer_address, Customer_phone, Customer_type) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pS = conn.prepareStatement("INSERT INTO Customer (Customer_name, Company, Customer_address, Customer_phone, Customer_type) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			pS.setString(1, name);
-			pS.setString(2, Address);
-			pS.setString(3, Phone);
-			pS.setString(4,"Regular");
+			pS.setString(2, Company);
+			pS.setString(3, Address);
+			pS.setString(4, Phone);
+			pS.setString(5,"Regular");
 			pS.executeUpdate();
 			int acc_No = Utils.getGeneratedKey(pS);
-			cust = new Customer(name, acc_No, Address, Phone, "Regular");
+			cust = new Customer(name, acc_No, Address, Phone, "Regular",Company);
 			pS.close();
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
@@ -34,18 +35,19 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		return cust;
 	} // adds customer entry to database
 
-	public Customer updateCustomer(String name, int Acc_no, String Address, String Phone, String valued){
+	public Customer updateCustomer(String name, String Company, int Acc_no, String Address, String Phone, String valued){
 		Customer cust = null;
 		try{
 			PreparedStatement pS = conn.prepareStatement(
-					"UPDATE Customer SET Customer_name = ?, Customer_address = ?, Customer_phone = ?, Customer_type = ? WHERE Account_no = ?");
+					"UPDATE Customer SET Customer_name = ?, Company = ?,Customer_address = ?, Customer_phone = ?, Customer_type = ? WHERE Account_no = ?");
 			pS.setString(1, name);
-			pS.setString(2, Address);
-			pS.setString(3, Phone);
-			pS.setString(4,valued);
-			pS.setInt(5, Acc_no);
+			pS.setString(2,Company);
+			pS.setString(3, Address);
+			pS.setString(4, Phone);
+			pS.setString(5,valued);
+			pS.setInt(6, Acc_no);
 			pS.executeUpdate();
-			cust = new Customer(name, Acc_no, Address, Phone, valued);
+			cust = new Customer(name, Acc_no, Address, Phone, valued, Company);
 			pS.close();
 		} catch (Exception e){
 			e.printStackTrace();
@@ -60,13 +62,14 @@ public class CustomersTransaction implements I_CustomersTransaction {
 			PreparedStatement st = conn.prepareStatement("SELECT * FROM Customer");
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				String[] data = new String[6];
+				String[] data = new String[7];
 				data[0] = rs.getString("Customer_name");
 				data[1] = Integer.toString(rs.getInt("Account_no"));
 				data[2] = rs.getString("Customer_address");
 				data[3] = rs.getString("Customer_phone");
 				data[4] = rs.getString("Customer_type");
 				data[5] = rs.getString("Discount_type");
+				data[6] = rs.getString("Company");
 				customers.add(data);
 			}
 			rs.close();
@@ -90,9 +93,9 @@ public class CustomersTransaction implements I_CustomersTransaction {
 		Customer cust;
 		rs.next();
 		if (rs.getString("Customer_type").equals("Valued")) {
-			cust = new ValuedCustomer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"), rs.getString("Discount_type"));
+			cust = new ValuedCustomer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"), rs.getString("Discount_type"),rs.getString("Company"));
 		} else {
-			cust = new Customer(rs.getString("Customer_name"), rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"));
+			cust = new Customer(rs.getString("Customer_name"),rs.getInt("Account_no"), rs.getString("Customer_address"), rs.getString("Customer_phone"), rs.getString("Customer_type"),rs.getString("Company"));
 		}
 
 		return cust;

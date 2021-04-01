@@ -6,13 +6,17 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ *
+ * @author Jacob
+ */
 
 public class CreateCustomerAccount extends JPanel {
 
 	//private global variables in CreateCustomerAccount
 	private JButton save_button;
-	private JTextField customer_name_input, acc_no, address_input, phone_input;
-	private JLabel custLabel, accLabel, addLabel, phoneLabel, custAccLabel, miniBapersLabel;
+	private JTextField customer_name_input, acc_no, address_input, company_input, phone_input;
+	private JLabel custLabel, accLabel, addLabel, phoneLabel,companyLabel, custAccLabel, miniBapersLabel;
 	private JButton backButton, menuButton;
 	private I_Bapers cT;
 	private GUI f;
@@ -40,6 +44,8 @@ public class CreateCustomerAccount extends JPanel {
 
 		customer_name_input = new JTextField();
 
+		company_input = new JTextField();
+
 		acc_no = new JTextField();
 		acc_no.setEditable(false);
 		acc_no.setText(Integer.toString(cT.getLastAccNo() + 1));
@@ -51,6 +57,10 @@ public class CreateCustomerAccount extends JPanel {
 		custLabel = new JLabel();
 		custLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		custLabel.setText("Customer Name");
+
+		companyLabel = new JLabel();
+		companyLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		companyLabel.setText("Company");
 
 		accLabel = new JLabel();
 		accLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -175,7 +185,7 @@ public class CreateCustomerAccount extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			if (!customer_name_input.getText().isEmpty() && !acc_no.getText().isEmpty() && !address_input.getText().isEmpty() && !phone_input.getText().isEmpty()) {
 				try {
-					cT.createNewCustomer(customer_name_input.getText(),address_input.getText(),phone_input.getText());
+					cT.createNewCustomer(customer_name_input.getText(),company_input.getText(),address_input.getText(),phone_input.getText());
 				} catch (Exception eX) {
 					eX.printStackTrace();
 				}
