@@ -4,7 +4,6 @@ import model.admin.alert.Alert;
 import model.admin.alert.ScheduledAlert;
 import model.admin.alert.transaction.AlertTransaction;
 import model.admin.userAccount.UserAccount;
-import model.admin.userAccount.transaction.UserAccountTransaction;
 import model.customers.Customer;
 import model.discounts.flexible_discount.FlexibleDiscount;
 import model.discounts.variable_discount.VariableDiscount;
@@ -128,6 +127,8 @@ public interface I_Bapers {
 	void updateVariableDiscount(int acc_no, Double discount_rate, String catalog_name);
 
 	void addFixedDiscountRate(int customer_acc_no, double discount_rate);
+
+	ArrayList<String> ManageVariableTable(int acc_no);
 
 	void populateStaffTable(JTable table);
 
