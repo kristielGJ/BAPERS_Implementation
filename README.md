@@ -1,7 +1,7 @@
 # BAPERS_Implementation
 This project is programed in Java using Mysql
 -------------------
-This is a deliverable of the Group Project Module (IN2018) at City University
+This is a deliverable of the Group Project
 -------------------
 The purpose of the project is to improve the current system at BIPL which is completely manual. 
 The current system has resulted in the company staff only being able to carry out 30 tasks at a time. 
